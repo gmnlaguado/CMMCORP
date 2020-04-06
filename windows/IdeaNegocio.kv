@@ -1,0 +1,165 @@
+#: import utilidades assets.utilidades
+#: import Factory kivy.factory.Factory
+
+<Emergent_Panel_5@Popup>:
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title: utilidades.Costantes.infoGeneral[11]
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 1,1,1,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        LoginButton:
+            focus: True
+            x: 464
+            top: 800 - 467
+            text: "Continuar"
+            on_release:
+                root.dismiss()
+                app.screenManager.current= app.ventanas[1]
+<IdeaNegocio>:
+    LoginLayout:
+        size_hint: None, None
+        size: 1150, 623
+        top: 800-88
+        x: 65
+        Titulos:
+            text: "Idea de Negocio"
+            x: 192
+            top: 800 - 24
+        LoginLabel:
+            x:88
+            top:800-122
+            text:"Emprendimiento"
+        InfoInput:
+            x:365
+            top:800-122
+            size: 451, 40
+            focus: True
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 495
+            top: 800-122
+            x: 838
+            spacing: 25
+            InfoSpinner:
+                text: "Sector Empresarial"
+            InfoSpinner:
+                text: "Ciudad"
+            InfoSpinner:
+                text: "Estudios sobre el tema"
+            InfoSpinner:
+                text: utilidades.Costantes.ideaNegocio[0]
+            InfoSpinner:
+                text: utilidades.Costantes.ideaNegocio[1]
+            InfoSpinner:
+                text: "Tiempo semanal a dedicar"
+            InfoSpinner:
+                text: utilidades.Costantes.ideaNegocio[2]
+            InfoSpinner:
+                text: "Meses que lleva el negocio"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 170
+            top: 800-187
+            x: 88
+            spacing: 25
+            InfoSpinner:
+                text: "CIUU"
+            InfoSpinner:
+                text: utilidades.Costantes.ideaNegocio[3]
+            InfoSpinner:
+                text: utilidades.Costantes.ideaNegocio[4]
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 170
+            top: 800-187
+            x: 464
+            spacing: 25
+            InfoSpinner:
+                text: "Departamento"
+            InfoSpinner:
+                text: "Tiempo a dedicar"
+            InfoSpinner:
+                text: "Producto / Servicio"
+        LoginLabel:
+            x:88
+            top:800-382
+            text:"INVERSIONES"
+        InfoInput:
+            x:318
+            top:800-382
+            size: 498, 40
+            hint_text: "Portafolio"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 170
+            top: 800-447
+            x: 88
+            spacing: 25
+            InfoInput:
+                size: 352,40
+                hint_text: utilidades.Costantes.ideaNegocio[5]
+            InfoSpinner:
+                text: utilidades.Costantes.ideaNegocio[6]
+            InfoInput:
+                size: 352,40
+                hint_text: "Ventas primer mes"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 170
+            top: 800-447
+            x: 464
+            spacing: 25
+            InfoInput:
+                size: 352,40
+                hint_text: utilidades.Costantes.ideaNegocio[7]
+            InfoInput:
+                size: 352,40
+                hint_text: "Inv. Capital de Trabajo"
+            InfoInput:
+                size: 352,40
+                hint_text: utilidades.Costantes.ideaNegocio[8]
+
+        LoginLabel:
+            x:88
+            top:800-642
+            text:"Imagine su negocio"
+        InfoInput:
+            x:410
+            top:800-642
+            size: 780, 40
+
+        Titulos:
+            id: labelMensajes
+            text: "Responda todas las preguntas"
+            color: 1,0,0,1
+            size: 763, 38
+            x: 75
+            top: 800 - 737
+            bold: False
+        LoginButton:
+            text: "Ingresar"
+            top: 800-724
+            x: 863
+            on_release:
+                Factory.Emergent_Panel_5().open()

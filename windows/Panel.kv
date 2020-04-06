@@ -1,0 +1,311 @@
+#: import utilidades assets.utilidades
+#: import Factory kivy.factory.Factory
+
+<Titulos@Label>:
+    font_size: 36
+    font_name: "montserrat"
+    bold: True
+    color: 0,0,0,1
+    size_hint: None, None
+    size: 888,48
+    halign: "center"
+    valign: "middle"
+
+<EmergentNuevoBeneficiario@Popup>:
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title: utilidades.Costantes.panel[2]
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 1,1,1,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        LoginInput:
+            id: beneficiario
+            focus: True
+            x: 464
+            top: 800 - 467
+            on_text_validate:
+            # Si el formato de documento es incorrecto
+                if utilidades.Comprobaciones.username(self.text) == False:\
+                app.screens[1].ids.beneficiario.text = "";\
+                Factory.EmergentNuevoBeneficiarioError().open();\
+                self.text = "";\
+                root.dismiss()
+
+            # Si el usuario ya existe en este proyecto
+                if utilidades.Panel.buscarBeneficiario(self.text, app.screens[1].ids.proyecto.text) == "no":\
+                app.screens[1].ids.beneficiario.text = self.text;\
+                Factory.EmergentNuevoBeneficiarioExiste().open();\
+                self.text = "";\
+                root.dismiss()
+
+            # Si el usuario existe en otro proyecto
+                if utilidades.Panel.buscarBeneficiario(self.text, app.screens[1].ids.proyecto.text) != "no" and self.text != "" and utilidades.Panel.buscarBeneficiario(self.text, app.screens[1].ids.proyecto.text) != "continua":\
+                app.screens[1].ids.beneficiario.text = self.text;\
+                Factory.EmergentNuevoBeneficiarioOtroProyecto().open();\
+                self.text = "";\
+                root.dismiss()
+
+            #Si el usuario no existe
+                if utilidades.Panel.buscarBeneficiario(self.text, app.screens[1].ids.proyecto.text) == "continua":\
+                app.screens[1].ids.beneficiario.text = self.text;\
+                self.text = "";\
+                app.screenManager.current= app.ventanas[2];\
+                root.dismiss()
+
+<EmergentNuevoBeneficiarioError@Popup>:
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title: utilidades.Costantes.panel[6]
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 1,1,1,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        LoginButton:
+            focus: True
+            x: 464
+            top: 800 - 467
+            text: "Aceptar"
+            on_release:
+                root.dismiss()
+
+<EmergentNuevoBeneficiarioExiste@Popup>:
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title: utilidades.Costantes.panel[5]
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 1,1,1,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        LoginButton:
+            focus: True
+            x: 464
+            top: 800 - 467
+            text: "Aceptar"
+            on_release:
+                root.dismiss()
+
+<EmergentNuevoBeneficiarioOtroProyecto@Popup>:
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,380
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title: utilidades.Costantes.panel[7]
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 1,1,1,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    BoxLayout:
+        orientation:"vertical"
+        size_hint: None, None
+        size: 566,146
+        spacing:10
+        CustonSpinner:
+            id: proyecto
+            focus: True
+            width: 546
+            text: "Proyecto"
+            values: utilidades.Panel.buscarBeneficiario(app.screens[1].ids.beneficiario.text, app.screens[1].ids.proyecto.text)
+
+        BoxLayout:
+            spacing: 15
+            LoginButton:
+                size: 530/2,64
+                text: "Si"
+                on_release:
+                    print(root.ids.proyecto.text)
+                    root.dismiss()
+            LoginButton:
+                size: 530/2,64
+                text: "No"
+                on_release:
+                    if utilidades.Panel.tipoBeneficiario(app.screens[1].ids.beneficiario.text) == "emprendedor":\
+                    app.screenManager.current= app.ventanas[4]
+
+                    if utilidades.Panel.tipoBeneficiario(app.screens[1].ids.beneficiario.text) == "micro":\
+                    app.screenManager.current= app.ventanas[5]
+                    root.dismiss()
+
+
+
+<Emergent_Panel_2@Popup>:
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title: utilidades.Costantes.panel[3]
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 1,1,1,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        CustonSpinner:
+            focus: True
+            x: 464
+            top: 800 - 467
+            text: "Documento"
+            values: ["si","no"]
+            on_text:
+                root.dismiss()
+
+
+<Emergent_Panel_3@Popup>:
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title: utilidades.Costantes.panel[4]
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 1,1,1,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        LoginButton:
+            focus: True
+            x: 464
+            top: 800 - 467
+            text: "Continuar"
+            on_release:
+                root.dismiss()
+
+
+<Panel>:
+    LoginLayout:
+        x: 190
+        size: 900, 623
+        Titulos:
+            text: "Panel General"
+            x: 192
+            top: 800 - 24
+        Titulos:
+            id: proyecto
+            x: 192
+            top: 800 - 120
+            bold: False
+        LoginLabel:
+            id: beneficiario
+            size: 169,22
+            text_size:169,22
+            font_size: 18
+            x: 214
+            top: 800-115
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 488
+            top: 800-200
+            x: 240
+            spacing: 42
+            LoginButton:
+                text: "Nuevo Beneficiario"
+                on_release: Factory.EmergentNuevoBeneficiario().open()
+            LoginButton:
+                text: "Monitoreo"
+                on_release: Factory.Emergent_Panel_2().open()
+            LoginButton:
+                text: utilidades.Costantes.panel[1]
+                on_release: Factory.Emergent_Panel_2().open()
+            LoginButton:
+                text: "Consultar"
+                on_release: Factory.Emergent_Panel_2().open()
+            LoginButton:
+                text: "Inactivar"
+                on_release: Factory.Emergent_Panel_2().open()
+
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 488
+            top: 800-200
+            x: 680
+            spacing: 42
+            LoginButton:
+                text: "C. Ampliada"
+                on_release: Factory.Emergent_Panel_2().open()
+            LoginButton:
+                text: utilidades.Costantes.panel[0]
+                on_release: Factory.Emergent_Panel_2().open()
+            LoginButton:
+                text: "Plan de seguimiento"
+                on_release: Factory.Emergent_Panel_2().open()
+            LoginButton:
+                text: "Cargar Datos"
+                background_color:29/255,56/255,0/255,0.7
+                on_release: Factory.Emergent_Panel_3().open()
+            LoginButton:
+                text: "Actualizar"
+                background_color:29/255,56/255,0/255,0.7
+                on_release: Factory.Emergent_Panel_3().open()
