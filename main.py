@@ -8,7 +8,7 @@ import sqlite3
 from kivy.uix.label import Label
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.boxlayout import BoxLayout
-from assets.utilidades import Login
+from assets.utilidades import Login, InfoGeneral
 
 # from kivy.config import Config
 # Config.set('graphics', 'width', '1280')
@@ -45,6 +45,64 @@ class MyProgram(App):
     @staticmethod
     def LoginCheckMsg(username, password):
         return Login.checkIfRight(username, password)
+
+    def cargarInfoGeneral(self):
+        info = InfoGeneral.cargarDatos()
+        self.screens[2].ids.tipoDocumento.values = info[0]
+        self.screens[2].ids.sexo.values = info[1]
+        self.screens[2].ids.tipo.values = info[2]
+        self.screens[2].ids.entorno.values = info[3]
+        self.screens[2].ids.rotulo.values = info[4]
+        self.screens[2].ids.indicador.values = info[5]
+        self.screens[2].ids.genero.values = info[6]
+        self.screens[2].ids.etnia.values = info[7]
+        self.screens[2].ids.discapacidad.values = info[8]
+        self.screens[2].ids.pais.values = info[9]
+        self.screens[2].ids.nacionalidad.values = info[9]
+
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+        pais = "colombia"
+        c.execute("SELECT departamentos.nombre FROM departamentos INNER JOIN paises ON paises.idPais = "
+                  "departamentos.fkPais WHERE paises.nombre = :pais", {'pais': pais})
+        deptos = [li[0] for li in c.fetchall()]
+        self.screens[2].ids.deptoExpedicion.values = deptos
+
+    def ciudadesExp(self, departamento):
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+        c.execute("SELECT ciudades.nombre FROM ciudades INNER JOIN departamentos ON departamentos.idDepartamento = "
+                  "ciudades.fkDepartamento WHERE departamentos.nombre = :departamento", {'departamento': departamento})
+        ciudades = [li[0] for li in c.fetchall()]
+        self.screens[2].ids.ciudadExpedicion.text = "Ciudad Expedición"
+        self.screens[2].ids.ciudadExpedicion.values = ciudades
+
+    def departamentos(self, pais):
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+        c.execute("SELECT departamentos.nombre FROM departamentos INNER JOIN paises ON paises.idPais = "
+                  "departamentos.fkPais WHERE paises.nombre = :pais", {'pais': pais})
+        deptos = [li[0] for li in c.fetchall()]
+        self.screens[2].ids.departamentos.text = "Departamento"
+        self.screens[2].ids.departamentos.values = deptos
+
+    def ciudades(self, departamento):
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+        c.execute("SELECT ciudades.nombre FROM ciudades INNER JOIN departamentos ON departamentos.idDepartamento = "
+                  "ciudades.fkDepartamento WHERE departamentos.nombre = :departamento", {'departamento': departamento})
+        ciudades = [li[0] for li in c.fetchall()]
+        self.screens[2].ids.ciudades.text = "Ciudad"
+        self.screens[2].ids.ciudades.values = ciudades
+
+    def barrios(self, ciudad):
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+        c.execute("SELECT barrios.nombre FROM barrios INNER JOIN ciudades ON ciudades.idCiudad = "
+                  "barrios.fkCiudad WHERE ciudades.nombre = :ciudad", {'ciudad': ciudad})
+        barrios = [li[0] for li in c.fetchall()]
+        self.screens[2].ids.barrios.text = "Barrio"
+        self.screens[2].ids.barrios.values = barrios
 
 
     def diagnostico(self):

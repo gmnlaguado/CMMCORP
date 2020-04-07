@@ -83,32 +83,58 @@
             top:800-122
             text:"Nombre"
         InfoInput:
+            id: nombre
+            focus: True
             x:228
             top:800-122
+            on_text_validate:
+                if utilidades.Comprobaciones.name(self.text):\
+                root.ids.apellido.focus = True
+                if utilidades.Comprobaciones.name(self.text) == False:\
+                root.ids.labelMensajes.text = "Formato de nombre Invalido"
+
         LoginLabel:
             x:674
             top:800-122
             text:"Apellido"
         InfoInput:
+            id: apellido
             x:814
             top:800-122
+            on_text_validate:
+                if utilidades.Comprobaciones.name(self.text):\
+                root.ids.nacimiento.focus = True
+                if utilidades.Comprobaciones.name(self.text) == False:\
+                root.ids.labelMensajes.text = "Formato de apellido Invalido"
         LoginLabel:
             x:88
             top:800-187
             text:"Fecha de nacimiento"
         InfoInput:
+            id: nacimiento
             x:435
             top:800-187
             hint_text: "DD/MM/AAAA"
             size: 248, 40
+            on_text_validate:
+                if utilidades.Comprobaciones.data(self.text) == False:\
+                root.ids.labelMensajes.text = "Formato de fecha Invalido"
+
+                if utilidades.Comprobaciones.data(self.text):\
+                root.ids.edad.text = f'Edad: {utilidades.InfoGeneral.edad(self.text)[0]}';\
+                root.ids.rangoEdad.text = f'Rango: {utilidades.InfoGeneral.edad(self.text)[1]}';\
+                app.cargarInfoGeneral()
+
         LoginLabel:
+            id: edad
             x:756
             top:800-187
-            text:"Edad: 24"
+            text:"Edad"
         LoginLabel:
+            id: rangoEdad
             x:986
             top:800-187
-            text:"Rango: 21-31"
+            text:"Rango"
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
@@ -119,30 +145,49 @@
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
+                    id: tipoDocumento
                     text: "Tipo de documento"
                 InfoSpinner:
+                    id: deptoExpedicion
                     text: utilidades.Costantes.infoGeneral[1]
+                    on_text:
+                        app.ciudadesExp(self.text)
                 InfoSpinner:
+                    id: ciudadExpedicion
                     text: utilidades.Costantes.infoGeneral[2]
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
+                    id: sexo
                     text: "Sexo"
                 InfoSpinner:
+                    id: tipo
                     text: "Tipo de Beneficiario"
                 InfoSpinner:
+                    id: nacionalidad
                     text: "Nacionalidad"
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
+                    id: pais
                     text: "Pais de residencia"
+                    on_text:
+                        app.departamentos(self.text)
                 InfoSpinner:
+                    id: departamentos
                     text: "Departamento"
+                    on_text:
+                        app.ciudades(self.text)
                 InfoSpinner:
+                    id: ciudades
                     text: "Ciudad"
+                    on_text:
+                        app.barrios(self.text)
+
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
+                    id: entorno
                     text: "Entorno"
                 BoxLayout:
                     size_hint: None, None
@@ -152,6 +197,7 @@
                         size: 158,40
                         text_size:158,40
                     InfoSpinner:
+                        id: rotulo
                         text: utilidades.Costantes.infoGeneral[4]
                         size: 192,40
                 InfoInput:
@@ -161,6 +207,7 @@
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
+                    id: barrios
                     text: "Barrio"
                 BoxLayout:
                     size_hint: None, None
@@ -170,36 +217,53 @@
                         text_size:158,40
                         text: "Contacto"
                     InfoSpinner:
+                        id: indicador
                         text: "Indicador"
                         size: 192,40
                 InfoInput:
                     size: 352,40
                     hint_text: utilidades.Costantes.infoGeneral[5]
+                    on_text_validate:
+                        root.ids.labelMensajes.text = ""
+                        if utilidades.Comprobaciones.fijo(self.text) == False:\
+                        root.ids.labelMensajes.text = "Formato de Tel. Fijo Invalido"
 
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
+                    id: genero
                     text: utilidades.Costantes.infoGeneral[6]
                 InfoInput:
+                    id: celular
                     hint_text: utilidades.Costantes.infoGeneral[7]
                     size: 352,40
+                    on_text_validate:
+                        root.ids.labelMensajes.text = ""
+                        if utilidades.Comprobaciones.celular(self.text) == False:\
+                        root.ids.labelMensajes.text = "Formato de Tel. Celular Invalido"
                 InfoButton:
                     text: utilidades.Costantes.infoGeneral[8]
                     on_release:
-                        app.screens[2].ids.labelMensajes.text = "Celular Agregado"
-                        app.screens[2].ids.labelMensajes.color = 0,0,1,1
+                        root.ids.labelMensajes.text = ""
+                        if utilidades.Comprobaciones.celular(root.ids.celular.text) == False:\
+                        root.ids.labelMensajes.text = "Formato de Tel. Celular Invalido"
+
+                        if utilidades.Comprobaciones.celular(root.ids.celular.text):\
+                        root.ids.labelMensajes.text = "Celular Agregado";\
+
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
+                    id: etnia
                     text: "Etnia"
                 InfoSpinner:
+                    id: discapacidad
                     text: utilidades.Costantes.infoGeneral[9]
                 InfoInput:
                     size: 352,40
                     hint_text: utilidades.Costantes.infoGeneral[10]
         Titulos:
             id: labelMensajes
-            text: "Formato de fecha incorrecto"
             color: 1,0,0,1
             size: 763, 38
             x: 75

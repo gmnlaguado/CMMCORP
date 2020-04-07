@@ -1,5 +1,6 @@
 import re
 import sqlite3
+from datetime import date
 
 
 class Costantes:
@@ -22,6 +23,20 @@ class Costantes:
                      "Agregar Número", "Dirección", "Descripción", "Creación", "Descripción Pasivos",
                      "Teléfono Fijo"]
 
+    tipoDocumento = ["Cédula de Ciudadania", "Tarjeta de Identidad", "Cédula de Extranjería", "Pasaporte", "Otros"]
+    sexo = ["Mujer", "Hombre", "Intersexual"]
+    tipoBeneficiario = ["Emprendedor", "Microempresario"]
+    entorno = ["Rural", "Urbano"]
+    rotulo = ["Administración", "Apartamento", "Autopista", "Avenida", "Avenida Carrera", "Barrio", "Bloque", "Bodega",
+              "Calle", "Carrera", "Carretera", "Casa", "Centro Comercial", "Consultorio", "Diagonal", "Finca", "Garaje",
+              "Interior", "Kilometro", "Local", "Lote", "Manzana", "Mezzanine", "Norte", "Occidente", "Oficina",
+              "Oriente", "Piso", "Salon Comunal", "Sur", "Torre", "Transversal", "Unidad", "Urbanización", "Variante",
+              "Vereda", "Zona", "Zona Franca"]
+    indicador = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    genero = ["Femenino", "Masculino", "Transgenero"]
+    etnia = ["Afrodescendiente", "Raizal", "Palenquera", "Indígenas", "Rom", "Mestizo", "Otro", "No Aplica"]
+    discapacidad = ["Física", "Cognitiva", "Sensorial", "Intelectual", "Psicosocial", "Múltiple", "Ninguna", "ND"]
+
 
 class Comprobaciones:
     @staticmethod
@@ -33,6 +48,34 @@ class Comprobaciones:
     @staticmethod
     def password(password):
         if re.search(r'[^(\w,-,.)]', password) is None and len(password) > 0:
+            return True
+        return False
+
+    @staticmethod
+    def name(name):
+        if re.search(r'[^(a-z,A-Z,\s)]', name) is None and len(name) != 0:
+            return True
+        return False
+
+    @staticmethod
+    def data(data):
+        if re.search(r'^\d{2}[/]\d{2}[/]\d{4}$', data) is not None:
+            data = data.split('/')
+            if 0 <= int(data[0]) <= 31:
+                if 0 <= int(data[1]) <= 12:
+                    if 1900 <= int(data[2]) <= int(str(date.today()).split('-')[0]):
+                        return True
+        return False
+
+    @staticmethod
+    def fijo(fijo):
+        if re.search(r'^\d{7}$', fijo) is not None:
+            return True
+        return False
+
+    @staticmethod
+    def celular(celular):
+        if re.search(r'^\d{10}$', celular) is not None:
             return True
         return False
 
@@ -106,3 +149,45 @@ class Panel:
         result = c.fetchone()
         if result is not None:
             return result[0]
+
+
+class InfoGeneral:
+    @staticmethod
+    def edad(fecha):
+        hoy = [int(entero) for entero in str(date.today()).split('-')[::-1]]
+        fecha = [int(entero) for entero in fecha.split('/')]
+        anos = hoy[-1] - fecha[-1]
+        if hoy[-2] == fecha[-2]:
+            if hoy[-3] < fecha[-3]:
+                anos -= 1
+        elif hoy[-2] > fecha[-2]:
+            anos -= 1
+
+        if 15 <= anos <= 19:
+            rango = '15-19'
+        elif 20 <= anos <= 29:
+            rango = '20-29'
+        elif 30 <= anos <= 39:
+            rango = '30-39'
+        elif 40 <= anos <= 49:
+            rango = '40-49'
+        elif 50 <= anos <= 59:
+            rango = '50-59'
+        else:
+            rango = '60 en adelante'
+        return [anos, rango]
+
+    @staticmethod
+    def cargarDatos():
+        retornar = [Costantes.tipoDocumento, Costantes.sexo, Costantes.tipoBeneficiario, Costantes.entorno,
+                    Costantes.rotulo, Costantes.indicador, Costantes.genero, Costantes.etnia, Costantes.discapacidad]
+
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+
+        c.execute("SELECT nombre FROM paises")
+        result = c.fetchall()
+        result = [str(res[0]) for res in result]
+        retornar.append(result)
+
+        return retornar
