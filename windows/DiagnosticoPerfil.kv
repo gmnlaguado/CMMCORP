@@ -35,7 +35,7 @@
 
         Titulos:
             id: labelMensajes
-            text: "Responda todas las preguntas"
+            text: ""
             color: 1,0,0,1
             size: 763, 38
             x: 75
@@ -46,4 +46,11 @@
             top: 800-724
             x: 863
             on_release:
+                if app.diagnosticoPerfilProductivo() == "no":\
+                root.ids.labelMensajes.text = "Faltan preguntas por responder"
+
+                if app.diagnosticoPerfilProductivo() == "Emprendedor":\
                 app.screenManager.current= app.ventanas[4]
+
+                if app.diagnosticoPerfilProductivo() == "Microempresario":\
+                app.screenManager.current= app.ventanas[5]

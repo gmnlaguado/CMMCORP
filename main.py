@@ -10,7 +10,7 @@ import sqlite3
 from kivy.uix.label import Label
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.boxlayout import BoxLayout
-from assets.utilidades import Login, InfoGeneral
+from assets.utilidades import Login, InfoGeneral, DiagnosticoPerfilP, IdeaNegocio
 
 # from kivy.config import Config
 # Config.set('graphics', 'width', '1280')
@@ -111,7 +111,25 @@ class MyProgram(App):
             return True
         return False
 
+    def diagnosticoPerfilProductivo(self):
+        if DiagnosticoPerfilP.comprobarTodo(self.screens[3].ids.container_grid):
+            return self.screens[2].ids.tipo.text
+        return "no"
 
+    def cargarIdeaNegocio(self):
+        info = IdeaNegocio.cargarDatos()
+        self.screens[4].ids.sectorEmpresarial.values = info[0]
+        self.screens[4].ids.comoSurge.values = info[1]
+        self.screens[4].ids.tiempoSemanal.values = info[2]
+        self.screens[4].ids.estudios.values = info[3]
+        self.screens[4].ids.tieneExperiencia.values = info[4]
+        self.screens[4].ids.productoServicio.values = info[5]
+        self.screens[4].ids.esAgropecuario.values = info[6]
+        self.screens[4].ids.necesitaColaboradores.values = info[7]
+        self.screens[4].ids.mesesQueLleva.values = info[8]
+        self.screens[4].ids.tiempoADedicar.values = info[9]
+        self.screens[4].ids.porqueNo.values = info[10]
+        self.screens[4].ids.porcentajeInversion.values = info[11]
 
     def diagnostico(self):
         conn = sqlite3.connect('assets/dbs/base.db')

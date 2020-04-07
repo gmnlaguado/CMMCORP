@@ -50,6 +50,13 @@
             top:800-122
             size: 451, 40
             focus: True
+            on_text_validate:
+                root.ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.name(self.text):\
+                app.cargarIdeaNegocio()
+
+                if utilidades.Comprobaciones.name(self.text) == False:\
+                root.ids.labelMensajes.text = "Nombre de emprendimiento Invalido"
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
@@ -58,20 +65,27 @@
             x: 838
             spacing: 25
             InfoSpinner:
+                id: sectorEmpresarial
                 text: "Sector Empresarial"
             InfoSpinner:
                 text: "Ciudad"
             InfoSpinner:
+                id: estudios
                 text: "Estudios sobre el tema"
             InfoSpinner:
+                id: esAgropecuario
                 text: utilidades.Costantes.ideaNegocio[0]
             InfoSpinner:
+                id: necesitaColaboradores
                 text: utilidades.Costantes.ideaNegocio[1]
             InfoSpinner:
+                id: tiempoSemanal
                 text: "Tiempo semanal a dedicar"
             InfoSpinner:
+                id: porqueNo
                 text: utilidades.Costantes.ideaNegocio[2]
             InfoSpinner:
+                id: mesesQueLleva
                 text: "Meses que lleva el negocio"
         BoxLayout:
             orientation: "vertical"
@@ -83,8 +97,10 @@
             InfoSpinner:
                 text: "CIUU"
             InfoSpinner:
+                id: comoSurge
                 text: utilidades.Costantes.ideaNegocio[3]
             InfoSpinner:
+                id: tieneExperiencia
                 text: utilidades.Costantes.ideaNegocio[4]
         BoxLayout:
             orientation: "vertical"
@@ -96,8 +112,10 @@
             InfoSpinner:
                 text: "Departamento"
             InfoSpinner:
+                id: tiempoADedicar
                 text: "Tiempo a dedicar"
             InfoSpinner:
+                id: productoServicio
                 text: "Producto / Servicio"
         LoginLabel:
             x:88
@@ -119,6 +137,7 @@
                 size: 352,40
                 hint_text: utilidades.Costantes.ideaNegocio[5]
             InfoSpinner:
+                id: porcentajeInversion
                 text: utilidades.Costantes.ideaNegocio[6]
             InfoInput:
                 size: 352,40

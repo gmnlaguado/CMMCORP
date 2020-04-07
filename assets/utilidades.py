@@ -23,6 +23,8 @@ class Costantes:
                      "Agregar Número", "Dirección", "Descripción", "Creación", "Descripción Pasivos",
                      "Teléfono Fijo"]
 
+
+
     tipoDocumento = ["Cédula de Ciudadania", "Tarjeta de Identidad", "Cédula de Extranjería", "Pasaporte", "Otros"]
     sexo = ["Mujer", "Hombre", "Intersexual"]
     tipoBeneficiario = ["Emprendedor", "Microempresario"]
@@ -36,6 +38,27 @@ class Costantes:
     genero = ["Femenino", "Masculino", "Transgenero"]
     etnia = ["Afrodescendiente", "Raizal", "Palenquera", "Indígenas", "Rom", "Mestizo", "Otro", "No Aplica"]
     discapacidad = ["Física", "Cognitiva", "Sensorial", "Intelectual", "Psicosocial", "Múltiple", "Ninguna", "ND"]
+
+
+
+    sector = ["Sector Industrial", "Sector de Servicios", "Sector de Comercio", "Sector Agropecuario",
+              "Sector de Transporte", "Sector Financiero", "Sector de la Construcción", "Sector Minero y Energético",
+              "Sector Solidario", "Sector de Comunicaciones"]
+    comoSurge = ["Oportunidad", "Necesidad"]
+    cuantoTiempo = ["Completo", "Medio Tiempo", "Fin de Semana", "Horas"]
+    estudiosAprendizaje = ["Si", "No"]
+    experiencia = ["Si", "No"]
+    productoServicio = ["Producto", "Servicio"]
+    esAgropecuario = ["Si", "No"]
+    necesitaColaboradores = ["Si", "No"]
+    cuantosMeses = [str(numb) for numb in range(0, 40)]
+    cuantoTiempo = ["De 1 a 4 Horas", "De 5 a 8 Horas", "Más de 8 Horas"]
+    porqueNoEmpezaba = ["Falta de Tiempo", "Falta de recursos económicos", "Falta de motivación",
+                        "Falta de conocimiento", "Otros"]
+    procentajeInversion = ["< 50%", "50% - 100%", "0%"]
+
+
+
 
 
 class Comprobaciones:
@@ -195,7 +218,6 @@ class InfoGeneral:
     @staticmethod
     def comprobarTodo(dictionary):
         for key, value in dictionary.items():
-            print(f'Dato: {key}\n\tValor: {value.text}\n')
             if key == "nombre":
                 if not Comprobaciones.name(value.text):
                     return False
@@ -261,3 +283,22 @@ class InfoGeneral:
                     return False
         return True
 
+
+class DiagnosticoPerfilP:
+    @staticmethod
+    def comprobarTodo(container_grid):
+        for grid in container_grid.children:
+            if len(grid.children) > 0:
+                if not True in [box.active for box in grid.children]:
+                    return False
+        return True
+
+
+class IdeaNegocio:
+    @staticmethod
+    def cargarDatos():
+        retornar = [Costantes.sector, Costantes.comoSurge, Costantes.cuantoTiempo, Costantes.estudiosAprendizaje,
+                    Costantes.experiencia, Costantes.productoServicio, Costantes.esAgropecuario,
+                    Costantes.necesitaColaboradores, Costantes.cuantosMeses, Costantes.cuantoTiempo,
+                    Costantes.porqueNoEmpezaba, Costantes.procentajeInversion]
+        return retornar
