@@ -11,8 +11,8 @@ class Costantes:
              "Formato de documento\nde identidad incorrecto.\nIngrese nuevamente",
              "Beneficiario existe en\notro proyecto, ¿Desea\ncopiar su C. Básica?"]
 
-    infoGeneral = ["Información General", "Departamento Expedición", "Ciudad Expedición", "Dirección", "Rótulo",
-                   "Teléfono Fijo", "Género", "Número Celular", "Agregar Número", "Condición Discapacidad",
+    infoGeneral = ["Información General", "Depto. Expedición", "Ciudad Expedición", "Dirección", "Rótulo",
+                   "Teléfono Fijo", "Género", "Número Celular", "Agregar Número", "Cond. Discapacidad",
                    "Correo Electrónico", "Compruebe que los\ndatos estén correctos\nantes de continuar"]
 
     ideaNegocio = ["¿Es agropecuario?", "¿Necesita Colaboradores", "Por qué no había empezado", "¿Cómo surge la idea",
@@ -191,3 +191,73 @@ class InfoGeneral:
         retornar.append(result)
 
         return retornar
+
+    @staticmethod
+    def comprobarTodo(dictionary):
+        for key, value in dictionary.items():
+            print(f'Dato: {key}\n\tValor: {value.text}\n')
+            if key == "nombre":
+                if not Comprobaciones.name(value.text):
+                    return False
+            if key == "apellido":
+                if not Comprobaciones.name(value.text):
+                    return False
+            if key == "nacimiento":
+                if not Comprobaciones.data(value.text):
+                    return False
+            if key == "tipoDocumento":
+                if value.text == "Tipo de documento":
+                    return False
+            if key == "deptoExpedicion":
+                if value.text == "Depto. Expedición":
+                    return False
+            if key == "ciudadExpedicion":
+                if value.text == "Ciudad Expedición":
+                    return False
+            if key == "sexo":
+                if value.text == "Sexo":
+                    return False
+            if key == "tipo":
+                if value.text == "Tipo de Beneficiario":
+                    return False
+            if key == "nacionalidad":
+                if value.text == "Nacionalidad":
+                    return False
+            if key == "pais":
+                if value.text == "Pais de residencia":
+                    return False
+            if key == "departamentos":
+                if value.text == "Departamento":
+                    return False
+            if key == "ciudades":
+                if value.text == "Ciudad":
+                    return False
+            if key == "entorno":
+                if value.text == "Entorno":
+                    return False
+            if key == "rotulo":
+                if value.text == "Rótulo":
+                    return False
+            if key == "direccion":
+                if value.text == "":
+                    return False
+            if key == "barrios":
+                if value.text == "Barrio":
+                    return False
+            if key == "indicador":
+                if value.text == "Indicador":
+                    return False
+            if key == "genero":
+                if value.text == "Género":
+                    return False
+            if key == "celular":
+                if not Comprobaciones.celular(value.text):
+                    return False
+            if key == "etnia":
+                if value.text == "Etnia":
+                    return False
+            if key == "discapacidad":
+                if value.text == "Cond. Discapacidad":
+                    return False
+        return True
+

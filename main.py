@@ -1,3 +1,5 @@
+# Icons made by www.flaticon.com
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
@@ -103,6 +105,12 @@ class MyProgram(App):
         barrios = [li[0] for li in c.fetchall()]
         self.screens[2].ids.barrios.text = "Barrio"
         self.screens[2].ids.barrios.values = barrios
+
+    def informacionGeneral(self):
+        if InfoGeneral.comprobarTodo(self.screens[2].ids):
+            return True
+        return False
+
 
 
     def diagnostico(self):

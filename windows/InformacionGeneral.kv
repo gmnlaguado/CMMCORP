@@ -23,7 +23,19 @@
     halign: "center"
     valign: "middle"
     background_color:61/255,119/255,0/255,0.7
-    background_normal: ''
+    background_normal: 'assets/images/dropdown.png'
+
+<InfoSpinnerMini@Spinner>
+    font_size: 24
+    font_name: "montserrat"
+    color: 1,1,1,1
+    size_hint: None, None
+    size: 352,40
+    halign: "center"
+    valign: "middle"
+    background_color:61/255,119/255,0/255,0.7
+    background_normal: 'assets/images/dropdown_mini.png'
+
 
 <InfoButton@Button>
     font_size: 24
@@ -88,6 +100,7 @@
             x:228
             top:800-122
             on_text_validate:
+                root.ids.labelMensajes.text = ""
                 if utilidades.Comprobaciones.name(self.text):\
                 root.ids.apellido.focus = True
                 if utilidades.Comprobaciones.name(self.text) == False:\
@@ -102,6 +115,7 @@
             x:814
             top:800-122
             on_text_validate:
+                root.ids.labelMensajes.text = ""
                 if utilidades.Comprobaciones.name(self.text):\
                 root.ids.nacimiento.focus = True
                 if utilidades.Comprobaciones.name(self.text) == False:\
@@ -117,6 +131,7 @@
             hint_text: "DD/MM/AAAA"
             size: 248, 40
             on_text_validate:
+                root.ids.labelMensajes.text = ""
                 if utilidades.Comprobaciones.data(self.text) == False:\
                 root.ids.labelMensajes.text = "Formato de fecha Invalido"
 
@@ -147,48 +162,74 @@
                 InfoSpinner:
                     id: tipoDocumento
                     text: "Tipo de documento"
+                    on_text:
+                        root.ids.labelMensajes.text = ""
+                        self.background_color = 11/255,69/255,0/255,0.7
                 InfoSpinner:
                     id: deptoExpedicion
                     text: utilidades.Costantes.infoGeneral[1]
                     on_text:
+                        root.ids.labelMensajes.text = ""
                         app.ciudadesExp(self.text)
+                        self.background_color = 11/255,69/255,0/255,0.7
                 InfoSpinner:
                     id: ciudadExpedicion
                     text: utilidades.Costantes.infoGeneral[2]
+                    on_text:
+                        root.ids.labelMensajes.text = ""
+                        self.background_color = 11/255,69/255,0/255,0.7
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
                     id: sexo
                     text: "Sexo"
+                    on_text:
+                        root.ids.labelMensajes.text = ""
+                        self.background_color = 11/255,69/255,0/255,0.7
                 InfoSpinner:
                     id: tipo
                     text: "Tipo de Beneficiario"
+                    on_text:
+                        root.ids.labelMensajes.text = ""
+                        self.background_color = 11/255,69/255,0/255,0.7
                 InfoSpinner:
                     id: nacionalidad
                     text: "Nacionalidad"
+                    on_text:
+                        root.ids.labelMensajes.text = ""
+                        self.background_color = 11/255,69/255,0/255,0.7
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
                     id: pais
                     text: "Pais de residencia"
                     on_text:
+                        root.ids.labelMensajes.text = ""
                         app.departamentos(self.text)
+                        self.background_color = 11/255,69/255,0/255,0.7
                 InfoSpinner:
                     id: departamentos
                     text: "Departamento"
                     on_text:
+                        root.ids.labelMensajes.text = ""
                         app.ciudades(self.text)
+                        self.background_color = 11/255,69/255,0/255,0.7
                 InfoSpinner:
                     id: ciudades
                     text: "Ciudad"
                     on_text:
+                        root.ids.labelMensajes.text = ""
                         app.barrios(self.text)
+                        self.background_color = 11/255,69/255,0/255,0.7
 
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
                     id: entorno
                     text: "Entorno"
+                    on_text:
+                        root.ids.labelMensajes.text = ""
+                        self.background_color = 11/255,69/255,0/255,0.7
                 BoxLayout:
                     size_hint: None, None
                     size: 359,40
@@ -196,11 +237,15 @@
                         text: utilidades.Costantes.infoGeneral[3]
                         size: 158,40
                         text_size:158,40
-                    InfoSpinner:
+                    InfoSpinnerMini:
                         id: rotulo
                         text: utilidades.Costantes.infoGeneral[4]
                         size: 192,40
+                        on_text:
+                            root.ids.labelMensajes.text = ""
+                            self.background_color = 11/255,69/255,0/255,0.7
                 InfoInput:
+                    id: direccion
                     size: 352,40
                     hint_text: "___ # ___ - ___"
 
@@ -209,6 +254,9 @@
                 InfoSpinner:
                     id: barrios
                     text: "Barrio"
+                    on_text:
+                        root.ids.labelMensajes.text = ""
+                        self.background_color = 11/255,69/255,0/255,0.7
                 BoxLayout:
                     size_hint: None, None
                     size: 359,40
@@ -216,10 +264,13 @@
                         size: 158,40
                         text_size:158,40
                         text: "Contacto"
-                    InfoSpinner:
+                    InfoSpinnerMini:
                         id: indicador
                         text: "Indicador"
                         size: 192,40
+                        on_text:
+                            root.ids.labelMensajes.text = ""
+                            self.background_color = 11/255,69/255,0/255,0.7
                 InfoInput:
                     size: 352,40
                     hint_text: utilidades.Costantes.infoGeneral[5]
@@ -233,6 +284,9 @@
                 InfoSpinner:
                     id: genero
                     text: utilidades.Costantes.infoGeneral[6]
+                    on_text:
+                        root.ids.labelMensajes.text = ""
+                        self.background_color = 11/255,69/255,0/255,0.7
                 InfoInput:
                     id: celular
                     hint_text: utilidades.Costantes.infoGeneral[7]
@@ -241,24 +295,29 @@
                         root.ids.labelMensajes.text = ""
                         if utilidades.Comprobaciones.celular(self.text) == False:\
                         root.ids.labelMensajes.text = "Formato de Tel. Celular Invalido"
-                InfoButton:
-                    text: utilidades.Costantes.infoGeneral[8]
-                    on_release:
+                InfoInput:
+                    id: celular2
+                    hint_text: utilidades.Costantes.infoGeneral[7]
+                    size: 352,40
+                    on_text_validate:
                         root.ids.labelMensajes.text = ""
-                        if utilidades.Comprobaciones.celular(root.ids.celular.text) == False:\
+                        if utilidades.Comprobaciones.celular(self.text) == False:\
                         root.ids.labelMensajes.text = "Formato de Tel. Celular Invalido"
-
-                        if utilidades.Comprobaciones.celular(root.ids.celular.text):\
-                        root.ids.labelMensajes.text = "Celular Agregado";\
 
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
                     id: etnia
                     text: "Etnia"
+                    on_text:
+                        root.ids.labelMensajes.text = ""
+                        self.background_color = 11/255,69/255,0/255,0.7
                 InfoSpinner:
                     id: discapacidad
                     text: utilidades.Costantes.infoGeneral[9]
+                    on_text:
+                        root.ids.labelMensajes.text = ""
+                        self.background_color = 11/255,69/255,0/255,0.7
                 InfoInput:
                     size: 352,40
                     hint_text: utilidades.Costantes.infoGeneral[10]
@@ -274,7 +333,11 @@
             top: 800-724
             x: 863
             on_release:
+                root.ids.labelMensajes.text = ""
+                if app.informacionGeneral():\
                 Factory.Emergent_Panel_4().open()
+                if app.informacionGeneral() == False:\
+                root.ids.labelMensajes.text = "Formulario Incompleto"
 
 
 

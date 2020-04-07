@@ -11,6 +11,28 @@
     halign: "center"
     valign: "middle"
 
+<LoginButtonDown@Button>
+    font_size: 30
+    font_name: "montserrat"
+    color: 1,1,1,0.71
+    size_hint: None, None
+    size: 352,64
+    halign: "center"
+    valign: "middle"
+    background_color:61/255,119/255,0/255,0.7
+    background_normal: 'assets/images/download.png'
+
+<LoginButtonUp@Button>
+    font_size: 30
+    font_name: "montserrat"
+    color: 1,1,1,0.71
+    size_hint: None, None
+    size: 352,64
+    halign: "center"
+    valign: "middle"
+    background_color:61/255,119/255,0/255,0.7
+    background_normal: 'assets/images/upload.png'
+
 <EmergentNuevoBeneficiario@Popup>:
     size_hint: None, None
     top: 800-232
@@ -301,11 +323,11 @@
             LoginButton:
                 text: "Plan de seguimiento"
                 on_release: Factory.Emergent_Panel_2().open()
-            LoginButton:
+            LoginButtonUp:
                 text: "Cargar Datos"
-                background_color:29/255,56/255,0/255,0.7
+                #background_color:29/255,56/255,0/255,0.7
                 on_release: Factory.Emergent_Panel_3().open()
-            LoginButton:
+            LoginButtonDown:
                 text: "Actualizar"
-                background_color:29/255,56/255,0/255,0.7
+                #background_color:29/255,56/255,0/255,0.7
                 on_release: Factory.Emergent_Panel_3().open()
