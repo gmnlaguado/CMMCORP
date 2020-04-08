@@ -40,7 +40,7 @@ class MyProgram(App):
             screen = self.clases[idx](name=ventana)
             self.screens.append(screen)
             self.screenManager.add_widget(self.screens[idx])
-        self.screenManager.current = self.ventanas[0]
+        self.screenManager.current = self.ventanas[4]
         self.diagnostico()
         return self.screenManager
 
@@ -130,6 +130,25 @@ class MyProgram(App):
         self.screens[4].ids.tiempoADedicar.values = info[9]
         self.screens[4].ids.porqueNo.values = info[10]
         self.screens[4].ids.porcentajeInversion.values = info[11]
+        self.screens[4].ids.ciiu.values = info[12]
+
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+        pais = "colombia"
+        c.execute("SELECT departamentos.nombre FROM departamentos INNER JOIN paises ON paises.idPais = "
+                  "departamentos.fkPais WHERE paises.nombre = :pais", {'pais': pais})
+        deptos = [li[0] for li in c.fetchall()]
+        self.screens[4].ids.departamentos.values = deptos
+
+
+    def ciudadesIdeaNegocio(self, departamento):
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+        c.execute("SELECT ciudades.nombre FROM ciudades INNER JOIN departamentos ON departamentos.idDepartamento = "
+                  "ciudades.fkDepartamento WHERE departamentos.nombre = :departamento", {'departamento': departamento})
+        ciudades = [li[0] for li in c.fetchall()]
+        self.screens[4].ids.ciudades.text = "Ciudad"
+        self.screens[4].ids.ciudades.values = ciudades
 
     def diagnostico(self):
         conn = sqlite3.connect('assets/dbs/base.db')

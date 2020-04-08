@@ -102,6 +102,12 @@ class Comprobaciones:
             return True
         return False
 
+    @staticmethod
+    def dinero(dinero):
+        if re.search(r'[^(0-9,.)]', dinero) is None and len(dinero) != 0:
+            return True
+        return False
+
 
 class Login:
     @staticmethod
@@ -301,4 +307,37 @@ class IdeaNegocio:
                     Costantes.experiencia, Costantes.productoServicio, Costantes.esAgropecuario,
                     Costantes.necesitaColaboradores, Costantes.cuantosMeses, Costantes.cuantoTiempo,
                     Costantes.porqueNoEmpezaba, Costantes.procentajeInversion]
+
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+
+        c.execute("SELECT idCIIU FROM cIIU")
+        result = c.fetchall()
+        result = [str(res[0]) for res in result]
+        retornar.append(result)
+
+        c.execute("SELECT sector FROM cIIU")
+        result = c.fetchall()
+        result = [str(res[0]) for res in result]
+        retornar.append(result)
+
         return retornar
+
+# import csv
+#
+# conn = sqlite3.connect('dbs/base.db')
+# c = conn.cursor()
+#
+# with open('documents/ciiu.csv', encoding="utf8") as csv_file:
+#     csv_reader = csv.reader(csv_file, delimiter=';')
+#     for idx, row in enumerate(csv_reader):
+#         if idx == 0:
+#             row[0] = "0111"
+#         if len(row[0]) == 3:
+#             row[0] = '0'+row[0]
+#         c.execute("INSERT INTO cIIU VALUES (:ciiu, :sector)", {'ciiu': row[0], 'sector': row[1]})
+#         conn.commit()
+#         print(row)
+
+
+

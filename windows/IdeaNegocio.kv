@@ -67,26 +67,51 @@
             InfoSpinner:
                 id: sectorEmpresarial
                 text: "Sector Empresarial"
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
+                id: ciudades
                 text: "Ciudad"
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: estudios
                 text: "Estudios sobre el tema"
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: esAgropecuario
                 text: utilidades.Costantes.ideaNegocio[0]
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: necesitaColaboradores
                 text: utilidades.Costantes.ideaNegocio[1]
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: tiempoSemanal
                 text: "Tiempo semanal a dedicar"
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: porqueNo
                 text: utilidades.Costantes.ideaNegocio[2]
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: mesesQueLleva
                 text: "Meses que lleva el negocio"
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
@@ -95,13 +120,23 @@
             x: 88
             spacing: 25
             InfoSpinner:
-                text: "CIUU"
+                id:ciiu
+                text: "CIIU"
+                on_text:
+                    root.ids.labelMensajes.text = utilidades.IdeaNegocio.cargarDatos()[13][utilidades.IdeaNegocio.cargarDatos()[12].index(self.text)][:40]
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: comoSurge
                 text: utilidades.Costantes.ideaNegocio[3]
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: tieneExperiencia
                 text: utilidades.Costantes.ideaNegocio[4]
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
@@ -110,13 +145,24 @@
             x: 464
             spacing: 25
             InfoSpinner:
+                id: departamentos
                 text: "Departamento"
+                on_text:
+                    app.ciudadesIdeaNegocio(self.text)
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: tiempoADedicar
                 text: "Tiempo a dedicar"
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: productoServicio
                 text: "Producto / Servicio"
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
         LoginLabel:
             x:88
             top:800-382
@@ -126,6 +172,13 @@
             top:800-382
             size: 498, 40
             hint_text: "Portafolio"
+            on_text_validate:
+                root.ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.name(self.text):\
+                root.ids.inversionActivos.focus = True
+
+                if utilidades.Comprobaciones.name(self.text) == False:\
+                root.ids.labelMensajes.text = " Erro en Formato de portafolio"
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
@@ -134,14 +187,35 @@
             x: 88
             spacing: 25
             InfoInput:
+                id: inversionActivos
                 size: 352,40
                 hint_text: utilidades.Costantes.ideaNegocio[5]
+                on_text_validate:
+                    root.ids.labelMensajes.text = ""
+                    if utilidades.Comprobaciones.dinero(self.text):\
+                    root.ids.ventasPrimerMes.focus = True
+
+                    if utilidades.Comprobaciones.dinero(self.text) == False:\
+                    root.ids.labelMensajes.text = "Formato Inv. Activos Invalido"
+
             InfoSpinner:
                 id: porcentajeInversion
                 text: utilidades.Costantes.ideaNegocio[6]
+                on_text:
+                    root.ids.labelMensajes.text = ""
+                    self.background_color = 11/255,69/255,0/255,0.7
+
             InfoInput:
+                id: ventasPrimerMes
                 size: 352,40
                 hint_text: "Ventas primer mes"
+                on_text_validate:
+                    root.ids.labelMensajes.text = ""
+                    if utilidades.Comprobaciones.dinero(self.text):\
+                    root.ids.inversionInicial.focus = True
+
+                    if utilidades.Comprobaciones.dinero(self.text) == False:\
+                    root.ids.labelMensajes.text = "Error en Ventas Primer Mes"
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
@@ -150,27 +224,57 @@
             x: 464
             spacing: 25
             InfoInput:
+                id: inversionInicial
                 size: 352,40
                 hint_text: utilidades.Costantes.ideaNegocio[7]
+                on_text_validate:
+                    root.ids.labelMensajes.text = ""
+                    if utilidades.Comprobaciones.dinero(self.text):\
+                    root.ids.invCapitalTrabajo.focus = True
+
+                    if utilidades.Comprobaciones.dinero(self.text) == False:\
+                    root.ids.labelMensajes.text = "Error en Inv. Inicial"
             InfoInput:
+                id: invCapitalTrabajo
                 size: 352,40
                 hint_text: "Inv. Capital de Trabajo"
+                on_text_validate:
+                    root.ids.labelMensajes.text = ""
+                    if utilidades.Comprobaciones.dinero(self.text):\
+                    root.ids.ventasPrimerAno.focus = True
+
+                    if utilidades.Comprobaciones.dinero(self.text) == False:\
+                    root.ids.labelMensajes.text = "Error en Inv. Capital Trabajo"
+
             InfoInput:
+                id: ventasPrimerAno
                 size: 352,40
                 hint_text: utilidades.Costantes.ideaNegocio[8]
+                on_text_validate:
+                    root.ids.labelMensajes.text = ""
+                    if utilidades.Comprobaciones.dinero(self.text):\
+                    root.ids.imagine.focus = True
+
+                    if utilidades.Comprobaciones.dinero(self.text) == False:\
+                    root.ids.labelMensajes.text = f"Error en {utilidades.Costantes.ideaNegocio[8]}"
 
         LoginLabel:
             x:88
             top:800-642
             text:"Imagine su negocio"
         InfoInput:
+            id: imagine
             x:410
             top:800-642
             size: 780, 40
+            on_text_validate:
+                root.ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.name(self.text) == False:\
+                root.ids.labelMensajes.text = f"Formato incorrecto"
 
         Titulos:
             id: labelMensajes
-            text: "Responda todas las preguntas"
+            text: ""
             color: 1,0,0,1
             size: 763, 38
             x: 75
