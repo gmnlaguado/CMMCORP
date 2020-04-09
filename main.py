@@ -10,7 +10,7 @@ import sqlite3
 from kivy.uix.label import Label
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.boxlayout import BoxLayout
-from assets.utilidades import Login, InfoGeneral, DiagnosticoPerfilP, IdeaNegocio
+from assets.utilidades import Login, InfoGeneral, DiagnosticoPerfilP, IdeaNegocio, UnidadNegocio
 
 # from kivy.config import Config
 # Config.set('graphics', 'width', '1280')
@@ -40,7 +40,7 @@ class MyProgram(App):
             screen = self.clases[idx](name=ventana)
             self.screens.append(screen)
             self.screenManager.add_widget(self.screens[idx])
-        self.screenManager.current = self.ventanas[4]
+        self.screenManager.current = self.ventanas[5]
         self.diagnostico()
         return self.screenManager
 
@@ -172,6 +172,33 @@ class MyProgram(App):
 
             container_id.add_widget(lab)
             container_id.add_widget(BoxContainer)
+
+    def ideaNegocio(self):
+        if IdeaNegocio.comprobarTodo(self.screens[4].ids):
+            return True
+        return False
+
+    def cargarUnidadNegocio(self):
+        info = UnidadNegocio.cargarDatos()
+        self.screens[5].ids.cuantosSocios.values = info[0]
+        self.screens[5].ids.rotulo.values = info[1]
+        self.screens[5].ids.indicador.values = info[2]
+        self.screens[5].ids.sector.values = info[3]
+        self.screens[5].ids.regCamara.values = info[4]
+        self.screens[5].ids.conContrato.values = info[5]
+        self.screens[5].ids.sinContrato.values = info[6]
+        self.screens[5].ids.ciiu.values = info[7]
+        self.screens[5].ids.departamentos.values = info[9]
+
+    def ciudadesUnidadNegocio(self, departamento):
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+        c.execute("SELECT ciudades.nombre FROM ciudades INNER JOIN departamentos ON departamentos.idDepartamento = "
+                  "ciudades.fkDepartamento WHERE departamentos.nombre = :departamento", {'departamento': departamento})
+        ciudades = [li[0] for li in c.fetchall()]
+        self.screens[5].ids.ciudades.text = "Ciudad"
+        self.screens[5].ids.ciudades.values = ciudades
+
 
 
 if __name__ == "__main__":

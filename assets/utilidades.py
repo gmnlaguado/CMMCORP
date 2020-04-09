@@ -15,7 +15,7 @@ class Costantes:
                    "Teléfono Fijo", "Género", "Número Celular", "Agregar Número", "Cond. Discapacidad",
                    "Correo Electrónico", "Compruebe que los\ndatos estén correctos\nantes de continuar"]
 
-    ideaNegocio = ["¿Es agropecuario?", "¿Necesita Colaboradores", "Por qué no había empezado", "¿Cómo surge la idea",
+    ideaNegocio = ["¿Es agropecuario?", "Necesita Colaboradores", "Por qué no había empezado", "Cómo surge la idea",
                    "¿Tiene Experiencia?", "Inversión Activos", "% Inversión Inicial", "Inversión Inicial",
                    "Ventas primer año"]
 
@@ -51,11 +51,18 @@ class Costantes:
     productoServicio = ["Producto", "Servicio"]
     esAgropecuario = ["Si", "No"]
     necesitaColaboradores = ["Si", "No"]
-    cuantosMeses = [str(numb) for numb in range(0, 40)]
+    cuantosMeses = [str(numb) for numb in range(0, 50)]
     cuantoTiempo = ["De 1 a 4 Horas", "De 5 a 8 Horas", "Más de 8 Horas"]
     porqueNoEmpezaba = ["Falta de Tiempo", "Falta de recursos económicos", "Falta de motivación",
                         "Falta de conocimiento", "Otros"]
     procentajeInversion = ["< 50%", "50% - 100%", "0%"]
+
+    cuantosSocios = [str(numb) for numb in range(0, 50)]
+    regCamara = ["Si", "No"]
+    conContrato = [str(numb) for numb in range(0, 50)]
+    sinContrato = [str(numb) for numb in range(0, 50)]
+
+
 
 
 
@@ -322,6 +329,113 @@ class IdeaNegocio:
         retornar.append(result)
 
         return retornar
+
+    @staticmethod
+    def comprobarTodo(dictionary):
+        for key, value in dictionary.items():
+            print(f'Dato: {key}\n\tValor: {value.text}')
+        for key, value in dictionary.items():
+            if key == "sectorEmpresarial":
+                if value.text == "Sector Empresarial":
+                    return False
+            if key == "ciudades":
+                if value.text == "Ciudad":
+                    return False
+            if key == "estudios":
+                if value.text == "Estudios sobre el tema":
+                    return False
+            if key == "esAgropecuario":
+                if value.text == "¿Es agropecuario?":
+                    return False
+            if key == "necesitaColaboradores":
+                if value.text == "Necesita Colaboradores":
+                    return False
+            if key == "tiempoSemanal":
+                if value.text == "Tiempo semanal a dedicar":
+                    return False
+            if key == "porqueNo":
+                if value.text == "Por qué no había empezado":
+                    return False
+            if key == "mesesQueLleva":
+                if value.text == "Meses que lleva el negocio":
+                    return False
+            if key == "ciiu":
+                if value.text == "CIIU":
+                    return False
+            if key == "comoSurge":
+                if value.text == "Cómo surge la idea":
+                    return False
+            if key == "tieneExperiencia":
+                if value.text == "¿Tiene Experiencia?":
+                    return False
+            if key == "departamentos":
+                if value.text == "Departamento":
+                    return False
+            if key == "tiempoADedicar":
+                if value.text == "Tiempo a dedicar":
+                    return False
+            if key == "productoServicio":
+                if value.text == "Producto / Servicio":
+                    return False
+            if key == "porcentajeInversion":
+                if value.text == "% Inversión Inicial":
+                    return False
+            if key == "inversionActivos":
+                if not Comprobaciones.dinero(value.text):
+                    return False
+            if key == "ventasPrimerMes":
+                if not Comprobaciones.dinero(value.text):
+                    return False
+            if key == "inversionInicial":
+                if not Comprobaciones.dinero(value.text):
+                    return False
+            if key == "invCapitalTrabajo":
+                if not Comprobaciones.dinero(value.text):
+                    return False
+            if key == "ventasPrimerAno":
+                if not Comprobaciones.dinero(value.text):
+                    return False
+            if key == "imagine":
+                if not Comprobaciones.name(value.text):
+                    return False
+            if key == "listaProductos":
+                if not Comprobaciones.name(value.text):
+                    return False
+            if key == "listaColaboradores":
+                if not Comprobaciones.name(value.text):
+                    return False
+        return True
+
+
+class UnidadNegocio:
+    @staticmethod
+    def cargarDatos():
+        retornar = [Costantes.cuantosSocios, Costantes.rotulo, Costantes.indicador, Costantes.sector,
+                    Costantes.regCamara, Costantes.conContrato, Costantes.sinContrato]
+
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+
+        c.execute("SELECT idCIIU FROM cIIU")
+        result = c.fetchall()
+        result = [str(res[0]) for res in result]
+        retornar.append(result)
+
+        c.execute("SELECT sector FROM cIIU")
+        result = c.fetchall()
+        result = [str(res[0]) for res in result]
+        retornar.append(result)
+
+        pais = "colombia"
+        c.execute("SELECT departamentos.nombre FROM departamentos INNER JOIN paises ON paises.idPais = "
+                  "departamentos.fkPais WHERE paises.nombre = :pais", {'pais': pais})
+        deptos = [li[0] for li in c.fetchall()]
+
+        retornar.append(deptos)
+
+        return retornar
+
+
 
 # import csv
 #

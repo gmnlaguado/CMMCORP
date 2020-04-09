@@ -31,6 +31,82 @@
             on_release:
                 root.dismiss()
                 app.screenManager.current= app.ventanas[1]
+
+<EmergentProServ@Popup>:
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title: "Ingrese los productos o servicios de su idea separada por comas"
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 1,1,1,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        LoginInput:
+            focus: True
+            x: 464
+            top: 800 - 467
+            on_text_validate:
+                app.screens[4].ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.name(self.text):\
+                app.screens[4].ids.productoServicio.background_color = 11/255,69/255,0/255,0.7;\
+                app.screens[4].ids.listaProductos.text = self.text;\
+                root.dismiss()
+
+                if utilidades.Comprobaciones.name(self.text) == False:\
+                app.screens[4].ids.labelMensajes.text = "Formato de lista invalido";\
+                root.dismiss()
+
+
+<EmergentColaboradores@Popup>:
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title: "Ingrese la lista de sus colaboradores separada por comas"
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 1,1,1,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        LoginInput:
+            focus: True
+            x: 464
+            top: 800 - 467
+            on_text_validate:
+                app.screens[4].ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.name(self.text):\
+                app.screens[4].ids.necesitaColaboradores.background_color = 11/255,69/255,0/255,0.7;\
+                app.screens[4].ids.listaColaboradores.text = self.text;\
+                root.dismiss()
+
+                if utilidades.Comprobaciones.name(self.text) == False:\
+                app.screens[4].ids.labelMensajes.text = "Formato de lista invalido";\
+                root.dismiss()
+
 <IdeaNegocio>:
     LoginLayout:
         size_hint: None, None
@@ -93,7 +169,14 @@
                 text: utilidades.Costantes.ideaNegocio[1]
                 on_text:
                     root.ids.labelMensajes.text = ""
-                    self.background_color = 11/255,69/255,0/255,0.7
+                    if self.text == "Si":\
+                    root.ids.listaProductos.text = "";\
+                    Factory.EmergentColaboradores().open()
+
+                    if self.text == "No":\
+                    self.background_color = 11/255,69/255,0/255,0.7;\
+                    root.ids.listaProductos.text = self.text
+
             InfoSpinner:
                 id: tiempoSemanal
                 text: "Tiempo semanal a dedicar"
@@ -162,7 +245,7 @@
                 text: "Producto / Servicio"
                 on_text:
                     root.ids.labelMensajes.text = ""
-                    self.background_color = 11/255,69/255,0/255,0.7
+                    Factory.EmergentProServ().open()
         LoginLabel:
             x:88
             top:800-382
@@ -178,7 +261,7 @@
                 root.ids.inversionActivos.focus = True
 
                 if utilidades.Comprobaciones.name(self.text) == False:\
-                root.ids.labelMensajes.text = " Erro en Formato de portafolio"
+                root.ids.labelMensajes.text = " Error en Formato de portafolio"
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
@@ -280,9 +363,28 @@
             x: 75
             top: 800 - 737
             bold: False
+
+        Titulos:
+            id: listaProductos
+            color: 0,0,0,0
+            size: 763, 38
+            x: 75
+            top: 800 - 737
+        Titulos:
+            id: listaColaboradores
+            color: 0,0,0,0
+            size: 763, 38
+            x: 75
+            top: 800 - 737
+
         LoginButton:
             text: "Ingresar"
             top: 800-724
             x: 863
             on_release:
+                root.ids.labelMensajes.text = ""
+                if app.ideaNegocio():\
                 Factory.Emergent_Panel_5().open()
+
+                if app.ideaNegocio() == False:\
+                root.ids.labelMensajes.text = "Formulario Incompleto"
