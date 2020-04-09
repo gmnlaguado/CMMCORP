@@ -1,7 +1,7 @@
 #: import utilidades assets.utilidades
 #: import Factory kivy.factory.Factory
 
-<Emergent_Panel_5@Popup>:
+<EmergentIdeaNegocio@Popup>:
     size_hint: None, None
     top: 800-232
     x: 357
@@ -29,6 +29,7 @@
             top: 800 - 467
             text: "Continuar"
             on_release:
+                app.caracterizacionBasica()
                 root.dismiss()
                 app.screenManager.current= app.ventanas[1]
 
@@ -384,7 +385,7 @@
             on_release:
                 root.ids.labelMensajes.text = ""
                 if app.ideaNegocio():\
-                Factory.Emergent_Panel_5().open()
+                Factory.EmergentIdeaNegocio().open()
 
                 if app.ideaNegocio() == False:\
                 root.ids.labelMensajes.text = "Formulario Incompleto"

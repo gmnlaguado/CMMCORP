@@ -1,7 +1,7 @@
 #: import Factory kivy.factory.Factory
 #: import utilidades assets.utilidades
 
-<Emergent_Panel_6@Popup>:
+<EmergentUnidadNegocio@Popup>:
     size_hint: None, None
     top: 800-232
     x: 357
@@ -29,6 +29,7 @@
             top: 800 - 467
             text: "Continuar"
             on_release:
+                app.caracterizacionBasica()
                 root.dismiss()
                 app.screenManager.current= app.ventanas[1]
 
@@ -67,6 +68,7 @@
             x: 838
             spacing: 25
             InfoSpinner:
+                id: existe
                 text: "Si existe, seleccione"
                 values: ["No"]
                 on_text:
@@ -139,20 +141,33 @@
                     root.ids.labelMensajes.text = ""
                     self.background_color = 11/255,69/255,0/255,0.7
             InfoInput:
+                id: direccion
                 size: 352,40
                 hint_text: "___ # ___ - ___"
             InfoInput:
+                id: telFijo
                 size: 352,40
                 hint_text: utilidades.Costantes.unidadNegocio[10]
+                on_text_validate:
+                    root.ids.labelMensajes.text = ""
+                    if utilidades.Comprobaciones.fijo(self.text):\
+                    root.ids.celular.focus = True
+                    if utilidades.Comprobaciones.fijo(self.text) == False:\
+                    root.ids.labelMensajes.text = "Formato Invalido"
             InfoInput:
                 size: 352,40
                 hint_text: utilidades.Costantes.unidadNegocio[4]
+                on_text_validate:
+                    root.ids.labelMensajes.text = ""
+                    if utilidades.Comprobaciones.celular(self.text) == False:\
+                    root.ids.labelMensajes.text = "Formato de Tel. Celular Invalido"
+
 
         LoginLabel:
             x:88
             top:800-251
             text: utilidades.Costantes.unidadNegocio[6]
-        InfoSpinner:
+        InfoSpinnerMini:
             id: rotulo
             x:246
             top:800-251
@@ -165,7 +180,7 @@
             x:88
             top:800-319
             text:"Contacto"
-        InfoSpinner:
+        InfoSpinnerMini:
             id: indicador
             text: "Indicador"
             size: 192,40
@@ -175,51 +190,93 @@
                 root.ids.labelMensajes.text = ""
                 self.background_color = 11/255,69/255,0/255,0.7
         InfoInput:
+            id: celular
             size: 352,40
             x:89
             top:800-384
             hint_text: utilidades.Costantes.unidadNegocio[4]
+            on_text_validate:
+                root.ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.celular(self.text):\
+                root.ids.descipcion.focus = True
+                if utilidades.Comprobaciones.celular(self.text) == False:\
+                root.ids.labelMensajes.text = "Formato de Tel. Celular Invalido"
+
         LoginLabel:
             x:88
             top:800-444
             text: utilidades.Costantes.unidadNegocio[7]
         InfoInput:
+            id: descipcion
             x:291
             top:800-444
             size: 523,40
+            on_text_validate:
+                root.ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.name(self.text):\
+                root.ids.portafolio.focus = True
+                if utilidades.Comprobaciones.name(self.text) == False:\
+                root.ids.labelMensajes.text = "Formato Invalido"
         LoginLabel:
             x:88
             top:800-503
             text:"Portafolio"
         InfoInput:
+            id: portafolio
             x:291
             top:800-503
             size: 523,40
+            on_text_validate:
+                root.ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.name(self.text):\
+                root.ids.creacion.focus = True
+                if utilidades.Comprobaciones.name(self.text) == False:\
+                root.ids.labelMensajes.text = "Formato de Portafolio Invalido"
+
         LoginLabel:
             x:88
             top:800-567
             text: utilidades.Costantes.unidadNegocio[8]
         InfoInput:
+            id: creacion
             x:239
             top:800-567
             size: 248,40
             hint_text: "DD/MM/AAAA"
+            on_text_validate:
+                root.ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.data(self.text):\
+                root.ids.nit.focus = True
+                if utilidades.Comprobaciones.data(self.text) == False:\
+                root.ids.labelMensajes.text = "Formato de Fecha Invalido"
         LoginLabel:
             x:500
             top:800-567
             text:"NIT"
         InfoInput:
+            id: nit
             x:567
             top:800-567
             size: 248,40
+            on_text_validate:
+                root.ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.dinero(self.text):\
+                root.ids.descipcionPasivos.focus = True
+                if utilidades.Comprobaciones.dinero(self.text) == False:\
+                root.ids.labelMensajes.text = "Formato de NIT Invalido"
         LoginLabel:
             x:88
             top:800-636
             text: utilidades.Costantes.unidadNegocio[9]
         InfoInput:
+            id: descipcionPasivos
             x:415
             top:800-636
             size: 400,40
+            on_text_validate:
+                root.ids.labelMensajes.text = ""
+                if utilidades.Comprobaciones.name(self.text) == False:\
+                root.ids.labelMensajes.text = f"Error en la {utilidades.Costantes.unidadNegocio[9]}"
 
         Titulos:
             id: labelMensajes
@@ -234,4 +291,9 @@
             top: 800-724
             x: 863
             on_release:
-                Factory.Emergent_Panel_6().open()
+                root.ids.labelMensajes.text = ""
+                if app.unidadNegocio():\
+                Factory.EmergentUnidadNegocio().open()
+
+                if app.unidadNegocio() == False:\
+                root.ids.labelMensajes.text = "Formulario Incompleto"

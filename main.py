@@ -10,7 +10,7 @@ import sqlite3
 from kivy.uix.label import Label
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.boxlayout import BoxLayout
-from assets.utilidades import Login, InfoGeneral, DiagnosticoPerfilP, IdeaNegocio, UnidadNegocio
+from assets.utilidades import Login, InfoGeneral, DiagnosticoPerfilP, IdeaNegocio, UnidadNegocio, CBasica
 
 # from kivy.config import Config
 # Config.set('graphics', 'width', '1280')
@@ -40,7 +40,7 @@ class MyProgram(App):
             screen = self.clases[idx](name=ventana)
             self.screens.append(screen)
             self.screenManager.add_widget(self.screens[idx])
-        self.screenManager.current = self.ventanas[5]
+        self.screenManager.current = self.ventanas[0]
         self.diagnostico()
         return self.screenManager
 
@@ -198,6 +198,16 @@ class MyProgram(App):
         ciudades = [li[0] for li in c.fetchall()]
         self.screens[5].ids.ciudades.text = "Ciudad"
         self.screens[5].ids.ciudades.values = ciudades
+
+    def unidadNegocio(self):
+        if UnidadNegocio.comprobarTodo(self.screens[5].ids):
+            return True
+        return False
+
+    def caracterizacionBasica(self):
+        CBasica.organizar(self.screens[1].ids, self.screens[2].ids, self.screens[3].ids.container_grid,
+                          self.screens[4].ids, self.screens[5].ids)
+
 
 
 

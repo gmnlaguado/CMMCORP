@@ -23,8 +23,6 @@ class Costantes:
                      "Agregar Número", "Dirección", "Descripción", "Creación", "Descripción Pasivos",
                      "Teléfono Fijo"]
 
-
-
     tipoDocumento = ["Cédula de Ciudadania", "Tarjeta de Identidad", "Cédula de Extranjería", "Pasaporte", "Otros"]
     sexo = ["Mujer", "Hombre", "Intersexual"]
     tipoBeneficiario = ["Emprendedor", "Microempresario"]
@@ -38,8 +36,6 @@ class Costantes:
     genero = ["Femenino", "Masculino", "Transgenero"]
     etnia = ["Afrodescendiente", "Raizal", "Palenquera", "Indígenas", "Rom", "Mestizo", "Otro", "No Aplica"]
     discapacidad = ["Física", "Cognitiva", "Sensorial", "Intelectual", "Psicosocial", "Múltiple", "Ninguna", "ND"]
-
-
 
     sector = ["Sector Industrial", "Sector de Servicios", "Sector de Comercio", "Sector Agropecuario",
               "Sector de Transporte", "Sector Financiero", "Sector de la Construcción", "Sector Minero y Energético",
@@ -61,11 +57,6 @@ class Costantes:
     regCamara = ["Si", "No"]
     conContrato = [str(numb) for numb in range(0, 50)]
     sinContrato = [str(numb) for numb in range(0, 50)]
-
-
-
-
-
 
 
 class Comprobaciones:
@@ -111,7 +102,7 @@ class Comprobaciones:
 
     @staticmethod
     def dinero(dinero):
-        if re.search(r'[^(0-9,.)]', dinero) is None and len(dinero) != 0:
+        if re.search(r"[^(0-9,.)]", dinero) is None and len(dinero) != 0:
             return True
         return False
 
@@ -333,8 +324,6 @@ class IdeaNegocio:
     @staticmethod
     def comprobarTodo(dictionary):
         for key, value in dictionary.items():
-            print(f'Dato: {key}\n\tValor: {value.text}')
-        for key, value in dictionary.items():
             if key == "sectorEmpresarial":
                 if value.text == "Sector Empresarial":
                     return False
@@ -435,7 +424,100 @@ class UnidadNegocio:
 
         return retornar
 
+    @staticmethod
+    def comprobarTodo(dictionary):
+        for key, value in dictionary.items():
+            if key == "unidad":
+                if not Comprobaciones.name(value.text):
+                    return False
+            if key == "existe":
+                if value.text == "Si existe, seleccione":
+                    return False
+            if key == "cuantosSocios":
+                if value.text == "Cantidad de socios":
+                    return False
+            if key == "ciiu":
+                if value.text == "CIIU":
+                    return False
+            if key == "sector":
+                if value.text == "Sector Empresarial":
+                    return False
+            if key == "regCamara":
+                if value.text == "Reg. Cámara de Comercio":
+                    return False
+            if key == "conContrato":
+                if value.text == "Colaborador con contrato":
+                    return False
+            if key == "sinContrato":
+                if value.text == "Colaborador sin contrato":
+                    return False
+            if key == "departamentos":
+                if value.text == "Departamento":
+                    return False
+            if key == "ciudades":
+                if value.text == "Ciudad":
+                    return False
+            if key == "direccion":
+                if value.text == "":
+                    return False
+            if key == "telFijo":
+                if not Comprobaciones.fijo(value.text):
+                    return False
+            if key == "rotulo":
+                if value.text == "Rótulo":
+                    return False
+            if key == "indicador":
+                if value.text == "Indicador":
+                    return False
+            if key == "celular":
+                if value.text == "celular":
+                    return False
+            if key == "descipcion":
+                if not Comprobaciones.name(value.text):
+                    return False
+            if key == "portafolio":
+                if not Comprobaciones.name(value.text):
+                    return False
+            if key == "creacion":
+                if not Comprobaciones.data(value.text):
+                    return False
+            if key == "nit":
+                if not Comprobaciones.dinero(value.text):
+                    return False
+            if key == "descipcionPasivos":
+                if not Comprobaciones.name(value.text):
+                    return False
+            if key == "celular":
+                if not Comprobaciones.celular(value.text):
+                    return False
+        return True
 
+
+class CBasica:
+    @staticmethod
+    def organizar(panel, info, diag, idea, unidad):
+        beneficiariosProyectos = [panel.proyecto.text, panel.beneficiario.text]
+        beneficiarios = [panel.beneficiario.text, info.nombre.text, info.apellido.text, info.nacimiento.text,
+                         info.nacionalidad.text, info.tipoDocumento.text, info.ciudadExpedicion.text, info.pais.text,
+                         info.departamentos.text, info.ciudades.text, info.barrios.text, info.entorno.text,
+                         info.direccion.text, info.sexo.text, info.indicador.text, info.fijo.text, info.email.text,
+                         info.genero.text, info.etnia.text, info.discapacidad.text, info.tipo.text]
+
+        print(beneficiariosProyectos)
+        print("\n\n\n")
+        print(beneficiarios)
+        print("\n\n\n")
+
+        diagnosticoPerfilProductivo = []
+        count = 0
+        for grid in diag.children:
+            if len(grid.children) > 0:
+                repp = [box.active for box in grid.children][::-1].index(True)
+                diagnosticoPerfilProductivo.append([panel.beneficiario.text, 70 - count, repp])
+                count += 1
+
+        print(diagnosticoPerfilProductivo[::-1])
+        print("\n\n\n")
 
 # import csv
 #
@@ -452,6 +534,3 @@ class UnidadNegocio:
 #         c.execute("INSERT INTO cIIU VALUES (:ciiu, :sector)", {'ciiu': row[0], 'sector': row[1]})
 #         conn.commit()
 #         print(row)
-
-
-
