@@ -504,6 +504,34 @@ class CBasica:
                          info.direccion.text, info.sexo.text, info.indicador.text, info.fijo.text, info.email.text,
                          info.genero.text, info.etnia.text, info.discapacidad.text, info.tipo.text]
 
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+
+        c.execute("SELECT idPais FROM paises WHERE nombre = :nombre", {'nombre': info.nacionalidad.text})
+        result = c.fetchone()
+        beneficiarios[4] = result[0]
+
+        c.execute("SELECT idCiudad FROM ciudades WHERE nombre = :nombre", {'nombre': info.ciudadExpedicion.text})
+        result = c.fetchone()
+        beneficiarios[6] = result[0]
+
+        c.execute("SELECT idPais FROM paises WHERE nombre = :nombre", {'nombre': info.pais.text})
+        result = c.fetchone()
+        beneficiarios[7] = result[0]
+
+        c.execute("SELECT idDepartamento FROM departamentos WHERE nombre = :nombre", {'nombre': info.departamentos.text})
+        result = c.fetchone()
+        beneficiarios[8] = result[0]
+
+        c.execute("SELECT idCiudad FROM ciudades WHERE nombre = :nombre", {'nombre': info.ciudades.text})
+        result = c.fetchone()
+        beneficiarios[9] = result[0]
+
+        c.execute("SELECT idBarrio FROM barrios WHERE nombre = :nombre", {'nombre': info.barrios.text})
+        result = c.fetchone()
+        beneficiarios[10] = result[0]
+
+
         print(beneficiariosProyectos)
         print("\n\n\n")
         print(beneficiarios)
@@ -527,9 +555,20 @@ class CBasica:
                              unidad.email.text, unidad.paginaWeb.text, unidad.descripcion.text, unidad.portafolio.text,
                              unidad.creacion.text, unidad.nit.text, unidad.descripcionPasivos.text,
                              unidad.regCamara.text, unidad.conContrato.text, unidad.sinContrato.text]
+
+            c.execute("SELECT idDepartamento FROM departamentos WHERE nombre = :nombre",
+                      {'nombre': unidad.departamentos.text})
+            result = c.fetchone()
+            unidadNegocio[3] = result[0]
+
+            c.execute("SELECT idCiudad FROM ciudades WHERE nombre = :nombre", {'nombre': unidad.ciudades.text})
+            result = c.fetchone()
+            unidadNegocio[4] = result[0]
+
+
             print(unidadNegocio)
             print("\n\n\n")
-            CBasica.limpieza(False, info)
+            CBasica.limpieza(False, info, diag, unidad)
         else:
             ideaNegocio = [proyecto, panel.beneficiario.text, idea.emprendimiento.text, idea.sectorEmpresarial.text,
                            idea.ciiu.text, idea.departamentos.text, idea.ciudades.text, idea.comoSurge.text,
@@ -539,12 +578,22 @@ class CBasica:
                            idea.porcentajeInversion.text, idea.invCapitalTrabajo.text, idea.ventasPrimerMes.text,
                            idea.ventasPrimerAno.text, idea.necesitaColaboradores.text, idea.listaColaboradores.text,
                            idea.tiempoSemanal.text, idea.porqueNo.text, idea.mesesQueLleva.text, idea.imagine.text]
+
+            c.execute("SELECT idDepartamento FROM departamentos WHERE nombre = :nombre",
+                      {'nombre': idea.departamentos.text})
+            result = c.fetchone()
+            ideaNegocio[5] = result[0]
+
+            c.execute("SELECT idCiudad FROM ciudades WHERE nombre = :nombre", {'nombre': idea.ciudades.text})
+            result = c.fetchone()
+            ideaNegocio[6] = result[0]
+
             print(ideaNegocio)
             print("\n\n\n")
-            CBasica.limpieza(True, info)
+            CBasica.limpieza(True, info, diag, idea)
 
     @staticmethod
-    def limpieza(limpiaridea, info):
+    def limpieza(limpiaridea, info, diag, ideaunidad):
         limpiezaInfoGeneral = ["", "", "", "Edad", "Rango", "Tipo de documento", Costantes.infoGeneral[1],
                                Costantes.infoGeneral[2], "Sexo", "Tipo de Beneficiario", "Nacionalidad",
                                "Pais de residencia", "Departamento", "Ciudad", "Entorno", Costantes.infoGeneral[4], "",
@@ -556,7 +605,32 @@ class CBasica:
             if limpiezaInfoGeneral[idx] != "":
                 ids.background_color = 61/255, 119/255, 0/255, 0.7
 
+
+        for grid in diag.children:
+            if len(grid.children) > 0:
+                for box in grid.children:
+                    box.active = False
+
         if limpiaridea:
-            print("Limpiando idea de negocio")
+            limpiezaideanegocios = ["", "Sector Empresarial", "Ciudad", "Estudios sobre el tema",
+                                    Costantes.ideaNegocio[0], Costantes.ideaNegocio[1], "Tiempo semanal a dedicar",
+                                    Costantes.ideaNegocio[2], "Meses que lleva el negocio", "CIIU",
+                                    Costantes.ideaNegocio[3], Costantes.ideaNegocio[4], "Departamento",
+                                    "Tiempo a dedicar", "Producto / Servicio", "", "", Costantes.ideaNegocio[6], "",
+                                    "", "", "", "", "", "", ""]
+
+            for idx, ids in enumerate(ideaunidad.values()):
+                ids.text = limpiezaideanegocios[idx]
+                if limpiezaideanegocios[idx] != "":
+                    ids.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+
         else:
-            print("Limpiando unidad de negocio")
+            limpiezaunidadnegocios = ["", "Si existe, seleccione", "Cantidad de socios", "CIIU", "", "",
+                                      "Sector Empresarial", Costantes.unidadNegocio[2], "Colaborador con contrato",
+                                      "Colaborador sin contrato", "Departamento", "Ciudad", "", "",
+                                      Costantes.unidadNegocio[3], "Indicador", "", "", "", "", "", "", ""]
+
+            for idx, ids in enumerate(ideaunidad.values()):
+                ids.text = limpiezaunidadnegocios[idx]
+                if limpiezaunidadnegocios[idx] != "":
+                    ids.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7

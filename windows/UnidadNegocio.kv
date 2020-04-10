@@ -84,7 +84,8 @@
                 id: ciiu
                 text: "CIIU"
                 on_text:
-                    root.ids.labelMensajes.text = utilidades.UnidadNegocio.cargarDatos()[8][utilidades.UnidadNegocio.cargarDatos()[7].index(self.text)][:40]
+                    if self.text != "CIIU":\
+                    root.ids.labelMensajes.text = utilidades.UnidadNegocio.cargarDatos()[8][utilidades.UnidadNegocio.cargarDatos()[7].index(self.text)][:40];\
                     self.background_color = 11/255,69/255,0/255,0.7
             InfoInput:
                 id: email

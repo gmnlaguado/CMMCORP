@@ -208,7 +208,8 @@
                 id:ciiu
                 text: "CIIU"
                 on_text:
-                    root.ids.labelMensajes.text = utilidades.IdeaNegocio.cargarDatos()[13][utilidades.IdeaNegocio.cargarDatos()[12].index(self.text)][:40]
+                    if self.text != "CIIU":\
+                    root.ids.labelMensajes.text = utilidades.IdeaNegocio.cargarDatos()[13][utilidades.IdeaNegocio.cargarDatos()[12].index(self.text)][:40];\
                     self.background_color = 11/255,69/255,0/255,0.7
             InfoSpinner:
                 id: comoSurge
@@ -246,7 +247,8 @@
                 id: productoServicio
                 text: "Producto / Servicio"
                 on_text:
-                    root.ids.labelMensajes.text = ""
+                    if self.text != "Producto / Servicio":\
+                    root.ids.labelMensajes.text = "";\
                     Factory.EmergentProServ().open()
         LoginLabel:
             x:88
