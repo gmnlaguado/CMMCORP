@@ -472,7 +472,7 @@ class UnidadNegocio:
             if key == "celular":
                 if value.text == "celular":
                     return False
-            if key == "descipcion":
+            if key == "descripcion":
                 if not Comprobaciones.name(value.text):
                     return False
             if key == "portafolio":
@@ -484,7 +484,7 @@ class UnidadNegocio:
             if key == "nit":
                 if not Comprobaciones.dinero(value.text):
                     return False
-            if key == "descipcionPasivos":
+            if key == "descripcionPasivos":
                 if not Comprobaciones.name(value.text):
                     return False
             if key == "celular":
@@ -496,7 +496,8 @@ class UnidadNegocio:
 class CBasica:
     @staticmethod
     def organizar(panel, info, diag, idea, unidad):
-        beneficiariosProyectos = [panel.proyecto.text, panel.beneficiario.text]
+        proyecto = panel.proyecto.text.split(" ")[-1]
+        beneficiariosProyectos = [proyecto, panel.beneficiario.text]
         beneficiarios = [panel.beneficiario.text, info.nombre.text, info.apellido.text, info.nacimiento.text,
                          info.nacionalidad.text, info.tipoDocumento.text, info.ciudadExpedicion.text, info.pais.text,
                          info.departamentos.text, info.ciudades.text, info.barrios.text, info.entorno.text,
@@ -519,18 +520,43 @@ class CBasica:
         print(diagnosticoPerfilProductivo[::-1])
         print("\n\n\n")
 
-# import csv
-#
-# conn = sqlite3.connect('dbs/base.db')
-# c = conn.cursor()
-#
-# with open('documents/ciiu.csv', encoding="utf8") as csv_file:
-#     csv_reader = csv.reader(csv_file, delimiter=';')
-#     for idx, row in enumerate(csv_reader):
-#         if idx == 0:
-#             row[0] = "0111"
-#         if len(row[0]) == 3:
-#             row[0] = '0'+row[0]
-#         c.execute("INSERT INTO cIIU VALUES (:ciiu, :sector)", {'ciiu': row[0], 'sector': row[1]})
-#         conn.commit()
-#         print(row)
+        if info.tipo.text == "Microempresario":
+            unidadNegocio = [proyecto, panel.beneficiario.text, unidad.unidad.text,
+                             unidad.departamentos.text, unidad.ciudades.text, unidad.cuantosSocios.text,
+                             unidad.direccion.text, unidad.ciiu.text, unidad.indicador.text, unidad.telFijo.text,
+                             unidad.email.text, unidad.paginaWeb.text, unidad.descripcion.text, unidad.portafolio.text,
+                             unidad.creacion.text, unidad.nit.text, unidad.descripcionPasivos.text,
+                             unidad.regCamara.text, unidad.conContrato.text, unidad.sinContrato.text]
+            print(unidadNegocio)
+            print("\n\n\n")
+            CBasica.limpieza(False, info)
+        else:
+            ideaNegocio = [proyecto, panel.beneficiario.text, idea.emprendimiento.text, idea.sectorEmpresarial.text,
+                           idea.ciiu.text, idea.departamentos.text, idea.ciudades.text, idea.comoSurge.text,
+                           idea.tiempoADedicar.text, idea.estudios.text, idea.tieneExperiencia.text,
+                           idea.productoServicio.text, idea.listaProductos.text, idea.esAgropecuario.text,
+                           idea.portafolio.text, idea.inversionActivos.text, idea.inversionInicial.text,
+                           idea.porcentajeInversion.text, idea.invCapitalTrabajo.text, idea.ventasPrimerMes.text,
+                           idea.ventasPrimerAno.text, idea.necesitaColaboradores.text, idea.listaColaboradores.text,
+                           idea.tiempoSemanal.text, idea.porqueNo.text, idea.mesesQueLleva.text, idea.imagine.text]
+            print(ideaNegocio)
+            print("\n\n\n")
+            CBasica.limpieza(True, info)
+
+    @staticmethod
+    def limpieza(limpiaridea, info):
+        limpiezaInfoGeneral = ["", "", "", "Edad", "Rango", "Tipo de documento", Costantes.infoGeneral[1],
+                               Costantes.infoGeneral[2], "Sexo", "Tipo de Beneficiario", "Nacionalidad",
+                               "Pais de residencia", "Departamento", "Ciudad", "Entorno", Costantes.infoGeneral[4], "",
+                               "Barrio", "Indicador", "", Costantes.infoGeneral[6], "", "", "Etnia",
+                               Costantes.infoGeneral[9], "", ""]
+
+        for idx, ids in enumerate(info.values()):
+            ids.text = limpiezaInfoGeneral[idx]
+            if limpiezaInfoGeneral[idx] != "":
+                ids.background_color = 61/255, 119/255, 0/255, 0.7
+
+        if limpiaridea:
+            print("Limpiando idea de negocio")
+        else:
+            print("Limpiando unidad de negocio")

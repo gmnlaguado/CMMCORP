@@ -87,9 +87,11 @@
                     root.ids.labelMensajes.text = utilidades.UnidadNegocio.cargarDatos()[8][utilidades.UnidadNegocio.cargarDatos()[7].index(self.text)][:40]
                     self.background_color = 11/255,69/255,0/255,0.7
             InfoInput:
+                id: email
                 size: 352,40
                 hint_text: utilidades.Costantes.unidadNegocio[0]
             InfoInput:
+                id:paginaWeb
                 size: 352,40
                 hint_text: utilidades.Costantes.unidadNegocio[1]
             InfoSpinner:
@@ -198,7 +200,7 @@
             on_text_validate:
                 root.ids.labelMensajes.text = ""
                 if utilidades.Comprobaciones.celular(self.text):\
-                root.ids.descipcion.focus = True
+                root.ids.descripcion.focus = True
                 if utilidades.Comprobaciones.celular(self.text) == False:\
                 root.ids.labelMensajes.text = "Formato de Tel. Celular Invalido"
 
@@ -207,7 +209,7 @@
             top:800-444
             text: utilidades.Costantes.unidadNegocio[7]
         InfoInput:
-            id: descipcion
+            id: descripcion
             x:291
             top:800-444
             size: 523,40
@@ -261,7 +263,7 @@
             on_text_validate:
                 root.ids.labelMensajes.text = ""
                 if utilidades.Comprobaciones.dinero(self.text):\
-                root.ids.descipcionPasivos.focus = True
+                root.ids.descripcionPasivos.focus = True
                 if utilidades.Comprobaciones.dinero(self.text) == False:\
                 root.ids.labelMensajes.text = "Formato de NIT Invalido"
         LoginLabel:
@@ -269,7 +271,7 @@
             top:800-636
             text: utilidades.Costantes.unidadNegocio[9]
         InfoInput:
-            id: descipcionPasivos
+            id: descripcionPasivos
             x:415
             top:800-636
             size: 400,40

@@ -123,6 +123,7 @@
             top:800-122
             text:"Emprendimiento"
         InfoInput:
+            id: emprendimiento
             x:365
             top:800-122
             size: 451, 40
@@ -171,12 +172,12 @@
                 on_text:
                     root.ids.labelMensajes.text = ""
                     if self.text == "Si":\
-                    root.ids.listaProductos.text = "";\
+                    root.ids.listaColaboradores.text = "";\
                     Factory.EmergentColaboradores().open()
 
                     if self.text == "No":\
                     self.background_color = 11/255,69/255,0/255,0.7;\
-                    root.ids.listaProductos.text = self.text
+                    root.ids.listaColaboradores.text = self.text
 
             InfoSpinner:
                 id: tiempoSemanal
@@ -252,6 +253,7 @@
             top:800-382
             text:"INVERSIONES"
         InfoInput:
+            id: portafolio
             x:318
             top:800-382
             size: 498, 40
