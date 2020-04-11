@@ -496,16 +496,27 @@ class UnidadNegocio:
 class CBasica:
     @staticmethod
     def organizar(panel, info, diag, idea, unidad):
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+
         proyecto = panel.proyecto.text.split(" ")[-1]
-        beneficiariosProyectos = [proyecto, panel.beneficiario.text]
+
+        c.execute("SELECT idProyecto FROM proyectos WHERE nombre = :nombre", {'nombre': proyecto})
+        result = c.fetchone()
+        proyecto = result[0]
+
+        beneficiariosProyectos = [proyecto, panel.beneficiario.text, 1]
+
+        c.execute("INSERT INTO beneficiariosProyectos(fkProyecto, fkBeneficiario, estado) VALUES (?,?,?)",
+                  (tuple(beneficiariosProyectos)))
+        conn.commit()
+
         beneficiarios = [panel.beneficiario.text, info.nombre.text, info.apellido.text, info.nacimiento.text,
                          info.nacionalidad.text, info.tipoDocumento.text, info.ciudadExpedicion.text, info.pais.text,
                          info.departamentos.text, info.ciudades.text, info.barrios.text, info.entorno.text,
-                         info.direccion.text, info.sexo.text, info.indicador.text, info.fijo.text, info.email.text,
-                         info.genero.text, info.etnia.text, info.discapacidad.text, info.tipo.text]
-
-        conn = sqlite3.connect('assets/dbs/base.db')
-        c = conn.cursor()
+                         info.direccion.text, info.sexo.text, int(info.indicador.text), int(info.fijo.text),
+                         info.email.text, info.genero.text, info.etnia.text, info.discapacidad.text,
+                         int(info.celular.text), info.tipo.text]
 
         c.execute("SELECT idPais FROM paises WHERE nombre = :nombre", {'nombre': info.nacionalidad.text})
         result = c.fetchone()
@@ -519,7 +530,8 @@ class CBasica:
         result = c.fetchone()
         beneficiarios[7] = result[0]
 
-        c.execute("SELECT idDepartamento FROM departamentos WHERE nombre = :nombre", {'nombre': info.departamentos.text})
+        c.execute("SELECT idDepartamento FROM departamentos WHERE nombre = :nombre",
+                  {'nombre': info.departamentos.text})
         result = c.fetchone()
         beneficiarios[8] = result[0]
 
@@ -531,6 +543,9 @@ class CBasica:
         result = c.fetchone()
         beneficiarios[10] = result[0]
 
+        c.execute("INSERT INTO beneficiarios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                  (tuple(beneficiarios)))
+        conn.commit()
 
         print(beneficiariosProyectos)
         print("\n\n\n")
@@ -545,16 +560,24 @@ class CBasica:
                 diagnosticoPerfilProductivo.append([panel.beneficiario.text, 70 - count, repp])
                 count += 1
 
-        print(diagnosticoPerfilProductivo[::-1])
+        diagnosticoPerfilProductivo = diagnosticoPerfilProductivo[::-1]
+        for pregunta in diagnosticoPerfilProductivo:
+            c.execute("INSERT INTO diagnosticoPerfilProductivo VALUES (?,?,?)",
+                      (tuple(pregunta)))
+            conn.commit()
+
+        print(diagnosticoPerfilProductivo)
         print("\n\n\n")
 
         if info.tipo.text == "Microempresario":
             unidadNegocio = [proyecto, panel.beneficiario.text, unidad.unidad.text,
-                             unidad.departamentos.text, unidad.ciudades.text, unidad.cuantosSocios.text,
-                             unidad.direccion.text, unidad.ciiu.text, unidad.indicador.text, unidad.telFijo.text,
+                             unidad.departamentos.text, unidad.ciudades.text, int(unidad.cuantosSocios.text),
+                             unidad.direccion.text, int(unidad.ciiu.text), int(unidad.indicador.text),
+                             int(unidad.telFijo.text),
                              unidad.email.text, unidad.paginaWeb.text, unidad.descripcion.text, unidad.portafolio.text,
                              unidad.creacion.text, unidad.nit.text, unidad.descripcionPasivos.text,
-                             unidad.regCamara.text, unidad.conContrato.text, unidad.sinContrato.text]
+                             unidad.regCamara.text, int(unidad.conContrato.text), int(unidad.sinContrato.text),
+                             int(unidad.celular.text)]
 
             c.execute("SELECT idDepartamento FROM departamentos WHERE nombre = :nombre",
                       {'nombre': unidad.departamentos.text})
@@ -565,19 +588,23 @@ class CBasica:
             result = c.fetchone()
             unidadNegocio[4] = result[0]
 
+            c.execute("INSERT INTO unidadNegocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                      (tuple(unidadNegocio)))
+            conn.commit()
 
             print(unidadNegocio)
             print("\n\n\n")
             CBasica.limpieza(False, info, diag, unidad)
         else:
             ideaNegocio = [proyecto, panel.beneficiario.text, idea.emprendimiento.text, idea.sectorEmpresarial.text,
-                           idea.ciiu.text, idea.departamentos.text, idea.ciudades.text, idea.comoSurge.text,
+                           int(idea.ciiu.text), idea.departamentos.text, idea.ciudades.text, idea.comoSurge.text,
                            idea.tiempoADedicar.text, idea.estudios.text, idea.tieneExperiencia.text,
                            idea.productoServicio.text, idea.listaProductos.text, idea.esAgropecuario.text,
-                           idea.portafolio.text, idea.inversionActivos.text, idea.inversionInicial.text,
-                           idea.porcentajeInversion.text, idea.invCapitalTrabajo.text, idea.ventasPrimerMes.text,
-                           idea.ventasPrimerAno.text, idea.necesitaColaboradores.text, idea.listaColaboradores.text,
-                           idea.tiempoSemanal.text, idea.porqueNo.text, idea.mesesQueLleva.text, idea.imagine.text]
+                           idea.portafolio.text, int(idea.inversionActivos.text), int(idea.inversionInicial.text),
+                           idea.porcentajeInversion.text, int(idea.invCapitalTrabajo.text),
+                           int(idea.ventasPrimerMes.text), int(idea.ventasPrimerAno.text),
+                           idea.necesitaColaboradores.text, idea.listaColaboradores.text,
+                           idea.tiempoSemanal.text, idea.porqueNo.text, int(idea.mesesQueLleva.text), idea.imagine.text]
 
             c.execute("SELECT idDepartamento FROM departamentos WHERE nombre = :nombre",
                       {'nombre': idea.departamentos.text})
@@ -587,6 +614,10 @@ class CBasica:
             c.execute("SELECT idCiudad FROM ciudades WHERE nombre = :nombre", {'nombre': idea.ciudades.text})
             result = c.fetchone()
             ideaNegocio[6] = result[0]
+
+            c.execute("INSERT INTO ideaNegocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                      (tuple(ideaNegocio)))
+            conn.commit()
 
             print(ideaNegocio)
             print("\n\n\n")
@@ -603,8 +634,7 @@ class CBasica:
         for idx, ids in enumerate(info.values()):
             ids.text = limpiezaInfoGeneral[idx]
             if limpiezaInfoGeneral[idx] != "":
-                ids.background_color = 61/255, 119/255, 0/255, 0.7
-
+                ids.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
 
         for grid in diag.children:
             if len(grid.children) > 0:
