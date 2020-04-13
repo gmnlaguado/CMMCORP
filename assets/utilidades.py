@@ -177,6 +177,50 @@ class Panel:
         if result is not None:
             return result[0]
 
+    @staticmethod
+    def copiarCBasica(tipo, proyecto, beneficiario, proyectodestino):
+
+        conn = sqlite3.connect('assets/dbs/base.db')
+        c = conn.cursor()
+
+        c.execute("SELECT idProyecto FROM proyectos WHERE nombre = :nombre", {'nombre': proyecto})
+        result = c.fetchone()
+        proyecto = result[0]
+
+        proyectodestino = proyectodestino.split(" ")[-1]
+
+        c.execute("SELECT idProyecto FROM proyectos WHERE nombre = :nombre", {'nombre': proyectodestino})
+        result = c.fetchone()
+        proyectodestino = result[0]
+
+        if tipo == "Emprendedor":
+
+            c.execute("SELECT * FROM ideaNegocio WHERE fkProyecto = :proyecto and fkBeneficiario = :beneficiario",
+                      {'proyecto': proyecto, 'beneficiario': str(beneficiario)})
+            result = c.fetchone()
+            data = list(result)
+            data[0] = proyectodestino
+
+            c.execute("INSERT INTO ideaNegocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                      (tuple(data)))
+            conn.commit()
+
+        if tipo == "Microempresario":
+
+            c.execute("SELECT * FROM unidadNegocio WHERE fkProyecto = :proyecto and fkBeneficiario = :beneficiario",
+                      {'proyecto': proyecto, 'beneficiario': str(beneficiario)})
+            result = c.fetchone()
+            data = list(result)
+            data[0] = proyectodestino
+
+            c.execute("INSERT INTO unidadNegocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                      (tuple(data)))
+            conn.commit()
+
+        c.execute("INSERT INTO beneficiariosProyectos(fkProyecto, fkBeneficiario, estado) VALUES (?,?,1)",
+                  (proyectodestino, str(beneficiario)))
+        conn.commit()
+
 
 class InfoGeneral:
     @staticmethod

@@ -186,16 +186,22 @@
                 size: 530/2,64
                 text: "Si"
                 on_release:
-                    print(root.ids.proyecto.text)
+                    if utilidades.Panel.tipoBeneficiario(app.screens[1].ids.beneficiario.text) == "Emprendedor" and root.ids.proyecto.text != "Proyecto":\
+                    utilidades.Panel.copiarCBasica("Emprendedor", root.ids.proyecto.text, app.screens[1].ids.beneficiario.text, app.screens[1].ids.proyecto.text);\
                     root.dismiss()
+
+                    if utilidades.Panel.tipoBeneficiario(app.screens[1].ids.beneficiario.text) == "Microempresario" and root.ids.proyecto.text != "Proyecto":\
+                    utilidades.Panel.copiarCBasica("Microempresario", root.ids.proyecto.text, app.screens[1].ids.beneficiario.text, app.screens[1].ids.proyecto.text);\
+                    root.dismiss()
+
             LoginButton:
                 size: 530/2,64
                 text: "No"
                 on_release:
-                    if utilidades.Panel.tipoBeneficiario(app.screens[1].ids.beneficiario.text) == "emprendedor":\
+                    if utilidades.Panel.tipoBeneficiario(app.screens[1].ids.beneficiario.text) == "Emprendedor":\
                     app.screenManager.current= app.ventanas[4]
 
-                    if utilidades.Panel.tipoBeneficiario(app.screens[1].ids.beneficiario.text) == "micro":\
+                    if utilidades.Panel.tipoBeneficiario(app.screens[1].ids.beneficiario.text) == "Microempresario":\
                     app.screenManager.current= app.ventanas[5]
                     root.dismiss()
 
