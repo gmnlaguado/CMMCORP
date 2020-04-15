@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-#: import utilidades assets.utilidades
-
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
 <InfoInput@TextInput>:
     padding: 10
     font_size: 18
@@ -26,11 +21,7 @@
     halign: "center"
     valign: "middle"
     background_color:61/255,119/255,0/255,0.7
-<<<<<<< HEAD
     background_normal: 'images/dropdown.png'
-=======
-    background_normal: 'assets/images/dropdown.png'
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
 
 <InfoSpinnerMini@Spinner>
     font_size: 24
@@ -41,12 +32,7 @@
     halign: "center"
     valign: "middle"
     background_color:61/255,119/255,0/255,0.7
-<<<<<<< HEAD
     background_normal: 'images/dropdown_mini.png'
-=======
-    background_normal: 'assets/images/dropdown_mini.png'
-
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
 
 <InfoButton@Button>
     font_size: 24
@@ -59,7 +45,6 @@
     background_color:61/255,119/255,0/255,0.7
     background_normal: ''
 
-<<<<<<< HEAD
 <InformacionGeneralScreen>:
 
     id_titulo: id_titulo
@@ -93,52 +78,14 @@
     id_labelMensajes: id_labelMensajes
     id_botonIngresar: id_botonIngresar
 
-=======
-
-<Emergent_Panel_4@Popup>:
-    size_hint: None, None
-    top: 800-232
-    x: 357
-    size: 566,336
-    background:""
-    background_color: (0,0,0, 0.8)
-    separator_color: 0,0,0,0
-    title: utilidades.Costantes.infoGeneral[11]
-    title_size: 43
-    font_name: "montserrat"
-    title_align: "center"
-    title_color: 1,1,1,1
-    canvas.before:
-        Color:
-            rgba: (1,1,1,1)
-        Rectangle:
-            size: self.size
-            pos: self.pos
-    FloatLayout:
-        size_hint: None, None
-        size: 566,116
-        LoginButton:
-            focus: True
-            x: 464
-            top: 800 - 467
-            text: "Continuar"
-            on_release:
-                root.dismiss()
-                app.screenManager.current= app.ventanas[3]
-
 <InformacionGeneral>:
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
     LoginLayout:
         size_hint: None, None
         size: 1150, 623
         top: 800-88
         x: 65
         Titulos:
-<<<<<<< HEAD
             id: id_titulo
-=======
-            text: utilidades.Costantes.infoGeneral[0]
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
             x: 192
             top: 800 - 24
         LoginLabel:
@@ -146,85 +93,36 @@
             top:800-122
             text:"Nombre"
         InfoInput:
-<<<<<<< HEAD
             id: id_nombre
-=======
-            id: nombre
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
             focus: True
             x:228
             top:800-122
-            on_text_validate:
-<<<<<<< HEAD
-=======
-                root.ids.labelMensajes.text = ""
-                if utilidades.Comprobaciones.name(self.text):\
-                root.ids.apellido.focus = True
-                if utilidades.Comprobaciones.name(self.text) == False:\
-                root.ids.labelMensajes.text = "Formato de nombre Invalido"
-
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
         LoginLabel:
             x:674
             top:800-122
             text:"Apellido"
         InfoInput:
-<<<<<<< HEAD
             id: id_apellido
             x:814
             top:800-122
-=======
-            id: apellido
-            x:814
-            top:800-122
-            on_text_validate:
-                root.ids.labelMensajes.text = ""
-                if utilidades.Comprobaciones.name(self.text):\
-                root.ids.nacimiento.focus = True
-                if utilidades.Comprobaciones.name(self.text) == False:\
-                root.ids.labelMensajes.text = "Formato de apellido Invalido"
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
         LoginLabel:
             x:88
             top:800-187
             text:"Fecha de nacimiento"
         InfoInput:
-<<<<<<< HEAD
             id: id_nacimiento
-=======
-            id: nacimiento
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
             x:435
             top:800-187
             hint_text: "DD/MM/AAAA"
             size: 248, 40
-<<<<<<< HEAD
-
         LoginLabel:
             id: id_edad
-=======
-            on_text_validate:
-                root.ids.labelMensajes.text = ""
-                if utilidades.Comprobaciones.data(self.text) == False:\
-                root.ids.labelMensajes.text = "Formato de fecha Invalido"
-
-                if utilidades.Comprobaciones.data(self.text):\
-                root.ids.edad.text = f'Edad: {utilidades.InfoGeneral.edad(self.text)[0]}';\
-                root.ids.rangoEdad.text = f'Rango: {utilidades.InfoGeneral.edad(self.text)[1]}';\
-                app.cargarInfoGeneral()
-
         LoginLabel:
             id: edad
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
             x:756
             top:800-187
-            text:"Edad"
         LoginLabel:
-<<<<<<< HEAD
             id: id_rangoEdad
-=======
-            id: rangoEdad
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
             x:986
             top:800-187
             text:"Rango"
@@ -238,7 +136,6 @@
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
-<<<<<<< HEAD
                     id: id_tipoDocumento
                 InfoSpinner:
                     id: id_deptoExpedicion
@@ -264,83 +161,10 @@
                 spacing: 24
                 InfoSpinner:
                     id: id_entorno
-=======
-                    id: tipoDocumento
-                    text: "Tipo de documento"
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        self.background_color = 11/255,69/255,0/255,0.7
-                InfoSpinner:
-                    id: deptoExpedicion
-                    text: utilidades.Costantes.infoGeneral[1]
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        app.ciudadesExp(self.text)
-                        self.background_color = 11/255,69/255,0/255,0.7
-                InfoSpinner:
-                    id: ciudadExpedicion
-                    text: utilidades.Costantes.infoGeneral[2]
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        self.background_color = 11/255,69/255,0/255,0.7
-            BoxLayout:
-                spacing: 24
-                InfoSpinner:
-                    id: sexo
-                    text: "Sexo"
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        self.background_color = 11/255,69/255,0/255,0.7
-                InfoSpinner:
-                    id: tipo
-                    text: "Tipo de Beneficiario"
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        self.background_color = 11/255,69/255,0/255,0.7
-                InfoSpinner:
-                    id: nacionalidad
-                    text: "Nacionalidad"
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        self.background_color = 11/255,69/255,0/255,0.7
-            BoxLayout:
-                spacing: 24
-                InfoSpinner:
-                    id: pais
-                    text: "Pais de residencia"
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        app.departamentos(self.text)
-                        self.background_color = 11/255,69/255,0/255,0.7
-                InfoSpinner:
-                    id: departamentos
-                    text: "Departamento"
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        app.ciudades(self.text)
-                        self.background_color = 11/255,69/255,0/255,0.7
-                InfoSpinner:
-                    id: ciudades
-                    text: "Ciudad"
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        app.barrios(self.text)
-                        self.background_color = 11/255,69/255,0/255,0.7
-
-            BoxLayout:
-                spacing: 24
-                InfoSpinner:
-                    id: entorno
-                    text: "Entorno"
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        self.background_color = 11/255,69/255,0/255,0.7
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
                 BoxLayout:
                     size_hint: None, None
                     size: 359,40
                     LoginLabel:
-<<<<<<< HEAD
                         id: id_direccionLabel
                         size: 158,40
                         text_size:158,40
@@ -349,35 +173,13 @@
                         size: 192,40
                 InfoInput:
                     id: id_direccion
-=======
-                        text: utilidades.Costantes.infoGeneral[3]
-                        size: 158,40
-                        text_size:158,40
-                    InfoSpinnerMini:
-                        id: rotulo
-                        text: utilidades.Costantes.infoGeneral[4]
-                        size: 192,40
-                        on_text:
-                            root.ids.labelMensajes.text = ""
-                            self.background_color = 11/255,69/255,0/255,0.7
-                InfoInput:
-                    id: direccion
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
                     size: 352,40
                     hint_text: "___ # ___ - ___"
 
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
-<<<<<<< HEAD
                     id: id_barrios
-=======
-                    id: barrios
-                    text: "Barrio"
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        self.background_color = 11/255,69/255,0/255,0.7
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
                 BoxLayout:
                     size_hint: None, None
                     size: 359,40
@@ -386,33 +188,14 @@
                         text_size:158,40
                         text: "Contacto"
                     InfoSpinnerMini:
-<<<<<<< HEAD
                         id: id_indicador
                         size: 192,40
                 InfoInput:
                     id: id_fijo
                     size: 352,40
-=======
-                        id: indicador
-                        text: "Indicador"
-                        size: 192,40
-                        on_text:
-                            root.ids.labelMensajes.text = ""
-                            self.background_color = 11/255,69/255,0/255,0.7
-                InfoInput:
-                    id: fijo
-                    size: 352,40
-                    hint_text: utilidades.Costantes.infoGeneral[5]
-                    on_text_validate:
-                        root.ids.labelMensajes.text = ""
-                        if utilidades.Comprobaciones.fijo(self.text) == False:\
-                        root.ids.labelMensajes.text = "Formato de Tel. Fijo Invalido"
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
-
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
-<<<<<<< HEAD
                     id: id_genero
                 InfoInput:
                     id: id_celular
@@ -420,34 +203,9 @@
                 InfoInput:
                     id: id_celular2
                     size: 352,40
-=======
-                    id: genero
-                    text: utilidades.Costantes.infoGeneral[6]
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        self.background_color = 11/255,69/255,0/255,0.7
-                InfoInput:
-                    id: celular
-                    hint_text: utilidades.Costantes.infoGeneral[7]
-                    size: 352,40
-                    on_text_validate:
-                        root.ids.labelMensajes.text = ""
-                        if utilidades.Comprobaciones.celular(self.text) == False:\
-                        root.ids.labelMensajes.text = "Formato de Tel. Celular Invalido"
-                InfoInput:
-                    id: celular2
-                    hint_text: utilidades.Costantes.infoGeneral[7]
-                    size: 352,40
-                    on_text_validate:
-                        root.ids.labelMensajes.text = ""
-                        if utilidades.Comprobaciones.celular(self.text) == False:\
-                        root.ids.labelMensajes.text = "Formato de Tel. Celular Invalido"
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
-
             BoxLayout:
                 spacing: 24
                 InfoSpinner:
-<<<<<<< HEAD
                     id: id_etnia
                 InfoSpinner:
                     id: id_discapacidad
@@ -456,48 +214,13 @@
                     size: 352,40
         Titulos:
             id: id_labelMensajes
-=======
-                    id: etnia
-                    text: "Etnia"
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        self.background_color = 11/255,69/255,0/255,0.7
-                InfoSpinner:
-                    id: discapacidad
-                    text: utilidades.Costantes.infoGeneral[9]
-                    on_text:
-                        root.ids.labelMensajes.text = ""
-                        self.background_color = 11/255,69/255,0/255,0.7
-                InfoInput:
-                    id: email
-                    size: 352,40
-                    hint_text: utilidades.Costantes.infoGeneral[10]
-        Titulos:
-            id: labelMensajes
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
             color: 1,0,0,1
             size: 763, 38
             x: 75
             top: 800 - 737
             bold: False
         LoginButton:
-<<<<<<< HEAD
             id: id_botonIngresar
             text: "Ingresar"
             top: 800-724
             x: 863
-=======
-            text: "Ingresar"
-            top: 800-724
-            x: 863
-            on_release:
-                root.ids.labelMensajes.text = ""
-                if app.informacionGeneral():\
-                Factory.Emergent_Panel_4().open()
-                if app.informacionGeneral() == False:\
-                root.ids.labelMensajes.text = "Formulario Incompleto"
-
-
-
-
->>>>>>> 4bc45ba17b83da591ca351ac0867cdd31a67dd83
