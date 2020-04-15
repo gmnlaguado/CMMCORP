@@ -1,0 +1,166 @@
+#: import Factory kivy.factory.Factory
+#: import utilidades assets.utilidades
+
+<LoginLayout@FloatLayout>:
+    size_hint: None, None
+    size: 566, 672
+    top: 800-64
+    x: 357.05
+    canvas.before:
+        Color:
+            rgba: (140/255,198/255,62/255, 0.2)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+<LoginLabel@Label>:
+    font_size: 30
+    font_name: "montserrat"
+    color: 0,0,0,1
+    size_hint: None, None
+    size: 352, 38
+    text_size:352, 38
+    halign: "left"
+    valign: "middle"
+
+<LoginInput@TextInput>:
+    padding: 15
+    font_size: 24
+    font_name: "montserrat"
+    color: 0,0,0,1
+    size_hint: None, None
+    size: 352, 64
+    halign: "center"
+    valign: "middle"
+    background_color: 1,1,1,1
+    background_normal: ''
+    multiline: False
+    password: False
+
+
+<LoginButton@Button>
+    font_size: 30
+    font_name: "montserrat"
+    color: 1,1,1,0.71
+    size_hint: None, None
+    size: 352,64
+    halign: "center"
+    valign: "middle"
+    background_color:61/255,119/255,0/255,0.7
+    background_normal: ''
+
+
+<CustonSpinner@Spinner>:
+    font_size: 30
+    font_name: "montserrat"
+    color: 1,1,1,0.71
+    size_hint: None, None
+    size: 352,64
+    halign: "center"
+    valign: "middle"
+    background_color:61/255,119/255,0/255,0.7
+    background_normal: ''
+    top: 800-628
+    x:464
+
+<EmergentLogin@Popup>:
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title: f"ODP-Consultor\n{app.screens[0].ids.username.text}\nseleccione un proyecto"
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 1,1,1,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        CustonSpinner:
+            id: proyectos
+            x: 464
+            top: 800 - 467
+            text: "Proyecto"
+            values: utilidades.Login.proyectos(app.screens[0].ids.username.text)
+            on_text:
+                app.screens[1].ids.proyecto.text = f'ODP {app.screens[0].ids.username.text} Proyecto {self.text}'
+                app.screens[0].ids.username.text = ""
+                app.screens[0].ids.password.text = ""
+                app.screenManager.current= app.ventanas[1]
+                root.dismiss()
+
+<Login>:
+    LoginLayout:
+        Button:
+            background_normal: './assets/images/logo_black.png'
+            background_down: './assets/images/logo_black.png'
+            size_hint: None, None
+            size: 369, 220
+            x: 464
+            top: 800 - 84
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 227
+            top: 800-304
+            x: 464
+            LoginLabel:
+                text: "Username"
+            LoginInput:
+                id: username
+                focus: True
+                on_text_validate:
+                    if utilidades.Comprobaciones.username(self.text): root.ids.password.focus = True
+                    root.ids.mensaje.text = " "
+                    if utilidades.Comprobaciones.username(self.text) == False: root.ids.mensaje.text = "Usuario Incorrecto"
+            LoginLabel:
+                text: "Password"
+            LoginInput:
+                id: password
+                padding: 20
+                password: True
+                on_text_validate:
+                    root.ids.mensaje.text = " "
+                    if utilidades.Comprobaciones.password(self.text) == False: root.ids.mensaje.text = "Formato Incorrecto"
+
+                    if utilidades.Login.checkData(\
+                    utilidades.Comprobaciones.username(root.ids.username.text), utilidades.Comprobaciones.password(self.text)):\
+                    root.ids.mensaje.text = app.LoginCheckMsg(root.ids.username.text,self.text)
+
+                    if root.ids.mensaje.text == "": Factory.EmergentLogin().open()
+
+        LoginLabel:
+            id: mensaje
+            text: " "
+            color: 1,0,0,1
+            halign: "center"
+            x: 464
+            top: 800 - 564
+
+        LoginButton:
+            text: "Ingresar"
+            top: 800-628
+            x:464
+            on_release:
+                root.ids.mensaje.text = " "
+                if utilidades.Comprobaciones.username(root.ids.username.text) == False: root.ids.mensaje.text = "Usuario Incorrecto"
+                if utilidades.Comprobaciones.password(root.ids.password.text) == False: root.ids.mensaje.text = "Formato Incorrecto"
+
+                if utilidades.Login.checkData(\
+                utilidades.Comprobaciones.username(root.ids.username.text), utilidades.Comprobaciones.password(root.ids.password.text)):\
+                root.ids.mensaje.text = app.LoginCheckMsg(root.ids.username.text,root.ids.password.text)
+
+                if root.ids.mensaje.text == "": Factory.EmergentLogin().open()
+
+
+
+

@@ -1,0 +1,56 @@
+<DiagnosticoPerfil>:
+    LoginLayout:
+        size_hint: None, None
+        size: 1150, 623
+        top: 800-88
+        x: 65
+        Titulos:
+            text: "Diagnostico de Perfil Productivo"
+            x: 192
+            top: 800 - 24
+        Titulos:
+            text: "Preguntas"
+            x: 233
+            top: 800 - 118
+            size: 560,48
+            bold: False
+        BoxLayout:
+            size_hint: None, None
+            size: 1067,467
+            x: 107
+            top:800 - 201
+            ScrollView:
+                size: self.size
+                GridLayout:
+                    cols: 2
+                    id: container_grid
+                    size_hint_y:None
+                    spacing:32
+        Titulos:
+            text: "SI / MN / NO"
+            x: 785
+            top: 800 - 118
+            size: 560,48
+            bold: False
+
+        Titulos:
+            id: labelMensajes
+            text: ""
+            color: 1,0,0,1
+            size: 763, 38
+            x: 75
+            top: 800 - 737
+            bold: False
+        LoginButton:
+            text: "Ingresar"
+            top: 800-724
+            x: 863
+            on_release:
+                if app.diagnosticoPerfilProductivo() == "no":\
+                root.ids.labelMensajes.text = "Faltan preguntas por responder"
+
+                if app.diagnosticoPerfilProductivo() == "Emprendedor":\
+                app.screenManager.current= app.ventanas[4]
+
+                if app.diagnosticoPerfilProductivo() == "Microempresario":\
+                app.screenManager.current= app.ventanas[5]
