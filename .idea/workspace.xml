@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="660c3643-4b99-4d0f-a262-421159d9faab" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/utilidades.py" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/utilidades.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/InformacionGeneral.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/InformacionGeneral.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/Login.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/Login.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/Panel.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/Panel.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/assets/private.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/assets/private.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/state.db" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/state.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utilidades.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilidades.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windows/InformacionGeneral.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/InformacionGeneral.kv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,41 +89,41 @@
       <screen x="0" y="0" width="1366" height="737" />
     </state>
     <state x="441" y="109" key="#xdebugger.evaluate/0.0.1366.737@0.0.1366.737" timestamp="1586919038157" />
-    <state width="1341" height="173" key="GridCell.Tab.0.bottom" timestamp="1586933926389">
+    <state width="1341" height="173" key="GridCell.Tab.0.bottom" timestamp="1586966487091">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.bottom/0.0.1366.737@0.0.1366.737" timestamp="1586933926389" />
-    <state width="1341" height="173" key="GridCell.Tab.0.center" timestamp="1586933926388">
+    <state width="1341" height="173" key="GridCell.Tab.0.bottom/0.0.1366.737@0.0.1366.737" timestamp="1586966487091" />
+    <state width="1341" height="173" key="GridCell.Tab.0.center" timestamp="1586966487090">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.center/0.0.1366.737@0.0.1366.737" timestamp="1586933926388" />
-    <state width="1341" height="173" key="GridCell.Tab.0.left" timestamp="1586933926387">
+    <state width="1341" height="173" key="GridCell.Tab.0.center/0.0.1366.737@0.0.1366.737" timestamp="1586966487090" />
+    <state width="1341" height="173" key="GridCell.Tab.0.left" timestamp="1586966487090">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.left/0.0.1366.737@0.0.1366.737" timestamp="1586933926387" />
-    <state width="1341" height="173" key="GridCell.Tab.0.right" timestamp="1586933926389">
+    <state width="1341" height="173" key="GridCell.Tab.0.left/0.0.1366.737@0.0.1366.737" timestamp="1586966487090" />
+    <state width="1341" height="173" key="GridCell.Tab.0.right" timestamp="1586966487091">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.right/0.0.1366.737@0.0.1366.737" timestamp="1586933926389" />
-    <state width="1341" height="216" key="GridCell.Tab.1.bottom" timestamp="1586933756373">
+    <state width="1341" height="173" key="GridCell.Tab.0.right/0.0.1366.737@0.0.1366.737" timestamp="1586966487091" />
+    <state width="1341" height="216" key="GridCell.Tab.1.bottom" timestamp="1586934162049">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="216" key="GridCell.Tab.1.bottom/0.0.1366.737@0.0.1366.737" timestamp="1586933756373" />
-    <state width="1341" height="216" key="GridCell.Tab.1.center" timestamp="1586933756372">
+    <state width="1341" height="216" key="GridCell.Tab.1.bottom/0.0.1366.737@0.0.1366.737" timestamp="1586934162049" />
+    <state width="1341" height="216" key="GridCell.Tab.1.center" timestamp="1586934162046">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="216" key="GridCell.Tab.1.center/0.0.1366.737@0.0.1366.737" timestamp="1586933756372" />
-    <state width="1341" height="216" key="GridCell.Tab.1.left" timestamp="1586933756372">
+    <state width="1341" height="216" key="GridCell.Tab.1.center/0.0.1366.737@0.0.1366.737" timestamp="1586934162046" />
+    <state width="1341" height="216" key="GridCell.Tab.1.left" timestamp="1586934162046">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="216" key="GridCell.Tab.1.left/0.0.1366.737@0.0.1366.737" timestamp="1586933756372" />
-    <state width="1341" height="216" key="GridCell.Tab.1.right" timestamp="1586933756373">
+    <state width="1341" height="216" key="GridCell.Tab.1.left/0.0.1366.737@0.0.1366.737" timestamp="1586934162046" />
+    <state width="1341" height="216" key="GridCell.Tab.1.right" timestamp="1586934162048">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="216" key="GridCell.Tab.1.right/0.0.1366.737@0.0.1366.737" timestamp="1586933756373" />
-    <state x="164" y="4" key="SettingsEditor" timestamp="1586933731950">
+    <state width="1341" height="216" key="GridCell.Tab.1.right/0.0.1366.737@0.0.1366.737" timestamp="1586934162048" />
+    <state x="164" y="4" key="SettingsEditor" timestamp="1586957501763">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state x="164" y="4" key="SettingsEditor/0.0.1366.737@0.0.1366.737" timestamp="1586933731950" />
+    <state x="164" y="4" key="SettingsEditor/0.0.1366.737@0.0.1366.737" timestamp="1586957501763" />
   </component>
 </project>

@@ -75,6 +75,7 @@ class PanelScreen(Screen):
 
 
 class InformacionGeneralScreen(Screen):
+    listaIdsInputs = []
     id_titulo = ObjectProperty()
     id_nombre = ObjectProperty()
     id_apellido = ObjectProperty()
@@ -107,6 +108,10 @@ class InformacionGeneralScreen(Screen):
     id_botonIngresar = ObjectProperty()
 
     def on_pre_enter(self):
+        self.id_fijo.input_type = 'number'
+        self.id_celular.input_type = 'number'
+        self.id_celular2.input_type = 'number'
+
         self.id_titulo.text = "Caracterización Básica"
         self.id_nombre.text = ""
         self.id_apellido.text = ""
@@ -136,6 +141,79 @@ class InformacionGeneralScreen(Screen):
         self.id_discapacidad.text = "Cond. Discapacidad"
         self.id_email.text = ""
         self.id_labelMensajes.text = ""
+
+        # Cargando los valores de las listas deplegables
+        datos = utilidades.InfoGeneral.cargarDatos()
+        self.id_tipoDocumento.values = datos[0]
+        self.id_sexo.values = datos[1]
+        self.id_tipo.values = datos[2]
+        self.id_entorno.values = datos[3]
+        self.id_rotulo.values = datos[4]
+        self.id_indicador.values = datos[5]
+        self.id_genero.values = datos[6]
+        self.id_etnia.values = datos[7]
+        self.id_discapacidad.values = datos[8]
+        self.id_nacionalidad.values = datos[9]
+        self.id_pais.values = datos[9]
+        self.id_deptoExpedicion.values = datos[10]
+
+        self.id_pais.bind(text=self.on_selection_pais)
+        self.id_deptoExpedicion.bind(text=self.on_selection_deptoExpedicion)
+        self.id_departamentos.bind(text=self.on_selection_departamentos)
+        self.id_ciudades.bind(text=self.on_selection_ciudades)
+
+        self.id_tipoDocumento.bind(text=self.cambiar_color)
+        self.id_sexo.bind(text=self.cambiar_color)
+        self.id_tipo.bind(text=self.cambiar_color)
+        self.id_entorno.bind(text=self.cambiar_color)
+        self.id_rotulo.bind(text=self.cambiar_color)
+        self.id_indicador.bind(text=self.cambiar_color)
+        self.id_genero.bind(text=self.cambiar_color)
+        self.id_etnia.bind(text=self.cambiar_color)
+        self.id_discapacidad.bind(text=self.cambiar_color)
+        self.id_ciudadExpedicion.bind(text=self.cambiar_color)
+        self.id_barrios.bind(text=self.cambiar_color)
+        self.id_nacionalidad.bind(text=self.cambiar_color)
+
+        self.id_botonIngresar.bind(on_press=self.verificarTodo)
+
+    def verificarTodo(self, *args):
+        self.id_labelMensajes.text = ""
+        if self.id_nombre.text == "" or self.id_apellido.text == "" or self.id_nacimiento.text == "" or\
+        self.id_tipoDocumento.text == "Tipo de documento" or self.id_deptoExpedicion.text == "Depto. Expedición" or\
+        self.id_ciudadExpedicion.text == "Ciudad Expedición" or self.id_sexo.text == "Sexo" or\
+        self.id_tipo.text == "Tipo" or self.id_nacionalidad.text == "Nacionalidad" or self.id_pais.text == "Pais" or\
+        self.id_departamentos.text == "Departamento" or self.id_ciudades.text == "Ciudad" or\
+        self.id_entorno.text == "Entorno" or\
+        self.id_rotulo.text == "Rótulo" or self.id_direccion.text == "" or self.id_barrios.text == "Barrio" or\
+        self.id_indicador.text == "Indicador" or self.id_fijo.text == "" or self.id_genero.text == "Género" or\
+        self.id_celular.text == "" or self.id_celular2.text == "" or self.id_etnia.text == "Etnia" or\
+        self.id_discapacidad.text == "Cond. Discapacidad" or self.id_email.text == "":
+            self.id_labelMensajes.text = "Formulario incompleto"
+
+    def cambiar_color(self, *args):
+        args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def on_selection_pais(self, *args):
+        self.id_departamentos.values = utilidades.InfoGeneral.cargarDepartamentos(args[1])
+        self.id_pais.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def on_selection_deptoExpedicion(self, *args):
+        self.id_ciudadExpedicion.values = utilidades.InfoGeneral.cargarCiudades(args[1])
+        self.id_deptoExpedicion.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def on_selection_departamentos(self, *args):
+        self.id_ciudades.values = utilidades.InfoGeneral.cargarCiudades(args[1])
+        self.id_departamentos.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def on_selection_ciudades(self, *args):
+        self.id_barrios.values = utilidades.InfoGeneral.cargarBarrios(args[1])
+        self.id_ciudades.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def on_pre_leave(self, *args):
+        pass
+
+
 
 
 # ----------------------------------------------------------------------------------------------------------------------
