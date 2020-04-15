@@ -217,3 +217,4 @@ if __name__ == '__main__':
     Window.top = -25
     Window.clearcolor = [1, 1, 1, 1]
     corporacion = MyApp()
+    corporacion.run()
