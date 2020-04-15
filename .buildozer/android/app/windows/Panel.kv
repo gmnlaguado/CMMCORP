@@ -1,0 +1,103 @@
+<Titulos@Label>:
+    font_size: 36
+    font_name: "montserrat"
+    bold: True
+    color: 0,0,0,1
+    size_hint: None, None
+    size: 888,48
+    halign: "center"
+    valign: "middle"
+
+<EmergentNuevoBeneficiario@Popup>:
+    id_beneficiario: id_beneficiario
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:""
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 0,0,0,1
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        LoginInput:
+            id: id_beneficiario
+            focus: True
+            x: 464
+            top: 800 - 467
+
+<PanelScreen>:
+
+    id_proyecto: id_proyecto
+    id_beneficiario: id_beneficiario
+    id_nuevobeneficiario: id_nuevobeneficiario
+    id_monitoreo: id_monitoreo
+    id_planformacion: id_planformacion
+    id_consultar: id_consultar
+    id_inactivar: id_inactivar
+    id_campliada: id_campliada
+    id_planimplementacion: id_planimplementacion
+    id_planseguimiento: id_planseguimiento
+    id_cargardatos: id_cargardatos
+    id_actualizar: id_actualizar
+
+    LoginLayout:
+        x: 190
+        size: 900, 623
+        Titulos:
+            text: "Panel General"
+            x: 192
+            top: 800 - 24
+        Titulos:
+            id: id_proyecto
+            x: 192
+            top: 800 - 120
+            bold: False
+        LoginLabel:
+            id: id_beneficiario
+            size: 169,22
+            text_size:169,22
+            font_size: 18
+            x: 214
+            top: 800-115
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 488
+            top: 800-200
+            x: 240
+            spacing: 42
+            LoginButton:
+                id: id_nuevobeneficiario
+                on_release: root.nuevobeneficiario()
+            LoginButton:
+                id: id_monitoreo
+            LoginButton:
+                id: id_planformacion
+            LoginButton:
+                id: id_consultar
+            LoginButton:
+                id: id_inactivar
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 488
+            top: 800-200
+            x: 680
+            spacing: 42
+            LoginButton:
+                id: id_campliada
+            LoginButton:
+                id: id_planimplementacion
+            LoginButton:
+                id: id_planseguimiento
+            LoginButton:
+                id: id_cargardatos
+            LoginButton:
+                id: id_actualizar
+
+

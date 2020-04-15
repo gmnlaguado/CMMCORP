@@ -1,0 +1,228 @@
+<InfoInput@TextInput>:
+    padding: 10
+    font_size: 18
+    font_name: "montserrat"
+    color: 0,0,0,1
+    size_hint: None, None
+    size: 376, 40
+    halign: "center"
+    valign: "middle"
+    background_color: 1,1,1,1
+    background_normal: ''
+    multiline: False
+    password: False
+
+<InfoSpinner@Spinner>
+    font_size: 24
+    font_name: "montserrat"
+    color: 1,1,1,1
+    size_hint: None, None
+    size: 352,40
+    halign: "center"
+    valign: "middle"
+    background_color:61/255,119/255,0/255,0.7
+    background_normal: 'images/dropdown.png'
+
+<InfoSpinnerMini@Spinner>
+    font_size: 24
+    font_name: "montserrat"
+    color: 1,1,1,1
+    size_hint: None, None
+    size: 352,40
+    halign: "center"
+    valign: "middle"
+    background_color:61/255,119/255,0/255,0.7
+    background_normal: 'images/dropdown_mini.png'
+
+<InfoButton@Button>
+    font_size: 24
+    font_name: "montserrat"
+    color: 1,1,1,1
+    size_hint: None, None
+    size: 352,40
+    halign: "center"
+    valign: "middle"
+    background_color:61/255,119/255,0/255,0.7
+    background_normal: ''
+
+<InformacionGeneralScreen>:
+
+    id_titulo: id_titulo
+    id_nombre: id_nombre
+    id_apellido: id_apellido
+    id_nacimiento: id_nacimiento
+    id_edad: id_edad
+    id_rangoEdad: id_rangoEdad
+    id_tipoDocumento: id_tipoDocumento
+    id_deptoExpedicion: id_deptoExpedicion
+    id_ciudadExpedicion: id_ciudadExpedicion
+    id_sexo: id_sexo
+    id_tipo: id_tipo
+    id_nacionalidad: id_nacionalidad
+    id_pais: id_pais
+    id_departamentos: id_departamentos
+    id_ciudades: id_ciudades
+    id_entorno: id_entorno
+    id_direccionLabel: id_direccionLabel
+    id_rotulo: id_rotulo
+    id_direccion: id_direccion
+    id_barrios: id_barrios
+    id_indicador: id_indicador
+    id_fijo: id_fijo
+    id_genero: id_genero
+    id_celular: id_celular
+    id_celular2: id_celular2
+    id_etnia: id_etnia
+    id_discapacidad: id_discapacidad
+    id_email: id_email
+    id_labelMensajes: id_labelMensajes
+    id_botonIngresar: id_botonIngresar
+
+    LoginLayout:
+        size_hint: None, None
+        size: 1150, 623
+        top: 800-88
+        x: 65
+        Titulos:
+            id: id_titulo
+            x: 192
+            top: 800 - 24
+        LoginLabel:
+            x:88
+            top:800-122
+            text:"Nombre"
+        InfoInput:
+            id: id_nombre
+            focus: True
+            x:228
+            top:800-122
+            on_text_validate:
+        LoginLabel:
+            x:674
+            top:800-122
+            text:"Apellido"
+        InfoInput:
+            id: id_apellido
+            x:814
+            top:800-122
+        LoginLabel:
+            x:88
+            top:800-187
+            text:"Fecha de nacimiento"
+        InfoInput:
+            id: id_nacimiento
+            x:435
+            top:800-187
+            hint_text: "DD/MM/AAAA"
+            size: 248, 40
+
+        LoginLabel:
+            id: id_edad
+            x:756
+            top:800-187
+            text:"Edad"
+        LoginLabel:
+            id: id_rangoEdad
+            x:986
+            top:800-187
+            text:"Rango"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 1127, 429
+            top: 800-252
+            x: 88
+            spacing: 25
+            BoxLayout:
+                spacing: 24
+                InfoSpinner:
+                    id: id_tipoDocumento
+                InfoSpinner:
+                    id: id_deptoExpedicion
+                InfoSpinner:
+                    id: id_ciudadExpedicion
+            BoxLayout:
+                spacing: 24
+                InfoSpinner:
+                    id: id_sexo
+                InfoSpinner:
+                    id: id_tipo
+                InfoSpinner:
+                    id: id_nacionalidad
+            BoxLayout:
+                spacing: 24
+                InfoSpinner:
+                    id: id_pais
+                InfoSpinner:
+                    id: id_departamentos
+                InfoSpinner:
+                    id: id_ciudades
+            BoxLayout:
+                spacing: 24
+                InfoSpinner:
+                    id: id_entorno
+                BoxLayout:
+                    size_hint: None, None
+                    size: 359,40
+                    LoginLabel:
+                        id: id_direccionLabel
+                        size: 158,40
+                        text_size:158,40
+                    InfoSpinnerMini:
+                        id: id_rotulo
+                        size: 192,40
+                InfoInput:
+                    id: id_direccion
+                    size: 352,40
+                    hint_text: "___ # ___ - ___"
+
+            BoxLayout:
+                spacing: 24
+                InfoSpinner:
+                    id: id_barrios
+                BoxLayout:
+                    size_hint: None, None
+                    size: 359,40
+                    LoginLabel:
+                        size: 158,40
+                        text_size:158,40
+                        text: "Contacto"
+                    InfoSpinnerMini:
+                        id: id_indicador
+                        size: 192,40
+                InfoInput:
+                    id: id_fijo
+                    size: 352,40
+
+            BoxLayout:
+                spacing: 24
+                InfoSpinner:
+                    id: id_genero
+                InfoInput:
+                    id: id_celular
+                    size: 352,40
+                InfoInput:
+                    id: id_celular2
+                    size: 352,40
+
+            BoxLayout:
+                spacing: 24
+                InfoSpinner:
+                    id: id_etnia
+                InfoSpinner:
+                    id: id_discapacidad
+                InfoInput:
+                    id: id_email
+                    size: 352,40
+        Titulos:
+            id: id_labelMensajes
+            color: 1,0,0,1
+            size: 763, 38
+            x: 75
+            top: 800 - 737
+            bold: False
+        LoginButton:
+            id: id_botonIngresar
+            text: "Ingresar"
+            top: 800-724
+            x: 863
