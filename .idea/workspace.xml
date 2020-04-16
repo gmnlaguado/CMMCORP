@@ -2,16 +2,50 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="660c3643-4b99-4d0f-a262-421159d9faab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/datos.db" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/datos.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/android/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/android/app/utilidades.py" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/utilidades.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/InformacionGeneral.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/InformacionGeneral.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/Login.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/Login.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/Panel.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/Panel.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libSDL2.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libSDL2.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libSDL2_image.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libSDL2_image.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libSDL2_mixer.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libSDL2_mixer.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libSDL2_ttf.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libSDL2_ttf.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libhidapi.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libhidapi.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libmain.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/bootstrap_builds/sdl2-python3/obj/local/armeabi-v7a/libmain.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/android/_android.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/android/_android_billing.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/android/_android_sound.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/_android.cpython-38-x86_64-linux-gnu.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/_android_billing.cpython-38-x86_64-linux-gnu.so" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/_ctypes_library_finder.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/activity.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/billing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/broadcast.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/config.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/loadingscreen.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/mixer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/permissions.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/runnable.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/lib.linux-x86_64-3.8/android/storage.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/temp.linux-x86_64-3.8/android/_android.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/temp.linux-x86_64-3.8/android/_android_billing.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/temp.linux-x86_64-3.8/android/_android_billing_jni.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/other_builds/android-python3-sdl2/armeabi-v7a__ndk_target_21/android/build/temp.linux-x86_64-3.8/android/_android_jni.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/build/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/_python_bundle/_python_bundle/stdlib.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/_python_bundle/_python_bundle/stdlib.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libSDL2.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libSDL2.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libSDL2_image.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libSDL2_image.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libSDL2_mixer.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libSDL2_mixer.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libSDL2_ttf.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libSDL2_ttf.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libhidapi.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libhidapi.so" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libmain.so" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/obj/local/armeabi-v7a/libmain.so" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/assets/private.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/assets/private.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/state.db" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/state.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/myapp__armeabi-v7a-0.1-armeabi-v7a-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/bin/myapp__armeabi-v7a-0.1-armeabi-v7a-debug.apk" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datos.db" beforeDir="false" afterPath="$PROJECT_DIR$/datos.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utilidades.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilidades.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windows/InformacionGeneral.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/InformacionGeneral.kv" afterDir="false" />
@@ -32,7 +66,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1aYRj2cPgaZGkOimSJ0yqB40V50" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -43,7 +79,7 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="appCorp" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -65,9 +101,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="utilidades" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="appCorp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utilidades.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.utilidades" />
       </list>
     </recent_temporary>
   </component>
@@ -89,22 +147,22 @@
       <screen x="0" y="0" width="1366" height="737" />
     </state>
     <state x="441" y="109" key="#xdebugger.evaluate/0.0.1366.737@0.0.1366.737" timestamp="1586919038157" />
-    <state width="1341" height="173" key="GridCell.Tab.0.bottom" timestamp="1586966487091">
+    <state width="1331" height="173" key="GridCell.Tab.0.bottom" timestamp="1587001945310">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.bottom/0.0.1366.737@0.0.1366.737" timestamp="1586966487091" />
-    <state width="1341" height="173" key="GridCell.Tab.0.center" timestamp="1586966487090">
+    <state width="1331" height="173" key="GridCell.Tab.0.bottom/0.0.1366.737@0.0.1366.737" timestamp="1587001945310" />
+    <state width="1331" height="173" key="GridCell.Tab.0.center" timestamp="1587001945309">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.center/0.0.1366.737@0.0.1366.737" timestamp="1586966487090" />
-    <state width="1341" height="173" key="GridCell.Tab.0.left" timestamp="1586966487090">
+    <state width="1331" height="173" key="GridCell.Tab.0.center/0.0.1366.737@0.0.1366.737" timestamp="1587001945309" />
+    <state width="1331" height="173" key="GridCell.Tab.0.left" timestamp="1587001945309">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.left/0.0.1366.737@0.0.1366.737" timestamp="1586966487090" />
-    <state width="1341" height="173" key="GridCell.Tab.0.right" timestamp="1586966487091">
+    <state width="1331" height="173" key="GridCell.Tab.0.left/0.0.1366.737@0.0.1366.737" timestamp="1587001945309" />
+    <state width="1331" height="173" key="GridCell.Tab.0.right" timestamp="1587001945310">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.right/0.0.1366.737@0.0.1366.737" timestamp="1586966487091" />
+    <state width="1331" height="173" key="GridCell.Tab.0.right/0.0.1366.737@0.0.1366.737" timestamp="1587001945310" />
     <state width="1341" height="216" key="GridCell.Tab.1.bottom" timestamp="1586934162049">
       <screen x="0" y="0" width="1366" height="737" />
     </state>

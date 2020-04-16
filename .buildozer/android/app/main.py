@@ -7,6 +7,9 @@ from kivy.core.text import LabelBase
 from kivy.properties import ObjectProperty
 from kivy.uix.popup import Popup
 import utilidades
+from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.checkbox import CheckBox
+from kivy.uix.label import Label
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -75,6 +78,10 @@ class PanelScreen(Screen):
 
 
 class InformacionGeneralScreen(Screen):
+    # Costantes
+    informacion = None
+    beneficiario = None
+
     listaIdsInputs = []
     id_titulo = ObjectProperty()
     id_nombre = ObjectProperty()
@@ -179,19 +186,31 @@ class InformacionGeneralScreen(Screen):
 
     def verificarTodo(self, *args):
         self.id_labelMensajes.text = ""
-        if self.id_nombre.text == "" or self.id_apellido.text == "" or self.id_nacimiento.text == "" or\
-        self.id_tipoDocumento.text == "Tipo de documento" or self.id_deptoExpedicion.text == "Depto. Expedición" or\
-        self.id_ciudadExpedicion.text == "Ciudad Expedición" or self.id_sexo.text == "Sexo" or\
-        self.id_tipo.text == "Tipo" or self.id_nacionalidad.text == "Nacionalidad" or self.id_pais.text == "Pais" or\
-        self.id_departamentos.text == "Departamento" or self.id_ciudades.text == "Ciudad" or\
-        self.id_entorno.text == "Entorno" or\
-        self.id_rotulo.text == "Rótulo" or self.id_direccion.text == "" or self.id_barrios.text == "Barrio" or\
-        self.id_indicador.text == "Indicador" or self.id_fijo.text == "" or self.id_genero.text == "Género" or\
-        self.id_celular.text == "" or self.id_celular2.text == "" or self.id_etnia.text == "Etnia" or\
-        self.id_discapacidad.text == "Cond. Discapacidad" or self.id_email.text == "":
+        if self.id_nombre.text == "" or self.id_apellido.text == "" or self.id_nacimiento.text == "" or \
+                self.id_tipoDocumento.text == "Tipo de documento" or \
+                self.id_deptoExpedicion.text == "Depto. Expedición" or \
+                self.id_ciudadExpedicion.text == "Ciudad Expedición" or self.id_sexo.text == "Sexo" or \
+                self.id_tipo.text == "Tipo" or self.id_nacionalidad.text == "Nacionalidad" or \
+                self.id_pais.text == "Pais" or self.id_departamentos.text == "Departamento" or \
+                self.id_ciudades.text == "Ciudad" or self.id_entorno.text == "Entorno" or \
+                self.id_rotulo.text == "Rótulo" or self.id_direccion.text == "" or self.id_barrios.text == "Barrio" or \
+                self.id_indicador.text == "Indicador" or self.id_fijo.text == "" or self.id_genero.text == "Género" or \
+                self.id_celular.text == "" or self.id_celular2.text == "" or self.id_etnia.text == "Etnia" or \
+                self.id_discapacidad.text == "Cond. Discapacidad" or self.id_email.text == "":
             self.id_labelMensajes.text = "Formulario incompleto"
+        else:
+            if utilidades.Comprobaciones.name(self.id_nombre.text) and \
+                    utilidades.Comprobaciones.name(self.id_apellido.text) and \
+                    utilidades.Comprobaciones.data(self.id_nacimiento.text) and \
+                    utilidades.Comprobaciones.fijo(self.id_fijo.text) and \
+                    utilidades.Comprobaciones.celular(self.id_celular.text) and \
+                    utilidades.Comprobaciones.celular(self.id_celular2.text):
+                ConfirmacionInfoGeneral().open()
+            else:
+                self.id_labelMensajes.text = "Error en algunos campos"
 
-    def cambiar_color(self, *args):
+    @staticmethod
+    def cambiar_color(*args):
         args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
 
     def on_selection_pais(self, *args):
@@ -211,8 +230,64 @@ class InformacionGeneralScreen(Screen):
         self.id_ciudades.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
 
     def on_pre_leave(self, *args):
-        pass
+        proyecto = utilidades.InfoGeneral.identidadProyecto(self.informacion[0])
+        beneficiariosproyectos = [proyecto, self.beneficiario, 1]
 
+        utilidades.InfoGeneral.ingresarInformacion(
+            beneficiariosproyectos,
+            self.beneficiario,
+            self.id_nombre.text,
+            self.id_apellido.text,
+            self.id_nacimiento.text,
+            self.id_nacionalidad.text,
+            self.id_tipoDocumento.text,
+            self.id_ciudadExpedicion.text,
+            self.id_pais.text,
+            self.id_departamentos.text,
+            self.id_ciudades.text,
+            self.id_barrios.text.upper(),
+            self.id_entorno.text,
+            self.id_direccion.text,
+            self.id_sexo.text,
+            int(self.id_indicador.text),
+            int(self.id_fijo.text),
+            self.id_email.text,
+            self.id_genero.text,
+            self.id_etnia.text,
+            self.id_discapacidad.text,
+            int(self.id_celular.text),
+            int(self.id_celular2.text),
+            self.id_tipo.text
+        )
+
+
+class DiagnosticoPerfilProductivoScreen(Screen):
+    id_container_grid = ObjectProperty()
+    id_labelMensajes = ObjectProperty()
+    id_botonIngresar = ObjectProperty()
+
+    def on_pre_enter(self):
+        self.id_botonIngresar.bind(on_press=self.verificarTodo)
+        preguntas = utilidades.DiagnosticoPerfil.cargarPreguntas()
+        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+        for idx, pregunta in enumerate(preguntas):
+            lab = Label(text=f'{idx + 1}]  ' + pregunta, halign="justify", valign="middle", size_hint=(None, None),
+                        size=(815, 51), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                        text_size=(815, 51), id=f'pregunta_{idx}')
+            box_container = BoxLayout()
+            for i in ['Si', 'MasMenos', 'No']:
+                check = CheckBox(group=f"pregunta_{idx + 1}", color=(0, 1, 0, 1), id=i)
+                box_container.add_widget(check)
+            self.id_container_grid.add_widget(lab)
+            self.id_container_grid.add_widget(box_container)
+
+    def verificarTodo(self, *args):
+        self.id_labelMensajes.text = ""
+        for grid in self.id_container_grid.children:
+            if len(grid.children) > 0 and not True in [box.active for box in grid.children]:
+                self.id_labelMensajes.text = "Faltan preguntas por responder"
+        if self.id_labelMensajes.text == "":
+            print('muy bien')
 
 
 
@@ -237,6 +312,7 @@ class LoginProyectoPopup(Popup):
     def on_selection(self, *args):
         corporacion.sm.current = "Panel"
         PanelScreen.informacion = args[1], self.usuario
+        InformacionGeneralScreen.informacion = args[1], self.usuario
         self.dismiss()
 
 
@@ -256,7 +332,22 @@ class EmergentNuevoBeneficiario(Popup):
 
     def on_selection(self, *args):
         if utilidades.Panel.buscarBeneficiario(self.id_beneficiario.text, self.string) == "No existe":
+            InformacionGeneralScreen.beneficiario = self.id_beneficiario.text
             corporacion.sm.current = "InformacionGeneral"
+        self.dismiss()
+
+
+# Generado en la ventana INFORMACIÓN GENERAL
+class ConfirmacionInfoGeneral(Popup):
+    # IDS
+    id_botonaceptar = ObjectProperty()
+
+    def on_open(self):
+        self.title = "Confirme que la información es correcta antes de continuar"
+        self.id_botonaceptar.bind(on_release=self.on_selection)
+
+    def on_selection(self, *args):
+        corporacion.sm.current = "DiagnosticoPerfilProductivo"
         self.dismiss()
 
 
@@ -279,11 +370,13 @@ class MyApp(App):
         Builder.load_file("windows/Login.kv")
         Builder.load_file("windows/Panel.kv")
         Builder.load_file("windows/InformacionGeneral.kv")
+        Builder.load_file("windows/DiagnosticoPerfilProductivo.kv")
 
         # Agregando ventanas al gestor de ventanas
         self.sm.add_widget(LoginScreen(name="Login"))
         self.sm.add_widget(PanelScreen(name="Panel"))
         self.sm.add_widget(InformacionGeneralScreen(name="InformacionGeneral"))
+        self.sm.add_widget(DiagnosticoPerfilProductivoScreen(name="DiagnosticoPerfilProductivo"))
 
         self.sm.current = "Login"
         return self.sm

@@ -1,6 +1,7 @@
 # coding=utf-8
 import re
 import sqlite3
+from datetime import date
 
 
 class Costantes:
@@ -32,6 +33,34 @@ class Comprobaciones:
             return True
         return False
 
+    @staticmethod
+    def name(name):
+        if re.search(r'[^(a-z,A-Z,\s)]', name) is None and len(name) != 0:
+            return True
+        return False
+
+    @staticmethod
+    def data(data):
+        if re.search(r'^\d{2}[/]\d{2}[/]\d{4}$', data) is not None:
+            data = data.split('/')
+            if 0 <= int(data[0]) <= 31:
+                if 0 <= int(data[1]) <= 12:
+                    if 1900 <= int(data[2]) <= int(str(date.today()).split('-')[0]):
+                        return True
+        return False
+
+    @staticmethod
+    def fijo(fijo):
+        if re.search(r'^\d{7}$', fijo) is not None:
+            return True
+        return False
+
+    @staticmethod
+    def celular(celular):
+        if re.search(r'^\d{10}$', celular) is not None:
+            return True
+        return False
+
 
 class MyDB(object):
     def __init__(self):
@@ -40,6 +69,10 @@ class MyDB(object):
 
     def query(self, query, params):
         return self._db_cur.execute(query, params)
+
+    def commit(self, query, params):
+        self._db_cur.execute(query, params)
+        return self._db_connection.commit()
 
     def __del__(self):
         self._db_connection.close()
@@ -137,3 +170,52 @@ class InfoGeneral:
         resultado = [li[0].lower() for li in resultado]
         return resultado
 
+    @staticmethod
+    def identidadProyecto(proyecto):
+        db = MyDB()
+        resultado = db.query("SELECT idProyecto FROM proyectos WHERE nombre = :nombre", {'nombre': proyecto}).fetchone()
+        resultado = resultado[0]
+        return resultado
+
+    @staticmethod
+    def ingresarInformacion(datos, *args):
+        db = MyDB()
+        db.commit("INSERT INTO beneficiariosproyectos(fkProyecto, fkBeneficiario, estado) VALUES (?,?,?)",
+                 (tuple(datos)))
+
+        res = list(args)
+
+        resultado = db.query("SELECT idPais FROM paises WHERE nombre = :nombre", {'nombre': res[4]}).fetchone()
+        res[4] = resultado[0]
+
+        resultado = db.query("SELECT idCiudad FROM ciudades WHERE nombre = :nombre", {'nombre': res[6]}).fetchone()
+        res[6] = resultado[0]
+
+        resultado = db.query("SELECT idPais FROM paises WHERE nombre = :nombre", {'nombre': res[7]}).fetchone()
+        res[7] = resultado[0]
+
+        resultado = db.query("SELECT idDepartamento FROM departamentos WHERE nombre = :nombre",
+                  {'nombre': res[8]}).fetchone()
+        res[8] = resultado[0]
+
+        resultado = db.query("SELECT idCiudad FROM ciudades WHERE nombre = :nombre", {'nombre': res[9]}).fetchone()
+        res[9] = resultado[0]
+
+        resultado = db.query("SELECT idBarrio FROM barrios WHERE nombre = :nombre", {'nombre': res[10]}).fetchone()
+        res[10] = resultado[0]
+        db.commit("INSERT INTO beneficiarios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (tuple(res)))
+
+
+class DiagnosticoPerfil:
+    @staticmethod
+    def cargarPreguntas():
+        db = MyDB()
+        resultado = db.query("SELECT pregunta FROM preguntasDiagnostico", {None: None}).fetchall()
+        resultado = [li[0] for li in resultado]
+        return resultado
+
+    @staticmethod
+    def subirBase(lista):
+        for pregunta in lista:
+            db = MyDB()
+            db.commit("INSERT INTO diagnosticoPerfilProductivo VALUES (?,?,?)", (tuple(pregunta)))
