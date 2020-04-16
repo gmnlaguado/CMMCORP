@@ -303,7 +303,145 @@ class DiagnosticoPerfilProductivoScreen(Screen):
 
 
 class IdeaNegocioScreen(Screen):
-    pass
+    lista_productos_servicios = ""
+    lista_colaboradores = ""
+
+    id_emprendimiento = ObjectProperty()
+    id_sectorEmpresarial = ObjectProperty()
+    id_ciudades = ObjectProperty()
+    id_estudios = ObjectProperty()
+    id_esAgropecuario = ObjectProperty()
+    id_necesitaColaboradores = ObjectProperty()
+    id_tiempoSemanal = ObjectProperty()
+    id_porqueNo = ObjectProperty()
+    id_mesesQueLleva = ObjectProperty()
+    id_ciiu = ObjectProperty()
+    id_comoSurge = ObjectProperty()
+    id_tieneExperiencia = ObjectProperty()
+    id_departamentos = ObjectProperty()
+    id_tiempoADedicar = ObjectProperty()
+    id_productoServicio = ObjectProperty()
+    id_portafolio = ObjectProperty()
+    id_inversionActivos = ObjectProperty()
+    id_porcentajeInversion = ObjectProperty()
+    id_ventasPrimerMes = ObjectProperty()
+    id_inversionInicial = ObjectProperty()
+    id_invCapitalTrabajo = ObjectProperty()
+    id_ventasPrimerAno = ObjectProperty()
+    id_imagine = ObjectProperty()
+    id_labelMensajes = ObjectProperty()
+    id_botonIngresar = ObjectProperty()
+
+    def on_pre_enter(self):
+        self.id_inversionActivos.input_type = 'number'
+        self.id_ventasPrimerMes.input_type = 'number'
+        self.id_inversionInicial.input_type = 'number'
+        self.id_invCapitalTrabajo.input_type = 'number'
+        self.id_ventasPrimerAno.input_type = 'number'
+
+        self.id_emprendimiento.text = ""
+        self.id_sectorEmpresarial.text = "Sector Empresarial"
+        self.id_ciudades.text = "Ciudad"
+        self.id_estudios.text = "Estudios sobre el tema"
+        self.id_esAgropecuario.text = "¿Agropecuario?"
+        self.id_necesitaColaboradores.text = "Necesita colaboradores"
+        self.id_tiempoSemanal.text = "Tiempo semanal a dedicar"
+        self.id_porqueNo.text = "¿Por qué no empezaba?"
+        self.id_mesesQueLleva.text = "Meses que lleva el negocio"
+        self.id_ciiu.text = "CIIU"
+        self.id_comoSurge.text = "¿Cómo surge la idea?"
+        self.id_tieneExperiencia.text = "¿Experiencia?"
+        self.id_departamentos.text = "Departamento"
+        self.id_tiempoADedicar.text = "Tiempo a dedicar"
+        self.id_productoServicio.text = "Producto / Servicio"
+        self.id_portafolio.text = ""
+        self.id_inversionActivos.text = ""
+        self.id_porcentajeInversion.text = "% Inversión"
+        self.id_ventasPrimerMes.text = ""
+        self.id_inversionInicial.text = ""
+        self.id_invCapitalTrabajo.text = ""
+        self.id_ventasPrimerAno.text = ""
+        self.id_imagine.text = ""
+        self.id_labelMensajes.text = ""
+        self.id_botonIngresar.text = "Ingresar"
+
+        # Cargando los valores de las listas deplegables
+        info = utilidades.IdeaNegocio.cargarDatos()
+        self.id_sectorEmpresarial.values = info[0]
+        self.id_estudios.values = info[1]
+        self.id_esAgropecuario.values = info[2]
+        self.id_necesitaColaboradores.values = info[3]
+        self.id_tiempoSemanal.values = info[4]
+        self.id_porqueNo.values = info[5]
+        self.id_mesesQueLleva.values = info[6]
+        self.id_ciiu.values = info[12]
+        self.id_comoSurge.values = info[7]
+        self.id_tieneExperiencia.values = info[8]
+        self.id_departamentos.values = info[13]
+        self.id_tiempoADedicar.values = info[9]
+        self.id_productoServicio.values = info[10]
+        self.id_portafolio.hint_text = "Portafolio"
+        self.id_inversionActivos.hint_text = "Inv. Activos"
+        self.id_porcentajeInversion.values = info[11]
+        self.id_ventasPrimerMes.hint_text = "Ventas primer mes"
+        self.id_inversionInicial.hint_text = "Inv. Inicial"
+        self.id_invCapitalTrabajo.hint_text = "Inv. Capital Trabajo"
+        self.id_ventasPrimerAno.hint_text = "Ventas Primer año"
+        self.id_imagine.hint_text = "Imagine su negocio"
+
+        self.id_departamentos.bind(text=self.on_selection_departamentos)
+
+        self.id_sectorEmpresarial.bind(text=self.cambiar_color)
+        self.id_ciudades.bind(text=self.cambiar_color)
+        self.id_estudios.bind(text=self.cambiar_color)
+        self.id_esAgropecuario.bind(text=self.cambiar_color)
+        self.id_necesitaColaboradores.bind(text=self.necesitaCol)
+        self.id_tiempoSemanal.bind(text=self.cambiar_color)
+        self.id_porqueNo.bind(text=self.cambiar_color)
+        self.id_mesesQueLleva.bind(text=self.cambiar_color)
+        self.id_ciiu.bind(text=self.cambiar_color)
+        self.id_comoSurge.bind(text=self.cambiar_color)
+        self.id_tieneExperiencia.bind(text=self.cambiar_color)
+        self.id_tiempoADedicar.bind(text=self.cambiar_color)
+        self.id_productoServicio.bind(text=self.productosservs)
+        self.id_porcentajeInversion.bind(text=self.cambiar_color)
+
+        self.id_botonIngresar.bind(on_press=self.comprobarTodo)
+
+    def cambiar_color(self, *args):
+        args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def necesitaCol(self, *args):
+        if args[1] == "Si":
+            Colaboradores().open()
+        args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def productosservs(self, *args):
+        ProductosServicios().open()
+        args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def on_selection_departamentos(self, *args):
+        self.id_ciudades.values = utilidades.IdeaNegocio.cargarCiudades(args[1])
+        self.id_departamentos.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def comprobarTodo(self, *args):
+        self.id_labelMensajes.text = ""
+        if (
+        self.id_emprendimiento.text == "" or self.id_sectorEmpresarial.text == "Sector Empresarial" or
+        self.id_ciudades.text == "Ciudad" or self.id_estudios.text == "Estudios sobre el tema" or
+        self.id_esAgropecuario.text == "¿Agropecuario?" or
+        self.id_necesitaColaboradores.text == "Necesita colaboradores" or
+        self.id_tiempoSemanal.text == "Tiempo semanal a dedicar" or self.id_porqueNo.text == "¿Por qué no empezaba?" or
+        self.id_mesesQueLleva.text == "Meses que lleva el negocio" or self.id_ciiu.text == "CIIU" or
+        self.id_comoSurge.text == "¿Cómo surge la idea?" or self.id_tieneExperiencia.text == "¿Experiencia?" or
+        self.id_departamentos.text == "Departamento" or self.id_tiempoADedicar.text == "Tiempo a dedicar" or
+        self.id_productoServicio.text == "Producto / Servicio" or self.id_portafolio.text == "" or
+        self.id_inversionActivos.text == "" or self.id_porcentajeInversion.text == "% Inversión" or
+        self.id_ventasPrimerMes.text == "" or self.id_inversionInicial.text == "" or
+        self.id_invCapitalTrabajo.text == "" or self.id_ventasPrimerAno.text == "" or self.id_imagine.text == "" or
+        self.lista_productos_servicios == ""):
+            self.id_labelMensajes.text = "Formulario incompleto"
+
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -364,6 +502,32 @@ class ConfirmacionInfoGeneral(Popup):
 
     def on_selection(self, *args):
         corporacion.sm.current = "DiagnosticoPerfilProductivo"
+        self.dismiss()
+
+
+# Generado en la ventana IDEA DE NEGOCIO
+class ProductosServicios(Popup):
+    id_porductservs = ObjectProperty()
+
+    def on_open(self):
+        self.title = "Ingrese los productos o servicios de su idea separados por comas"
+        self.id_porductservs.bind(on_text_validate=self.on_selection)
+
+    def on_selection(self, *args):
+        IdeaNegocioScreen.lista_productos_servicios = args[0].text
+        self.dismiss()
+
+
+# Generado en la ventana IDEA DE NEGOCIO
+class Colaboradores(Popup):
+    id_listacolaboradores = ObjectProperty()
+
+    def on_open(self):
+        self.title = "Ingrese la lista de sus colaboradores separada por comas"
+        self.id_listacolaboradores.bind(on_text_validate=self.on_selection)
+
+    def on_selection(self, *args):
+        IdeaNegocioScreen.lista_colaboradores = args[0].text
         self.dismiss()
 
 

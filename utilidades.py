@@ -19,6 +19,22 @@ class Costantes:
     etnia = ["Afrodescendiente", "Raizal", "Palenquera", "Indígenas", "Rom", "Mestizo", "Otro", "No Aplica"]
     discapacidad = ["Física", "Cognitiva", "Sensorial", "Intelectual", "Psicosocial", "Múltiple", "Ninguna", "ND"]
 
+    sector = ["Sector Industrial", "Sector de Servicios", "Sector de Comercio", "Sector Agropecuario",
+              "Sector de Transporte", "Sector Financiero", "Sector de la Construcción", "Sector Minero y Energético",
+              "Sector Solidario", "Sector de Comunicaciones"]
+    comoSurge = ["Oportunidad", "Necesidad"]
+    cuantoTiempo = ["Completo", "Medio Tiempo", "Fin de Semana", "Horas"]
+    estudiosAprendizaje = ["Si", "No"]
+    experiencia = ["Si", "No"]
+    productoServicio = ["Producto", "Servicio"]
+    esAgropecuario = ["Si", "No"]
+    necesitaColaboradores = ["Si", "No"]
+    cuantosMeses = [str(numb) for numb in range(0, 50)]
+    cuantoTiempoSemanal = ["De 1 a 4 Horas", "De 5 a 8 Horas", "Más de 8 Horas"]
+    porqueNoEmpezaba = ["Falta de Tiempo", "Falta de recursos económicos", "Falta de motivación",
+                        "Falta de conocimiento", "Otros"]
+    procentajeInversion = ["< 50%", "50% - 100%", "0%"]
+
 
 class Comprobaciones:
     @staticmethod
@@ -219,3 +235,48 @@ class DiagnosticoPerfil:
         for pregunta in lista:
             db = MyDB()
             db.commit("INSERT INTO diagnosticoPerfilProductivo VALUES (?,?,?)", (tuple(pregunta)))
+
+
+class IdeaNegocio:
+    @staticmethod
+    def cargarDatos():
+        retornar = [Costantes.sector,
+                    # ciudades
+                    Costantes.estudiosAprendizaje,
+                    Costantes.esAgropecuario,
+                    Costantes.necesitaColaboradores,
+                    Costantes.cuantoTiempoSemanal,
+                    Costantes.porqueNoEmpezaba,
+                    Costantes.cuantosMeses,
+                    # CIIU
+                    Costantes.comoSurge,
+                    Costantes.experiencia,
+                    # Departamentos
+                    Costantes.cuantoTiempo,
+                    Costantes.productoServicio,
+                    Costantes.procentajeInversion]
+
+        db = MyDB()
+        resultado = db.query("SELECT idCIIU FROM cIIU", {None: None}).fetchall()
+        resultado = [str(res[0]) for res in resultado]
+        retornar.append(resultado)
+
+        resultado = db.query("SELECT departamentos.nombre FROM departamentos INNER JOIN paises ON paises.idPais = "
+                             "departamentos.fkPais WHERE paises.nombre = 'colombia'", {None: None}).fetchall()
+        resultado = [li[0] for li in resultado]
+        retornar.append(resultado)
+
+        resultado = db.query("SELECT sector FROM cIIU", {None: None}).fetchall()
+        resultado = [str(res[0]) for res in resultado]
+        retornar.append(resultado)
+
+        return retornar
+
+    @staticmethod
+    def cargarCiudades(departamento):
+        db = MyDB()
+        resultado = db.query("SELECT ciudades.nombre FROM ciudades INNER JOIN departamentos ON "
+                             "departamentos.idDepartamento = ciudades.fkDepartamento WHERE departamentos.nombre = "
+                             ":departamento", {'departamento': departamento}).fetchall()
+        resultado = [li[0] for li in resultado]
+        return resultado
