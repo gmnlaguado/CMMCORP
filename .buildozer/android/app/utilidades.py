@@ -35,6 +35,11 @@ class Costantes:
                         "Falta de conocimiento", "Otros"]
     procentajeInversion = ["< 50%", "50% - 100%", "0%"]
 
+    cuantosSocios = [str(numb) for numb in range(0, 50)]
+    regCamara = ["Si", "No"]
+    conContrato = [str(numb) for numb in range(0, 50)]
+    sinContrato = [str(numb) for numb in range(0, 50)]
+
 
 class Comprobaciones:
     @staticmethod
@@ -280,3 +285,58 @@ class IdeaNegocio:
                              ":departamento", {'departamento': departamento}).fetchall()
         resultado = [li[0] for li in resultado]
         return resultado
+
+    @staticmethod
+    def ingresarInformacion(*args):
+        res = list(args)
+        db = MyDB()
+        resultado = db.query("SELECT idDepartamento FROM departamentos WHERE nombre = :nombre",
+                             {'nombre': res[5]}).fetchone()
+        res[5] = resultado[0]
+
+        resultado = db.query("SELECT idCiudad FROM ciudades WHERE nombre = :nombre", {'nombre': res[6]}).fetchone()
+        res[6] = resultado[0]
+
+        db.commit("INSERT INTO ideaNegocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                  (tuple(res)))
+
+
+class UnidadNegocio:
+    @staticmethod
+    def cargarDatos():
+        retornar = [Costantes.cuantosSocios,
+                    # ciiu
+                    Costantes.sector,
+                    Costantes.regCamara,
+                    Costantes.conContrato,
+                    Costantes.sinContrato,
+                    # Departamentos
+                    Costantes.rotulo,
+                    Costantes.indicador]
+
+        db = MyDB()
+        resultado = db.query("SELECT idCIIU FROM cIIU", {None: None}).fetchall()
+        result = [str(res[0]) for res in resultado]
+        retornar.append(result)
+
+        resultado = db.query("SELECT departamentos.nombre FROM departamentos INNER JOIN paises ON paises.idPais = "
+                             "departamentos.fkPais WHERE paises.nombre = 'colombia'", {None: None}).fetchall()
+        resultado = [li[0] for li in resultado]
+        retornar.append(resultado)
+
+        return retornar
+
+    @staticmethod
+    def ingresarInformacion(*args):
+        res = list(args)
+        db = MyDB()
+        resultado = db.query("SELECT idDepartamento FROM departamentos WHERE nombre = :nombre",
+                  {'nombre': res[3]}).fetchone()
+        res[3] = resultado[0]
+
+        resultado = db.query("SELECT idCiudad FROM ciudades WHERE nombre = :nombre", {'nombre': res[4]}).fetchone()
+        res[4] = resultado[0]
+
+        db.commit("INSERT INTO unidadNegocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                  (tuple(res)))
+

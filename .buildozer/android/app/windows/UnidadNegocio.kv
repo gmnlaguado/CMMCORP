@@ -1,0 +1,181 @@
+<UnidadNegocioScreen>:
+
+    id_unidad: id_unidad
+    id_existe: id_existe
+    id_cuantosSocios: id_cuantosSocios
+    id_ciiu: id_ciiu
+    id_email: id_email
+    id_paginaWeb: id_paginaWeb
+    id_sector: id_sector
+    id_regCamara: id_regCamara
+    id_conContrato: id_conContrato
+    id_sinContrato: id_sinContrato
+    id_departamentos: id_departamentos
+    id_ciudades: id_ciudades
+    id_direccion: id_direccion
+    id_telFijo: id_telFijo
+    id_celular:id_celular
+    id_rotulo: id_rotulo
+    id_indicador: id_indicador
+    id_celular2: id_celular2
+    id_descripcionLabel: id_descripcionLabel
+    id_descripcion: id_descripcion
+    id_portafolio: id_portafolio
+    id_creacionLabel: id_creacionLabel
+    id_creacion: id_creacion
+    id_nit: id_nit
+    id_descripcionPasivosLabel: id_descripcionPasivosLabel
+    id_descripcionPasivos: id_descripcionPasivos
+    id_labelMensajes: id_labelMensajes
+    id_botonIngresar: id_botonIngresar
+
+    LoginLayout:
+        size_hint: None, None
+        size: 1150, 623
+        top: 800-88
+        x: 65
+        Titulos:
+            text: "Unidad de Negocio"
+            x: 192
+            top: 800 - 24
+        LoginLabel:
+            x:88
+            top:800-122
+            text:"Unidad"
+        InfoInput:
+            id: id_unidad
+            x:220
+            top:800-122
+            size: 596, 40
+            focus: True
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 554
+            top: 800-129
+            x: 838
+            spacing: 25
+            InfoSpinner:
+                id: id_existe
+            InfoSpinner:
+                id: id_cuantosSocios
+            InfoSpinner:
+                id: id_ciiu
+            InfoInput:
+                id: id_email
+                size: 352,40
+            InfoInput:
+                id: id_paginaWeb
+                size: 352,40
+            InfoSpinner:
+                id: id_sector
+            InfoSpinner:
+                id: id_regCamara
+            InfoSpinner:
+                id: id_conContrato
+            InfoSpinner:
+                id: id_sinContrato
+        InfoSpinner:
+            id: id_departamentos
+            top: 800-187
+            x: 88
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 237
+            top: 800-187
+            x: 463
+            spacing: 25
+            InfoSpinner:
+                id: id_ciudades
+            InfoInput:
+                id: id_direccion
+                size: 352,40
+                hint_text: "___ # ___ - ___"
+            InfoInput:
+                id: id_telFijo
+                size: 352,40
+            InfoInput:
+                id: id_celular
+                size: 352,40
+        LoginLabel:
+            x:88
+            top:800-251
+            text: "Direccion"
+        InfoSpinnerMini:
+            id: id_rotulo
+            x:246
+            top:800-251
+            size: 192,40
+        LoginLabel:
+            x:88
+            top:800-319
+            text:"Contacto"
+        InfoSpinnerMini:
+            id: id_indicador
+            size: 192,40
+            x:246
+            top:800-319
+        InfoInput:
+            id: id_celular2
+            size: 352,40
+            x:89
+            top:800-384
+        LoginLabel:
+            id: id_descripcionLabel
+            x:88
+            top:800-444
+        InfoInput:
+            id: id_descripcion
+            x:291
+            top:800-444
+            size: 523,40
+        LoginLabel:
+            x:88
+            top:800-503
+            text:"Portafolio"
+        InfoInput:
+            id: id_portafolio
+            x:291
+            top:800-503
+            size: 523,40
+        LoginLabel:
+            id: id_creacionLabel
+            x:88
+            top:800-567
+        InfoInput:
+            id: id_creacion
+            x:239
+            top:800-567
+            size: 248,40
+            hint_text: "DD/MM/AAAA"
+        LoginLabel:
+            x:500
+            top:800-567
+            text:"NIT"
+        InfoInput:
+            id: id_nit
+            x:567
+            top:800-567
+            size: 248,40
+        LoginLabel:
+            id: id_descripcionPasivosLabel
+            x:88
+            top:800-636
+        InfoInput:
+            id: id_descripcionPasivos
+            x:415
+            top:800-636
+            size: 400,40
+        Titulos:
+            id: id_labelMensajes
+            color: 1,0,0,1
+            size: 763, 38
+            x: 75
+            top: 800 - 737
+            bold: False
+        LoginButton:
+            id: id_botonIngresar
+            text: "Ingresar"
+            top: 800-724
+            x: 863

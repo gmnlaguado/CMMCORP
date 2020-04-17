@@ -205,6 +205,7 @@ class InformacionGeneralScreen(Screen):
                     utilidades.Comprobaciones.fijo(self.id_fijo.text) and \
                     utilidades.Comprobaciones.celular(self.id_celular.text) and \
                     utilidades.Comprobaciones.celular(self.id_celular2.text):
+                DiagnosticoPerfilProductivoScreen.tipo_beneficiario = self.id_tipo.text
                 ConfirmacionInfoGeneral().open()
             else:
                 self.id_labelMensajes.text = "Error en algunos campos"
@@ -263,24 +264,29 @@ class InformacionGeneralScreen(Screen):
 
 class DiagnosticoPerfilProductivoScreen(Screen):
     beneficiario = None
+    tipo_beneficiario = ""
+    creacion = False
+
     id_container_grid = ObjectProperty()
     id_labelMensajes = ObjectProperty()
     id_botonIngresar = ObjectProperty()
 
     def on_pre_enter(self):
-        self.id_botonIngresar.bind(on_press=self.verificarTodo)
-        preguntas = utilidades.DiagnosticoPerfil.cargarPreguntas()
-        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
-        for idx, pregunta in enumerate(preguntas):
-            lab = Label(text=f'{idx + 1}]  ' + pregunta, halign="justify", valign="middle", size_hint=(None, None),
-                        size=(815, 51), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
-                        text_size=(815, 51), id=f'pregunta_{idx}')
-            box_container = BoxLayout()
-            for i in ['Si', 'MasMenos', 'No']:
-                check = CheckBox(group=f"pregunta_{idx + 1}", color=(0, 1, 0, 1), id=i)
-                box_container.add_widget(check)
-            self.id_container_grid.add_widget(lab)
-            self.id_container_grid.add_widget(box_container)
+        if not self.creacion:
+            self.id_botonIngresar.bind(on_press=self.verificarTodo)
+            preguntas = utilidades.DiagnosticoPerfil.cargarPreguntas()
+            self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+            for idx, pregunta in enumerate(preguntas):
+                lab = Label(text=f'{idx + 1}]  ' + pregunta, halign="justify", valign="middle", size_hint=(None, None),
+                            size=(815, 51), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                            text_size=(815, 51), id=f'pregunta_{idx}')
+                box_container = BoxLayout()
+                for i in ['Si', 'MasMenos', 'No']:
+                    check = CheckBox(group=f"pregunta_{idx + 1}", color=(0, 1, 0, 1), id=i)
+                    box_container.add_widget(check)
+                self.id_container_grid.add_widget(lab)
+                self.id_container_grid.add_widget(box_container)
+            self.creacion = True
 
     def verificarTodo(self, *args):
         self.id_labelMensajes.text = ""
@@ -299,10 +305,15 @@ class DiagnosticoPerfilProductivoScreen(Screen):
 
             diagnostico_perfil_productivo = diagnostico_perfil_productivo[::-1]
             utilidades.DiagnosticoPerfil.subirBase(diagnostico_perfil_productivo)
-            corporacion.sm.current = "IdeaNegocio"
+            if self.tipo_beneficiario == "Emprendedor":
+                corporacion.sm.current = "IdeaNegocio"
+            else:
+                corporacion.sm.current = "UnidadNegocio"
 
 
 class IdeaNegocioScreen(Screen):
+    informacion = None
+    beneficiario = None
     lista_productos_servicios = ""
     lista_colaboradores = ""
 
@@ -427,20 +438,222 @@ class IdeaNegocioScreen(Screen):
     def comprobarTodo(self, *args):
         self.id_labelMensajes.text = ""
         if (
-        self.id_emprendimiento.text == "" or self.id_sectorEmpresarial.text == "Sector Empresarial" or
-        self.id_ciudades.text == "Ciudad" or self.id_estudios.text == "Estudios sobre el tema" or
-        self.id_esAgropecuario.text == "¿Agropecuario?" or
-        self.id_necesitaColaboradores.text == "Necesita colaboradores" or
-        self.id_tiempoSemanal.text == "Tiempo semanal a dedicar" or self.id_porqueNo.text == "¿Por qué no empezaba?" or
-        self.id_mesesQueLleva.text == "Meses que lleva el negocio" or self.id_ciiu.text == "CIIU" or
-        self.id_comoSurge.text == "¿Cómo surge la idea?" or self.id_tieneExperiencia.text == "¿Experiencia?" or
-        self.id_departamentos.text == "Departamento" or self.id_tiempoADedicar.text == "Tiempo a dedicar" or
-        self.id_productoServicio.text == "Producto / Servicio" or self.id_portafolio.text == "" or
-        self.id_inversionActivos.text == "" or self.id_porcentajeInversion.text == "% Inversión" or
-        self.id_ventasPrimerMes.text == "" or self.id_inversionInicial.text == "" or
-        self.id_invCapitalTrabajo.text == "" or self.id_ventasPrimerAno.text == "" or self.id_imagine.text == "" or
-        self.lista_productos_servicios == ""):
+                self.id_emprendimiento.text == "" or self.id_sectorEmpresarial.text == "Sector Empresarial" or
+                self.id_ciudades.text == "Ciudad" or self.id_estudios.text == "Estudios sobre el tema" or
+                self.id_esAgropecuario.text == "¿Agropecuario?" or
+                self.id_necesitaColaboradores.text == "Necesita colaboradores" or
+                self.id_tiempoSemanal.text == "Tiempo semanal a dedicar" or
+                self.id_porqueNo.text == "¿Por qué no empezaba?" or
+                self.id_mesesQueLleva.text == "Meses que lleva el negocio" or self.id_ciiu.text == "CIIU" or
+                self.id_comoSurge.text == "¿Cómo surge la idea?" or self.id_tieneExperiencia.text == "¿Experiencia?" or
+                self.id_departamentos.text == "Departamento" or self.id_tiempoADedicar.text == "Tiempo a dedicar" or
+                self.id_productoServicio.text == "Producto / Servicio" or self.id_portafolio.text == "" or
+                self.id_inversionActivos.text == "" or self.id_porcentajeInversion.text == "% Inversión" or
+                self.id_ventasPrimerMes.text == "" or self.id_inversionInicial.text == "" or
+                self.id_invCapitalTrabajo.text == "" or self.id_ventasPrimerAno.text == "" or
+                self.id_imagine.text == "" or self.lista_productos_servicios == ""):
             self.id_labelMensajes.text = "Formulario incompleto"
+        if self.id_labelMensajes.text == "":
+            corporacion.sm.current = "Panel"
+
+    def on_pre_leave(self, *args):
+        proyecto = utilidades.InfoGeneral.identidadProyecto(self.informacion[0])
+        utilidades.IdeaNegocio.ingresarInformacion(
+            proyecto,
+            self.beneficiario,
+            self.id_emprendimiento.text,
+            self.id_sectorEmpresarial.text,
+            int(self.id_ciiu.text),
+            self.id_departamentos.text,
+            self.id_ciudades.text,
+            self.id_comoSurge.text,
+            self.id_tiempoADedicar.text,
+            self.id_estudios.text,
+            self.id_tieneExperiencia.text,
+            self.id_productoServicio.text,
+            self.lista_productos_servicios,
+            self.id_esAgropecuario.text,
+            self.id_portafolio.text,
+            int(self.id_inversionActivos.text),
+            int(self.id_inversionInicial.text),
+            self.id_porcentajeInversion.text,
+            int(self.id_invCapitalTrabajo.text),
+            int(self.id_ventasPrimerMes.text),
+            int(self.id_ventasPrimerAno.text),
+            self.id_necesitaColaboradores.text,
+            self.lista_colaboradores,
+            self.id_tiempoSemanal.text,
+            self.id_porqueNo.text,
+            int(self.id_mesesQueLleva.text),
+            self.id_imagine.text
+        )
+
+
+class UnidadNegocioScreen(Screen):
+    informacion = None
+    beneficiario = None
+
+    id_unidad = ObjectProperty()
+    id_existe = ObjectProperty()
+    id_cuantosSocios = ObjectProperty()
+    id_ciiu = ObjectProperty()
+    id_email = ObjectProperty()
+    id_paginaWeb = ObjectProperty()
+    id_sector = ObjectProperty()
+    id_regCamara = ObjectProperty()
+    id_conContrato = ObjectProperty()
+    id_sinContrato = ObjectProperty()
+    id_departamentos = ObjectProperty()
+    id_ciudades = ObjectProperty()
+    id_direccion = ObjectProperty()
+    id_telFijo = ObjectProperty()
+    id_celular = ObjectProperty()
+    id_rotulo = ObjectProperty()
+    id_indicador = ObjectProperty()
+    id_celular2 = ObjectProperty()
+    id_descripcionLabel = ObjectProperty()
+    id_descripcion = ObjectProperty()
+    id_portafolio = ObjectProperty()
+    id_creacionLabel = ObjectProperty()
+    id_creacion = ObjectProperty()
+    id_nit = ObjectProperty()
+    id_descripcionPasivosLabel = ObjectProperty()
+    id_descripcionPasivos = ObjectProperty()
+    id_labelMensajes = ObjectProperty()
+    id_botonIngresar = ObjectProperty()
+
+    def on_pre_enter(self):
+        self.id_telFijo.input_type = 'number'
+        self.id_celular.input_type = 'number'
+        self.id_celular2.input_type = 'number'
+
+        self.id_unidad.text = ""
+        self.id_existe.text = "Si existe seleccione"
+        self.id_cuantosSocios.text = "¿Cuantos socios?"
+        self.id_ciiu.text = "CIIU"
+        self.id_email.text = ""
+        self.id_paginaWeb.text = ""
+        self.id_sector.text = "Sector empresarial"
+        self.id_regCamara.text = "Reg. Cámara comercio"
+        self.id_conContrato.text = "Colab. con contrato"
+        self.id_sinContrato.text = "Colab. sin contrato"
+        self.id_departamentos.text = "Departamento"
+        self.id_ciudades.text = "Ciudad"
+        self.id_direccion.text = ""
+        self.id_telFijo.text = ""
+        self.id_celular.text = ""
+        self.id_rotulo.text = "Rótulo"
+        self.id_indicador.text = "Indicador"
+        self.id_celular2.text = ""
+        self.id_descripcionLabel.text = "Descripción"
+        self.id_descripcion.text = ""
+        self.id_portafolio.text = ""
+        self.id_creacionLabel.text = "Creación"
+        self.id_creacion.text = ""
+        self.id_nit.text = ""
+        self.id_descripcionPasivosLabel.text = "Descripción pasivos"
+        self.id_descripcionPasivos.text = ""
+        self.id_botonIngresar.text = "Ingresar"
+
+        self.id_celular.hint_text = "Celular 2"
+        self.id_celular2.hint_text = "Celular"
+        self.id_telFijo.hint_text = "Tel. Fijo"
+        self.id_email.hint_text = "Email"
+        self.id_paginaWeb.hint_text = "Página Web"
+
+        info = utilidades.UnidadNegocio.cargarDatos()
+        self.id_cuantosSocios.values = info[0]
+        self.id_ciiu.values = info[7]
+        self.id_sector.values = info[1]
+        self.id_regCamara.values = info[2]
+        self.id_conContrato.values = info[3]
+        self.id_sinContrato.values = info[4]
+        self.id_departamentos.values = info[8]
+        self.id_rotulo.values = info[5]
+        self.id_indicador.values = info[6]
+
+        self.id_existe.values = ["No"]
+
+        self.id_departamentos.bind(text=self.on_selection_departamentos)
+
+        self.id_existe.bind(text=self.cambiar_color)
+        self.id_cuantosSocios.bind(text=self.cambiar_color)
+        self.id_ciiu.bind(text=self.cambiar_color)
+        self.id_sector.bind(text=self.cambiar_color)
+        self.id_regCamara.bind(text=self.cambiar_color)
+        self.id_conContrato.bind(text=self.cambiar_color)
+        self.id_sinContrato.bind(text=self.cambiar_color)
+        self.id_rotulo.bind(text=self.cambiar_color)
+        self.id_indicador.bind(text=self.cambiar_color)
+        self.id_ciudades.bind(text=self.cambiar_color)
+
+        self.id_botonIngresar.bind(on_press=self.comprobarTodo)
+
+    def cambiar_color(self, *args):
+        args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def on_selection_departamentos(self, *args):
+        self.id_ciudades.values = utilidades.IdeaNegocio.cargarCiudades(args[1])
+        self.id_departamentos.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+
+    def comprobarTodo(self, *args):
+        self.id_labelMensajes.text = ""
+        if (
+                self.id_unidad.text == "" or
+        self.id_existe.text == "Si existe seleccione" or
+        self.id_cuantosSocios.text == "¿Cuantos socios?" or
+        self.id_ciiu.text == "CIIU" or
+        self.id_email.text == "" or
+        self.id_paginaWeb.text == "" or
+        self.id_sector.text == "Sector empresarial" or
+        self.id_regCamara.text == "Reg. Cámara comercio" or
+        self.id_conContrato.text == "Colab. con contrato" or
+        self.id_sinContrato.text == "Colab. sin contrato" or
+        self.id_departamentos.text == "Departamento" or
+        self.id_ciudades.text == "Ciudad" or
+        self.id_direccion.text == "" or
+        self.id_telFijo.text == "" or
+        self.id_celular.text == "" or
+        self.id_rotulo.text == "Rótulo" or
+        self.id_indicador.text == "Indicador" or
+        self.id_celular2.text == "" or
+        self.id_descripcion.text == "" or
+        self.id_portafolio.text == "" or
+        self.id_creacion.text == "" or
+        self.id_nit.text == "" or
+        self.id_descripcionPasivos.text == ""
+        ):
+            self.id_labelMensajes.text = "Formulario Incompleto"
+        if self.id_labelMensajes.text == "":
+            corporacion.sm.current = "Panel"
+
+    def on_pre_leave(self, *args):
+        proyecto = utilidades.InfoGeneral.identidadProyecto(self.informacion[0])
+        utilidades.UnidadNegocio.ingresarInformacion(
+            proyecto,
+            self.beneficiario,
+            self.id_unidad.text,
+            self.id_departamentos.text,
+            self.id_ciudades.text,
+            int(self.id_cuantosSocios.text),
+            self.id_direccion.text,
+            int(self.id_ciiu.text),
+            int(self.id_indicador.text),
+            int(self.id_telFijo.text),
+            self.id_email.text,
+            self.id_paginaWeb.text,
+            self.id_descripcion.text,
+            self.id_portafolio.text,
+            self.id_creacion.text,
+            self.id_nit.text,
+            self.id_descripcionPasivos.text,
+            self.id_regCamara.text,
+            int(self.id_conContrato.text),
+            int(self.id_sinContrato.text),
+            int(self.id_celular.text),
+            int(self.id_celular2.text)
+        )
+
 
 
 
@@ -464,8 +677,13 @@ class LoginProyectoPopup(Popup):
 
     def on_selection(self, *args):
         corporacion.sm.current = "Panel"
+
+        # TODO Asignación del proyecto y operario que lo está realizando
+
         PanelScreen.informacion = args[1], self.usuario
         InformacionGeneralScreen.informacion = args[1], self.usuario
+        IdeaNegocioScreen.informacion = args[1], self.usuario
+        UnidadNegocioScreen.informacion = args[1], self.usuario
         self.dismiss()
 
 
@@ -485,9 +703,14 @@ class EmergentNuevoBeneficiario(Popup):
 
     def on_selection(self, *args):
         if utilidades.Panel.buscarBeneficiario(self.id_beneficiario.text, self.string) == "No existe":
+            # TODO Ingreso del documento de identidad del beneficiario
+
             InformacionGeneralScreen.beneficiario = self.id_beneficiario.text
             DiagnosticoPerfilProductivoScreen.beneficiario = self.id_beneficiario.text
+            IdeaNegocioScreen.beneficiario = self.id_beneficiario.text
+            UnidadNegocioScreen.beneficiario = self.id_beneficiario.text
             corporacion.sm.current = "InformacionGeneral"
+
         self.dismiss()
 
 
@@ -552,6 +775,7 @@ class MyApp(App):
         Builder.load_file("windows/InformacionGeneral.kv")
         Builder.load_file("windows/DiagnosticoPerfilProductivo.kv")
         Builder.load_file("windows/IdeaNegocio.kv")
+        Builder.load_file("windows/UnidadNegocio.kv")
 
         # Agregando ventanas al gestor de ventanas
         self.sm.add_widget(LoginScreen(name="Login"))
@@ -559,7 +783,7 @@ class MyApp(App):
         self.sm.add_widget(InformacionGeneralScreen(name="InformacionGeneral"))
         self.sm.add_widget(DiagnosticoPerfilProductivoScreen(name="DiagnosticoPerfilProductivo"))
         self.sm.add_widget(IdeaNegocioScreen(name="IdeaNegocio"))
-
+        self.sm.add_widget(UnidadNegocioScreen(name="UnidadNegocio"))
         self.sm.current = "Login"
         return self.sm
 
