@@ -5,6 +5,9 @@
       <change beforePath="$PROJECT_DIR$/.buildozer/android/app/datos.db" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/datos.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/android/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/android/app/utilidades.py" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/utilidades.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/InformacionGeneral.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/InformacionGeneral.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/Login.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/Login.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/Panel.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/Panel.kv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/assets/private.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/assets/private.mp3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.buildozer/state.db" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/state.db" afterDir="false" />
@@ -13,6 +16,9 @@
       <change beforePath="$PROJECT_DIR$/datos.db" beforeDir="false" afterPath="$PROJECT_DIR$/datos.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utilidades.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilidades.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/InformacionGeneral.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/InformacionGeneral.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/Login.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/Login.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/Panel.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/Panel.kv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +47,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalTools" />
   </component>
   <component name="RunManager" selected="Python.main">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -111,42 +117,42 @@
       <screen x="0" y="0" width="1366" height="737" />
     </state>
     <state x="776" y="136" key="#xdebugger.evaluate/0.0.1366.737@0.0.1366.737" timestamp="1587072420146" />
-    <state width="1341" height="173" key="GridCell.Tab.0.bottom" timestamp="1587081969877">
+    <state width="1341" height="173" key="GridCell.Tab.0.bottom" timestamp="1587172310081">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.bottom/0.0.1366.737@0.0.1366.737" timestamp="1587081969877" />
-    <state width="1341" height="173" key="GridCell.Tab.0.center" timestamp="1587081969877">
+    <state width="1341" height="173" key="GridCell.Tab.0.bottom/0.0.1366.737@0.0.1366.737" timestamp="1587172310081" />
+    <state width="1341" height="173" key="GridCell.Tab.0.center" timestamp="1587172310081">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.center/0.0.1366.737@0.0.1366.737" timestamp="1587081969877" />
-    <state width="1341" height="173" key="GridCell.Tab.0.left" timestamp="1587081969876">
+    <state width="1341" height="173" key="GridCell.Tab.0.center/0.0.1366.737@0.0.1366.737" timestamp="1587172310081" />
+    <state width="1341" height="173" key="GridCell.Tab.0.left" timestamp="1587172310080">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.left/0.0.1366.737@0.0.1366.737" timestamp="1587081969876" />
-    <state width="1341" height="173" key="GridCell.Tab.0.right" timestamp="1587081969877">
+    <state width="1341" height="173" key="GridCell.Tab.0.left/0.0.1366.737@0.0.1366.737" timestamp="1587172310080" />
+    <state width="1341" height="173" key="GridCell.Tab.0.right" timestamp="1587172310081">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.right/0.0.1366.737@0.0.1366.737" timestamp="1587081969877" />
-    <state width="1341" height="181" key="GridCell.Tab.1.bottom" timestamp="1587072866572">
+    <state width="1341" height="173" key="GridCell.Tab.0.right/0.0.1366.737@0.0.1366.737" timestamp="1587172310081" />
+    <state width="1341" height="181" key="GridCell.Tab.1.bottom" timestamp="1587084775764">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="181" key="GridCell.Tab.1.bottom/0.0.1366.737@0.0.1366.737" timestamp="1587072866572" />
-    <state width="1341" height="181" key="GridCell.Tab.1.center" timestamp="1587072866571">
+    <state width="1341" height="181" key="GridCell.Tab.1.bottom/0.0.1366.737@0.0.1366.737" timestamp="1587084775764" />
+    <state width="1341" height="181" key="GridCell.Tab.1.center" timestamp="1587084775763">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="181" key="GridCell.Tab.1.center/0.0.1366.737@0.0.1366.737" timestamp="1587072866571" />
-    <state width="1341" height="181" key="GridCell.Tab.1.left" timestamp="1587072866570">
+    <state width="1341" height="181" key="GridCell.Tab.1.center/0.0.1366.737@0.0.1366.737" timestamp="1587084775763" />
+    <state width="1341" height="181" key="GridCell.Tab.1.left" timestamp="1587084775763">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="181" key="GridCell.Tab.1.left/0.0.1366.737@0.0.1366.737" timestamp="1587072866570" />
-    <state width="1341" height="181" key="GridCell.Tab.1.right" timestamp="1587072866571">
+    <state width="1341" height="181" key="GridCell.Tab.1.left/0.0.1366.737@0.0.1366.737" timestamp="1587084775763" />
+    <state width="1341" height="181" key="GridCell.Tab.1.right" timestamp="1587084775764">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="181" key="GridCell.Tab.1.right/0.0.1366.737@0.0.1366.737" timestamp="1587072866571" />
-    <state x="164" y="4" key="SettingsEditor" timestamp="1586957501763">
+    <state width="1341" height="181" key="GridCell.Tab.1.right/0.0.1366.737@0.0.1366.737" timestamp="1587084775764" />
+    <state x="164" y="4" key="SettingsEditor" timestamp="1587169013327">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state x="164" y="4" key="SettingsEditor/0.0.1366.737@0.0.1366.737" timestamp="1586957501763" />
+    <state x="164" y="4" key="SettingsEditor/0.0.1366.737@0.0.1366.737" timestamp="1587169013327" />
     <state x="346" y="58" width="672" height="678" key="search.everywhere.popup" timestamp="1587045687912">
       <screen x="0" y="0" width="1366" height="737" />
     </state>

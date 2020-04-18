@@ -115,10 +115,12 @@ class InformacionGeneralScreen(Screen):
     id_botonIngresar = ObjectProperty()
 
     def on_pre_enter(self):
+        # Restricciones
         self.id_fijo.input_type = 'number'
         self.id_celular.input_type = 'number'
         self.id_celular2.input_type = 'number'
 
+        # Inicializando Caracteres
         self.id_titulo.text = "Caracterización Básica"
         self.id_nombre.text = ""
         self.id_apellido.text = ""
@@ -164,11 +166,31 @@ class InformacionGeneralScreen(Screen):
         self.id_pais.values = datos[9]
         self.id_deptoExpedicion.values = datos[10]
 
+        # Iniciar todos los spinners con el color desactivado
+        self.id_tipoDocumento.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_sexo.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_tipo.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_entorno.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_rotulo.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_indicador.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_genero.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_etnia.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_discapacidad.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_ciudadExpedicion.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_barrios.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_nacionalidad.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_pais.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_deptoExpedicion.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_departamentos.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_ciudades.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+
+        # Estableciendo el enlace con los spinner cuya selección determina el valor de otros
         self.id_pais.bind(text=self.on_selection_pais)
         self.id_deptoExpedicion.bind(text=self.on_selection_deptoExpedicion)
         self.id_departamentos.bind(text=self.on_selection_departamentos)
         self.id_ciudades.bind(text=self.on_selection_ciudades)
 
+        # Métodos que cambian el color del spinner cuando son seleccionados
         self.id_tipoDocumento.bind(text=self.cambiar_color)
         self.id_sexo.bind(text=self.cambiar_color)
         self.id_tipo.bind(text=self.cambiar_color)
@@ -182,7 +204,63 @@ class InformacionGeneralScreen(Screen):
         self.id_barrios.bind(text=self.cambiar_color)
         self.id_nacionalidad.bind(text=self.cambiar_color)
 
+        # Método que verificará si el formulario fue totalmente diligenciado
         self.id_botonIngresar.bind(on_press=self.verificarTodo)
+
+        # Métodos de verificación individual de cada Text Input
+        self.id_nombre.bind(on_text_validate=self.check_name)
+        self.id_apellido.bind(on_text_validate=self.check_name)
+        self.id_nacimiento.bind(on_text_validate=self.check_data)
+        self.id_fijo.bind(on_text_validate=self.check_fijo)
+        self.id_celular.bind(on_text_validate=self.check_celular)
+        self.id_celular2.bind(on_text_validate=self.check_celular)
+        self.id_direccion.bind(on_text_validate=self.check_input)
+        self.id_email.bind(on_text_validate=self.check_input)
+
+    def check_name(self, *args):
+        self.id_labelMensajes.text = ""
+        if utilidades.Comprobaciones.username(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el campo de texto"
+
+    def check_data(self, *args):
+        self.id_labelMensajes.text = ""
+        if utilidades.Comprobaciones.data(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+            res = utilidades.InfoGeneral.calcular_edad(args[0].text)
+            self.id_edad.text = f'Edad {res[0]}'
+            if res[1] == "Más de 60":
+                self.id_rangoEdad.text = f'{res[1]}'
+            else:
+                self.id_rangoEdad.text = f'Rango {res[1]}'
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el campo de fecha"
+
+    def check_fijo(self, *args):
+        self.id_labelMensajes.text = ""
+        if utilidades.Comprobaciones.fijo(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el teléfono fijo"
+
+    def check_celular(self, *args):
+        self.id_labelMensajes.text = ""
+        if utilidades.Comprobaciones.celular(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el número celular"
+
+    def check_input(self, *args):
+        self.id_labelMensajes.text = ""
+        if len(args[0].text.strip()) > 0:
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            self.id_labelMensajes.text = "No se permiten campos vacios"
 
     def verificarTodo(self, *args):
         self.id_labelMensajes.text = ""
@@ -600,28 +678,28 @@ class UnidadNegocioScreen(Screen):
         self.id_labelMensajes.text = ""
         if (
                 self.id_unidad.text == "" or
-        self.id_existe.text == "Si existe seleccione" or
-        self.id_cuantosSocios.text == "¿Cuantos socios?" or
-        self.id_ciiu.text == "CIIU" or
-        self.id_email.text == "" or
-        self.id_paginaWeb.text == "" or
-        self.id_sector.text == "Sector empresarial" or
-        self.id_regCamara.text == "Reg. Cámara comercio" or
-        self.id_conContrato.text == "Colab. con contrato" or
-        self.id_sinContrato.text == "Colab. sin contrato" or
-        self.id_departamentos.text == "Departamento" or
-        self.id_ciudades.text == "Ciudad" or
-        self.id_direccion.text == "" or
-        self.id_telFijo.text == "" or
-        self.id_celular.text == "" or
-        self.id_rotulo.text == "Rótulo" or
-        self.id_indicador.text == "Indicador" or
-        self.id_celular2.text == "" or
-        self.id_descripcion.text == "" or
-        self.id_portafolio.text == "" or
-        self.id_creacion.text == "" or
-        self.id_nit.text == "" or
-        self.id_descripcionPasivos.text == ""
+                self.id_existe.text == "Si existe seleccione" or
+                self.id_cuantosSocios.text == "¿Cuantos socios?" or
+                self.id_ciiu.text == "CIIU" or
+                self.id_email.text == "" or
+                self.id_paginaWeb.text == "" or
+                self.id_sector.text == "Sector empresarial" or
+                self.id_regCamara.text == "Reg. Cámara comercio" or
+                self.id_conContrato.text == "Colab. con contrato" or
+                self.id_sinContrato.text == "Colab. sin contrato" or
+                self.id_departamentos.text == "Departamento" or
+                self.id_ciudades.text == "Ciudad" or
+                self.id_direccion.text == "" or
+                self.id_telFijo.text == "" or
+                self.id_celular.text == "" or
+                self.id_rotulo.text == "Rótulo" or
+                self.id_indicador.text == "Indicador" or
+                self.id_celular2.text == "" or
+                self.id_descripcion.text == "" or
+                self.id_portafolio.text == "" or
+                self.id_creacion.text == "" or
+                self.id_nit.text == "" or
+                self.id_descripcionPasivos.text == ""
         ):
             self.id_labelMensajes.text = "Formulario Incompleto"
         if self.id_labelMensajes.text == "":
@@ -653,8 +731,6 @@ class UnidadNegocioScreen(Screen):
             int(self.id_celular.text),
             int(self.id_celular2.text)
         )
-
-
 
 
 # ----------------------------------------------------------------------------------------------------------------------

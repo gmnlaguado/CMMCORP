@@ -44,7 +44,7 @@ class Costantes:
 class Comprobaciones:
     @staticmethod
     def username(username):
-        if re.search(r'^\w+$', username) is not None:
+        if re.search(r'^[a-z,A-Z]+( {1}[a-z,A-Z]+)?$', username) is not None and len(username) > 0:
             return True
         return False
 
@@ -226,6 +226,30 @@ class InfoGeneral:
         res[10] = resultado[0]
         db.commit("INSERT INTO beneficiarios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (tuple(res)))
 
+    @staticmethod
+    def calcular_edad(ano):
+        hoy = [int(entero) for entero in str(date.today()).split('-')[::-1]]
+        fecha = [int(entero) for entero in ano.split('/')]
+        anos = hoy[-1] - fecha[-1]
+        if hoy[-2] == fecha[-2]:
+            if hoy[-3] < fecha[-3]:
+                anos -= 1
+        elif hoy[-2] > fecha[-2]:
+            anos -= 1
+
+        if 15 <= anos <= 19:
+            rango = '15-19'
+        elif 20 <= anos <= 29:
+            rango = '20-29'
+        elif 30 <= anos <= 39:
+            rango = '30-39'
+        elif 40 <= anos <= 49:
+            rango = '40-49'
+        elif 50 <= anos <= 59:
+            rango = '50-59'
+        else:
+            rango = 'Más de 60'
+        return [anos, rango]
 
 class DiagnosticoPerfil:
     @staticmethod
