@@ -72,6 +72,11 @@ class PanelScreen(Screen):
         self.id_cargardatos.text = "Cargar Datos"
         self.id_actualizar.text = "Actualizar"
 
+        self.id_inactivar.bind(on_release=self.on_inactivar)
+
+    def on_inactivar(self, *args):
+        InactivarBeneficiario(self.informacion[0]).open()
+
     def nuevobeneficiario(self):
         self.id_proyecto.text = f'ODP {self.informacion[1]} Proyecto {self.informacion[0]}'
         EmergentNuevoBeneficiario(self.id_proyecto.text).open()
@@ -970,7 +975,6 @@ class EmergentNuevoBeneficiario(Popup):
         if utilidades.Comprobaciones.password(self.id_beneficiario.text):
             if utilidades.Panel.buscarBeneficiario(self.id_beneficiario.text, self.string) == "No existe":
                 # TODO Ingreso del documento de identidad del beneficiario
-
                 InformacionGeneralScreen.beneficiario = self.id_beneficiario.text
                 DiagnosticoPerfilProductivoScreen.beneficiario = self.id_beneficiario.text
                 IdeaNegocioScreen.beneficiario = self.id_beneficiario.text
@@ -979,14 +983,20 @@ class EmergentNuevoBeneficiario(Popup):
                 self.dismiss()
 
             elif utilidades.Panel.buscarBeneficiario(self.id_beneficiario.text, self.string) == "Ya tiene C. Básica":
-                UsuarioYaExisteEnEsteProyecto(self.id_beneficiario.text, True).open()
-                self.dismiss()
+
+                if utilidades.Panel.comprobarEstado(self.id_beneficiario.text, self.string.split()[-1]) == 1:
+                    UsuarioYaExisteEnEsteProyecto(self.id_beneficiario.text, True, False).open()
+                    self.dismiss()
+
+                else:
+                    UsuarioYaExisteEnEsteProyecto(self.id_beneficiario.text, False, True).open()
+                    self.dismiss()
             else:
                 proyectos = utilidades.Panel.buscarBeneficiario(self.id_beneficiario.text, self.string).split()
                 BeneficiarioProyecto(self.id_beneficiario.text, proyectos, self.string).open()
                 self.dismiss()
         else:
-            UsuarioYaExisteEnEsteProyecto(self.id_beneficiario.text, False).open()
+            UsuarioYaExisteEnEsteProyecto(self.id_beneficiario.text, False, False).open()
             self.dismiss()
 
 
@@ -998,6 +1008,8 @@ class BeneficiarioProyecto(Popup):
         super().__init__(**kwargs)
         self.beneficiario = args[0]
         self.proyectos = args[1]
+        self.proyectos.insert(0, "Emprendedor")
+        self.proyectos.insert(0, "Microempresario")
         self.string = args[2].split()[-1]
 
     def on_open(self):
@@ -1006,7 +1018,37 @@ class BeneficiarioProyecto(Popup):
         self.id_proyectos.bind(text=self.on_selection)
 
     def on_selection(self, *args):
-        utilidades.Panel.copiarCBasica(self.beneficiario, self.string, args[1])
+        if not args[1] == "Emprendedor" or args[1] == "Microempresario":
+            utilidades.Panel.copiarCBasica(self.beneficiario, self.string, args[1])
+            self.dismiss()
+        else:
+            InformacionGeneralScreen.beneficiario = self.beneficiario
+            DiagnosticoPerfilProductivoScreen.beneficiario = self.beneficiario
+            IdeaNegocioScreen.beneficiario = self.beneficiario
+            UnidadNegocioScreen.beneficiario = self.beneficiario
+
+            if args[1] == "Emprendedor":
+                corporacion.sm.current = "IdeaNegocio"
+            else:
+                corporacion.sm.current = "UnidadNegocio"
+            self.dismiss()
+
+
+# Generado en la ventana PANEL GENERAL
+class InactivarBeneficiario(Popup):
+    id_beneficiarios = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.proyecto = args[0]
+
+    def on_open(self):
+        self.title = f"Seleccione el beneficiario a inactivar. ¡Cuidado! Esta acción no puede ser anulada."
+        self.id_beneficiarios.values = utilidades.Panel.lista_beneficiarios(self.proyecto)
+        self.id_beneficiarios.bind(text=self.on_selection)
+
+    def on_selection(self, *args):
+        utilidades.Panel.inactivar_beneficiario(args[1], self.proyecto)
         self.dismiss()
 
 
@@ -1018,12 +1060,16 @@ class UsuarioYaExisteEnEsteProyecto(Popup):
         super().__init__(**kwargs)
         self.beneficiario = args[0]
         self.indicacion = args[1]
+        self.estado = args[2]
 
     def on_open(self):
-        if self.indicacion:
-            self.title = f"Beneficiario {self.beneficiario} ya tiene Caracterización básica en este proyecto"
+        if self.estado:
+            self.title = f"{self.beneficiario} está inactivado en este proyecto. Contacte la central para cambiarlo."
         else:
-            self.title = f"{self.beneficiario} no es un formato de documento permitido"
+            if self.indicacion:
+                self.title = f"Beneficiario {self.beneficiario} ya tiene Caracterización básica en este proyecto"
+            else:
+                self.title = f"{self.beneficiario} no es un formato de documento permitido"
         self.id_botonaceptar.bind(on_release=self.on_selection)
 
     def on_selection(self, *args):

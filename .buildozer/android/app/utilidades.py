@@ -156,6 +156,19 @@ class Panel:
                     return "No existe"
 
     @staticmethod
+    def comprobarEstado(beneficiario, proyecto):
+        db = MyDB()
+        proyecto = db.query("SELECT idProyecto FROM proyectos WHERE nombre = :nombre",
+                             {'nombre': proyecto}).fetchone()
+        proyecto = proyecto[0]
+
+        resultado = db.query("SELECT estado FROM beneficiariosProyectos WHERE fkProyecto = :proyecto AND "
+                             "fkBeneficiario = :beneficiario",
+                             {'proyecto': proyecto, 'beneficiario': beneficiario}).fetchone()
+        resultado = resultado[0]
+        print(resultado)
+
+    @staticmethod
     def copiarCBasica(beneficiario, pro_nuevo, pro_antiguo):
         db = MyDB()
         resultado = db.query("SELECT idProyecto FROM proyectos WHERE nombre = :nombre",
@@ -190,6 +203,25 @@ class Panel:
 
         db.commit("INSERT INTO beneficiariosProyectos(fkProyecto, fkBeneficiario, estado) VALUES (?,?,1)",
                   (pro_nuevo, beneficiario))
+
+    @staticmethod
+    def lista_beneficiarios(proyecto):
+        db = MyDB()
+        resultado = db.query("SELECT fkBeneficiario FROM beneficiariosProyectos WHERE fkProyecto = (SELECT "
+                             "idProyecto FROM proyectos WHERE nombre = :proyecto)",
+                             {'proyecto': proyecto}).fetchall()
+        resultado = [res[0] for res in resultado]
+        return resultado
+
+    @staticmethod
+    def inactivar_beneficiario(beneficiario, proyecto):
+        db = MyDB()
+        proyecto = db.query("SELECT idProyecto FROM proyectos WHERE nombre = :nombre",
+                             {'nombre': proyecto}).fetchone()
+        proyecto = proyecto[0]
+
+        db.commit("UPDATE beneficiariosProyectos SET estado = 0 WHERE fkProyecto = :proyecto AND fkBeneficiario = "
+                  ":beneficiario", {'proyecto': proyecto,'beneficiario': beneficiario})
 
 
 class InfoGeneral:
