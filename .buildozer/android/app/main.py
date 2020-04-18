@@ -82,7 +82,7 @@ class InformacionGeneralScreen(Screen):
     informacion = None
     beneficiario = None
 
-    listaIdsInputs = []
+    # IDS
     id_titulo = ObjectProperty()
     id_nombre = ObjectProperty()
     id_apellido = ObjectProperty()
@@ -183,6 +183,16 @@ class InformacionGeneralScreen(Screen):
         self.id_deptoExpedicion.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
         self.id_departamentos.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
         self.id_ciudades.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+
+        # Iniciar todos los Text Inputs con el color desactivado
+        self.id_nombre.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_apellido.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_nacimiento.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_fijo.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_celular.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_celular2.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_direccion.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_email.background_color = 255 / 255, 255 / 255, 255 / 255, 1
 
         # Estableciendo el enlace con los spinner cuya selección determina el valor de otros
         self.id_pais.bind(text=self.on_selection_pais)
@@ -341,15 +351,25 @@ class InformacionGeneralScreen(Screen):
 
 
 class DiagnosticoPerfilProductivoScreen(Screen):
+    # Costants
     beneficiario = None
     tipo_beneficiario = ""
     creacion = False
 
+    # IDS
     id_container_grid = ObjectProperty()
     id_labelMensajes = ObjectProperty()
     id_botonIngresar = ObjectProperty()
 
     def on_pre_enter(self):
+        # Si las preguntas ya fueron creadas, desactive todas las respuestas
+        if self.creacion:
+            for idx1, grid in enumerate(self.id_container_grid.children):
+                if len(grid.children) > 0:
+                    for idx2, box in enumerate(grid.children):
+                        if box.active:
+                            self.id_container_grid.children[idx1].children[idx2].active = False
+
         if not self.creacion:
             self.id_botonIngresar.bind(on_press=self.verificarTodo)
             preguntas = utilidades.DiagnosticoPerfil.cargarPreguntas()
@@ -390,11 +410,13 @@ class DiagnosticoPerfilProductivoScreen(Screen):
 
 
 class IdeaNegocioScreen(Screen):
+    # Costantes
     informacion = None
     beneficiario = None
     lista_productos_servicios = ""
     lista_colaboradores = ""
 
+    # IDS
     id_emprendimiento = ObjectProperty()
     id_sectorEmpresarial = ObjectProperty()
     id_ciudades = ObjectProperty()
@@ -422,12 +444,14 @@ class IdeaNegocioScreen(Screen):
     id_botonIngresar = ObjectProperty()
 
     def on_pre_enter(self):
+        # Restricciones
         self.id_inversionActivos.input_type = 'number'
         self.id_ventasPrimerMes.input_type = 'number'
         self.id_inversionInicial.input_type = 'number'
         self.id_invCapitalTrabajo.input_type = 'number'
         self.id_ventasPrimerAno.input_type = 'number'
 
+        # Inicializando Caracteres
         self.id_emprendimiento.text = ""
         self.id_sectorEmpresarial.text = "Sector Empresarial"
         self.id_ciudades.text = "Ciudad"
@@ -478,8 +502,36 @@ class IdeaNegocioScreen(Screen):
         self.id_ventasPrimerAno.hint_text = "Ventas Primer año"
         self.id_imagine.hint_text = "Imagine su negocio"
 
+        # Iniciar todos los spinners con el color desactivado
+        self.id_sectorEmpresarial.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_estudios.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_esAgropecuario.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_necesitaColaboradores.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_tiempoSemanal.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_porqueNo.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_mesesQueLleva.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_ciiu.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_comoSurge.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_tieneExperiencia.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_departamentos.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_tiempoADedicar.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_productoServicio.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_porcentajeInversion.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+
+        # Iniciar todos los Text Inputs con el color desactivado
+        self.id_emprendimiento.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_portafolio.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_inversionActivos.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_ventasPrimerMes.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_inversionInicial.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_invCapitalTrabajo.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_ventasPrimerAno.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_imagine.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+
+        # Estableciendo el enlace con los spinner cuya selección determina el valor de otros
         self.id_departamentos.bind(text=self.on_selection_departamentos)
 
+        # Métodos que cambian el color del spinner cuando son seleccionados
         self.id_sectorEmpresarial.bind(text=self.cambiar_color)
         self.id_ciudades.bind(text=self.cambiar_color)
         self.id_estudios.bind(text=self.cambiar_color)
@@ -495,7 +547,34 @@ class IdeaNegocioScreen(Screen):
         self.id_productoServicio.bind(text=self.productosservs)
         self.id_porcentajeInversion.bind(text=self.cambiar_color)
 
+        # Método que verificará si el formulario fue totalmente diligenciado
         self.id_botonIngresar.bind(on_press=self.comprobarTodo)
+
+        # Métodos de verificación individual de cada Text Input
+        self.id_emprendimiento.bind(on_text_validate=self.check_name)
+        self.id_portafolio.bind(on_text_validate=self.check_name)
+        self.id_inversionActivos.bind(on_text_validate=self.check_dinero)
+        self.id_ventasPrimerMes.bind(on_text_validate=self.check_dinero)
+        self.id_inversionInicial.bind(on_text_validate=self.check_dinero)
+        self.id_invCapitalTrabajo.bind(on_text_validate=self.check_dinero)
+        self.id_ventasPrimerAno.bind(on_text_validate=self.check_dinero)
+        self.id_imagine.bind(on_text_validate=self.check_name)
+
+    def check_name(self, *args):
+        self.id_labelMensajes.text = ""
+        if utilidades.Comprobaciones.name(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el campo de texto"
+
+    def check_dinero(self, *args):
+        self.id_labelMensajes.text = ""
+        if utilidades.Comprobaciones.dinero(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el campo de texto"
 
     def cambiar_color(self, *args):
         args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
@@ -532,7 +611,17 @@ class IdeaNegocioScreen(Screen):
                 self.id_imagine.text == "" or self.lista_productos_servicios == ""):
             self.id_labelMensajes.text = "Formulario incompleto"
         if self.id_labelMensajes.text == "":
-            corporacion.sm.current = "Panel"
+            if (utilidades.Comprobaciones.name(self.id_emprendimiento.text) and
+                    utilidades.Comprobaciones.name(self.id_portafolio.text) and
+                    utilidades.Comprobaciones.name(self.id_imagine.text) and
+                    utilidades.Comprobaciones.dinero(self.id_inversionActivos.text) and
+                    utilidades.Comprobaciones.dinero(self.id_ventasPrimerMes.text) and
+                    utilidades.Comprobaciones.dinero(self.id_inversionInicial.text) and
+                    utilidades.Comprobaciones.dinero(self.id_invCapitalTrabajo.text) and
+                    utilidades.Comprobaciones.dinero(self.id_ventasPrimerAno.text)):
+                corporacion.sm.current = "Panel"
+            else:
+                self.id_labelMensajes.text = "Error en algún campo de texto"
 
     def on_pre_leave(self, *args):
         proyecto = utilidades.InfoGeneral.identidadProyecto(self.informacion[0])
@@ -568,9 +657,11 @@ class IdeaNegocioScreen(Screen):
 
 
 class UnidadNegocioScreen(Screen):
+    # Costante
     informacion = None
     beneficiario = None
 
+    #IDS
     id_unidad = ObjectProperty()
     id_existe = ObjectProperty()
     id_cuantosSocios = ObjectProperty()
@@ -601,10 +692,12 @@ class UnidadNegocioScreen(Screen):
     id_botonIngresar = ObjectProperty()
 
     def on_pre_enter(self):
+        # Restricciones
         self.id_telFijo.input_type = 'number'
         self.id_celular.input_type = 'number'
         self.id_celular2.input_type = 'number'
 
+        # Inicializando Caracteres
         self.id_unidad.text = ""
         self.id_existe.text = "Si existe seleccione"
         self.id_cuantosSocios.text = "¿Cuantos socios?"
@@ -639,6 +732,7 @@ class UnidadNegocioScreen(Screen):
         self.id_email.hint_text = "Email"
         self.id_paginaWeb.hint_text = "Página Web"
 
+        # Cargando los valores de las listas deplegables
         info = utilidades.UnidadNegocio.cargarDatos()
         self.id_cuantosSocios.values = info[0]
         self.id_ciiu.values = info[7]

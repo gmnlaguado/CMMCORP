@@ -82,6 +82,12 @@ class Comprobaciones:
             return True
         return False
 
+    @staticmethod
+    def dinero(dinero):
+        if re.search(r"[^(0-9,.)]", dinero) is None and len(dinero) != 0:
+            return True
+        return False
+
 
 class MyDB(object):
     def __init__(self):

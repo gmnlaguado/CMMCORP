@@ -2,23 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="660c3643-4b99-4d0f-a262-421159d9faab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/datos.db" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/datos.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/utilidades.py" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/utilidades.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/InformacionGeneral.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/InformacionGeneral.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/Login.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/Login.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildozer/android/app/windows/Panel.kv" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/app/windows/Panel.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/assets/private.mp3" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/assets/private.mp3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/android/platform/build-armeabi-v7a/dists/myapp__armeabi-v7a/src/main/res/values/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.buildozer/state.db" beforeDir="false" afterPath="$PROJECT_DIR$/.buildozer/state.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/myapp__armeabi-v7a-0.1-armeabi-v7a-debug.apk" beforeDir="false" afterPath="$PROJECT_DIR$/bin/myapp__armeabi-v7a-0.1-armeabi-v7a-debug.apk" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/datos.db" beforeDir="false" afterPath="$PROJECT_DIR$/datos.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/utilidades.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilidades.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/InformacionGeneral.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/InformacionGeneral.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/Login.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/Login.kv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/windows/Panel.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/Panel.kv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,22 +104,22 @@
       <screen x="0" y="0" width="1366" height="737" />
     </state>
     <state x="776" y="136" key="#xdebugger.evaluate/0.0.1366.737@0.0.1366.737" timestamp="1587072420146" />
-    <state width="1341" height="173" key="GridCell.Tab.0.bottom" timestamp="1587172310081">
+    <state width="1341" height="173" key="GridCell.Tab.0.bottom" timestamp="1587182764101">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.bottom/0.0.1366.737@0.0.1366.737" timestamp="1587172310081" />
-    <state width="1341" height="173" key="GridCell.Tab.0.center" timestamp="1587172310081">
+    <state width="1341" height="173" key="GridCell.Tab.0.bottom/0.0.1366.737@0.0.1366.737" timestamp="1587182764101" />
+    <state width="1341" height="173" key="GridCell.Tab.0.center" timestamp="1587182764093">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.center/0.0.1366.737@0.0.1366.737" timestamp="1587172310081" />
-    <state width="1341" height="173" key="GridCell.Tab.0.left" timestamp="1587172310080">
+    <state width="1341" height="173" key="GridCell.Tab.0.center/0.0.1366.737@0.0.1366.737" timestamp="1587182764093" />
+    <state width="1341" height="173" key="GridCell.Tab.0.left" timestamp="1587182764091">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.left/0.0.1366.737@0.0.1366.737" timestamp="1587172310080" />
-    <state width="1341" height="173" key="GridCell.Tab.0.right" timestamp="1587172310081">
+    <state width="1341" height="173" key="GridCell.Tab.0.left/0.0.1366.737@0.0.1366.737" timestamp="1587182764091" />
+    <state width="1341" height="173" key="GridCell.Tab.0.right" timestamp="1587182764099">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.right/0.0.1366.737@0.0.1366.737" timestamp="1587172310081" />
+    <state width="1341" height="173" key="GridCell.Tab.0.right/0.0.1366.737@0.0.1366.737" timestamp="1587182764099" />
     <state width="1341" height="181" key="GridCell.Tab.1.bottom" timestamp="1587084775764">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
@@ -149,6 +136,10 @@
       <screen x="0" y="0" width="1366" height="737" />
     </state>
     <state width="1341" height="181" key="GridCell.Tab.1.right/0.0.1366.737@0.0.1366.737" timestamp="1587084775764" />
+    <state x="266" y="105" width="828" height="526" key="IDE.errors.dialog" timestamp="1587179581978">
+      <screen x="0" y="0" width="1366" height="737" />
+    </state>
+    <state x="266" y="105" width="828" height="526" key="IDE.errors.dialog/0.0.1366.737@0.0.1366.737" timestamp="1587179581978" />
     <state x="164" y="4" key="SettingsEditor" timestamp="1587169013327">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
