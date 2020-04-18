@@ -517,6 +517,7 @@ class IdeaNegocioScreen(Screen):
         self.id_tiempoADedicar.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
         self.id_productoServicio.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
         self.id_porcentajeInversion.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_ciudades.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
 
         # Iniciar todos los Text Inputs con el color desactivado
         self.id_emprendimiento.background_color = 255 / 255, 255 / 255, 255 / 255, 1
@@ -585,7 +586,8 @@ class IdeaNegocioScreen(Screen):
         args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
 
     def productosservs(self, *args):
-        ProductosServicios().open()
+        if args[1] != "Producto / Servicio":
+            ProductosServicios().open()
         args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
 
     def on_selection_departamentos(self, *args):
@@ -661,7 +663,7 @@ class UnidadNegocioScreen(Screen):
     informacion = None
     beneficiario = None
 
-    #IDS
+    # IDS
     id_unidad = ObjectProperty()
     id_existe = ObjectProperty()
     id_cuantosSocios = ObjectProperty()
@@ -746,8 +748,37 @@ class UnidadNegocioScreen(Screen):
 
         self.id_existe.values = ["No"]
 
+        # Iniciar todos los spinners con el color desactivado
+        self.id_cuantosSocios.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_ciiu.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_sector.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_regCamara.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_conContrato.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_sinContrato.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_departamentos.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_rotulo.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_indicador.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_existe.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_ciudades.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+
+        # Iniciar todos los Text Inputs con el color desactivado
+        self.id_unidad.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_email.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_paginaWeb.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_direccion.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_telFijo.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_celular.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_celular2.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_descripcion.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_portafolio.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_creacion.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_nit.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_descripcionPasivos.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+
+        # Estableciendo el enlace con los spinner cuya selección determina el valor de otros
         self.id_departamentos.bind(text=self.on_selection_departamentos)
 
+        # Métodos que cambian el color del spinner cuando son seleccionados
         self.id_existe.bind(text=self.cambiar_color)
         self.id_cuantosSocios.bind(text=self.cambiar_color)
         self.id_ciiu.bind(text=self.cambiar_color)
@@ -759,7 +790,61 @@ class UnidadNegocioScreen(Screen):
         self.id_indicador.bind(text=self.cambiar_color)
         self.id_ciudades.bind(text=self.cambiar_color)
 
+        # Método que verificará si el formulario fue totalmente diligenciado
         self.id_botonIngresar.bind(on_press=self.comprobarTodo)
+
+        # Métodos de verificación individual de cada Text Input
+        self.id_unidad.bind(on_text_validate=self.check_name)
+        self.id_telFijo.bind(on_text_validate=self.check_fijo)
+        self.id_celular.bind(on_text_validate=self.check_celular)
+        self.id_celular2.bind(on_text_validate=self.check_celular)
+        self.id_descripcion.bind(on_text_validate=self.check_name)
+        self.id_portafolio.bind(on_text_validate=self.check_name)
+        self.id_creacion.bind(on_text_validate=self.check_data)
+        self.id_descripcionPasivos.bind(on_text_validate=self.check_name)
+
+        self.id_email.bind(on_text_validate=self.check_input)
+        self.id_paginaWeb.bind(on_text_validate=self.check_input)
+        self.id_direccion.bind(on_text_validate=self.check_input)
+        self.id_nit.bind(on_text_validate=self.check_input)
+
+    def check_name(self, *args):
+        self.id_labelMensajes.text = ""
+        if utilidades.Comprobaciones.name(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el campo de texto"
+
+    def check_data(self, *args):
+        if utilidades.Comprobaciones.data(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el campo de fecha"
+
+    def check_fijo(self, *args):
+        self.id_labelMensajes.text = ""
+        if utilidades.Comprobaciones.fijo(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el teléfono fijo"
+
+    def check_celular(self, *args):
+        self.id_labelMensajes.text = ""
+        if utilidades.Comprobaciones.celular(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el número celular"
+
+    def check_input(self, *args):
+        self.id_labelMensajes.text = ""
+        if len(args[0].text.strip()) > 0:
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            self.id_labelMensajes.text = "No se permiten campos vacios"
 
     def cambiar_color(self, *args):
         args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
@@ -797,7 +882,17 @@ class UnidadNegocioScreen(Screen):
         ):
             self.id_labelMensajes.text = "Formulario Incompleto"
         if self.id_labelMensajes.text == "":
-            corporacion.sm.current = "Panel"
+            if (utilidades.Comprobaciones.name(self.id_unidad.text) and
+                    utilidades.Comprobaciones.name(self.id_descripcion.text) and
+                    utilidades.Comprobaciones.name(self.id_portafolio.text) and
+                    utilidades.Comprobaciones.name(self.id_descripcionPasivos.text) and
+                    utilidades.Comprobaciones.fijo(self.id_telFijo.text) and
+                    utilidades.Comprobaciones.celular(self.id_celular.text) and
+                    utilidades.Comprobaciones.celular(self.id_celular2.text) and
+                    utilidades.Comprobaciones.data(self.id_creacion.text)):
+                corporacion.sm.current = "Panel"
+            else:
+                self.id_labelMensajes.text = "Error en algunos campos de texto"
 
     def on_pre_leave(self, *args):
         proyecto = utilidades.InfoGeneral.identidadProyecto(self.informacion[0])
@@ -872,15 +967,66 @@ class EmergentNuevoBeneficiario(Popup):
         self.id_beneficiario.bind(on_text_validate=self.on_selection)
 
     def on_selection(self, *args):
-        if utilidades.Panel.buscarBeneficiario(self.id_beneficiario.text, self.string) == "No existe":
-            # TODO Ingreso del documento de identidad del beneficiario
+        if utilidades.Comprobaciones.password(self.id_beneficiario.text):
+            if utilidades.Panel.buscarBeneficiario(self.id_beneficiario.text, self.string) == "No existe":
+                # TODO Ingreso del documento de identidad del beneficiario
 
-            InformacionGeneralScreen.beneficiario = self.id_beneficiario.text
-            DiagnosticoPerfilProductivoScreen.beneficiario = self.id_beneficiario.text
-            IdeaNegocioScreen.beneficiario = self.id_beneficiario.text
-            UnidadNegocioScreen.beneficiario = self.id_beneficiario.text
-            corporacion.sm.current = "InformacionGeneral"
+                InformacionGeneralScreen.beneficiario = self.id_beneficiario.text
+                DiagnosticoPerfilProductivoScreen.beneficiario = self.id_beneficiario.text
+                IdeaNegocioScreen.beneficiario = self.id_beneficiario.text
+                UnidadNegocioScreen.beneficiario = self.id_beneficiario.text
+                corporacion.sm.current = "InformacionGeneral"
+                self.dismiss()
 
+            elif utilidades.Panel.buscarBeneficiario(self.id_beneficiario.text, self.string) == "Ya tiene C. Básica":
+                UsuarioYaExisteEnEsteProyecto(self.id_beneficiario.text, True).open()
+                self.dismiss()
+            else:
+                proyectos = utilidades.Panel.buscarBeneficiario(self.id_beneficiario.text, self.string).split()
+                BeneficiarioProyecto(self.id_beneficiario.text, proyectos, self.string).open()
+                self.dismiss()
+        else:
+            UsuarioYaExisteEnEsteProyecto(self.id_beneficiario.text, False).open()
+            self.dismiss()
+
+
+# Generado en la ventana PANEL GENERAL
+class BeneficiarioProyecto(Popup):
+    id_proyectos = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.beneficiario = args[0]
+        self.proyectos = args[1]
+        self.string = args[2].split()[-1]
+
+    def on_open(self):
+        self.title = f"Seleccione el proyecto del cual desea copiar la C. Básica del benficiario {self.beneficiario}"
+        self.id_proyectos.values = self.proyectos
+        self.id_proyectos.bind(text=self.on_selection)
+
+    def on_selection(self, *args):
+        utilidades.Panel.copiarCBasica(self.beneficiario, self.string, args[1])
+        self.dismiss()
+
+
+# Generado en la ventana PANEL GENERAL
+class UsuarioYaExisteEnEsteProyecto(Popup):
+    id_botonaceptar = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.beneficiario = args[0]
+        self.indicacion = args[1]
+
+    def on_open(self):
+        if self.indicacion:
+            self.title = f"Beneficiario {self.beneficiario} ya tiene Caracterización básica en este proyecto"
+        else:
+            self.title = f"{self.beneficiario} no es un formato de documento permitido"
+        self.id_botonaceptar.bind(on_release=self.on_selection)
+
+    def on_selection(self, *args):
         self.dismiss()
 
 

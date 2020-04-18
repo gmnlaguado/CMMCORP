@@ -155,6 +155,42 @@ class Panel:
                 else:
                     return "No existe"
 
+    @staticmethod
+    def copiarCBasica(beneficiario, pro_nuevo, pro_antiguo):
+        db = MyDB()
+        resultado = db.query("SELECT idProyecto FROM proyectos WHERE nombre = :nombre",
+                             {'nombre': pro_antiguo}).fetchone()
+        pro_antiguo = resultado[0]
+
+        resultado = db.query("SELECT idProyecto FROM proyectos WHERE nombre = :nombre",
+                             {'nombre': pro_nuevo}).fetchone()
+        pro_nuevo = resultado[0]
+
+        resultado = db.query("SELECT tipo FROM beneficiarios WHERE documento = :beneficiario",
+                             {'beneficiario': beneficiario}).fetchone()
+        tipo = resultado[0]
+        if tipo == "Emprendedor":
+            res = db.query("SELECT * FROM ideaNegocio WHERE fkProyecto = :proyecto and fkBeneficiario = :beneficiario",
+                      {'proyecto': pro_antiguo, 'beneficiario': beneficiario}).fetchone()
+            data = list(res)
+            data[0] = pro_nuevo
+
+            db.commit("INSERT INTO ideaNegocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                      (tuple(data)))
+
+        if tipo == "Microempresario":
+
+            res = db.query("SELECT * FROM unidadNegocio WHERE fkProyecto = :proyecto and fkBeneficiario = :beneficiario",
+                      {'proyecto': pro_antiguo, 'beneficiario': beneficiario}).fetchone()
+            data = list(res)
+            data[0] = pro_nuevo
+
+            db.commit("INSERT INTO unidadNegocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                      (tuple(data)))
+
+        db.commit("INSERT INTO beneficiariosProyectos(fkProyecto, fkBeneficiario, estado) VALUES (?,?,1)",
+                  (pro_nuevo, beneficiario))
+
 
 class InfoGeneral:
     @staticmethod
