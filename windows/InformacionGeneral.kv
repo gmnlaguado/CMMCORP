@@ -1,50 +1,3 @@
-<InfoInput@TextInput>:
-    padding: 10
-    font_size: 18
-    font_name: "montserrat"
-    color: 0,0,0,1
-    size_hint: None, None
-    size: 376, 40
-    halign: "center"
-    valign: "middle"
-    background_color: 1,1,1,1
-    background_normal: ''
-    multiline: False
-    password: False
-
-<InfoSpinner@Spinner>
-    font_size: 24
-    font_name: "montserrat"
-    color: 1,1,1,1
-    size_hint: None, None
-    size: 352,40
-    halign: "center"
-    valign: "middle"
-    background_color:61/255,119/255,0/255,0.7
-    background_normal: 'images/dropdown.png'
-
-<InfoSpinnerMini@Spinner>
-    font_size: 24
-    font_name: "montserrat"
-    color: 1,1,1,1
-    size_hint: None, None
-    size: 352,40
-    halign: "center"
-    valign: "middle"
-    background_color:61/255,119/255,0/255,0.7
-    background_normal: 'images/dropdown_mini.png'
-
-<InfoButton@Button>
-    font_size: 24
-    font_name: "montserrat"
-    color: 1,1,1,1
-    size_hint: None, None
-    size: 352,40
-    halign: "center"
-    valign: "middle"
-    background_color:61/255,119/255,0/255,0.7
-    background_normal: ''
-
 <ConfirmacionInfoGeneral>:
     id_botonaceptar: id_botonaceptar
     size_hint: None, None
@@ -67,7 +20,7 @@
     FloatLayout:
         size_hint: None, None
         size: 566,116
-        LoginButton:
+        Button352_64:
             id: id_botonaceptar
             focus: True
             x: 464
@@ -107,47 +60,39 @@
     id_labelMensajes: id_labelMensajes
     id_botonIngresar: id_botonIngresar
 
-    LoginLayout:
-        size_hint: None, None
-        size: 1150, 623
-        top: 800-88
-        x: 65
-        Titulos:
+    Layout1150_623:
+        Label888:
             id: id_titulo
-            x: 192
-            top: 800 - 24
-        LoginLabel:
+        Label352:
             x:88
             top:800-122
             text:"Nombre"
-        InfoInput:
+        Input376:
             id: id_nombre
             focus: True
             x:228
             top:800-122
-        LoginLabel:
+        Label352:
             x:674
             top:800-122
             text:"Apellido"
-        InfoInput:
+        Input376:
             id: id_apellido
             x:814
             top:800-122
-        LoginLabel:
+        Label352:
             x:88
             top:800-187
             text:"Fecha de nacimiento"
-        InfoInput:
+        Input248:
             id: id_nacimiento
             x:435
             top:800-187
-            hint_text: "DD/MM/AAAA"
-            size: 248, 40
-        LoginLabel:
+        Label352:
             id: id_edad
             x:756
             top:800-187
-        LoginLabel:
+        Label352:
             id: id_rangoEdad
             x:986
             top:800-187
@@ -161,91 +106,75 @@
             spacing: 25
             BoxLayout:
                 spacing: 24
-                InfoSpinner:
+                Spinner352:
                     id: id_tipoDocumento
-                InfoSpinner:
+                Spinner352:
                     id: id_deptoExpedicion
-                InfoSpinner:
+                Spinner352:
                     id: id_ciudadExpedicion
             BoxLayout:
                 spacing: 24
-                InfoSpinner:
+                Spinner352:
                     id: id_sexo
-                InfoSpinner:
+                Spinner352:
                     id: id_tipo
-                InfoSpinner:
+                Spinner352:
                     id: id_nacionalidad
             BoxLayout:
                 spacing: 24
-                InfoSpinner:
+                Spinner352:
                     id: id_pais
-                InfoSpinner:
+                Spinner352:
                     id: id_departamentos
-                InfoSpinner:
+                Spinner352:
                     id: id_ciudades
             BoxLayout:
                 spacing: 24
-                InfoSpinner:
+                Spinner352:
                     id: id_entorno
                 BoxLayout:
                     size_hint: None, None
                     size: 359,40
-                    LoginLabel:
+                    Label158:
                         id: id_direccionLabel
-                        size: 158,40
-                        text_size:158,40
-                    InfoSpinnerMini:
+                    Spinner192:
                         id: id_rotulo
-                        size: 192,40
-                InfoInput:
+                Input352:
                     id: id_direccion
-                    size: 352,40
                     hint_text: "___ # ___ - ___"
 
             BoxLayout:
                 spacing: 24
-                InfoSpinner:
+                Spinner352:
                     id: id_barrios
                 BoxLayout:
                     size_hint: None, None
                     size: 359,40
-                    LoginLabel:
-                        size: 158,40
-                        text_size:158,40
+                    Label158:
                         text: "Contacto"
-                    InfoSpinnerMini:
+                    Spinner192:
                         id: id_indicador
-                        size: 192,40
-                InfoInput:
+                Input352:
                     id: id_fijo
-                    size: 352,40
             BoxLayout:
                 spacing: 24
-                InfoSpinner:
+                Spinner352:
                     id: id_genero
-                InfoInput:
+                Input352:
                     id: id_celular
-                    size: 352,40
-                InfoInput:
+                Input352:
                     id: id_celular2
-                    size: 352,40
             BoxLayout:
                 spacing: 24
-                InfoSpinner:
+                Spinner352:
                     id: id_etnia
-                InfoSpinner:
+                Spinner352:
                     id: id_discapacidad
-                InfoInput:
+                Input352:
                     id: id_email
-                    size: 352,40
-        Titulos:
+        Label763:
             id: id_labelMensajes
-            color: 1,0,0,1
-            size: 763, 38
-            x: 75
-            top: 800 - 737
-            bold: False
-        LoginButton:
+        Button352_64:
             id: id_botonIngresar
             text: "Ingresar"
             top: 800-724

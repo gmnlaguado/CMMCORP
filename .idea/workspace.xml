@@ -3,10 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="660c3643-4b99-4d0f-a262-421159d9faab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datos.db" beforeDir="false" afterPath="$PROJECT_DIR$/datos.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utilidades.py" beforeDir="false" afterPath="$PROJECT_DIR$/utilidades.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/DiagnosticoPerfilProductivo.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/DiagnosticoPerfilProductivo.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/IdeaNegocio.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/IdeaNegocio.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/InformacionGeneral.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/InformacionGeneral.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/Login.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/Login.kv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/windows/Panel.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/Panel.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/windows/UnidadNegocio.kv" beforeDir="false" afterPath="$PROJECT_DIR$/windows/UnidadNegocio.kv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,22 +112,22 @@
       <screen x="0" y="0" width="1366" height="737" />
     </state>
     <state x="466" y="127" width="428" height="481" key="FileChooserDialogImpl/0.0.1366.737@0.0.1366.737" timestamp="1587230423664" />
-    <state width="1341" height="173" key="GridCell.Tab.0.bottom" timestamp="1587244756143">
+    <state width="1341" height="173" key="GridCell.Tab.0.bottom" timestamp="1587338381217">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.bottom/0.0.1366.737@0.0.1366.737" timestamp="1587244756143" />
-    <state width="1341" height="173" key="GridCell.Tab.0.center" timestamp="1587244756140">
+    <state width="1341" height="173" key="GridCell.Tab.0.bottom/0.0.1366.737@0.0.1366.737" timestamp="1587338381217" />
+    <state width="1341" height="173" key="GridCell.Tab.0.center" timestamp="1587338381214">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.center/0.0.1366.737@0.0.1366.737" timestamp="1587244756140" />
-    <state width="1341" height="173" key="GridCell.Tab.0.left" timestamp="1587244756138">
+    <state width="1341" height="173" key="GridCell.Tab.0.center/0.0.1366.737@0.0.1366.737" timestamp="1587338381214" />
+    <state width="1341" height="173" key="GridCell.Tab.0.left" timestamp="1587338381212">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.left/0.0.1366.737@0.0.1366.737" timestamp="1587244756138" />
-    <state width="1341" height="173" key="GridCell.Tab.0.right" timestamp="1587244756142">
+    <state width="1341" height="173" key="GridCell.Tab.0.left/0.0.1366.737@0.0.1366.737" timestamp="1587338381212" />
+    <state width="1341" height="173" key="GridCell.Tab.0.right" timestamp="1587338381216">
       <screen x="0" y="0" width="1366" height="737" />
     </state>
-    <state width="1341" height="173" key="GridCell.Tab.0.right/0.0.1366.737@0.0.1366.737" timestamp="1587244756142" />
+    <state width="1341" height="173" key="GridCell.Tab.0.right/0.0.1366.737@0.0.1366.737" timestamp="1587338381216" />
     <state width="1341" height="181" key="GridCell.Tab.1.bottom" timestamp="1587084775764">
       <screen x="0" y="0" width="1366" height="737" />
     </state>

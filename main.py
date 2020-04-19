@@ -927,6 +927,10 @@ class UnidadNegocioScreen(Screen):
         )
 
 
+class CaracterizacionAmpliadaScreen(Screen):
+    pass
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1138,6 +1142,8 @@ class MyApp(App):
         Builder.load_file("windows/DiagnosticoPerfilProductivo.kv")
         Builder.load_file("windows/IdeaNegocio.kv")
         Builder.load_file("windows/UnidadNegocio.kv")
+        Builder.load_file("windows/CaracterizacionAmpliada.kv")
+        Builder.load_file("windows/templates.kv")
 
         # Agregando ventanas al gestor de ventanas
         self.sm.add_widget(LoginScreen(name="Login"))
@@ -1146,6 +1152,7 @@ class MyApp(App):
         self.sm.add_widget(DiagnosticoPerfilProductivoScreen(name="DiagnosticoPerfilProductivo"))
         self.sm.add_widget(IdeaNegocioScreen(name="IdeaNegocio"))
         self.sm.add_widget(UnidadNegocioScreen(name="UnidadNegocio"))
+        self.sm.add_widget(CaracterizacionAmpliadaScreen(name="CaracterizacionAmpliada"))
         self.sm.current = "Login"
         return self.sm
 
