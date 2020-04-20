@@ -467,4 +467,28 @@ class CarAmpliada:
                     Costantes.promedioIngresos, Costantes.promedioIngresos, Costantes.SiNos, Costantes.SiNos]
         return retornar
 
+    @staticmethod
+    def buscarOperario(username):
+        db = MyDB()
+        username = db.query("SELECT documento FROM operarios WHERE username = :username",
+                             {'username': username}).fetchone()
+        username = username[0]
+        return username
+
+    @staticmethod
+    def subirDatos(*args):
+        db = MyDB()
+        db.commit("INSERT INTO caracterizacionAmpliada VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", args)
+
+    @staticmethod
+    def comprobarBeneficiario(beneficario, proyecto):
+        proyecto = InfoGeneral.identidadProyecto(proyecto)
+        db = MyDB()
+        resultado = db.query("SELECT fkBeneficiario FROM caracterizacionAmpliada WHERE fkBeneficiario = :beneficario "
+                             "AND fkProyecto = :proyecto",
+                             {'beneficario': beneficario, 'proyecto': proyecto}).fetchone()
+        if len(resultado) > 0:
+            return True
+        return False
+
 

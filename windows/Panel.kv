@@ -49,6 +49,35 @@
             top: 800 - 467
             text: "Aceptar"
 
+<YatieneCAmpliada>:
+    id_botonaceptar: id_botonaceptar
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:"images/green_background.png"
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 0,0,0,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        Button352_64:
+            id: id_botonaceptar
+            focus: True
+            x: 464
+            top: 800 - 467
+            text: "Aceptar"
+
 <BeneficiarioProyecto>:
     id_proyectos: id_proyectos
     size_hint: None, None

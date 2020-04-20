@@ -962,6 +962,7 @@ class CaracterizacionAmpliadaScreen(Screen):
     informacion = None
     listado_hijos = False
     listado_cargo = False
+    beneficiario = None
 
     # IDS
     id_title = ObjectProperty()
@@ -1149,6 +1150,34 @@ class CaracterizacionAmpliadaScreen(Screen):
     def cambiar_color(self, *args):
         args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
 
+    def on_pre_leave(self, *args):
+        proyecto = utilidades.InfoGeneral.identidadProyecto(self.informacion[0])
+        operario = utilidades.CarAmpliada.buscarOperario(self.informacion[1])
+        utilidades.CarAmpliada.subirDatos(
+            proyecto,
+            operario,
+            self.beneficiario,
+            self.id_formacionSuperior.text,
+            self.id_nivelEscolaridad.text,
+            self.id_vinculacionLaboral.text,
+            self.id_independiente.text,
+            self.id_cabezaFamilia.text,
+            int(self.id_integrantesHogar.text),
+            self.id_regimenSalud.text,
+            self.id_estadoCivil.text,
+            self.id_tipoContrato.text,
+            self.id_rut.text,
+            int(self.id_numeroHijos.text),
+            int(self.id_aCargo.text),
+            self.id_cubreFamilia.text,
+            self.id_promedioIngresosContrato.text,
+            self.id_promedioIngresosActividad.text,
+            self.id_pension.text,
+            self.id_arl.text,
+            self.id_factoresQueImpiden.text,
+            self.id_observaciones.text
+        )
+
 
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1300,6 +1329,22 @@ class UsuarioYaExisteEnEsteProyecto(Popup):
         self.dismiss()
 
 
+# Generado en la ventana PANEL GENERAL
+class YatieneCAmpliada(Popup):
+    id_botonaceptar = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.beneficiario = args[0]
+
+    def on_open(self):
+        self.title = f"Al Beneficiario {self.beneficiario} ya se le realizó la caracterización ampliada"
+        self.id_botonaceptar.bind(on_release=self.on_selection)
+
+    def on_selection(self, *args):
+        self.dismiss()
+
+
 # Generado en la ventana INFORMACIÓN GENERAL
 class ConfirmacionInfoGeneral(Popup):
     # IDS
@@ -1354,7 +1399,12 @@ class CaracterizaAmpliada(Popup):
 
     def on_selection(self, *args):
         if utilidades.Panel.comprobarEstado(args[1], self.proyecto) == 1:
-            corporacion.sm.current = "CaracterizacionAmpliada"
+            if utilidades.CarAmpliada.comprobarBeneficiario(args[1], self.proyecto):
+                YatieneCAmpliada(args[1]).open()
+                self.dismiss()
+            else:
+                CaracterizacionAmpliadaScreen.beneficiario = args[1]
+                corporacion.sm.current = "CaracterizacionAmpliada"
             self.dismiss()
         else:
             UsuarioYaExisteEnEsteProyecto(args[1], False, True).open()
