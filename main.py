@@ -11,6 +11,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.label import Label
 from kivy.uix.spinner import Spinner
+import logic.pattern
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -19,44 +20,50 @@ from kivy.uix.spinner import Spinner
 
 
 class LoginScreen(Screen):
+
     # IDS
-    id_username = ObjectProperty()
-    id_password = ObjectProperty()
+    boxlayout_container = ObjectProperty()
     id_mensaje = ObjectProperty()
     id_buttonIngresar = ObjectProperty()
 
-    # Referencias estáticas
-    static_logo = ObjectProperty()
-    static_usuario = ObjectProperty()
-    static_contra = ObjectProperty()
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+
+        self.boxlayout_container_list = []
+
+        self.odp_label = logic.pattern.Label_352_40()
+        self.odp_label.text = "ODP Operario"
+        self.boxlayout_container_list.append(self.odp_label)
+
+        self.odp_input = logic.pattern.Input_352_64()
+        self.odp_input.text_type = "usuario"
+        self.boxlayout_container_list.append(self.odp_input)
+
+        self.contra_label = logic.pattern.Label_352_40()
+        self.contra_label.text = "Contraseña"
+        self.boxlayout_container_list.append(self.contra_label)
+
+        self.contra_input = logic.pattern.Input_352_64()
+        self.contra_input.password = True
+        self.contra_input.text_type = "contrasena"
+        self.boxlayout_container_list.append(self.contra_input)
 
     def on_pre_enter(self, *args):
-        # Definiciones
-        self.static_usuario.text = "ODP Consultor"
-        self.static_contra.text = "Contraseña"
-        self.id_buttonIngresar.text = "Ingresar"
 
-        # Enlazamientos
-        self.id_username.bind(on_text_validate=self.check_username)
-        self.id_password.bind(on_text_validate=self.check_password)
-        self.id_buttonIngresar.bind(on_release=self.check_password)
+        for item in self.boxlayout_container_list:
+            self.boxlayout_container.add_widget(item)
 
-    def check_username(self, *args):
-        self.id_mensaje.text = ""
-        if utilidades.Comprobaciones.username(self.id_username.text):
-            self.id_password.focus = True
-        else:
-            self.id_mensaje.text = "ODP incorrecto"
+        self.id_buttonIngresar.bind(on_release=self.total_validacion)
 
-    def check_password(self, *args):
-        self.id_mensaje.text = ""
-        if utilidades.Comprobaciones.password(self.id_password.text):
-            if utilidades.Comprobaciones.username(self.id_username.text):
-                self.id_mensaje.text = utilidades.Login.checkIfRight(self.id_username.text, self.id_password.text)
-                if self.id_mensaje.text == "":
-                    LoginProyectoPopup(self.id_username.text).open()
-        else:
-            self.id_mensaje.text = "Contraseña incorrecta"
+    def total_validacion(self, *args):
+        for item in self.boxlayout_container_list:
+            if item.class_type == "input":
+                if not item.complete:
+                    self.id_mensaje.text = "Error"
+                else:
+                    self.id_mensaje.text = utilidades.Login.checkIfRight(self.odp_input.text, self.contra_input.text)
+        if self.id_mensaje.text == "":
+            LoginProyectoPopup(self.odp_input.text).open()
 
 
 class PanelScreen(Screen):

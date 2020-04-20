@@ -11,8 +11,6 @@
     font_name: "montserrat"
     title_align: "center"
     title_color: 0,0,0,1
-
-
     FloatLayout:
         size_hint: None, None
         size: 566,116
@@ -23,20 +21,12 @@
             text: "Proyecto"
 
 <LoginScreen>:
-    # IDS
-    id_username: id_username
-    id_password: id_password
+    boxlayout_container: boxlayout_container
     id_mensaje: id_mensaje
     id_buttonIngresar: id_buttonIngresar
 
-    # Referencias estáticas
-    static_logo: static_logo
-    static_usuario: static_usuario
-    static_contra: static_contra
-
     Layout566_672:
         Button:
-            id: static_logo
             background_normal: './images/logo_black.png'
             background_down: './images/logo_black.png'
             size_hint: None, None
@@ -44,27 +34,13 @@
             x: 464
             top: 800 - 84
         BoxLayout:
+            id: boxlayout_container
             orientation: "vertical"
             size_hint: None, None
             size: 352, 227
             top: 800-304
             x: 464
-            Label352:
-                id: static_usuario
-            Input352:
-                id: id_username
-                focus: True
-                padding: 15
-                height: 64
-                font_size: 24
-            Label352:
-                id: static_contra
-            Input352:
-                id: id_password
-                padding: 20
-                password: True
-                font_size: 24
-                height: 64
+
         Label352:
             id: id_mensaje
             color: 1,0,0,1
@@ -74,5 +50,6 @@
 
         Button352_64:
             id: id_buttonIngresar
+            text: "Ingresar"
             top: 800-628
             x:464
