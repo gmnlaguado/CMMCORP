@@ -1,3 +1,74 @@
+<InformacionHijos>:
+    id_container_grid: id_container_grid
+    id_botonAceptar: id_botonAceptar
+
+    background:"images/green_background.png"
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 0,0,0,1
+    size_hint: None, None
+    size: 1150, 500
+    top: 800-88
+    x: 65
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: None, None
+        size: 1200,400
+        ScrollView:
+            size: self.size
+            GridLayout:
+                cols: 4
+                id: id_container_grid
+                size_hint_y:None
+                spacing:32
+        Label888:
+            size_hint_x: 1
+            text: "Una vez ingresada la informacion, presione Aceptar"
+            bold: False
+        Button352_64:
+            id: id_botonAceptar
+            pos_hint: {'center_x': 0.5}
+            text: "Aceptar"
+
+<InformacionPersonasACargo>:
+    id_container_grid: id_container_grid
+    id_botonAceptar: id_botonAceptar
+
+    background:"images/green_background.png"
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 0,0,0,1
+    size_hint: None, None
+    size: 1150, 500
+    top: 800-88
+    x: 65
+    BoxLayout:
+        orientation: "vertical"
+        size_hint: None, None
+        size: 1200,400
+        ScrollView:
+            size: self.size
+            GridLayout:
+                cols: 4
+                id: id_container_grid
+                size_hint_y:None
+                spacing:32
+        Label888:
+            size_hint_x: 1
+            text: "Una vez ingresada la informacion, presione Aceptar"
+            bold: False
+        Button352_64:
+            id: id_botonAceptar
+            pos_hint: {'center_x': 0.5}
+            text: "Aceptar"
+
+
 <CaracterizacionAmpliadaScreen>:
 
     id_title: id_title
@@ -12,9 +83,8 @@
     id_tipoContrato: id_tipoContrato
     id_rut: id_rut
     id_numeroHijos: id_numeroHijos
-    id_aCargoDiscapacidad: id_aCargoDiscapacidad
+    id_aCargo: id_aCargo
     id_cubreFamilia: id_cubreFamilia
-    id_poblacionVulnerable: id_poblacionVulnerable
     id_promedioIngresosContrato: id_promedioIngresosContrato
     id_promedioIngresosActividad: id_promedioIngresosActividad
     id_informacionHijos: id_informacionHijos
@@ -69,7 +139,7 @@
             Spinner352:
                 id: id_numeroHijos
             Spinner352:
-                id: id_aCargoDiscapacidad
+                id: id_aCargo
                 font_size: 14
             Spinner352:
                 id: id_cubreFamilia
@@ -80,8 +150,8 @@
             top: 800-187
             x: 842
             spacing: 25
-            Spinner352:
-                id: id_poblacionVulnerable
+            Label352:
+
             Spinner352:
                 id: id_promedioIngresosContrato
                 font_size: 14

@@ -40,6 +40,19 @@ class Costantes:
     conContrato = [str(numb) for numb in range(0, 50)]
     sinContrato = [str(numb) for numb in range(0, 50)]
 
+    nivelEscolaridad = ["Ninguna analfabeta", "Sin escolaridad, pero lee y escribe", "Preescolar",
+                        "Primaria Incompleta", "Primaria", "Secundaria Incompleta", "Secundaria",
+                        "Tecnólogo incimpleto", "Técnico", "Universidad incompleta", "Universitario profesional",
+                        "Postgrado", "ND"]
+    SiNos = ["Si", "No"]
+    regimenSalud = ["Sisben", "Eps Cotizante", "Eps Beneficiario", "Plan Especial Cotizante",
+                    "Plan Especial Beneficiario", "Ninguno"]
+    estadoCivil = ["Solter@", "Casad@", "Union libre", "Divorciad@", "Viud@", "ND"]
+    tipoContrato = ["Termino fijo", "Temporal", "Indefinido", "A destajo", "ND", "No aplica"]
+    promedioIngresos = ["0-$300.000", "$301.000-$600.000", "$601.000-$900.000", "$901.000-$1.200.000",
+                        "$1.201.000-1.500.000", "$1.501.000-$2.000.000", "$2.000.001-$2.500.00000",
+                        "$2.500.001-$3.000.000", "Más de $3.000.000"]
+
 
 class Comprobaciones:
     @staticmethod
@@ -129,17 +142,24 @@ class Login:
 
 class Panel:
     @staticmethod
+    def existeBeneficiario(beneficiario, proyecto):
+        db = MyDB()
+        resultado = db.query("SELECT fkBeneficiario FROM beneficiariosProyectos WHERE fkProyecto = (SELECT "
+                             "idProyecto FROM proyectos WHERE nombre = :proyecto)",
+                             {'proyecto': proyecto}).fetchall()
+        resultado = [res[0] for res in resultado]
+        if beneficiario in resultado:
+            return True
+        return False
+
+    @staticmethod
     def buscarBeneficiario(beneficiario, string):
         if beneficiario != "":
             string = string.split(" ")
             proyecto = string[3]
             operario = string[1]
             db = MyDB()
-            resultado = db.query("SELECT fkBeneficiario FROM beneficiariosProyectos WHERE fkProyecto = (SELECT "
-                                 "idProyecto FROM proyectos WHERE nombre = :proyecto)",
-                                 {'proyecto': proyecto}).fetchall()
-            resultado = [res[0] for res in resultado]
-            if beneficiario in resultado:
+            if Panel.existeBeneficiario(beneficiario, proyecto):
                 return "Ya tiene C. Básica"
             else:
                 resultado = db.query("SELECT fkBeneficiario, nombre FROM beneficiariosProyectos INNER JOIN proyectos "
@@ -166,7 +186,7 @@ class Panel:
                              "fkBeneficiario = :beneficiario",
                              {'proyecto': proyecto, 'beneficiario': beneficiario}).fetchone()
         resultado = resultado[0]
-        print(resultado)
+        return resultado
 
     @staticmethod
     def copiarCBasica(beneficiario, pro_nuevo, pro_antiguo):
@@ -437,4 +457,14 @@ class UnidadNegocio:
 
         db.commit("INSERT INTO unidadNegocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
                   (tuple(res)))
+
+class CarAmpliada:
+    @staticmethod
+    def cargarDatos():
+        retornar = [Costantes.nivelEscolaridad, Costantes.SiNos, Costantes.SiNos, Costantes.SiNos,
+                    Costantes.cuantosSocios, Costantes.regimenSalud, Costantes.estadoCivil, Costantes.tipoContrato,
+                    Costantes.SiNos, Costantes.cuantosSocios, Costantes.cuantosSocios, Costantes.SiNos,
+                    Costantes.promedioIngresos, Costantes.promedioIngresos, Costantes.SiNos, Costantes.SiNos]
+        return retornar
+
 

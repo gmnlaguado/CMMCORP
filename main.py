@@ -10,6 +10,7 @@ import utilidades
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.label import Label
+from kivy.uix.spinner import Spinner
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -18,7 +19,6 @@ from kivy.uix.label import Label
 
 
 class LoginScreen(Screen):
-
     # IDS
     id_username = ObjectProperty()
     id_password = ObjectProperty()
@@ -960,8 +960,10 @@ class UnidadNegocioScreen(Screen):
 class CaracterizacionAmpliadaScreen(Screen):
     # Costantes
     informacion = None
+    listado_hijos = False
+    listado_cargo = False
 
-    #IDS
+    # IDS
     id_title = ObjectProperty()
     id_formacionSuperior = ObjectProperty()
     id_nivelEscolaridad = ObjectProperty()
@@ -974,9 +976,8 @@ class CaracterizacionAmpliadaScreen(Screen):
     id_tipoContrato = ObjectProperty()
     id_rut = ObjectProperty()
     id_numeroHijos = ObjectProperty()
-    id_aCargoDiscapacidad = ObjectProperty()
+    id_aCargo = ObjectProperty()
     id_cubreFamilia = ObjectProperty()
-    id_poblacionVulnerable = ObjectProperty()
     id_promedioIngresosContrato = ObjectProperty()
     id_promedioIngresosActividad = ObjectProperty()
     id_informacionHijos = ObjectProperty()
@@ -989,6 +990,7 @@ class CaracterizacionAmpliadaScreen(Screen):
     id_botonIngresar = ObjectProperty()
 
     def on_pre_enter(self, *args):
+        # Inicializando Caracteres
         self.id_title.text = "Caracterización Ampliada"
         self.id_formacionSuperior.text = ''
         self.id_nivelEscolaridad.text = 'Nivel de escolaridad'
@@ -1001,9 +1003,8 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_tipoContrato.text = 'Tipo de contrato'
         self.id_rut.text = '¿Tiene RUT?'
         self.id_numeroHijos.text = '¿Número de hijos?'
-        self.id_aCargoDiscapacidad.text = '¿Cuántas personas a cargo tienen discapacidades?'
+        self.id_aCargo.text = '¿Cuántas personas tiene a cargo?'
         self.id_cubreFamilia.text = '¿Cubre su familia?'
-        self.id_poblacionVulnerable.text = 'Población vulnerable'
         self.id_promedioIngresosContrato.text = 'Promedio de ingresos por contrato'
         self.id_promedioIngresosActividad.text = 'Promedio de ingresos en esta actividad'
         self.id_informacionHijos.text = 'Información de hijos'
@@ -1018,6 +1019,135 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_formacionSuperior.hint_text = "Formación superior o cursos complementarios"
         self.id_factoresQueImpiden.hint_text = "Factores que le impiden participar en este proyecto"
         self.id_observaciones.hint_text = "Observaciones / aclaraciones"
+
+        # Cargando los valores de las listas deplegables
+        datos = utilidades.CarAmpliada.cargarDatos()
+        self.id_nivelEscolaridad.values = datos[0]
+        self.id_vinculacionLaboral.values = datos[1]
+        self.id_independiente.values = datos[2]
+        self.id_cabezaFamilia.values = datos[3]
+        self.id_integrantesHogar.values = datos[4]
+        self.id_regimenSalud.values = datos[5]
+        self.id_estadoCivil.values = datos[6]
+        self.id_tipoContrato.values = datos[7]
+        self.id_rut.values = datos[8]
+        self.id_numeroHijos.values = datos[9]
+        self.id_aCargo.values = datos[10]
+        self.id_cubreFamilia.values = datos[11]
+        self.id_promedioIngresosContrato.values = datos[12]
+        self.id_promedioIngresosActividad.values = datos[13]
+        self.id_pension.values = datos[14]
+        self.id_arl.values = datos[15]
+
+        # Iniciar todos los spinners con el color desactivado
+        self.id_nivelEscolaridad.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_vinculacionLaboral.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_independiente.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_cabezaFamilia.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_integrantesHogar.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_regimenSalud.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_estadoCivil.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_tipoContrato.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_rut.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_numeroHijos.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_aCargo.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_cubreFamilia.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_promedioIngresosContrato.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_promedioIngresosActividad.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_pension.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.id_arl.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+
+        # Iniciar todos los Text Inputs con el color desactivado
+        self.id_formacionSuperior.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_factoresQueImpiden.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+        self.id_observaciones.background_color = 255 / 255, 255 / 255, 255 / 255, 1
+
+        # Métodos que cambian el color del spinner cuando son seleccionados
+        self.id_nivelEscolaridad.bind(text=self.cambiar_color)
+        self.id_vinculacionLaboral.bind(text=self.cambiar_color)
+        self.id_independiente.bind(text=self.cambiar_color)
+        self.id_cabezaFamilia.bind(text=self.cambiar_color)
+        self.id_integrantesHogar.bind(text=self.cambiar_color)
+        self.id_regimenSalud.bind(text=self.cambiar_color)
+        self.id_estadoCivil.bind(text=self.cambiar_color)
+        self.id_tipoContrato.bind(text=self.cambiar_color)
+        self.id_rut.bind(text=self.cambiar_color)
+        self.id_numeroHijos.bind(text=self.cambiar_color)
+        self.id_aCargo.bind(text=self.cambiar_color)
+        self.id_cubreFamilia.bind(text=self.cambiar_color)
+        self.id_promedioIngresosContrato.bind(text=self.cambiar_color)
+        self.id_promedioIngresosActividad.bind(text=self.cambiar_color)
+        self.id_pension.bind(text=self.cambiar_color)
+        self.id_arl.bind(text=self.cambiar_color)
+
+        self.id_formacionSuperior.bind(on_text_validate=self.check_name)
+        self.id_factoresQueImpiden.bind(on_text_validate=self.check_name)
+        self.id_observaciones.bind(on_text_validate=self.check_name)
+
+        self.id_informacionHijos.bind(on_release=self.infoHijos)
+        self.id_informacionPersonasCargo.bind(on_release=self.infoACargo)
+
+        self.id_botonIngresar.bind(on_release=self.verficarTodo)
+
+    def verficarTodo(self, *args):
+        self.id_labelMensajes.text = ""
+        if (
+                self.id_formacionSuperior.text == '' or
+                self.id_nivelEscolaridad.text == 'Nivel de escolaridad' or
+                self.id_vinculacionLaboral.text == '¿Tiene vinculación laboral con contrato?' or
+                self.id_independiente.text == '¿Independiente?' or
+                self.id_cabezaFamilia.text == '¿Es cabeza de familia?' or
+                self.id_integrantesHogar.text == 'Número de integrantes en el hogar' or
+                self.id_regimenSalud.text == 'Régimen de salud' or
+                self.id_estadoCivil.text == 'Estado Civil' or
+                self.id_tipoContrato.text == 'Tipo de contrato' or
+                self.id_rut.text == '¿Tiene RUT?' or
+                self.id_numeroHijos.text == '¿Número de hijos?' or
+                self.id_aCargo.text == '¿Cuántas personas tiene a cargo?' or
+                self.id_cubreFamilia.text == '¿Cubre su familia?' or
+                self.id_promedioIngresosContrato.text == 'Promedio de ingresos por contrato' or
+                self.id_promedioIngresosActividad.text == 'Promedio de ingresos en esta actividad' or
+                self.id_pension.text == 'Pensión' or
+                self.id_arl.text == 'ARL' or
+                self.id_factoresQueImpiden.text == '' or
+                self.id_observaciones.text == '' or
+                self.listado_hijos == False or
+                self.listado_cargo == False
+        ):
+            self.id_labelMensajes.text = "Formulario Incompleto"
+        else:
+            corporacion.sm.current = "Panel"
+
+    def infoHijos(self, *args):
+        self.id_labelMensajes.text = ""
+        if self.id_numeroHijos.text == '¿Número de hijos?':
+            self.id_labelMensajes.text = "Seleccione primero un número de hijos"
+        else:
+            if self.id_numeroHijos.text != "0":
+                InformacionHijos(int(self.id_numeroHijos.text)).open()
+            else:
+                self.listado_hijos = True
+
+    def infoACargo(self, *args):
+        self.id_labelMensajes.text = ""
+        if self.id_aCargo.text == '¿Cuántas personas tiene a cargo?':
+            self.id_labelMensajes.text = "Seleccione número de personas a cargo"
+        else:
+            if self.id_aCargo.text != "0":
+                InformacionPersonasACargo(int(self.id_aCargo.text)).open()
+            else:
+                self.listado_cargo = True
+
+    def check_name(self, *args):
+        self.id_labelMensajes.text = ""
+        if utilidades.Comprobaciones.name(args[0].text):
+            args[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        else:
+            args[0].background_color = 255 / 255, 255 / 255, 255 / 255, 1
+            self.id_labelMensajes.text = "Error en el campo de texto"
+
+    def cambiar_color(self, *args):
+        args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1039,7 +1169,6 @@ class LoginProyectoPopup(Popup):
         self.id_proyectos.bind(text=self.on_selection)
 
     def on_selection(self, *args):
-
         # TODO Asignación del proyecto y operario que lo está realizando
 
         PanelScreen.informacion = args[1], self.usuario
@@ -1232,9 +1361,154 @@ class CaracterizaAmpliada(Popup):
             self.dismiss()
 
 
+class InformacionHijos(Popup):
+    id_container_grid = ObjectProperty()
+    id_botonAceptar = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.cantidad = args[0]
+
+    def on_open(self):
+        self.id_botonAceptar.bind(on_release=self.accionAceptar)
+        self.id_container_grid.rows = int(self.cantidad) + 1
+        self.title = "Información sobre hijos e hijas"
+        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+
+        lab_1 = Label(text='Hijo', halign="center", valign="middle", size_hint=(None, None),
+                      size=(40, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(40, 40))
+        lab_2 = Label(text='Género', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+        lab_3 = Label(text='Mayor de edad', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+        lab_4 = Label(text='Cond. Discapacidad', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+
+        self.id_container_grid.add_widget(lab_1)
+        self.id_container_grid.add_widget(lab_2)
+        self.id_container_grid.add_widget(lab_3)
+        self.id_container_grid.add_widget(lab_4)
+
+        for idx in range(int(self.cantidad)):
+            lab = Label(text=str(idx + 1), halign="center", valign="middle", size_hint=(None, None),
+                        size=(77, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                        text_size=(77, 40), id=f'{idx + 1}')
+            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=["Masculino", "Femenino",
+                                                                                "Transgenerista", " No informa"])
+            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=["Si", "No"])
+            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=["Física", "Cognitiva",
+                                                                                             "Sensorial", "Intelectual",
+                                                                                             "Psicosocial", "Múltiple",
+                                                                                             "Ninguna", "ND"])
+
+            self.id_container_grid.add_widget(lab)
+            self.id_container_grid.add_widget(spin_gen)
+            self.id_container_grid.add_widget(spin_mayor)
+            self.id_container_grid.add_widget(spin_disc)
+
+    def accionAceptar(self, *args):
+        res = []
+        for idx, childs in enumerate(self.id_container_grid.children):
+            if idx < len(self.id_container_grid.children) - 4:
+                res.append(childs.text)
+        res = res[::-1]
+        if 'Género' in res or 'Mayoría' in res or 'Discapacidad' in res:
+            pass
+        else:
+            CaracterizacionAmpliadaScreen.listado_hijos = True
+            self.dismiss()
+
+
+class InformacionPersonasACargo(Popup):
+    id_container_grid = ObjectProperty()
+    id_botonAceptar = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.cantidad = args[0]
+
+    def on_open(self):
+        self.id_botonAceptar.bind(on_release=self.accionAceptar)
+        self.id_container_grid.rows = int(self.cantidad) + 1
+        self.title = "Información sobre las personas que tiene a cargo"
+        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+
+        lab_1 = Label(text='#', halign="center", valign="middle", size_hint=(None, None),
+                      size=(40, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(40, 40))
+        lab_2 = Label(text='Género', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+        lab_3 = Label(text='Mayor de edad', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+        lab_4 = Label(text='Cond. Discapacidad', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+
+        self.id_container_grid.add_widget(lab_1)
+        self.id_container_grid.add_widget(lab_2)
+        self.id_container_grid.add_widget(lab_3)
+        self.id_container_grid.add_widget(lab_4)
+
+        for idx in range(int(self.cantidad)):
+            lab = Label(text=str(idx + 1), halign="center", valign="middle", size_hint=(None, None),
+                        size=(77, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                        text_size=(77, 40), id=f'{idx + 1}')
+            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=["Masculino", "Femenino",
+                                                                                "Transgenerista", " No informa"])
+            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=["Si", "No"])
+            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=["Física", "Cognitiva",
+                                                                                             "Sensorial", "Intelectual",
+                                                                                             "Psicosocial", "Múltiple",
+                                                                                             "Ninguna", "ND"])
+
+            self.id_container_grid.add_widget(lab)
+            self.id_container_grid.add_widget(spin_gen)
+            self.id_container_grid.add_widget(spin_mayor)
+            self.id_container_grid.add_widget(spin_disc)
+
+    def accionAceptar(self, *args):
+        res = []
+        for idx, childs in enumerate(self.id_container_grid.children):
+            if idx < len(self.id_container_grid.children) - 4:
+                res.append(childs.text)
+        res = res[::-1]
+        if 'Género' in res or 'Mayoría' in res or 'Discapacidad' in res:
+            pass
+        else:
+            CaracterizacionAmpliadaScreen.listado_cargo = True
+            self.dismiss()
+
+
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
 # ----------------------------------------------------------------------------------------------------------------------
+
+class SpinnerScroll(Spinner):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.background_normal = "images/dropdown_scroll.png"
+        self.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.halign = "center"
+        self.valign = "middle"
+        self.size_hint = (None, None)
+        self.size = (318, 40)
+        self.color = (1, 1, 1, 1)
+        self.font_size = 20
+        self.font_name = "montserrat"
+        self.text_size = (318, 40)
+        self.diligenciado = False
+        self.id = 'Spinner'
+
+    def on_text(self, *args):
+        self.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+        self.diligenciado = True
+
 
 class MyApp(App):
     def __init__(self, **kwargs):
