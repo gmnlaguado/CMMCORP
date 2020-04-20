@@ -18,20 +18,37 @@ from kivy.uix.label import Label
 
 
 class LoginScreen(Screen):
+
     # IDS
     id_username = ObjectProperty()
     id_password = ObjectProperty()
     id_mensaje = ObjectProperty()
     id_buttonIngresar = ObjectProperty()
 
-    def check_username(self):
+    # Referencias estáticas
+    static_logo = ObjectProperty()
+    static_usuario = ObjectProperty()
+    static_contra = ObjectProperty()
+
+    def on_pre_enter(self, *args):
+        # Definiciones
+        self.static_usuario.text = "ODP Consultor"
+        self.static_contra.text = "Contraseña"
+        self.id_buttonIngresar.text = "Ingresar"
+
+        # Enlazamientos
+        self.id_username.bind(on_text_validate=self.check_username)
+        self.id_password.bind(on_text_validate=self.check_password)
+        self.id_buttonIngresar.bind(on_release=self.check_password)
+
+    def check_username(self, *args):
         self.id_mensaje.text = ""
         if utilidades.Comprobaciones.username(self.id_username.text):
             self.id_password.focus = True
         else:
             self.id_mensaje.text = "ODP incorrecto"
 
-    def check_password(self):
+    def check_password(self, *args):
         self.id_mensaje.text = ""
         if utilidades.Comprobaciones.password(self.id_password.text):
             if utilidades.Comprobaciones.username(self.id_username.text):
@@ -60,7 +77,12 @@ class PanelScreen(Screen):
     id_cargardatos = ObjectProperty()
     id_actualizar = ObjectProperty()
 
+    # Referencias estáticas
+    static_titulo = ObjectProperty()
+
     def on_pre_enter(self):
+        # Definiciones
+        self.static_titulo.text = "Panel General"
         self.id_nuevobeneficiario.text = "Nuevo Beneficiario"
         self.id_monitoreo.text = "Monitoreo"
         self.id_planformacion.text = "Plan Formación"
@@ -71,15 +93,23 @@ class PanelScreen(Screen):
         self.id_planseguimiento.text = "Plan Seguimiento"
         self.id_cargardatos.text = "Cargar Datos"
         self.id_actualizar.text = "Actualizar"
+        self.id_proyecto.text = f'ODP {self.informacion[1]} Proyecto {self.informacion[0]}'
 
+        # Enlazamientos
+        self.id_nuevobeneficiario.bind(on_release=self.nuevobeneficiario)
         self.id_inactivar.bind(on_release=self.on_inactivar)
+        self.id_campliada.bind(on_release=self.on_campliada)
+
+    # Métodos de la pantalla
+
+    def nuevobeneficiario(self, *args):
+        EmergentNuevoBeneficiario(self.id_proyecto.text).open()
 
     def on_inactivar(self, *args):
         InactivarBeneficiario(self.informacion[0]).open()
 
-    def nuevobeneficiario(self):
-        self.id_proyecto.text = f'ODP {self.informacion[1]} Proyecto {self.informacion[0]}'
-        EmergentNuevoBeneficiario(self.id_proyecto.text).open()
+    def on_campliada(self, *args):
+        CaracterizaAmpliada(self.informacion[0]).open()
 
 
 class InformacionGeneralScreen(Screen):
@@ -928,7 +958,66 @@ class UnidadNegocioScreen(Screen):
 
 
 class CaracterizacionAmpliadaScreen(Screen):
-    pass
+    # Costantes
+    informacion = None
+
+    #IDS
+    id_title = ObjectProperty()
+    id_formacionSuperior = ObjectProperty()
+    id_nivelEscolaridad = ObjectProperty()
+    id_vinculacionLaboral = ObjectProperty()
+    id_independiente = ObjectProperty()
+    id_cabezaFamilia = ObjectProperty()
+    id_integrantesHogar = ObjectProperty()
+    id_regimenSalud = ObjectProperty()
+    id_estadoCivil = ObjectProperty()
+    id_tipoContrato = ObjectProperty()
+    id_rut = ObjectProperty()
+    id_numeroHijos = ObjectProperty()
+    id_aCargoDiscapacidad = ObjectProperty()
+    id_cubreFamilia = ObjectProperty()
+    id_poblacionVulnerable = ObjectProperty()
+    id_promedioIngresosContrato = ObjectProperty()
+    id_promedioIngresosActividad = ObjectProperty()
+    id_informacionHijos = ObjectProperty()
+    id_informacionPersonasCargo = ObjectProperty()
+    id_pension = ObjectProperty()
+    id_arl = ObjectProperty()
+    id_factoresQueImpiden = ObjectProperty()
+    id_observaciones = ObjectProperty()
+    id_labelMensajes = ObjectProperty()
+    id_botonIngresar = ObjectProperty()
+
+    def on_pre_enter(self, *args):
+        self.id_title.text = "Caracterización Ampliada"
+        self.id_formacionSuperior.text = ''
+        self.id_nivelEscolaridad.text = 'Nivel de escolaridad'
+        self.id_vinculacionLaboral.text = '¿Tiene vinculación laboral con contrato?'
+        self.id_independiente.text = '¿Independiente?'
+        self.id_cabezaFamilia.text = '¿Es cabeza de familia?'
+        self.id_integrantesHogar.text = 'Número de integrantes en el hogar'
+        self.id_regimenSalud.text = 'Régimen de salud'
+        self.id_estadoCivil.text = 'Estado Civil'
+        self.id_tipoContrato.text = 'Tipo de contrato'
+        self.id_rut.text = '¿Tiene RUT?'
+        self.id_numeroHijos.text = '¿Número de hijos?'
+        self.id_aCargoDiscapacidad.text = '¿Cuántas personas a cargo tienen discapacidades?'
+        self.id_cubreFamilia.text = '¿Cubre su familia?'
+        self.id_poblacionVulnerable.text = 'Población vulnerable'
+        self.id_promedioIngresosContrato.text = 'Promedio de ingresos por contrato'
+        self.id_promedioIngresosActividad.text = 'Promedio de ingresos en esta actividad'
+        self.id_informacionHijos.text = 'Información de hijos'
+        self.id_informacionPersonasCargo.text = 'Info. personas a cargo'
+        self.id_pension.text = 'Pensión'
+        self.id_arl.text = 'ARL'
+        self.id_factoresQueImpiden.text = ''
+        self.id_observaciones.text = ''
+        self.id_labelMensajes.text = ''
+        self.id_botonIngresar.text = 'Ingresar'
+
+        self.id_formacionSuperior.hint_text = "Formación superior o cursos complementarios"
+        self.id_factoresQueImpiden.hint_text = "Factores que le impiden participar en este proyecto"
+        self.id_observaciones.hint_text = "Observaciones / aclaraciones"
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -950,7 +1039,6 @@ class LoginProyectoPopup(Popup):
         self.id_proyectos.bind(text=self.on_selection)
 
     def on_selection(self, *args):
-        corporacion.sm.current = "Panel"
 
         # TODO Asignación del proyecto y operario que lo está realizando
 
@@ -958,6 +1046,9 @@ class LoginProyectoPopup(Popup):
         InformacionGeneralScreen.informacion = args[1], self.usuario
         IdeaNegocioScreen.informacion = args[1], self.usuario
         UnidadNegocioScreen.informacion = args[1], self.usuario
+        CaracterizacionAmpliadaScreen.informacion = args[1], self.usuario
+
+        corporacion.sm.current = "Panel"
         self.dismiss()
 
 
@@ -1118,6 +1209,27 @@ class Colaboradores(Popup):
     def on_selection(self, *args):
         IdeaNegocioScreen.lista_colaboradores = args[0].text
         self.dismiss()
+
+
+class CaracterizaAmpliada(Popup):
+    id_beneficiarios = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.proyecto = args[0]
+
+    def on_open(self):
+        self.title = f"Seleccione el beneficiario para realizar Caracterización Ampliada"
+        self.id_beneficiarios.values = utilidades.Panel.lista_beneficiarios(self.proyecto)
+        self.id_beneficiarios.bind(text=self.on_selection)
+
+    def on_selection(self, *args):
+        if utilidades.Panel.comprobarEstado(args[1], self.proyecto) == 1:
+            corporacion.sm.current = "CaracterizacionAmpliada"
+            self.dismiss()
+        else:
+            UsuarioYaExisteEnEsteProyecto(args[1], False, True).open()
+            self.dismiss()
 
 
 # ----------------------------------------------------------------------------------------------------------------------

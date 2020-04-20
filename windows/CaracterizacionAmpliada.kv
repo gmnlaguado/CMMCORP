@@ -1,7 +1,37 @@
 <CaracterizacionAmpliadaScreen>:
+
+    id_title: id_title
+    id_formacionSuperior: id_formacionSuperior
+    id_nivelEscolaridad: id_nivelEscolaridad
+    id_vinculacionLaboral: id_vinculacionLaboral
+    id_independiente: id_independiente
+    id_cabezaFamilia: id_cabezaFamilia
+    id_integrantesHogar: id_integrantesHogar
+    id_regimenSalud: id_regimenSalud
+    id_estadoCivil: id_estadoCivil
+    id_tipoContrato: id_tipoContrato
+    id_rut: id_rut
+    id_numeroHijos: id_numeroHijos
+    id_aCargoDiscapacidad: id_aCargoDiscapacidad
+    id_cubreFamilia: id_cubreFamilia
+    id_poblacionVulnerable: id_poblacionVulnerable
+    id_promedioIngresosContrato: id_promedioIngresosContrato
+    id_promedioIngresosActividad: id_promedioIngresosActividad
+    id_informacionHijos: id_informacionHijos
+    id_informacionPersonasCargo: id_informacionPersonasCargo
+    id_pension: id_pension
+    id_arl: id_arl
+    id_factoresQueImpiden: id_factoresQueImpiden
+    id_observaciones: id_observaciones
+    id_labelMensajes: id_labelMensajes
+    id_botonIngresar: id_botonIngresar
+
     Layout1150_623:
         Label888:
-            text: "Caracterizacion Ampliada"
+            id: id_title
+        Input1107:
+            id: id_formacionSuperior
+            top: 800 - 117
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
@@ -10,11 +40,19 @@
             x: 88
             spacing: 25
             Spinner352:
+                id: id_nivelEscolaridad
             Spinner352:
+                id: id_vinculacionLaboral
+                font_size: 14
             Spinner352:
+                id: id_independiente
             Spinner352:
+                id: id_cabezaFamilia
             Spinner352:
+                id: id_integrantesHogar
+                font_size: 14
             Spinner352:
+                id: id_regimenSalud
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
@@ -23,11 +61,18 @@
             x: 465
             spacing: 25
             Spinner352:
+                id: id_estadoCivil
             Spinner352:
+                id: id_tipoContrato
             Spinner352:
+                id: id_rut
             Spinner352:
+                id: id_numeroHijos
             Spinner352:
+                id: id_aCargoDiscapacidad
+                font_size: 14
             Spinner352:
+                id: id_cubreFamilia
         BoxLayout:
             orientation: "vertical"
             size_hint: None, None
@@ -36,9 +81,33 @@
             x: 842
             spacing: 25
             Spinner352:
+                id: id_poblacionVulnerable
             Spinner352:
+                id: id_promedioIngresosContrato
+                font_size: 14
             Spinner352:
-            Spinner352:
-            Spinner352:
-            Spinner352:
+                id: id_promedioIngresosActividad
+                font_size: 14
+            Button352_40:
+                id: id_informacionHijos
+            Button352_40:
+                id: id_informacionPersonasCargo
+            BoxLayout:
+                spacing: 25
+                Spinner163:
+                    id: id_pension
+                Spinner163:
+                    id: id_arl
+        Input1107:
+            id: id_factoresQueImpiden
+            top: 800 - 576
+        Input1107:
+            id: id_observaciones
+            top: 800 - 639
+        Label763:
+            id: id_labelMensajes
+        Button352_64:
+            id: id_botonIngresar
+            top: 800-724
+            x: 863
 

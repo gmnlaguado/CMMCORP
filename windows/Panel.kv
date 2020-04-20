@@ -42,7 +42,7 @@
     FloatLayout:
         size_hint: None, None
         size: 566,116
-        LoginButton:
+        Button352_64:
             id: id_botonaceptar
             focus: True
             x: 464
@@ -97,9 +97,33 @@
             top: 800 - 467
             text: "Beneficiario"
 
+<CaracterizaAmpliada>:
+    id_beneficiarios: id_beneficiarios
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:"images/green_background.png"
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 0,0,0,1
+
+
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        Spinner352:
+            id: id_beneficiarios
+            x: 464
+            top: 800 - 467
+            text: "Beneficiario"
+
 
 <PanelScreen>:
-
+    # IDS
     id_proyecto: id_proyecto
     id_beneficiario: id_beneficiario
     id_nuevobeneficiario: id_nuevobeneficiario
@@ -113,9 +137,12 @@
     id_cargardatos: id_cargardatos
     id_actualizar: id_actualizar
 
+    # Referencias estáticas
+    static_titulo: static_titulo
+
     Layout900_623:
         Label888:
-            text: "Panel General"
+            id: static_titulo
         Label888:
             id: id_proyecto
             x: 192
@@ -134,7 +161,6 @@
             spacing: 42
             Button352_64:
                 id: id_nuevobeneficiario
-                on_release: root.nuevobeneficiario()
             Button352_64:
                 id: id_monitoreo
             Button352_64:

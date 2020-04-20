@@ -23,14 +23,20 @@
             text: "Proyecto"
 
 <LoginScreen>:
-
+    # IDS
     id_username: id_username
     id_password: id_password
     id_mensaje: id_mensaje
     id_buttonIngresar: id_buttonIngresar
 
+    # Referencias estáticas
+    static_logo: static_logo
+    static_usuario: static_usuario
+    static_contra: static_contra
+
     Layout566_672:
         Button:
+            id: static_logo
             background_normal: './images/logo_black.png'
             background_down: './images/logo_black.png'
             size_hint: None, None
@@ -44,19 +50,21 @@
             top: 800-304
             x: 464
             Label352:
-                text: "Username"
+                id: static_usuario
             Input352:
                 id: id_username
                 focus: True
-                on_text_validate: root.check_username()
+                padding: 15
+                height: 64
+                font_size: 24
             Label352:
-                text: "Password"
+                id: static_contra
             Input352:
                 id: id_password
                 padding: 20
                 password: True
-                on_text_validate: root.check_password()
-
+                font_size: 24
+                height: 64
         Label352:
             id: id_mensaje
             color: 1,0,0,1
@@ -66,7 +74,5 @@
 
         Button352_64:
             id: id_buttonIngresar
-            text: "Ingresar"
             top: 800-628
             x:464
-            on_release: root.check_password()

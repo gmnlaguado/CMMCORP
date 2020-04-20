@@ -129,17 +129,24 @@ class Login:
 
 class Panel:
     @staticmethod
+    def existeBeneficiario(beneficiario, proyecto):
+        db = MyDB()
+        resultado = db.query("SELECT fkBeneficiario FROM beneficiariosProyectos WHERE fkProyecto = (SELECT "
+                             "idProyecto FROM proyectos WHERE nombre = :proyecto)",
+                             {'proyecto': proyecto}).fetchall()
+        resultado = [res[0] for res in resultado]
+        if beneficiario in resultado:
+            return True
+        return False
+
+    @staticmethod
     def buscarBeneficiario(beneficiario, string):
         if beneficiario != "":
             string = string.split(" ")
             proyecto = string[3]
             operario = string[1]
             db = MyDB()
-            resultado = db.query("SELECT fkBeneficiario FROM beneficiariosProyectos WHERE fkProyecto = (SELECT "
-                                 "idProyecto FROM proyectos WHERE nombre = :proyecto)",
-                                 {'proyecto': proyecto}).fetchall()
-            resultado = [res[0] for res in resultado]
-            if beneficiario in resultado:
+            if Panel.existeBeneficiario(beneficiario, proyecto):
                 return "Ya tiene C. Básica"
             else:
                 resultado = db.query("SELECT fkBeneficiario, nombre FROM beneficiariosProyectos INNER JOIN proyectos "
@@ -166,7 +173,7 @@ class Panel:
                              "fkBeneficiario = :beneficiario",
                              {'proyecto': proyecto, 'beneficiario': beneficiario}).fetchone()
         resultado = resultado[0]
-        print(resultado)
+        return resultado
 
     @staticmethod
     def copiarCBasica(beneficiario, pro_nuevo, pro_antiguo):
