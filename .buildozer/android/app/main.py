@@ -116,6 +116,7 @@ class InformacionGeneralScreen(Screen):
     # Costantes
     informacion = None
     beneficiario = None
+    irPanel = False
 
     # IDS
     id_titulo = ObjectProperty()
@@ -148,6 +149,8 @@ class InformacionGeneralScreen(Screen):
     id_email = ObjectProperty()
     id_labelMensajes = ObjectProperty()
     id_botonIngresar = ObjectProperty()
+
+    id_homeButton = ObjectProperty()
 
     def on_pre_enter(self):
         # Restricciones
@@ -185,6 +188,12 @@ class InformacionGeneralScreen(Screen):
         self.id_discapacidad.text = "Cond. Discapacidad"
         self.id_email.text = ""
         self.id_labelMensajes.text = ""
+
+        self.id_fijo.hint_text = "Teléfono Fijo"
+        self.id_celular.hint_text = "Teléfono Celular"
+        self.id_celular2.hint_text = "Teléfono Celular"
+        self.id_email.hint_text = "Email"
+
 
         # Cargando los valores de las listas deplegables
         datos = utilidades.InfoGeneral.cargarDatos()
@@ -229,6 +238,8 @@ class InformacionGeneralScreen(Screen):
         self.id_direccion.background_color = 255 / 255, 255 / 255, 255 / 255, 1
         self.id_email.background_color = 255 / 255, 255 / 255, 255 / 255, 1
 
+        self.id_homeButton.bind(on_release=self.go_home)
+
         # Estableciendo el enlace con los spinner cuya selección determina el valor de otros
         self.id_pais.bind(text=self.on_selection_pais)
         self.id_deptoExpedicion.bind(text=self.on_selection_deptoExpedicion)
@@ -261,6 +272,10 @@ class InformacionGeneralScreen(Screen):
         self.id_celular2.bind(on_text_validate=self.check_celular)
         self.id_direccion.bind(on_text_validate=self.check_input)
         self.id_email.bind(on_text_validate=self.check_input)
+
+    def go_home(self, *args):
+        self.irPanel = True
+        corporacion.sm.current = "Panel"
 
     def check_name(self, *args):
         self.id_labelMensajes.text = ""
@@ -328,6 +343,7 @@ class InformacionGeneralScreen(Screen):
                     utilidades.Comprobaciones.fijo(self.id_fijo.text) and \
                     utilidades.Comprobaciones.celular(self.id_celular.text) and \
                     utilidades.Comprobaciones.celular(self.id_celular2.text):
+                self.irPanel = False
                 DiagnosticoPerfilProductivoScreen.tipo_beneficiario = self.id_tipo.text
                 ConfirmacionInfoGeneral().open()
             else:
@@ -354,35 +370,36 @@ class InformacionGeneralScreen(Screen):
         self.id_ciudades.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
 
     def on_pre_leave(self, *args):
-        proyecto = utilidades.InfoGeneral.identidadProyecto(self.informacion[0])
-        beneficiariosproyectos = [proyecto, self.beneficiario, 1]
+        if not self.irPanel:
+            proyecto = utilidades.InfoGeneral.identidadProyecto(self.informacion[0])
+            beneficiariosproyectos = [proyecto, self.beneficiario, 1]
 
-        utilidades.InfoGeneral.ingresarInformacion(
-            beneficiariosproyectos,
-            self.beneficiario,
-            self.id_nombre.text,
-            self.id_apellido.text,
-            self.id_nacimiento.text,
-            self.id_nacionalidad.text,
-            self.id_tipoDocumento.text,
-            self.id_ciudadExpedicion.text,
-            self.id_pais.text,
-            self.id_departamentos.text,
-            self.id_ciudades.text,
-            self.id_barrios.text.upper(),
-            self.id_entorno.text,
-            self.id_direccion.text,
-            self.id_sexo.text,
-            int(self.id_indicador.text),
-            int(self.id_fijo.text),
-            self.id_email.text,
-            self.id_genero.text,
-            self.id_etnia.text,
-            self.id_discapacidad.text,
-            int(self.id_celular.text),
-            int(self.id_celular2.text),
-            self.id_tipo.text
-        )
+            utilidades.InfoGeneral.ingresarInformacion(
+                beneficiariosproyectos,
+                self.beneficiario,
+                self.id_nombre.text,
+                self.id_apellido.text,
+                self.id_nacimiento.text,
+                self.id_nacionalidad.text,
+                self.id_tipoDocumento.text,
+                self.id_ciudadExpedicion.text,
+                self.id_pais.text,
+                self.id_departamentos.text,
+                self.id_ciudades.text,
+                self.id_barrios.text.upper(),
+                self.id_entorno.text,
+                self.id_direccion.text,
+                self.id_sexo.text,
+                int(self.id_indicador.text),
+                int(self.id_fijo.text),
+                self.id_email.text,
+                self.id_genero.text,
+                self.id_etnia.text,
+                self.id_discapacidad.text,
+                int(self.id_celular.text),
+                int(self.id_celular2.text),
+                self.id_tipo.text
+            )
 
 
 class DiagnosticoPerfilProductivoScreen(Screen):
@@ -429,14 +446,13 @@ class DiagnosticoPerfilProductivoScreen(Screen):
 
         if self.id_labelMensajes.text == "":
             diagnostico_perfil_productivo = []
-            count = 0
             for grid in self.id_container_grid.children:
                 if len(grid.children) > 0:
                     repp = [box.active for box in grid.children][::-1].index(True)
-                    diagnostico_perfil_productivo.append([self.beneficiario, 70 - count, repp])
-                    count += 1
+                    diagnostico_perfil_productivo.append(repp)
 
             diagnostico_perfil_productivo = diagnostico_perfil_productivo[::-1]
+            diagnostico_perfil_productivo.insert(0, self.beneficiario)
             utilidades.DiagnosticoPerfil.subirBase(diagnostico_perfil_productivo)
             if self.tipo_beneficiario == "Emprendedor":
                 corporacion.sm.current = "IdeaNegocio"
@@ -512,6 +528,8 @@ class IdeaNegocioScreen(Screen):
         self.id_imagine.text = ""
         self.id_labelMensajes.text = ""
         self.id_botonIngresar.text = "Ingresar"
+
+        self.id_emprendimiento.hint_text = "Nombre del emprendimiento"
 
         # Cargando los valores de las listas deplegables
         info = utilidades.IdeaNegocio.cargarDatos()
@@ -763,6 +781,10 @@ class UnidadNegocioScreen(Screen):
         self.id_descripcionPasivos.text = ""
         self.id_botonIngresar.text = "Ingresar"
 
+        self.id_unidad.hint_text = "Nombre de la unidad de negocio"
+        self.id_descripcion.hint_text = "Descripción de su unidad de negocio"
+        self.id_portafolio.hint_text = "Portafolio de su unidad de negocio"
+        self.id_descripcionPasivos.hint_text = "Pasivos relacionados a su unidad"
         self.id_celular.hint_text = "Celular 2"
         self.id_celular2.hint_text = "Celular"
         self.id_telFijo.hint_text = "Tel. Fijo"
@@ -963,6 +985,10 @@ class CaracterizacionAmpliadaScreen(Screen):
     listado_hijos = False
     listado_cargo = False
     beneficiario = None
+    hijosACargo = None
+    personasACargo = None
+
+    irPanel = False
 
     # IDS
     id_title = ObjectProperty()
@@ -989,6 +1015,8 @@ class CaracterizacionAmpliadaScreen(Screen):
     id_observaciones = ObjectProperty()
     id_labelMensajes = ObjectProperty()
     id_botonIngresar = ObjectProperty()
+
+    id_homeButton = ObjectProperty()
 
     def on_pre_enter(self, *args):
         # Inicializando Caracteres
@@ -1090,6 +1118,12 @@ class CaracterizacionAmpliadaScreen(Screen):
 
         self.id_botonIngresar.bind(on_release=self.verficarTodo)
 
+        self.id_homeButton.bind(on_release=self.go_home)
+
+    def go_home(self, *args):
+        self.irPanel = True
+        corporacion.sm.current = "Panel"
+
     def verficarTodo(self, *args):
         self.id_labelMensajes.text = ""
         if (
@@ -1117,6 +1151,7 @@ class CaracterizacionAmpliadaScreen(Screen):
         ):
             self.id_labelMensajes.text = "Formulario Incompleto"
         else:
+            self.irPanel = False
             corporacion.sm.current = "Panel"
 
     def infoHijos(self, *args):
@@ -1151,32 +1186,35 @@ class CaracterizacionAmpliadaScreen(Screen):
         args[0].background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
 
     def on_pre_leave(self, *args):
-        proyecto = utilidades.InfoGeneral.identidadProyecto(self.informacion[0])
-        operario = utilidades.CarAmpliada.buscarOperario(self.informacion[1])
-        utilidades.CarAmpliada.subirDatos(
-            proyecto,
-            operario,
-            self.beneficiario,
-            self.id_formacionSuperior.text,
-            self.id_nivelEscolaridad.text,
-            self.id_vinculacionLaboral.text,
-            self.id_independiente.text,
-            self.id_cabezaFamilia.text,
-            int(self.id_integrantesHogar.text),
-            self.id_regimenSalud.text,
-            self.id_estadoCivil.text,
-            self.id_tipoContrato.text,
-            self.id_rut.text,
-            int(self.id_numeroHijos.text),
-            int(self.id_aCargo.text),
-            self.id_cubreFamilia.text,
-            self.id_promedioIngresosContrato.text,
-            self.id_promedioIngresosActividad.text,
-            self.id_pension.text,
-            self.id_arl.text,
-            self.id_factoresQueImpiden.text,
-            self.id_observaciones.text
-        )
+        if not self.irPanel:
+            proyecto = utilidades.InfoGeneral.identidadProyecto(self.informacion[0])
+            operario = utilidades.CarAmpliada.buscarOperario(self.informacion[1])
+            utilidades.CarAmpliada.subirDatos(
+                proyecto,
+                operario,
+                self.beneficiario,
+                self.id_formacionSuperior.text,
+                self.id_nivelEscolaridad.text,
+                self.id_vinculacionLaboral.text,
+                self.id_independiente.text,
+                self.id_cabezaFamilia.text,
+                int(self.id_integrantesHogar.text),
+                self.id_regimenSalud.text,
+                self.id_estadoCivil.text,
+                self.id_tipoContrato.text,
+                self.id_rut.text,
+                int(self.id_numeroHijos.text),
+                int(self.id_aCargo.text),
+                self.id_cubreFamilia.text,
+                self.id_promedioIngresosContrato.text,
+                self.id_promedioIngresosActividad.text,
+                self.id_pension.text,
+                self.id_arl.text,
+                self.id_factoresQueImpiden.text,
+                self.id_observaciones.text,
+                self.hijosACargo,
+                self.personasACargo
+            )
 
 
 # ----------------------------------------------------------------------------------------------------------------------
@@ -1466,6 +1504,7 @@ class InformacionHijos(Popup):
             if idx < len(self.id_container_grid.children) - 4:
                 res.append(childs.text)
         res = res[::-1]
+        CaracterizacionAmpliadaScreen.hijosACargo = res
         if 'Género' in res or 'Mayoría' in res or 'Discapacidad' in res:
             pass
         else:
@@ -1528,6 +1567,7 @@ class InformacionPersonasACargo(Popup):
             if idx < len(self.id_container_grid.children) - 4:
                 res.append(childs.text)
         res = res[::-1]
+        CaracterizacionAmpliadaScreen.personasACargo = res
         if 'Género' in res or 'Mayoría' in res or 'Discapacidad' in res:
             pass
         else:
