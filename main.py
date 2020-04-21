@@ -429,14 +429,13 @@ class DiagnosticoPerfilProductivoScreen(Screen):
 
         if self.id_labelMensajes.text == "":
             diagnostico_perfil_productivo = []
-            count = 0
             for grid in self.id_container_grid.children:
                 if len(grid.children) > 0:
                     repp = [box.active for box in grid.children][::-1].index(True)
-                    diagnostico_perfil_productivo.append([self.beneficiario, 70 - count, repp])
-                    count += 1
+                    diagnostico_perfil_productivo.append(repp)
 
             diagnostico_perfil_productivo = diagnostico_perfil_productivo[::-1]
+            diagnostico_perfil_productivo.insert(0, self.beneficiario)
             utilidades.DiagnosticoPerfil.subirBase(diagnostico_perfil_productivo)
             if self.tipo_beneficiario == "Emprendedor":
                 corporacion.sm.current = "IdeaNegocio"
@@ -963,6 +962,8 @@ class CaracterizacionAmpliadaScreen(Screen):
     listado_hijos = False
     listado_cargo = False
     beneficiario = None
+    hijosACargo = None
+    personasACargo = None
 
     # IDS
     id_title = ObjectProperty()
@@ -1175,7 +1176,9 @@ class CaracterizacionAmpliadaScreen(Screen):
             self.id_pension.text,
             self.id_arl.text,
             self.id_factoresQueImpiden.text,
-            self.id_observaciones.text
+            self.id_observaciones.text,
+            self.hijosACargo,
+            self.personasACargo
         )
 
 
@@ -1466,6 +1469,7 @@ class InformacionHijos(Popup):
             if idx < len(self.id_container_grid.children) - 4:
                 res.append(childs.text)
         res = res[::-1]
+        CaracterizacionAmpliadaScreen.hijosACargo = res
         if 'Género' in res or 'Mayoría' in res or 'Discapacidad' in res:
             pass
         else:
@@ -1528,6 +1532,7 @@ class InformacionPersonasACargo(Popup):
             if idx < len(self.id_container_grid.children) - 4:
                 res.append(childs.text)
         res = res[::-1]
+        CaracterizacionAmpliadaScreen.personasACargo = res
         if 'Género' in res or 'Mayoría' in res or 'Discapacidad' in res:
             pass
         else:

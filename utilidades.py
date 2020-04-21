@@ -16,8 +16,25 @@ class Costantes:
               "Vereda", "Zona", "Zona Franca"]
     indicador = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     genero = ["Femenino", "Masculino", "Transgenero"]
-    etnia = ["Afrodescendiente", "Raizal", "Palenquera", "Indígenas", "Rom", "Mestizo", "Otro", "No Aplica"]
-    discapacidad = ["Física", "Cognitiva", "Sensorial", "Intelectual", "Psicosocial", "Múltiple", "Ninguna", "ND"]
+
+    # Datos por indice
+    etnia = ["Afrodescendiente",
+             "Raizal",
+             "Palenquera",
+             "Indigenas",
+             "Rom",
+             "Mestizo",
+             "No aplica"]
+
+    # Datos por indice
+    discapacidad = ["Física",
+                    "Cognitiva",
+                    "Sensorial",
+                    "Intelectual",
+                    "Ninguna",
+                    "ND",
+                    "Psicosocial",
+                    "Múltiple"]
 
     sector = ["Sector Industrial", "Sector de Servicios", "Sector de Comercio", "Sector Agropecuario",
               "Sector de Transporte", "Sector Financiero", "Sector de la Construcción", "Sector Minero y Energético",
@@ -40,18 +57,56 @@ class Costantes:
     conContrato = [str(numb) for numb in range(0, 50)]
     sinContrato = [str(numb) for numb in range(0, 50)]
 
-    nivelEscolaridad = ["Ninguna analfabeta", "Sin escolaridad, pero lee y escribe", "Preescolar",
-                        "Primaria Incompleta", "Primaria", "Secundaria Incompleta", "Secundaria",
-                        "Tecnólogo incimpleto", "Técnico", "Universidad incompleta", "Universitario profesional",
-                        "Postgrado", "ND"]
+    # Datos por indice
+    nivelEscolaridad = ["Primaria",
+                        "Secundaria",
+                        "Tecnólogo",
+                        "Técnico",
+                        "Universitario",
+                        "Postgrado",
+                        "Doctorado",
+                        "Analfabeta",
+                        "Preescolar",
+                        "Primara incompleta",
+                        "Secundaria incompleta",
+                        'Tecnologo incompleto',
+                        'Sin escolaridad, pero lee y escribe',
+                        'Ninguna',
+                        'Universidad Incompleta',
+                        'Profesional',
+                        'Especializado o Maestria',
+                        'ND']
+
     SiNos = ["Si", "No"]
     regimenSalud = ["Sisben", "Eps Cotizante", "Eps Beneficiario", "Plan Especial Cotizante",
                     "Plan Especial Beneficiario", "Ninguno"]
-    estadoCivil = ["Solter@", "Casad@", "Union libre", "Divorciad@", "Viud@", "ND"]
-    tipoContrato = ["Termino fijo", "Temporal", "Indefinido", "A destajo", "ND", "No aplica"]
-    promedioIngresos = ["0-$300.000", "$301.000-$600.000", "$601.000-$900.000", "$901.000-$1.200.000",
-                        "$1.201.000-1.500.000", "$1.501.000-$2.000.000", "$2.000.001-$2.500.00000",
-                        "$2.500.001-$3.000.000", "Más de $3.000.000"]
+
+    # Datos por indice
+    estadoCivil = ["Solter@",
+                   "Casad@",
+                   "Union libre",
+                   "Divorciad@",
+                   "Viud@",
+                   "ND"]
+
+    # Datos por indice
+    tipoContrato = ["Termino fijo",
+                    "Temporal",
+                    "Indefinido",
+                    "A destajo",
+                    "ND"]
+
+    # Datos por indice
+    promedioIngresos = ["$-",
+                        "0-$300.001",
+                        "$301.000-$600.000",
+                        "$601.000-$900.000",
+                        "$901.000-$1.200.000",
+                        "$1.201.000-1.500.000",
+                        "$1.501.000-$2.000.000",
+                        "$2.000.001-$2.500.000",
+                        "$2.500.001-$3.000.000",
+                        "Más de $3.000.001"]
 
 
 class Comprobaciones:
@@ -318,6 +373,9 @@ class InfoGeneral:
 
         resultado = db.query("SELECT idBarrio FROM barrios WHERE nombre = :nombre", {'nombre': res[10]}).fetchone()
         res[10] = resultado[0]
+
+        res[18] = Costantes.etnia.index(res[18]) + 1
+        res[19] = Costantes.discapacidad.index(res[19]) + 1
         db.commit("INSERT INTO beneficiarios VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (tuple(res)))
 
     @staticmethod
@@ -345,6 +403,7 @@ class InfoGeneral:
             rango = 'Más de 60'
         return [anos, rango]
 
+
 class DiagnosticoPerfil:
     @staticmethod
     def cargarPreguntas():
@@ -355,9 +414,10 @@ class DiagnosticoPerfil:
 
     @staticmethod
     def subirBase(lista):
-        for pregunta in lista:
-            db = MyDB()
-            db.commit("INSERT INTO diagnosticoPerfilProductivo VALUES (?,?,?)", (tuple(pregunta)))
+        db = MyDB()
+        db.commit("INSERT INTO diagnosticoPerfilProductivo VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,"
+                  "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                  (tuple(lista)))
 
 
 class IdeaNegocio:
@@ -477,8 +537,51 @@ class CarAmpliada:
 
     @staticmethod
     def subirDatos(*args):
+        hoy = '/'.join(str(date.today()).split('-')[::-1])
+        args = list(args)
+        args.insert(0, hoy)
+
+        # Acondicionamiento
+        args[5] = Costantes.nivelEscolaridad.index(args[5])+1       # self.id_nivelEscolaridad.text
+        args[11] = Costantes.estadoCivil.index(args[11])+1          # self.id_estadoCivil.text
+        args[12] = Costantes.tipoContrato.index(args[12])+1         # self.id_tipoContrato.text
+        args[17] = Costantes.promedioIngresos.index(args[17])+1     # self.id_promedioIngresosContrato.text
+        args[18] = Costantes.promedioIngresos.index(args[18])+1     # self.id_promedioIngresosActividad.text}
+
+        args1 = args[0:-2]
         db = MyDB()
-        db.commit("INSERT INTO caracterizacionAmpliada VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", args)
+        db.commit("INSERT INTO caracterizacionAmpliada VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                  tuple(args1))
+
+        if args[-2] is not None:
+            cc = 0
+            head = [args[1], args[2], args[3]]
+            for hijo in args[-2]:
+                cc += 1
+                if cc == 4:
+                    head.append(hijo)
+                    head[3] = int(head[3])
+                    head[-1] = Costantes.discapacidad.index(head[-1]) + 1
+                    db.commit("INSERT INTO hijosCargo VALUES (?,?,?,?,?,?,?)", tuple(head))
+                    head = [args[1], args[2], args[3]]
+                    cc = 0
+                else:
+                    head.append(hijo)
+
+        if args[-1] is not None:
+            cc = 0
+            head = [args[1], args[2], args[3]]
+            for hijo in args[-1]:
+                cc += 1
+                if cc == 4:
+                    head.append(hijo)
+                    head[3] = int(head[3])
+                    head[-1] = Costantes.discapacidad.index(head[-1]) + 1
+                    db.commit("INSERT INTO personasCargo VALUES (?,?,?,?,?,?,?)", tuple(head))
+                    head = [args[1], args[2], args[3]]
+                    cc = 0
+                else:
+                    head.append(hijo)
 
     @staticmethod
     def comprobarBeneficiario(beneficario, proyecto):
@@ -487,8 +590,9 @@ class CarAmpliada:
         resultado = db.query("SELECT fkBeneficiario FROM caracterizacionAmpliada WHERE fkBeneficiario = :beneficario "
                              "AND fkProyecto = :proyecto",
                              {'beneficario': beneficario, 'proyecto': proyecto}).fetchone()
-        if len(resultado) > 0:
-            return True
-        return False
+        if resultado is None:
+            return False
+        return True
+
 
 
