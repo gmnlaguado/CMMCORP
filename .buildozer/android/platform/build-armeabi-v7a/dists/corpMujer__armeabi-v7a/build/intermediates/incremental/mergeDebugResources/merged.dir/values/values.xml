@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CorpMundialMujer</string>
+    <string name="presplash_color">#FFFFFF</string>
+    <string name="private_version">1588167216.5415092</string>
+    <string name="urlScheme">kivy</string>
+</resources>

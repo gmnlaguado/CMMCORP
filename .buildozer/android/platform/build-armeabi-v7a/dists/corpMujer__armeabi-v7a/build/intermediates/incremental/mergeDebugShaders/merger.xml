@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/home/linuxlite/developer/kivy/corpMujer/appCorp/.buildozer/android/platform/build-armeabi-v7a/dists/corpMujer__armeabi-v7a/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/home/linuxlite/developer/kivy/corpMujer/appCorp/.buildozer/android/platform/build-armeabi-v7a/dists/corpMujer__armeabi-v7a/src/debug/shaders"/></dataSet></merger>

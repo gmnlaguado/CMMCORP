@@ -1,0 +1,4 @@
+#Wed Apr 29 08:34:03 COT 2020
+base.0=/home/linuxlite/developer/kivy/corpMujer/appCorp/.buildozer/android/platform/build-armeabi-v7a/dists/corpMujer__armeabi-v7a/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
