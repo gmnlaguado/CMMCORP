@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = CorpMundialMujer
+title = Corporacion Mundial De La Mujer
 
 # (str) Package name
-package.name = myapp
+package.name = corpMujer
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.test
+package.domain = org.arj
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3,kivy,sqlite3
+requirements = python3, kivy, sqlite3
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -82,10 +82,10 @@ fullscreen = 1
 # red, blue, green, black, white, gray, cyan, magenta, yellow, lightgray,
 # darkgray, grey, lightgrey, darkgrey, aqua, fuchsia, lime, maroon, navy,
 # olive, purple, silver, teal.
-#android.presplash_color = #FFFFFF
+android.presplash_color = #FFFFFF
 
 # (list) Permissions
-#android.permissions = INTERNET
+android.permissions = INTERNET
 
 # (int) Target Android API, should be as high as possible.
 #android.api = 27
@@ -97,7 +97,7 @@ fullscreen = 1
 #android.sdk = 20
 
 # (str) Android NDK version to use
-#android.ndk = 17c
+#android.ndk = 19b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21
@@ -176,7 +176,7 @@ fullscreen = 1
 #android.add_gradle_repositories =
 
 # (list) Java classes to add as activities to the manifest.
-#android.add_activites = com.example.ExampleActivity
+#android.add_activities = com.example.ExampleActivity
 
 # (str) OUYA Console category. Should be one of GAME or APP
 # If you leave this blank, OUYA support will not be enabled

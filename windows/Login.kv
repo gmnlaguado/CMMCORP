@@ -1,31 +1,29 @@
-<LoginProyectoPopup>:
-    id_proyectos: id_proyectos
-    size_hint: None, None
+<LoginProjectPopup>:
+    id_projects: id_projects
     top: 800-232
     x: 357
     size: 566,336
-    background:"images/green_background.png"
-    background_color: (0,0,0, 0.8)
-    separator_color: 0,0,0,0
     title_size: 43
-    font_name: "montserrat"
-    title_align: "center"
-    title_color: 0,0,0,1
     FloatLayout:
         size_hint: None, None
         size: 566,116
-        Spinner352_64:
-            id: id_proyectos
+        Spinner_352_64:
+            id: id_projects
             x: 464
             top: 800 - 467
-            text: "Proyecto"
+            text: 'Proyectos'
+
+
 
 <LoginScreen>:
-    boxlayout_container: boxlayout_container
-    id_mensaje: id_mensaje
-    id_buttonIngresar: id_buttonIngresar
 
-    Layout566_672:
+    id_username: id_username
+    static_password: static_password
+    id_password: id_password
+    id_message: id_message
+    id_signInButton: id_signInButton
+
+    Layout_566_672:
         Button:
             background_normal: './images/logo_black.png'
             background_down: './images/logo_black.png'
@@ -33,23 +31,36 @@
             size: 369, 220
             x: 464
             top: 800 - 84
+
         BoxLayout:
-            id: boxlayout_container
             orientation: "vertical"
             size_hint: None, None
             size: 352, 227
             top: 800-304
             x: 464
-
-        Label352:
-            id: id_mensaje
+            Label_352_40:
+                text: "ODP Operario"
+            Input_352_64:
+                id: id_username
+                focus: True
+                padding: 15
+                text_type: "username"
+            Label_352_40:
+                id: static_password
+            Input_352_64:
+                id: id_password
+                password: True
+                text_type: "password"
+        Label_352_40:
+            id: id_message
             color: 1,0,0,1
             halign: "center"
             x: 464
             top: 800 - 564
+            color: 1, 0, 0, 1
 
-        Button352_64:
-            id: id_buttonIngresar
+        Button_352_64:
+            id: id_signInButton
             text: "Ingresar"
             top: 800-628
             x:464

@@ -1,1 +1,7 @@
+.idea
+.buildozer
+bin
 
+windows/__pycache__/
+codes/__pycache__/
+declarations/__pycache__/
