@@ -44,9 +44,11 @@
     id_email: id_email
     id_message: id_message
     id_signInButton: id_signInButton
+    homeButton: homeButton
 
     Layout_1150_623:
         HomeButton:
+            id: homeButton
         Label_888_48:
             id: id_title
         Label_352_40:
@@ -87,14 +89,14 @@
             x:986
             top:800-187
             text:"Rango"
-        BoxLayout:
+        BoxLayoutFull:
             orientation: "vertical"
             size_hint: None, None
             size: 1127, 429
             top: 800-252
             x: 88
             spacing: 25
-            BoxLayout:
+            BoxLayoutFull:
                 spacing: 24
                 Spinner_352_40:
                     id: id_documentType
@@ -102,7 +104,7 @@
                     id: id_expeditionDepto
                 Spinner_352_40:
                     id: id_expeditionCity
-            BoxLayout:
+            BoxLayoutFull:
                 spacing: 24
                 Spinner_352_40:
                     id: id_sex
@@ -110,7 +112,7 @@
                     id: id_payeeType
                 Spinner_352_40:
                     id: id_nationality
-            BoxLayout:
+            BoxLayoutFull:
                 spacing: 24
                 Spinner_352_40:
                     id: id_country
@@ -119,11 +121,11 @@
                 Spinner_352_40:
                     id: id_cities
 
-            BoxLayout:
+            BoxLayoutFull:
                 spacing: 24
                 Spinner_352_40:
                     id: id_environment
-                BoxLayout:
+                BoxLayoutFull:
                     size_hint: None, None
                     size: 359,40
                     Label_158_40:
@@ -135,11 +137,11 @@
                     hint_text: "___ # ___ - ___"
                     text_type: "nothing"
 
-            BoxLayout:
+            BoxLayoutFull:
                 spacing: 24
                 Spinner_352_40:
                     id: id_neighborhoods
-                BoxLayout:
+                BoxLayoutFull:
                     size_hint: None, None
                     size: 359,40
                     Label_158_40:
@@ -151,7 +153,7 @@
                     hint_text: "Tel. Fijo"
                     text_type: "phone"
 
-            BoxLayout:
+            BoxLayoutFull:
                 spacing: 24
                 Spinner_352_40:
                     id: id_gender
@@ -164,7 +166,7 @@
                     hint_text: "Tel. Celular 2"
                     text_type: "cellphone"
 
-            BoxLayout:
+            BoxLayoutFull:
                 spacing: 24
                 Spinner_352_40:
                     id: id_ethnicGroup

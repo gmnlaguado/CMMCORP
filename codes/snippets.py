@@ -2,16 +2,17 @@
 from datetime import date
 
 
-def chekingCompletes(childs, state):
-    if state:
-        for child in childs.children:
-            if 'class_type' in dir(child):
-                if child.class_type in ['spinner', 'input']:
-                    if not child.complete:
-                        return "Formulario Incompleto", False
-            elif 'children' in dir(child):
-                return chekingCompletes(child, True)
-    return "", False
+def chekingCompletes(children_list):
+    for idx, child in enumerate(children_list):
+        print(idx, child)
+        if 'class_type' in dir(child):
+            if child.class_type in ['spinner', 'input']:
+                if not child.complete:
+                    return False
+            elif child.class_type == "container":
+                for chil in child.children:
+                    children_list.append(chil)
+    return True
 
 
 def ageCalculation(age):

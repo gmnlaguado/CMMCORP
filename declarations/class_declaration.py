@@ -5,6 +5,13 @@ from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
 from kivy.clock import Clock
+from kivy.uix.boxlayout import BoxLayout
+
+
+class BoxLayoutFull(BoxLayout):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.class_type = "container"
 
 
 class TextInputFather(TextInput):
@@ -152,7 +159,11 @@ class SpinnerFather(Spinner):
         self.class_type = "spinner"
         self.text_init = ['Proyectos', "Tipo de documento", "Depto. Expedición", "Ciudad Expedición", "Sexo", "Tipo",
                           "Nacionalidad", "País", "Departamento", "Ciudad", "Entorno", "Dirección", "Rótulo", "Barrio",
-                          "Estrato", "Género", "Etnia", "Cond. Discapacidad"]
+                          "Estrato", "Género", "Etnia", "Cond. Discapacidad", "Sector Empresarial",
+                          "Estudios sobre el tema", "¿Agropecuario?", "Necesita colaboradores",
+                          "Tiempo semanal a dedicar", "¿Por qué no empezaba?", "Meses que lleva el negocio", "CIIU",
+                          "¿Cómo surge la idea?", "¿Experiencia?", "Tiempo a dedicar", "Producto / Servicio",
+                          "% Inversión"]
 
     def on_text(self, *args):
         if args[1] not in self.text_init:
@@ -187,7 +198,7 @@ class MessagePopup(Popup):
         self.size_hint = None, None
         self.top = 800 - 232
         self.x = 357
-        self.size = 566, 43*3
+        self.size = 566, 43 * 3
         self.title_size = 43
         self.title = args[0]
 
@@ -196,4 +207,3 @@ class MessagePopup(Popup):
 
     def dismissCall(self, dt):
         self.dismiss()
-

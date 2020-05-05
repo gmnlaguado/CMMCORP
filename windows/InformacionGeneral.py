@@ -3,12 +3,14 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from codes import snippets
 from declarations import querys, class_declaration, dataFormating
+from windows import DiagnosticoPerfilProductivo, IdeaDeNegocio
 
 
 class InformacionGeneralScreen(Screen):
     project = None
     operator = None
     payeeDocument = None
+    home = False
 
     id_title = ObjectProperty()
     id_name = ObjectProperty()
@@ -40,6 +42,7 @@ class InformacionGeneralScreen(Screen):
     id_email = ObjectProperty()
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
+    homeButton = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -58,6 +61,7 @@ class InformacionGeneralScreen(Screen):
         self.id_signInButton.bind(on_release=self.checkAll)
 
         self.id_birthdate.bind(on_text_validate=self.birthdate)
+        self.homeButton.bind(on_press=self.setHome)
 
         self.id_documentType.values = querys.parametricList('documentType')
         self.id_sex.values = querys.parametricList('sex')
@@ -76,6 +80,9 @@ class InformacionGeneralScreen(Screen):
         self.id_departments.bind(text=self.fillCities)
         self.id_expeditionDepto.bind(text=self.fillCitiesExpedition)
         self.id_cities.bind(text=self.fillNeighborhoods)
+
+    def setHome(self, *args):
+        self.home = True
 
     def birthdate(self, *args):
         self.id_message.text = args[0].alertFlag['message']
@@ -140,16 +147,30 @@ class InformacionGeneralScreen(Screen):
         self.id_cellphone2.resetInput()
         self.id_email.resetInput()
 
+        self.home = False
+
     def on_leave(self, *args):
-        information = self
-        dataFormating.GeneralInformationData(information)
+        if not self.home:
+            information = self
+            DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen.payeeDocument = self.payeeDocument
+            DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen.payeeType = self.id_payeeType.text
+            if self.id_payeeType.text == "Emprendedor":
+                IdeaDeNegocio.IdeaDeNegocioScreen.payeeDocument = self.payeeDocument
+                IdeaDeNegocio.IdeaDeNegocioScreen.operator = self.operator
+                IdeaDeNegocio.IdeaDeNegocioScreen.project = self.project
+            dataFormating.GeneralInformationData(information)
 
     def signal(self, *args):
         self.id_message.text = args[0].alertFlag['message']
 
     def checkAll(self, *args):
         self.id_message.text = ""
-        msg, complete = snippets.chekingCompletes(self.children[0], True)
+        children_list = self.children[0].children
+        ret = snippets.chekingCompletes(children_list)
+        if not ret:
+            msg = "Formulario Incompleto"
+        else:
+            msg = ""
         self.id_message.text = msg
         if msg == "":
             AcceptForm(self.operator).open()

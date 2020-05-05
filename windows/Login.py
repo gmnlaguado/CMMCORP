@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration
 from windows import Panel
+from kivy.core.window import Window
 
 
 class LoginScreen(Screen):

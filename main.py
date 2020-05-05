@@ -40,6 +40,9 @@ class MyApp(App):
         Factory.LoginProjectPopup.changeWindow = self.changeToPanel
         Factory.EmergentNuevoBeneficiario.changeWindow = self.changeToInformacionGeneral
         Factory.AcceptForm.changeWindow = self.changeToDiagnosticoPerfilProductivo
+        Factory.AcceptFormDiagno.changeWindowEntrep = self.changeToIdeaDeNegocio
+        Factory.AcceptFormDiagno.changeWindowBussin = self.changeToUnidadDeNegocio
+        Factory.AcceptFormIdea.changeWindow = self.changeToPanel
 
         return self.sm
 
@@ -51,6 +54,12 @@ class MyApp(App):
 
     def changeToDiagnosticoPerfilProductivo(self, *args):
         self.sm.current = 'DiagnosticoPerfilProductivo'
+
+    def changeToIdeaDeNegocio(self, *args):
+        self.sm.current = 'IdeaDeNegocio'
+
+    def changeToUnidadDeNegocio(self, *args):
+        self.sm.current = 'UnidadDeNegocio'
 
 
 if __name__ == '__main__':
