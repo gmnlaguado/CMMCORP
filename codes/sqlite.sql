@@ -11,3 +11,8 @@ INSERT INTO neighborhoods SELECT * FROM datos.barrios
 INSERT INTO ciiu SELECT * FROM datos.cIIU
 
 INSERT INTO diagnosticQuestions SELECT * FROM datos.preguntasDiagnostico
+
+sqlcmd -S 190.145.94.91 -U Arnulforojas -P 'Arojas032020'
+USE CMM_Prueba;
+
+SELECT names, lastNames FROM payee;

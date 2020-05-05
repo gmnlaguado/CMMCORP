@@ -163,7 +163,8 @@ class SpinnerFather(Spinner):
                           "Estudios sobre el tema", "¿Agropecuario?", "Necesita colaboradores",
                           "Tiempo semanal a dedicar", "¿Por qué no empezaba?", "Meses que lleva el negocio", "CIIU",
                           "¿Cómo surge la idea?", "¿Experiencia?", "Tiempo a dedicar", "Producto / Servicio",
-                          "% Inversión"]
+                          "% Inversión", "Si existe seleccione", "¿Cuantos socios?", "Sector empresarial",
+                          "Reg. Cámara comercio", "Colab. con contrato", "Colab. sin contrato"]
 
     def on_text(self, *args):
         if args[1] not in self.text_init:

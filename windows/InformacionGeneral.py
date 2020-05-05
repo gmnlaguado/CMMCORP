@@ -3,7 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from codes import snippets
 from declarations import querys, class_declaration, dataFormating
-from windows import DiagnosticoPerfilProductivo, IdeaDeNegocio
+from windows import DiagnosticoPerfilProductivo, IdeaDeNegocio, UnidadDeNegocio
 
 
 class InformacionGeneralScreen(Screen):
@@ -158,6 +158,11 @@ class InformacionGeneralScreen(Screen):
                 IdeaDeNegocio.IdeaDeNegocioScreen.payeeDocument = self.payeeDocument
                 IdeaDeNegocio.IdeaDeNegocioScreen.operator = self.operator
                 IdeaDeNegocio.IdeaDeNegocioScreen.project = self.project
+            else:
+                UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = self.payeeDocument
+                UnidadDeNegocio.UnidadDeNegocioScreen.operator = self.operator
+                UnidadDeNegocio.UnidadDeNegocioScreen.project = self.project
+
             dataFormating.GeneralInformationData(information)
 
     def signal(self, *args):

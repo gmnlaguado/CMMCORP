@@ -43,6 +43,7 @@ class MyApp(App):
         Factory.AcceptFormDiagno.changeWindowEntrep = self.changeToIdeaDeNegocio
         Factory.AcceptFormDiagno.changeWindowBussin = self.changeToUnidadDeNegocio
         Factory.AcceptFormIdea.changeWindow = self.changeToPanel
+        Factory.AcceptFormUnit.changeWindow = self.changeToPanel
 
         return self.sm
 

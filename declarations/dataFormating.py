@@ -62,6 +62,8 @@ def GeneralInformationData(information):
     org[28] = querys.idParametrics('disability', org[28])
 
     org = tuple(org)
+    for oo in org:
+        print(oo)
     querys.loadPayee(org)
 
     pro = [
@@ -144,3 +146,54 @@ def bussinesIdeaData(info):
 
     org = tuple(org)
     querys.loadBussinesIdea(org)
+
+
+def bussinesUnitData(info):
+    org = [
+        info.project,                                       # 0
+        info.payeeDocument,                                 # 1
+        info.operator,                                      # 2
+        info.id_unit.text,                                  # 3
+        info.id_departments.text,                           # 4
+        info.id_cities.text,                                # 5
+        info.id_howManyPartners.text,                       # 6
+        info.id_sign.text,                                  # 7
+        info.id_address.text,                               # 8
+        info.id_ciiu.text,                                  # 9
+        "info.id_indicator.text",                           # 10
+        info.id_phone.text,                                 # 11
+        info.id_email.text,                                 # 12
+        info.id_webPage.text,                               # 13
+        info.id_description.text,                           # 14
+        info.id_briefcase.text,                             # 15
+        info.id_creation.text,                              # 16
+        info.id_nit.text,                                   # 17
+        info.id_liabilitiesDescription.text,                # 18
+        info.id_regCamara.text,                             # 19
+        info.id_withContract.text,                          # 20
+        info.id_withoutContract.text,                       # 21
+        info.id_cellphone.text,                             # 22
+        info.id_cellphone2.text,                            # 23
+        info.id_tier.text,                                  # 24
+        "date"                                              # 25
+    ]
+
+    org[0] = querys.idProject(org[0].lower())
+    org[4] = querys.idParametrics('departments', org[4])
+    org[5] = querys.idParametrics('cities', org[5])
+    org[6] = int(org[6])
+    org[7] = querys.idParametrics('sign', org[7])
+    org[9] = querys.idParametrics('ciiu', org[9])
+    org[10] = querys.indicator(org[4])
+    org[11] = int(org[11])
+    org[16] = snippets.formattingDate(org[16])
+    org[19] = querys.idParametrics('yesNo', org[19])
+    org[20] = int(org[20])
+    org[21] = int(org[21])
+    org[22] = int(org[22])
+    org[23] = int(org[23])
+    org[24] = int(org[24])
+    org[25] = str(datetime.date.today())
+
+    org = tuple(org)
+    querys.loadBussinesUnit(org)
