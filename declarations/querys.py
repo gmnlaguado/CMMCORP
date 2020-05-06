@@ -37,7 +37,7 @@ def idProject(project):
 
 def payeeProjects(project):
     db = MyDB('register')
-    result = db.query("SELECT fkPayee FROM payeeProjects WHERE fkProject = :project",
+    result = db.query("SELECT payeeDocument FROM payeeProjects WHERE project = :project",
                       {'project': project}).fetchall()
     if result is not None:
         return [res[0] for res in result]
@@ -136,7 +136,7 @@ def loadPayee(info):
 
 def loadPayeeProjects(info):
     db = MyDB('register')
-    db.commit("INSERT INTO payeeProjects VALUES (?,?,?,?,?)", info)
+    db.commit("INSERT INTO payeeProjects VALUES (?,?,?,?,?,?)", info)
 
 
 def loadProductionProfileDiag(info):
@@ -147,9 +147,9 @@ def loadProductionProfileDiag(info):
 
 def loadBussinesIdea(info):
     db = MyDB('register')
-    db.commit("INSERT INTO bussinesIdea VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO bussinesIdea VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
 
 
 def loadBussinesUnit(info):
     db = MyDB('register')
-    db.commit("INSERT INTO bussinesUnit VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO bussinesUnit VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)

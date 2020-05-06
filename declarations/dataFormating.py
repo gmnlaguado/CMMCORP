@@ -66,7 +66,9 @@ def GeneralInformationData(information):
         print(oo)
     querys.loadPayee(org)
 
+    unique_id = org[0]+'__'+org[17]+'__'+org[4]
     pro = [
+        unique_id,
         org[0],
         org[17],
         org[4],
@@ -144,6 +146,8 @@ def bussinesIdeaData(info):
     org[26] = int(org[26])
     org[28] = str(datetime.date.today())
 
+    unique_id = org[0] + '__' + org[2] + '__' + org[1]
+    org.insert(0, unique_id)
     org = tuple(org)
     querys.loadBussinesIdea(org)
 
@@ -194,6 +198,8 @@ def bussinesUnitData(info):
     org[23] = int(org[23])
     org[24] = int(org[24])
     org[25] = str(datetime.date.today())
+    unique_id = org[0] + '__' + org[2] + '__' + org[1]
+    org.insert(0, unique_id)
 
     org = tuple(org)
     querys.loadBussinesUnit(org)
