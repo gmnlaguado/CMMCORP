@@ -154,3 +154,18 @@ def loadBussinesIdea(info):
 def loadBussinesUnit(info):
     db = MyDB('register')
     db.commit("INSERT INTO bussinesUnit VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def bringColumns(table):
+    db = MyDB('register')
+    result = db.parametricQuery("PRAGMA table_info(%s)" % table).fetchall()
+    if result is not None:
+        return [res[1] for res in result]
+
+
+def bringData(table):
+    db = MyDB('register')
+    result = db.parametricQuery("SELECT * FROM %s" % table).fetchall()
+    return result
+    # if result is not None:
+    #     return [res[1] for res in result]

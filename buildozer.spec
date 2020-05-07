@@ -1,7 +1,7 @@
 [app]
 
 # (str) Title of your application
-title = Corporacion Mundial De La Mujer
+title = CorpMujer
 
 # (str) Package name
 package.name = corpMujer
@@ -36,7 +36,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, kivy, sqlite3
+requirements = python3, kivy==master, sqlite3, requests, openssl
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -103,7 +103,7 @@ android.permissions = INTERNET
 #android.ndk_api = 21
 
 # (bool) Use --private data storage (True) or --dir public storage (False)
-#android.private_storage = True
+android.private_storage = True
 
 # (str) Android NDK directory (if empty, it will be automatically downloaded.)
 #android.ndk_path =

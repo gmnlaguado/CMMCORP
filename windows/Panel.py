@@ -1,7 +1,7 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import querys, class_declaration
+from declarations import querys, class_declaration, upload_process
 from windows import InformacionGeneral
 
 
@@ -38,12 +38,16 @@ class PanelScreen(Screen):
         self.id_reload.text = "Actualizar"
 
         self.id_newPayee.bind(on_release=self.newPayee)
+        self.id_loadData.bind(on_release=self.loadInformation)
 
     def on_pre_enter(self, *args):
         self.id_proyecto.text = f'ODP {self.operator} está en el proyecto {self.project}'
 
     def newPayee(self, *args):
         EmergentNuevoBeneficiario(self.operator, self.project).open()
+
+    def loadInformation(self, *args):
+        AcceptLoading(self.operator).open()
 
 
 class EmergentNuevoBeneficiario(class_declaration.PopupFather):
@@ -73,3 +77,20 @@ class EmergentNuevoBeneficiario(class_declaration.PopupFather):
 
     def changeWindow(self, *args):
         pass
+
+
+class AcceptLoading(class_declaration.PopupFather):
+    id_acceptButton = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.operator = args[0]
+        self.id_acceptButton.bind(on_release=self.on_validate)
+
+    def on_pre_open(self):
+        self.title = f"ODP {self.operator} esta acción requiere conexión a internet. ¿Desea continuar?"
+
+    def on_validate(self, *args):
+        upload_process.uploadInformation()
+        self.dismiss()
+
