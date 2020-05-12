@@ -29,8 +29,7 @@ class MyApp(App):
         self.sm.add_widget(Login.LoginScreen(name='Login'))
         self.sm.add_widget(Panel.PanelScreen(name="Panel"))
         self.sm.add_widget(InformacionGeneral.InformacionGeneralScreen(name="InformacionGeneral"))
-        self.sm.add_widget(
-            DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen(name="DiagnosticoPerfilProductivo"))
+        self.sm.add_widget(DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen(name="DiagnosticoPerfilProductivo"))
         self.sm.add_widget(IdeaDeNegocio.IdeaDeNegocioScreen(name="IdeaDeNegocio"))
         self.sm.add_widget(UnidadDeNegocio.UnidadDeNegocioScreen(name="UnidadDeNegocio"))
         self.sm.add_widget(CaracterizacionAmpliada.CaracterizacionAmpliadaScreen(name="CaracterizacionAmpliada"))

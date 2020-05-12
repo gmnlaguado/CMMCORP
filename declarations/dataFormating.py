@@ -62,8 +62,6 @@ def GeneralInformationData(information):
     org[28] = querys.idParametrics('disability', org[28])
 
     org = tuple(org)
-    for oo in org:
-        print(oo)
     querys.loadPayee(org)
 
     unique_id = org[0]+'__'+org[17]+'__'+org[4]

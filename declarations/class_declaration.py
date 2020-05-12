@@ -9,13 +9,13 @@ from kivy.uix.boxlayout import BoxLayout
 
 
 class BoxLayoutFull(BoxLayout):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.class_type = "container"
 
 
 class TextInputFather(TextInput):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.font_name = "montserrat"
         self.size_hint = None, None
@@ -208,3 +208,4 @@ class MessagePopup(Popup):
 
     def dismissCall(self, dt):
         self.dismiss()
+

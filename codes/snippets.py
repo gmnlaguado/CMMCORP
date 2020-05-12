@@ -4,7 +4,6 @@ from datetime import date
 
 def chekingCompletes(children_list):
     for idx, child in enumerate(children_list):
-        print(idx, child)
         if 'class_type' in dir(child):
             if child.class_type in ['spinner', 'input']:
                 if not child.complete:
