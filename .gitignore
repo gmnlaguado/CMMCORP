@@ -9,3 +9,4 @@ declarations/__pycache__/
 api/venv/
 api/src/.env
 
+.vscode
