@@ -164,7 +164,6 @@ class SpinnerFather(Spinner):
                           "Tiempo semanal a dedicar", "¿Por qué no empezaba?", "Meses que lleva el negocio", "CIIU",
                           "¿Cómo surge la idea?", "¿Experiencia?", "Tiempo a dedicar", "Producto / Servicio",
                           "% Inversión", "Si existe seleccione", "¿Cuantos socios?", "Sector empresarial",
-<<<<<<< HEAD
                           "Reg. Cámara comercio", "Colab. con contrato", "Colab. sin contrato", 'Nivel de escolaridad',
                           '¿Tiene vinculación laboral con contrato?', '¿Independiente?', '¿Es cabeza de familia?', 
                           'Número de integrantes en el hogar', 'Régimen de salud', 'Estado Civil', 'Tipo de contrato',
@@ -174,9 +173,6 @@ class SpinnerFather(Spinner):
                           "Número de dormitorios", "Combustible usado en cocina", "Sujeto y fuentes de ingreso",
                           "Personas que dependen economicamente de usted", "¿Quién define la distribución de dinero en el hogar",
                           "Gastos y cantidad", "¿Pertenece a asociación"]
-=======
-                          "Reg. Cámara comercio", "Colab. con contrato", "Colab. sin contrato"]
->>>>>>> ccb016423d2345f00d66a88de97a7d5fc627caea
 
     def on_text(self, *args):
         if args[1] not in self.text_init:
