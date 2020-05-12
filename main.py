@@ -34,7 +34,11 @@ class MyApp(App):
         self.sm.add_widget(UnidadDeNegocio.UnidadDeNegocioScreen(name="UnidadDeNegocio"))
         self.sm.add_widget(CaracterizacionAmpliada.CaracterizacionAmpliadaScreen(name="CaracterizacionAmpliada"))
         self.sm.add_widget(Monitoreo.MonitoreoScreen(name="Monitoreo"))
+<<<<<<< HEAD
         self.sm.current = 'Monitoreo'
+=======
+        self.sm.current = 'Login'
+>>>>>>> ccb016423d2345f00d66a88de97a7d5fc627caea
 
         Factory.LoginProjectPopup.changeWindow = self.changeToPanel
         Factory.EmergentNuevoBeneficiario.changeWindow = self.changeToInformacionGeneral

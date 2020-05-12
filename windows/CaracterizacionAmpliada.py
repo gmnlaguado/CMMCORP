@@ -1,5 +1,6 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
+<<<<<<< HEAD
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, dataFormating
 
@@ -83,3 +84,9 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_observations.resetInput()
         self.id_factorsThatPreventYou.resetInput()
         self.id_adittionalStudies.resetInput()
+=======
+
+
+class CaracterizacionAmpliadaScreen(Screen):
+    pass
+>>>>>>> ccb016423d2345f00d66a88de97a7d5fc627caea
