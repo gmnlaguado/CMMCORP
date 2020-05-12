@@ -1,0 +1,120 @@
+<MonitoreoScreen>:
+    id_title: id_title
+    id_ciiu: id_ciiu
+    id_womenAssosiation: id_womenAssosiation
+    id_houseMaterial: id_houseMaterial
+    id_houseType: id_houseType
+    id_tier: id_tier
+    id_houseAge: id_houseAge
+    id_bedrooms: id_bedrooms
+    id_kitchenFuel: id_kitchenFuel
+    id_incomeSource: id_incomeSource
+    id_dependants: id_dependants
+    id_whoDefineIncome: id_whoDefineIncome
+    id_quantityAndExpenses: id_quantityAndExpenses
+    id_ExpensesResume: id_ExpensesResume
+    id_belongsToAssosiation: id_belongsToAssosiation
+    id_bussinesSector: id_bussinesSector
+    id_container_grid_1: id_container_grid_1
+    id_container_grid_2: id_container_grid_2
+
+    Layout_1150_623:
+        Label_888_48:
+            id: id_title
+        
+        BoxLayoutFull:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 572
+            top: 800-116
+            x: 88
+            spacing: 20
+
+            BoxLayoutFull:
+                spacing: 20
+                Spinner_163_40:
+                    id: id_ciiu
+                Spinner_163_40:
+                    id: id_womenAssosiation
+                    font_size: 14
+
+            Spinner_352_40:
+                id: id_houseMaterial
+
+            Spinner_352_40:
+                id: id_houseType
+
+            BoxLayoutFull:
+                spacing: 20
+                Spinner_163_40:
+                    id: id_tier
+                Spinner_163_40:
+                    id: id_houseAge
+
+            BoxLayoutFull:
+                spacing: 20
+                Spinner_163_40:
+                    id: id_bedrooms
+                    font_size: 14
+                Spinner_163_40:
+                    id: id_kitchenFuel
+                    font_size: 14
+
+            Spinner_352_40:
+                id: id_incomeSource
+
+            Spinner_352_40:
+                id: id_dependants
+                font_size: 14
+
+            Spinner_352_40:
+                id: id_whoDefineIncome
+                font_size: 14   
+
+            Spinner_352_40:
+                id: id_quantityAndExpenses
+
+            Label_352_40:
+                id: id_ExpensesResume
+                halign: "center"
+                
+        BoxLayoutFull:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 352, 100
+            top: 800-116
+            x: 464
+            spacing: 20
+            Spinner_352_40:
+                id: id_belongsToAssosiation
+            Spinner_352_40:
+                id: id_bussinesSector
+
+        BoxLayoutFull:
+            size_hint: None, None
+            size: 352,100
+            x: 844
+            top:800 - 116
+            ScrollView:
+                size: self.size
+                GridLayout:
+                    cols: 2
+                    id: id_container_grid_1
+                    size_hint_y:None
+                    spacing:32
+        
+        BoxLayoutFull:
+            size_hint: None, None
+            size: 732,452
+            x: 464
+            top:800 - 236
+            ScrollView:
+                size: self.size
+                GridLayout:
+                    cols: 2
+                    id: id_container_grid_2
+                    size_hint_y:None
+                    spacing:32
+
+
+
