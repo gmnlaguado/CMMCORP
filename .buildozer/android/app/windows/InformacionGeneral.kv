@@ -1,0 +1,190 @@
+<ConfirmacionInfoGeneral>:
+    id_botonaceptar: id_botonaceptar
+    size_hint: None, None
+    top: 800-232
+    x: 357
+    size: 566,336
+    background:"images/green_background.png"
+    background_color: (0,0,0, 0.8)
+    separator_color: 0,0,0,0
+    title_size: 43
+    font_name: "montserrat"
+    title_align: "center"
+    title_color: 0,0,0,1
+    canvas.before:
+        Color:
+            rgba: (1,1,1,1)
+        Rectangle:
+            size: self.size
+            pos: self.pos
+    FloatLayout:
+        size_hint: None, None
+        size: 566,116
+        Button352_64:
+            id: id_botonaceptar
+            focus: True
+            x: 464
+            top: 800 - 467
+            text: "Continuar"
+
+<InformacionGeneralScreen>:
+
+    id_titulo: id_titulo
+    id_nombre: id_nombre
+    id_apellido: id_apellido
+    id_nacimiento: id_nacimiento
+    id_edad: id_edad
+    id_rangoEdad: id_rangoEdad
+    id_tipoDocumento: id_tipoDocumento
+    id_deptoExpedicion: id_deptoExpedicion
+    id_ciudadExpedicion: id_ciudadExpedicion
+    id_sexo: id_sexo
+    id_tipo: id_tipo
+    id_nacionalidad: id_nacionalidad
+    id_pais: id_pais
+    id_departamentos: id_departamentos
+    id_ciudades: id_ciudades
+    id_entorno: id_entorno
+    id_direccionLabel: id_direccionLabel
+    id_rotulo: id_rotulo
+    id_direccion: id_direccion
+    id_barrios: id_barrios
+    id_indicador: id_indicador
+    id_fijo: id_fijo
+    id_genero: id_genero
+    id_celular: id_celular
+    id_celular2: id_celular2
+    id_etnia: id_etnia
+    id_discapacidad: id_discapacidad
+    id_email: id_email
+    id_labelMensajes: id_labelMensajes
+    id_botonIngresar: id_botonIngresar
+    id_homeButton: id_homeButton
+
+    Layout1150_623:
+        Button:
+            id: id_homeButton
+            background_normal: './images/home.png'
+            background_down: './images/home.png'
+            size_hint: None, None
+            size: 80,80
+            x: 82.77
+            top: 800 - 7
+        Label888:
+            id: id_titulo
+        Label352:
+            x:88
+            top:800-122
+            text:"Nombre"
+        Input376:
+            id: id_nombre
+            focus: True
+            x:228
+            top:800-122
+        Label352:
+            x:674
+            top:800-122
+            text:"Apellido"
+        Input376:
+            id: id_apellido
+            x:814
+            top:800-122
+        Label352:
+            x:88
+            top:800-187
+            text:"Fecha de nacimiento"
+        Input248:
+            id: id_nacimiento
+            x:435
+            top:800-187
+        Label352:
+            id: id_edad
+            x:756
+            top:800-187
+        Label352:
+            id: id_rangoEdad
+            x:986
+            top:800-187
+            text:"Rango"
+        BoxLayout:
+            orientation: "vertical"
+            size_hint: None, None
+            size: 1127, 429
+            top: 800-252
+            x: 88
+            spacing: 25
+            BoxLayout:
+                spacing: 24
+                Spinner352:
+                    id: id_tipoDocumento
+                Spinner352:
+                    id: id_deptoExpedicion
+                Spinner352:
+                    id: id_ciudadExpedicion
+            BoxLayout:
+                spacing: 24
+                Spinner352:
+                    id: id_sexo
+                Spinner352:
+                    id: id_tipo
+                Spinner352:
+                    id: id_nacionalidad
+            BoxLayout:
+                spacing: 24
+                Spinner352:
+                    id: id_pais
+                Spinner352:
+                    id: id_departamentos
+                Spinner352:
+                    id: id_ciudades
+            BoxLayout:
+                spacing: 24
+                Spinner352:
+                    id: id_entorno
+                BoxLayout:
+                    size_hint: None, None
+                    size: 359,40
+                    Label158:
+                        id: id_direccionLabel
+                    Spinner192:
+                        id: id_rotulo
+                Input352:
+                    id: id_direccion
+                    hint_text: "___ # ___ - ___"
+
+            BoxLayout:
+                spacing: 24
+                Spinner352:
+                    id: id_barrios
+                BoxLayout:
+                    size_hint: None, None
+                    size: 359,40
+                    Label158:
+                        text: "Contacto"
+                    Spinner192:
+                        id: id_indicador
+                Input352:
+                    id: id_fijo
+            BoxLayout:
+                spacing: 24
+                Spinner352:
+                    id: id_genero
+                Input352:
+                    id: id_celular
+                Input352:
+                    id: id_celular2
+            BoxLayout:
+                spacing: 24
+                Spinner352:
+                    id: id_etnia
+                Spinner352:
+                    id: id_discapacidad
+                Input352:
+                    id: id_email
+        Label763:
+            id: id_labelMensajes
+        Button352_64:
+            id: id_botonIngresar
+            text: "Ingresar"
+            top: 800-724
+            x: 863

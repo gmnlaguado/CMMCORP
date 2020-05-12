@@ -1,6 +1,5 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
-<<<<<<< HEAD
 from kivy.properties import ObjectProperty
 
 
@@ -46,9 +45,3 @@ class MonitoreoScreen(Screen):
 
 
 
-=======
-
-
-class MonitoreoScreen(Screen):
-    pass
->>>>>>> ccb016423d2345f00d66a88de97a7d5fc627caea
