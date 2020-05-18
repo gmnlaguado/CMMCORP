@@ -172,7 +172,9 @@ class SpinnerFather(Spinner):
                           "¿Es una asociación de mujeres?", "Material predominante", "Tipo de vivienda", "Antiguedad",
                           "Número de dormitorios", "Combustible usado en cocina", "Sujeto y fuentes de ingreso",
                           "Personas que dependen economicamente de usted", "¿Quién define la distribución de dinero en el hogar",
-                          "Gastos y cantidad", "¿Pertenece a asociación"]
+                          "Gastos y cantidad", "¿Pertenece a asociación", "¿Pertenece a alguna asociación?", 
+                          "Total de personas que dependen de este ingreso", "¿Quién define la distribución de ingresos?",
+                          "Material predominante de la vivienda", "Combustible de cocina"]
 
     def on_text(self, *args):
         if args[1] not in self.text_init:
@@ -191,7 +193,7 @@ class PopupFather(Popup):
         self.separator_color = 0, 0, 0, 0
         self.font_name = "montserrat"
         self.title_align = "center"
-        self.title_color = 0, 0, 0, 1
+        self.title_color = 1, 1, 1, 1
         self.size_hint = None, None
 
 
