@@ -7,7 +7,7 @@ from kivy.core.window import Window
 from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager
 from windows import Login, Panel, InformacionGeneral, DiagnosticoPerfilProductivo, IdeaDeNegocio, UnidadDeNegocio, \
-    CaracterizacionAmpliada, Monitoreo#, DiagnosticoEmpresarial, PlanDeFormacion
+    CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion
 
 
 class MyApp(App):
@@ -34,9 +34,9 @@ class MyApp(App):
         self.sm.add_widget(UnidadDeNegocio.UnidadDeNegocioScreen(name="UnidadDeNegocio"))
         self.sm.add_widget(CaracterizacionAmpliada.CaracterizacionAmpliadaScreen(name="CaracterizacionAmpliada"))
         self.sm.add_widget(Monitoreo.MonitoreoScreen(name="Monitoreo"))
-        #self.sm.add_widget(DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen(name="DiagnosticoEmpresarial"))
-        #self.sm.add_widget(PlanDeFormacion.PlanDeFormacionScreen(name="PlanDeFormacion"))
-        self.sm.current = 'Monitoreo'
+        self.sm.add_widget(DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen(name="DiagnosticoEmpresarial"))
+        self.sm.add_widget(PlanDeFormacion.PlanDeFormacionScreen(name="PlanDeFormacion"))
+        self.sm.current = 'DiagnosticoEmpresarial'
 
 
         # Popup windows
