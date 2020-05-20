@@ -36,7 +36,7 @@ class MyApp(App):
         self.sm.add_widget(Monitoreo.MonitoreoScreen(name="Monitoreo"))
         self.sm.add_widget(DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen(name="DiagnosticoEmpresarial"))
         self.sm.add_widget(PlanDeFormacion.PlanDeFormacionScreen(name="PlanDeFormacion"))
-        self.sm.current = 'DiagnosticoEmpresarial'
+        self.sm.current = 'PlanDeFormacion'
 
 
         # Popup windows

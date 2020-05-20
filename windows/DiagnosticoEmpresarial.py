@@ -7,7 +7,9 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.checkbox import CheckBox
 
 class DiagnosticoEmpresarialScreen(Screen):
-    id_container_grid_1: ObjectProperty()
+    id_container_grid_1 = ObjectProperty()
+    id_message = ObjectProperty()
+    id_signInButton = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -43,7 +45,7 @@ class DiagnosticoEmpresarialScreen(Screen):
                 ans = Label(text=answers[totalAnswers], halign="center", valign="middle", size_hint=(None, None),
                         size=(661, 18), color=(0, 0, 0, 0.85), font_size=14, font_name="montserrat",
                         text_size=(661, 18))
-                check = CheckBox(group=f"pregunta_{counter}", color=(0, 1, 0, 1))
+                check = CheckBox(group=f"pregunta_{counter}_opcion{idx}", color=(0, 1, 0, 1))
                 totalAnswers += 1
                 line_container.add_widget(ans)
                 line_container.add_widget(check)

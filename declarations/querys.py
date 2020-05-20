@@ -167,5 +167,27 @@ def bringData(table):
     db = MyDB('register')
     result = db.parametricQuery("SELECT * FROM %s" % table).fetchall()
     return result
-    # if result is not None:
-    #     return [res[1] for res in result]
+
+def bringProgramFromEducationPlan():
+    db = MyDB('parametric')
+    result = db.parametricQuery("SELECT program FROM educationPlan GROUP BY program").fetchall()
+    if result is not None:
+        return [res[0] for res in result]
+
+def bringLineFromEducationPlan(program):
+    db = MyDB('parametric')
+    result = db.parametricQuery("SELECT line FROM educationPlan WHERE program = '%s' GROUP BY line" % program).fetchall()
+    if result is not None:
+        return [res[0] for res in result]
+
+def bringLevelFromEducationPlan(program, line):
+    db = MyDB('parametric')
+    result = db.parametricQuery("SELECT level FROM educationPlan WHERE program = '%s' AND line = '%s' GROUP BY level" % (program, line)).fetchall()
+    if result is not None:
+        return [res[0] for res in result]
+
+def bringDescriptionsFromEducationPlan(program, line, level):
+    db = MyDB('parametric')
+    result = db.parametricQuery("SELECT description FROM educationPlan WHERE program = '%s' AND line = '%s' AND level = '%s'" % (program, line, level)).fetchall()
+    if result is not None:
+        return [res[0] for res in result]

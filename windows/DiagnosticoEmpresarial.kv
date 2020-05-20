@@ -1,12 +1,14 @@
 <DiagnosticoEmpresarialScreen>:
     id_container_grid_1: id_container_grid_1
+    id_message: id_message
+    id_signInButton: id_signInButton
     Layout_1150_623:
         Label_888_48:
             text: "Diagnostico Empresarial"
         BoxLayoutFull:
             size_hint: None, None
             size: 1091, 572
-            x: 94
+            x: 130
             top:800 - 110
             ScrollView:
                 size: self.size
@@ -15,3 +17,10 @@
                     id: id_container_grid_1
                     size_hint_y:None
                     spacing:20
+        Label_763_40:
+            id: id_message
+        Button_352_64:
+            id: id_signInButton
+            text: "Terminar Diagnostico"
+            top: 800-724
+            x: 863
