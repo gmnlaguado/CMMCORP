@@ -174,7 +174,8 @@ class SpinnerFather(Spinner):
                           "Personas que dependen economicamente de usted", "¿Quién define la distribución de dinero en el hogar",
                           "Gastos y cantidad", "¿Pertenece a asociación", "¿Pertenece a alguna asociación?", 
                           "Total de personas que dependen de este ingreso", "¿Quién define la distribución de ingresos?",
-                          "Material predominante de la vivienda", "Combustible de cocina", "Programa", "Linea", "Nivel"]
+                          "Material predominante de la vivienda", "Combustible de cocina", "Programa", "Linea", "Nivel",
+                          "Actividad De Formación"]
 
     def on_text(self, *args):
         if args[1] not in self.text_init:

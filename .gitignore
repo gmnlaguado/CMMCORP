@@ -10,3 +10,4 @@ api/venv/
 api/src/.env
 
 .vscode
+workspace.code-workspace

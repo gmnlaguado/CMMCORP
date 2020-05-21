@@ -58,7 +58,7 @@ class TextInputScrollData(TextInput):
         self.font_name = "montserrat"
         self.color = (1, 1, 1, 1)
         self.size_hint = (None, None)
-        self.halign="center"
+        self.halign="left"
         self.valign="middle"
         self.background_color = (255/ 255, 255/ 255, 255 / 255, 1)
         self.background_normal = ""
