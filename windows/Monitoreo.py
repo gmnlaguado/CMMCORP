@@ -11,6 +11,11 @@ from kivy.uix.button import Button
 
 
 class MonitoreoScreen(Screen):
+    project = None
+    operator = None
+    payeeDocument = None
+    home = False
+
     id_belongToAssosiation = ObjectProperty()
     id_ciiu = ObjectProperty()
     id_pension = ObjectProperty()
@@ -47,6 +52,8 @@ class MonitoreoScreen(Screen):
         self.id_kitchenFuel.values = querys.parametricList('kitchenFuel')
         self.id_tier.values = [str(numb) for numb in range(1, 8)]
         self.id_houseAge.values = querys.parametricList('houseAge')
+
+        self.id_signInButton.bind(on_release=self.checkAll)
 
         questions = querys.parametricList('homeCharacteristics')
         self.id_container_grid_1.bind(minimum_height=self.id_container_grid_1.setter('height'))
@@ -156,6 +163,9 @@ class MonitoreoScreen(Screen):
         self.id_householdExpenses.bind(on_release=self.openPopupGastos)
         self.id_householdIncomes.bind(on_release=self.openPopupIngresos)
 
+    def checkAll(self, *args):
+        AcceptFormMonitoreo(self.operator).open()
+
     def on_pre_enter(self, *args):
         self.id_belongToAssosiation.text = "¿Pertenece a alguna asociación?"
         self.id_ciiu.text = "CIIU"
@@ -254,3 +264,22 @@ class IngresosDelGrupoFamiliarPopup(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         self.dismiss()
+
+
+class AcceptFormMonitoreo(class_declaration.PopupFather):
+    id_acceptButton = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.operator = args[0]
+        self.id_acceptButton.bind(on_release=self.on_validate)
+
+    def on_pre_open(self):
+        self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
+
+    def on_validate(self, *args):
+        self.dismiss()
+        self.changeWindow()
+
+    def changeWindow(self, *args):
+        pass

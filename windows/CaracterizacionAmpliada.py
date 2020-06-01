@@ -1,10 +1,15 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import querys
+from declarations import querys, class_declaration
 
 
 class CaracterizacionAmpliadaScreen(Screen):
+    project = None
+    operator = None
+    payeeDocument = None
+    home = False
+
     id_title = ObjectProperty()
     id_adittionalStudies = ObjectProperty()
     id_studies = ObjectProperty()
@@ -55,6 +60,11 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_arl.values = querys.parametricList('yesNo')
         self.id_householdMembers.values = [str(numb) for numb in range(1, 30)]
 
+        self.id_signInButton.bind(on_release=self.checkAll)
+
+    def checkAll(self, *args):
+        AcceptFormCaracterizacionAmpliada(self.operator).open()
+
     def on_pre_enter(self, *args):
         self.id_studies.text = 'Nivel de escolaridad'
         self.id_workingRelationship.text = '¿Tiene vinculación laboral con contrato?'
@@ -80,3 +90,22 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_observations.resetInput()
         self.id_factorsThatPreventYou.resetInput()
         self.id_adittionalStudies.resetInput()
+
+
+class AcceptFormCaracterizacionAmpliada(class_declaration.PopupFather):
+    id_acceptButton = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.operator = args[0]
+        self.id_acceptButton.bind(on_release=self.on_validate)
+
+    def on_pre_open(self):
+        self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
+
+    def on_validate(self, *args):
+        self.dismiss()
+        self.changeWindow()
+
+    def changeWindow(self, *args):
+        pass

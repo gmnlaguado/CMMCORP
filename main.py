@@ -64,6 +64,13 @@ class MyApp(App):
         Factory.PlanDeFormacionButton.changeWindow = self.changeToActividadDeFormacion
         Factory.PlanDeSeguimientoButton.changeWindow = self.changeToPlanDeImplementacion
 
+        Factory.AcceptFormCaracterizacionAmpliada.changeWindow = self.changeToMonitoreo
+        Factory.AcceptFormMonitoreo.changeWindow = self.changeToDiagnosticoEmpresarial
+        Factory.AcceptFormDiagnosticoEmpresarial.changeWindow = self.changeToPlanDeFormacion
+        Factory.AcceptFormPlanDeFormacion.changeWindow = self.changeToPanel
+        Factory.AcceptFormActividadDeFormacion.changeWindow = self.changeToPanel
+        Factory.AcceptFormPlanDeImplementacion.changeWindow = self.changeToPanel
+
         return self.sm
 
     def changeToLogin(self, *args):

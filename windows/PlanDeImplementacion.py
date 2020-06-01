@@ -2,12 +2,16 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.textinput import TextInput
-from declarations import querys
+from declarations import querys, class_declaration
 from kivy.uix.label import Label
 
 
 class PlanDeImplementacionScreen(Screen):
     form_title = None
+    project = None
+    operator = None
+    payeeDocument = None
+    home = False
 
     id_title = ObjectProperty()
     id_container_grid = ObjectProperty()
@@ -40,6 +44,10 @@ class PlanDeImplementacionScreen(Screen):
             self.id_container_grid.add_widget(data_1)
             data_2 = TextInputScrollData()
             self.id_container_grid.add_widget(data_2)
+        self.id_signInButton.bind(on_release=self.checkAll)
+
+    def checkAll(self, *args):
+        AcceptFormPlanDeImplementacion(self.operator).open()
 
     def on_pre_enter(self, *args):
         if self.form_title is not None:
@@ -77,3 +85,22 @@ class TextInputScrollData(TextInput):
         self.class_type = "input"
         self.multiline = False
         self.hint_text = "DD/MM/AAAA"
+
+
+class AcceptFormPlanDeImplementacion(class_declaration.PopupFather):
+    id_acceptButton = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.operator = args[0]
+        self.id_acceptButton.bind(on_release=self.on_validate)
+
+    def on_pre_open(self):
+        self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
+
+    def on_validate(self, *args):
+        self.dismiss()
+        self.changeWindow()
+
+    def changeWindow(self, *args):
+        pass

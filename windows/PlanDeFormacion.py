@@ -1,19 +1,25 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import querys
+from declarations import querys, class_declaration
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
 
 
 class PlanDeFormacionScreen(Screen):
+    project = None
+    operator = None
+    payeeDocument = None
+    home = False
+
     id_selectedActivities = ObjectProperty()
     id_program = ObjectProperty()
     id_line = ObjectProperty()
     id_level = ObjectProperty()
     id_container_grid = ObjectProperty()
     id_title = ObjectProperty()
+    id_signInButton = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -23,6 +29,10 @@ class PlanDeFormacionScreen(Screen):
         self.id_line.bind(text=self.loadLevels)
         self.id_level.bind(text=self.loadDescriptions)
         self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+        self.id_signInButton.bind(on_release=self.checkAll)
+
+    def checkAll(self, *args):
+        AcceptFormPlanDeFormacion(self.operator).open()
 
     def on_pre_enter(self, *args):
         self.id_program.text = "Programa"
@@ -70,3 +80,22 @@ class TextInputScrollData(TextInput):
 
     def on_text_validate(self, *args):
         self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+
+
+class AcceptFormPlanDeFormacion(class_declaration.PopupFather):
+    id_acceptButton = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.operator = args[0]
+        self.id_acceptButton.bind(on_release=self.on_validate)
+
+    def on_pre_open(self):
+        self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
+
+    def on_validate(self, *args):
+        self.dismiss()
+        self.changeWindow()
+
+    def changeWindow(self, *args):
+        pass

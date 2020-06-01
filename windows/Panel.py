@@ -122,7 +122,7 @@ class AcceptLoading(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         class_declaration.MessagePopup(f'Starting sending POST requests').open()
-        upload_process.uploadInformation()
+        # upload_process.uploadInformation()
         self.dismiss()
 
 
@@ -260,10 +260,6 @@ class ConsultarButton(class_declaration.PopupFather):
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
             self.dismiss()
-            self.changeWindow()
-
-    def changeWindow(self, *args):
-        pass
 
 
 class InactivarButton(class_declaration.PopupFather):
