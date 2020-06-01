@@ -5,6 +5,7 @@ from kivy.uix.textinput import TextInput
 from declarations import querys
 from kivy.uix.label import Label
 
+
 class PlanDeImplementacionScreen(Screen):
     id_title = ObjectProperty()
     id_container_grid = ObjectProperty()
@@ -38,8 +39,6 @@ class PlanDeImplementacionScreen(Screen):
             self.id_container_grid.add_widget(data_2)
 
 
-
-
 class TextInputScroll(TextInput):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -54,6 +53,7 @@ class TextInputScroll(TextInput):
         self.complete = False
         self.class_type = "input"
         self.multiline = False
+
 
 class TextInputScrollData(TextInput):
     def __init__(self, *args, **kwargs):

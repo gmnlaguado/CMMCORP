@@ -2,12 +2,10 @@
 from os import listdir
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.factory import Factory
 from kivy.core.window import Window
 from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager
-from windows import Login, Panel, InformacionGeneral, DiagnosticoPerfilProductivo, IdeaDeNegocio, UnidadDeNegocio, \
-    CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, PlanDeImplementacion, ActividadDeFormacion
+from windows import Login, Panel, InformacionGeneral, DiagnosticoPerfilProductivo, IdeaDeNegocio, UnidadDeNegocio, CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, ActividadDeFormacion, PlanDeImplementacion
 
 
 class MyApp(App):
@@ -16,14 +14,22 @@ class MyApp(App):
         self.sm = ScreenManager()
 
     def build(self):
-        self.title = "Corporación Mundial De La Mujer"
-        self.icon = r'images/colflag.png'
         LabelBase.register(name='montserrat', fn_regular='fonts/Montserrat-Regular.ttf',
                            fn_bold='fonts/Montserrat-SemiBold.ttf')
 
-        for f in listdir("windows"):
-            if f.endswith('.kv'):
-                Builder.load_file(f"windows/{f}")
+        Builder.load_file(f"windows/Login.kv")
+        Builder.load_file(f"windows/Panel.kv")
+        Builder.load_file(f"windows/InformacionGeneral.kv")
+        Builder.load_file(f"windows/DiagnosticoPerfilProductivo.kv")
+        Builder.load_file(f"windows/IdeaDeNegocio.kv")
+        Builder.load_file(f"windows/UnidadDeNegocio.kv")
+        Builder.load_file(f"windows/CaracterizacionAmpliada.kv")
+        Builder.load_file(f"windows/Monitoreo.kv")
+        Builder.load_file(f"windows/DiagnosticoEmpresarial.kv")
+        Builder.load_file(f"windows/PlanDeFormacion.kv")
+        Builder.load_file(f"windows/ActividadDeFormacion.kv")
+        Builder.load_file(f"windows/PlanDeImplementacion.kv")
+
         Builder.load_file('declarations/templates_declaration.kv')
 
         self.sm.add_widget(Login.LoginScreen(name='Login'))
@@ -40,33 +46,7 @@ class MyApp(App):
         self.sm.add_widget(PlanDeImplementacion.PlanDeImplementacionScreen(name="PlanDeImplementacion"))
         self.sm.current = 'PlanDeImplementacion'
 
-
-        # Popup windows
-
-        Factory.LoginProjectPopup.changeWindow = self.changeToPanel
-        Factory.EmergentNuevoBeneficiario.changeWindow = self.changeToInformacionGeneral
-        Factory.AcceptForm.changeWindow = self.changeToDiagnosticoPerfilProductivo
-        Factory.AcceptFormDiagno.changeWindowEntrep = self.changeToIdeaDeNegocio
-        Factory.AcceptFormDiagno.changeWindowBussin = self.changeToUnidadDeNegocio
-        Factory.AcceptFormIdea.changeWindow = self.changeToPanel
-        Factory.AcceptFormUnit.changeWindow = self.changeToPanel
-
         return self.sm
-
-    def changeToPanel(self, *args):
-        self.sm.current = 'Panel'
-
-    def changeToInformacionGeneral(self, *args):
-        self.sm.current = 'InformacionGeneral'
-
-    def changeToDiagnosticoPerfilProductivo(self, *args):
-        self.sm.current = 'DiagnosticoPerfilProductivo'
-
-    def changeToIdeaDeNegocio(self, *args):
-        self.sm.current = 'IdeaDeNegocio'
-
-    def changeToUnidadDeNegocio(self, *args):
-        self.sm.current = 'UnidadDeNegocio'
 
 
 if __name__ == '__main__':
@@ -74,6 +54,5 @@ if __name__ == '__main__':
     Window.left = 45
     Window.top = -25
     Window.clearcolor = [1, 1, 1, 1]
-    Window.softinput_mode = "below_target"
     corporation = MyApp()
     corporation.run()

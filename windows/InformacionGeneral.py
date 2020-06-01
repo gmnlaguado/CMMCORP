@@ -3,7 +3,6 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from codes import snippets
 from declarations import querys, class_declaration, dataFormating
-from windows import DiagnosticoPerfilProductivo, IdeaDeNegocio, UnidadDeNegocio
 
 
 class InformacionGeneralScreen(Screen):
@@ -152,18 +151,6 @@ class InformacionGeneralScreen(Screen):
     def on_leave(self, *args):
         if not self.home:
             information = self
-            DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen.payeeDocument = self.payeeDocument
-            DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen.payeeType = self.id_payeeType.text
-            if self.id_payeeType.text == "Emprendedor":
-                IdeaDeNegocio.IdeaDeNegocioScreen.payeeDocument = self.payeeDocument
-                IdeaDeNegocio.IdeaDeNegocioScreen.operator = self.operator
-                IdeaDeNegocio.IdeaDeNegocioScreen.project = self.project
-            else:
-                UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = self.payeeDocument
-                UnidadDeNegocio.UnidadDeNegocioScreen.operator = self.operator
-                UnidadDeNegocio.UnidadDeNegocioScreen.project = self.project
-
-            dataFormating.GeneralInformationData(information)
 
     def signal(self, *args):
         self.id_message.text = args[0].alertFlag['message']

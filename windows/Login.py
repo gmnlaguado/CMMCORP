@@ -2,8 +2,6 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration
-from windows import Panel
-from kivy.core.window import Window
 
 
 class LoginScreen(Screen):
@@ -60,8 +58,6 @@ class LoginProjectPopup(class_declaration.PopupFather):
         self.id_projects.bind(text=self.on_selection)
 
     def on_selection(self, *args):
-        Panel.PanelScreen.operator = self.operator
-        Panel.PanelScreen.project = args[1]
         self.dismiss()
         self.changeWindow()
 

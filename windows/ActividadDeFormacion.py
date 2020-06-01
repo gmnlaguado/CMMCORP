@@ -22,9 +22,11 @@ class ActividadDeFormacionScreen(Screen):
 
     def on_pre_enter(self, *args):
         self.id_activities.text = "Actividad De Formación"
+
     def selectActivity(self, *args):
         if args[1] != "Actividad De Formación":
             SeleccionarActividad().open()
+
 
 class SeleccionarActividad(class_declaration.PopupFather):
     id_date = ObjectProperty()

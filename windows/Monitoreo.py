@@ -9,6 +9,7 @@ from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
 
+
 class MonitoreoScreen(Screen):
     id_belongToAssosiation = ObjectProperty()
     id_ciiu = ObjectProperty()
@@ -58,24 +59,24 @@ class MonitoreoScreen(Screen):
                 box_container.add_widget(check)
             self.id_container_grid_1.add_widget(lab)
             self.id_container_grid_1.add_widget(box_container)
-        
+
         self.id_container_grid_2.bind(minimum_height=self.id_container_grid_2.setter('height'))
-        grid = SpinnerScroll(text="Cuenta corriente", values = ["si", "no"])
+        grid = SpinnerScroll(text="Cuenta corriente", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="Créditos", values = ["si", "no"])
+        grid = SpinnerScroll(text="Créditos", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="Pensiones", values = ["si", "no"])
+        grid = SpinnerScroll(text="Pensiones", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="Seguros", values = ["si", "no"])
+        grid = SpinnerScroll(text="Seguros", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        box_container = BoxLayout(size_hint= (None, None), size =(673, 40))
+        box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
         lab1 = Label(text="Monte del crédito", halign="left", valign="middle", size_hint=(None, None),
-                        size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
-                        text_size=(275, 40))
+                     size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
+                     text_size=(275, 40))
         text1 = TextInputScroll()
         box_container.add_widget(lab1)
         box_container.add_widget(text1)
@@ -84,70 +85,72 @@ class MonitoreoScreen(Screen):
         grid = SpinnerScroll(text="Número de cuotas", values=[str(numb) for numb in range(1, 65)])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="¿Alguno de estos servicios los tiene con Bancamía?", values = ["si", "no"])
+        grid = SpinnerScroll(text="¿Alguno de estos servicios los tiene con Bancamía?", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="¿Cuál servicio tiene con Bancamía?", values = querys.parametricList('bancamia'))
+        grid = SpinnerScroll(text="¿Cuál servicio tiene con Bancamía?", values=querys.parametricList('bancamia'))
         self.id_container_grid_2.add_widget(grid)
 
-        box_container = BoxLayout(size_hint= (None, None), size =(673, 40))
+        box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
         lab1 = Label(text="¿Cuál programa?", halign="left", valign="middle", size_hint=(None, None),
-                        size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
-                        text_size=(275, 40))
+                     size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
+                     text_size=(275, 40))
         text1 = TextInputScroll()
         box_container.add_widget(lab1)
         box_container.add_widget(text1)
         self.id_container_grid_2.add_widget(box_container)
 
-        grid = SpinnerScroll(text="¿Depende económicamente de alguién?", values = ["si", "no"])
+        grid = SpinnerScroll(text="¿Depende económicamente de alguién?", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        box_container = BoxLayout(size_hint= (None, None), size =(673, 40))
+        box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
         lab1 = Label(text="¿De quién depende?", halign="left", valign="middle", size_hint=(None, None),
-                        size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
-                        text_size=(275, 40))
+                     size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
+                     text_size=(275, 40))
         text1 = TextInputScroll()
         box_container.add_widget(lab1)
         box_container.add_widget(text1)
         self.id_container_grid_2.add_widget(box_container)
 
         grid = SpinnerScroll(text="¿Cuántas horas a la semana dedica al cuidado de personas a cargo?",
-        values=[str(numb) for numb in range(1, 165)])
+                             values=[str(numb) for numb in range(1, 165)])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="¿Cuántas horas a la semana dedica a la recreación?", 
-        values=[str(numb) for numb in range(1, 165)])
+        grid = SpinnerScroll(text="¿Cuántas horas a la semana dedica a la recreación?",
+                             values=[str(numb) for numb in range(1, 165)])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="¿El negocio tiene RUT?", values = ["si", "no"])
+        grid = SpinnerScroll(text="¿El negocio tiene RUT?", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="¿Tiene registro de cámara de comercio?", values = ["si", "no"])
+        grid = SpinnerScroll(text="¿Tiene registro de cámara de comercio?", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="¿Tiene NIT el negocio?", values = ["si", "no"])
+        grid = SpinnerScroll(text="¿Tiene NIT el negocio?", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="¿Dónde opera su unidad productivo?", values = ["si", "no"])
+        grid = SpinnerScroll(text="¿Dónde opera su unidad productivo?", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        input_list_labels = ["Ingreso del negocio", "Gastos Directos", "Gastos Indirectos", "Total de gastos", "Excedentes", 
-        "Activo Fijo", "Activo No Fijo", "Total Actvios", "Pasivo Corto", "Pasivo Largo", "Deudas", "Patrimonio"]
+        input_list_labels = ["Ingreso del negocio", "Gastos Directos", "Gastos Indirectos", "Total de gastos",
+                             "Excedentes",
+                             "Activo Fijo", "Activo No Fijo", "Total Actvios", "Pasivo Corto", "Pasivo Largo", "Deudas",
+                             "Patrimonio"]
 
         for input_label_value in input_list_labels:
-            box_container = BoxLayout(size_hint= (None, None), size =(673, 40))
+            box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
             lab1 = Label(text=input_label_value, halign="left", valign="middle", size_hint=(None, None),
-                            size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
-                            text_size=(275, 40))
+                         size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
+                         text_size=(275, 40))
             text1 = TextInputScroll()
             box_container.add_widget(lab1)
             box_container.add_widget(text1)
             self.id_container_grid_2.add_widget(box_container)
-        
+
         grid = SpinnerScroll(text="Total de trabajadores", values=[str(numb) for numb in range(1, 60)])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="Tipo de local", values = ["si", "no"])
+        grid = SpinnerScroll(text="Tipo de local", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
         self.id_householdExpenses.bind(on_release=self.openPopupGastos)
         self.id_householdIncomes.bind(on_release=self.openPopupIngresos)
@@ -177,7 +180,6 @@ class MonitoreoScreen(Screen):
         IngresosDelGrupoFamiliarPopup().open()
 
 
-
 class TextInputScroll(TextInput):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -185,9 +187,9 @@ class TextInputScroll(TextInput):
         self.font_name = "montserrat"
         self.color = (1, 1, 1, 1)
         self.size_hint = (None, None)
-        self.halign="center"
-        self.valign="middle"
-        self.background_color = (255/ 255, 255/ 255, 255 / 255, 1)
+        self.halign = "center"
+        self.valign = "middle"
+        self.background_color = (255 / 255, 255 / 255, 255 / 255, 1)
         self.background_normal = ""
         self.complete = False
         self.class_type = "input"
@@ -196,6 +198,7 @@ class TextInputScroll(TextInput):
     def on_text_validate(self, *args):
         self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
 
+
 class SpinnerScroll(Spinner):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -203,8 +206,8 @@ class SpinnerScroll(Spinner):
         self.font_name = "montserrat"
         self.color = (1, 1, 1, 1)
         self.size_hint = (None, None)
-        self.halign="center"
-        self.valign="middle"
+        self.halign = "center"
+        self.valign = "middle"
         self.background_color = (61 / 255, 119 / 255, 0 / 255, 0.7)
         self.background_normal = ""
         self.complete = False
@@ -228,9 +231,10 @@ class GastosDelGrupoFamiliarPopup(class_declaration.PopupFather):
         super().__init__(**kwargs)
         self.title = f"Gastos del grupo familiar"
         self.id_acceptButton.bind(on_release=self.on_validate)
-    
+
     def on_validate(self, *args):
         self.dismiss()
+
 
 class IngresosDelGrupoFamiliarPopup(class_declaration.PopupFather):
     id_employees = ObjectProperty()
@@ -246,17 +250,6 @@ class IngresosDelGrupoFamiliarPopup(class_declaration.PopupFather):
         super().__init__(**kwargs)
         self.title = f"Ingresos del grupo familiar"
         self.id_acceptButton.bind(on_release=self.on_validate)
-    
+
     def on_validate(self, *args):
         self.dismiss()
-
-        
-
-
-
-
-
-
-
-
-

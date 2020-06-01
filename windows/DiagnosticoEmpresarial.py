@@ -6,6 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.checkbox import CheckBox
 
+
 class DiagnosticoEmpresarialScreen(Screen):
     id_container_grid_1 = ObjectProperty()
     id_message = ObjectProperty()
@@ -24,32 +25,32 @@ class DiagnosticoEmpresarialScreen(Screen):
             # Question Category
             if idx % 5 == 0 and counter < len(categories):
                 cat = Label(text=categories[counter], halign="center", valign="middle", size_hint=(None, None),
-                        size=(853, 51), color=(0, 0, 0, 0.85), font_size=30, font_name="montserrat",
-                        text_size=(853, 51))
-                        
+                            size=(853, 51), color=(0, 0, 0, 0.85), font_size=30, font_name="montserrat",
+                            text_size=(853, 51))
+
                 counter += 1
                 self.id_container_grid_1.add_widget(cat)
 
             # Questions Statement
-            box_container = BoxLayout(size_hint= (None, None), size =(1035, 110))
+            box_container = BoxLayout(size_hint=(None, None), size=(1035, 110))
             lab = Label(text=quest, halign="center", valign="middle", size_hint=(None, None),
                         size=(294, 109), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
                         text_size=(294, 109))
             box_container.add_widget(lab)
-            
+
             # Options to Answer with its checboxes
-            answers_container = BoxLayout(size_hint= (None, None), size =(696, 110), spacing=12, orientation="vertical")
+            answers_container = BoxLayout(size_hint=(None, None), size=(696, 110), spacing=12, orientation="vertical")
             for i in range(4):
                 # Single Option
-                line_container = BoxLayout(size_hint= (None, None), size =(696, 20))
+                line_container = BoxLayout(size_hint=(None, None), size=(696, 20))
                 ans = Label(text=answers[totalAnswers], halign="center", valign="middle", size_hint=(None, None),
-                        size=(661, 18), color=(0, 0, 0, 0.85), font_size=14, font_name="montserrat",
-                        text_size=(661, 18))
+                            size=(661, 18), color=(0, 0, 0, 0.85), font_size=14, font_name="montserrat",
+                            text_size=(661, 18))
                 check = CheckBox(group=f"pregunta_{counter}_opcion{idx}", color=(0, 1, 0, 1))
                 totalAnswers += 1
                 line_container.add_widget(ans)
                 line_container.add_widget(check)
-                answers_container.add_widget(line_container) 
+                answers_container.add_widget(line_container)
             box_container.add_widget(answers_container)
 
             self.id_container_grid_1.add_widget(box_container)

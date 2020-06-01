@@ -2,7 +2,6 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, upload_process
-from windows import InformacionGeneral
 
 
 class PanelScreen(Screen):
@@ -67,9 +66,6 @@ class EmergentNuevoBeneficiario(class_declaration.PopupFather):
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
             if self.id_payee.text not in querys.payeeProjects(querys.idProject(self.project.lower())):
-                InformacionGeneral.InformacionGeneralScreen.project = self.project
-                InformacionGeneral.InformacionGeneralScreen.operator = self.operator
-                InformacionGeneral.InformacionGeneralScreen.payeeDocument = self.id_payee.text
                 self.dismiss()
                 self.changeWindow()
             else:
@@ -94,4 +90,3 @@ class AcceptLoading(class_declaration.PopupFather):
         class_declaration.MessagePopup(f'Starting sending POST requests').open()
         upload_process.uploadInformation()
         self.dismiss()
-

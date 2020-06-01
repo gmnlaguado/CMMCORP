@@ -1,11 +1,10 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import querys, class_declaration, dataFormating
+from declarations import querys
 
 
 class CaracterizacionAmpliadaScreen(Screen):
-
     id_title = ObjectProperty()
     id_adittionalStudies = ObjectProperty()
     id_studies = ObjectProperty()
@@ -30,6 +29,7 @@ class CaracterizacionAmpliadaScreen(Screen):
     id_observations = ObjectProperty()
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
+    id_homeButton = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -42,7 +42,6 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_workingRelationship.values = querys.parametricList('yesNo')
         self.id_freelance.values = querys.parametricList('yesNo')
         self.id_householdHead.values = querys.parametricList('yesNo')
-        self.id_householdHead.values = [str(numb) for numb in range(1, 30)]
         self.id_healthRegime.values = querys.parametricList('healthRegime')
         self.id_maritalStatus.values = querys.parametricList('maritalStatus')
         self.id_agreementType.values = querys.parametricList('agreementType')
@@ -55,7 +54,6 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_pension.values = querys.parametricList('yesNo')
         self.id_arl.values = querys.parametricList('yesNo')
         self.id_householdMembers.values = [str(numb) for numb in range(1, 30)]
-
 
     def on_pre_enter(self, *args):
         self.id_studies.text = 'Nivel de escolaridad'
@@ -78,7 +76,6 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_arl.text = 'ARL'
         self.id_message.text = ''
         self.id_signInButton.text = 'Ingresar'
-
 
         self.id_observations.resetInput()
         self.id_factorsThatPreventYou.resetInput()
