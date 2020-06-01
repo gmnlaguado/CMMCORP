@@ -99,11 +99,8 @@ class EmergentNuevoBeneficiario(class_declaration.PopupFather):
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            if self.id_payee.text not in querys.payeeProjects(querys.idProject(self.project.lower())):
-                self.dismiss()
-                self.changeWindow()
-            else:
-                class_declaration.MessagePopup('Beneficiario ya tiene C. Básica').open()
+            self.dismiss()
+            self.changeWindow()
 
     def changeWindow(self, *args):
         pass

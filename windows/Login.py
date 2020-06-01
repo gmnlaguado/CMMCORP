@@ -2,6 +2,9 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration
+from windows import Panel, InformacionGeneral, IdeaDeNegocio, UnidadDeNegocio, \
+    CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, ActividadDeFormacion, \
+    PlanDeImplementacion, ActividadDeImplementacion
 
 
 class LoginScreen(Screen):
@@ -58,6 +61,39 @@ class LoginProjectPopup(class_declaration.PopupFather):
         self.id_projects.bind(text=self.on_selection)
 
     def on_selection(self, *args):
+        Panel.PanelScreen.operator = self.operator
+        Panel.PanelScreen.project = args[1]
+
+        InformacionGeneral.InformacionGeneralScreen.operator = self.operator
+        InformacionGeneral.InformacionGeneralScreen.project = args[1]
+
+        IdeaDeNegocio.IdeaDeNegocioScreen.operator = self.operator
+        IdeaDeNegocio.IdeaDeNegocioScreen.project = args[1]
+
+        UnidadDeNegocio.UnidadDeNegocioScreen.operator = self.operator
+        UnidadDeNegocio.UnidadDeNegocioScreen.project = args[1]
+
+        CaracterizacionAmpliada.CaracterizacionAmpliadaScreen.operator = self.operator
+        CaracterizacionAmpliada.CaracterizacionAmpliadaScreen.project = args[1]
+
+        Monitoreo.MonitoreoScreen.operator = self.operator
+        Monitoreo.MonitoreoScreen.project = args[1]
+
+        DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen.operator = self.operator
+        DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen.project = args[1]
+
+        PlanDeFormacion.PlanDeFormacionScreen.operator = self.operator
+        PlanDeFormacion.PlanDeFormacionScreen.project = args[1]
+
+        ActividadDeFormacion.ActividadDeFormacionScreen.operator = self.operator
+        ActividadDeFormacion.ActividadDeFormacionScreen.project = args[1]
+
+        PlanDeImplementacion.PlanDeImplementacionScreen.operator = self.operator
+        PlanDeImplementacion.PlanDeImplementacionScreen.project = args[1]
+
+        ActividadDeImplementacion.ActividadDeImplementacionScreen.operator = self.operator
+        ActividadDeImplementacion.ActividadDeImplementacionScreen.project = args[1]
+
         self.dismiss()
         self.changeWindow()
 

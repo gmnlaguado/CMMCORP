@@ -1,5 +1,4 @@
 # coding=utf-8
-from os import listdir
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.factory import Factory
@@ -8,7 +7,7 @@ from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager
 from windows import Login, Panel, InformacionGeneral, DiagnosticoPerfilProductivo, IdeaDeNegocio, UnidadDeNegocio, \
     CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, ActividadDeFormacion, \
-    PlanDeImplementacion
+    PlanDeImplementacion, ActividadDeImplementacion
 
 
 class MyApp(App):
@@ -32,6 +31,7 @@ class MyApp(App):
         Builder.load_file(f"windows/PlanDeFormacion.kv")
         Builder.load_file(f"windows/ActividadDeFormacion.kv")
         Builder.load_file(f"windows/PlanDeImplementacion.kv")
+        Builder.load_file(f"windows/ActividadDeImplementacion.kv")
 
         Builder.load_file('declarations/templates_declaration.kv')
 
@@ -48,7 +48,8 @@ class MyApp(App):
         self.sm.add_widget(PlanDeFormacion.PlanDeFormacionScreen(name="PlanDeFormacion"))
         self.sm.add_widget(ActividadDeFormacion.ActividadDeFormacionScreen(name="ActividadDeFormacion"))
         self.sm.add_widget(PlanDeImplementacion.PlanDeImplementacionScreen(name="PlanDeImplementacion"))
-        self.sm.current = 'Panel'
+        self.sm.add_widget(ActividadDeImplementacion.ActividadDeImplementacionScreen(name="ActividadDeImplementacion"))
+        self.sm.current = 'Login'
 
         Factory.LoginProjectPopup.changeWindow = self.changeToPanel
         Factory.EmergentNuevoBeneficiario.changeWindow = self.changeToInformacionGeneral
@@ -60,7 +61,7 @@ class MyApp(App):
 
         Factory.CaracterizacionAmpliadaButton.changeWindow = self.changeToCaracterizacionAmpliada
         Factory.MonitoreoButton.changeWindow = self.changeToMonitoreo
-        Factory.PlanDeImplementacionButton.changeWindow = self.changeToPlanDeImplementacion
+        Factory.PlanDeImplementacionButton.changeWindow = self.changeToActividadDeImplementacion
         Factory.PlanDeFormacionButton.changeWindow = self.changeToActividadDeFormacion
         Factory.PlanDeSeguimientoButton.changeWindow = self.changeToPlanDeImplementacion
 
@@ -70,6 +71,7 @@ class MyApp(App):
         Factory.AcceptFormPlanDeFormacion.changeWindow = self.changeToPanel
         Factory.AcceptFormActividadDeFormacion.changeWindow = self.changeToPanel
         Factory.AcceptFormPlanDeImplementacion.changeWindow = self.changeToPanel
+        Factory.AcceptFormActividadDeImplementacion.changeWindow = self.changeToPanel
 
         return self.sm
 
@@ -108,6 +110,9 @@ class MyApp(App):
 
     def changeToPlanDeImplementacion(self, *args):
         self.sm.current = 'PlanDeImplementacion'
+
+    def changeToActividadDeImplementacion(self, *args):
+        self.sm.current = 'ActividadDeImplementacion'
 
 
 if __name__ == '__main__':
