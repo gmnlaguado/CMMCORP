@@ -7,12 +7,15 @@ from kivy.uix.label import Label
 
 
 class PlanDeImplementacionScreen(Screen):
+    form_title = None
+
     id_title = ObjectProperty()
     id_container_grid = ObjectProperty()
     id_lineLabel = ObjectProperty()
     id_finishedDataLabel = ObjectProperty()
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
+    id_homeButton = ObjectProperty()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -37,6 +40,10 @@ class PlanDeImplementacionScreen(Screen):
             self.id_container_grid.add_widget(data_1)
             data_2 = TextInputScrollData()
             self.id_container_grid.add_widget(data_2)
+
+    def on_pre_enter(self, *args):
+        if self.form_title is not None:
+            self.id_title.text = self.form_title
 
 
 class TextInputScroll(TextInput):

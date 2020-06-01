@@ -14,6 +14,7 @@ class ActividadDeFormacionScreen(Screen):
     id_activities = ObjectProperty()
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
+    id_homeButton = ObjectProperty()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

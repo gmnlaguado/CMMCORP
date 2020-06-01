@@ -2,10 +2,13 @@
 from os import listdir
 from kivy.app import App
 from kivy.lang import Builder
+from kivy.factory import Factory
 from kivy.core.window import Window
 from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager
-from windows import Login, Panel, InformacionGeneral, DiagnosticoPerfilProductivo, IdeaDeNegocio, UnidadDeNegocio, CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, ActividadDeFormacion, PlanDeImplementacion
+from windows import Login, Panel, InformacionGeneral, DiagnosticoPerfilProductivo, IdeaDeNegocio, UnidadDeNegocio, \
+    CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, ActividadDeFormacion, \
+    PlanDeImplementacion
 
 
 class MyApp(App):
@@ -35,7 +38,8 @@ class MyApp(App):
         self.sm.add_widget(Login.LoginScreen(name='Login'))
         self.sm.add_widget(Panel.PanelScreen(name="Panel"))
         self.sm.add_widget(InformacionGeneral.InformacionGeneralScreen(name="InformacionGeneral"))
-        self.sm.add_widget(DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen(name="DiagnosticoPerfilProductivo"))
+        self.sm.add_widget(
+            DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen(name="DiagnosticoPerfilProductivo"))
         self.sm.add_widget(IdeaDeNegocio.IdeaDeNegocioScreen(name="IdeaDeNegocio"))
         self.sm.add_widget(UnidadDeNegocio.UnidadDeNegocioScreen(name="UnidadDeNegocio"))
         self.sm.add_widget(CaracterizacionAmpliada.CaracterizacionAmpliadaScreen(name="CaracterizacionAmpliada"))
@@ -44,9 +48,59 @@ class MyApp(App):
         self.sm.add_widget(PlanDeFormacion.PlanDeFormacionScreen(name="PlanDeFormacion"))
         self.sm.add_widget(ActividadDeFormacion.ActividadDeFormacionScreen(name="ActividadDeFormacion"))
         self.sm.add_widget(PlanDeImplementacion.PlanDeImplementacionScreen(name="PlanDeImplementacion"))
-        self.sm.current = 'PlanDeImplementacion'
+        self.sm.current = 'Panel'
+
+        Factory.LoginProjectPopup.changeWindow = self.changeToPanel
+        Factory.EmergentNuevoBeneficiario.changeWindow = self.changeToInformacionGeneral
+        Factory.AcceptForm.changeWindow = self.changeToDiagnosticoPerfilProductivo
+        Factory.AcceptFormDiagno.changeWindowEntrep = self.changeToIdeaDeNegocio
+        Factory.AcceptFormDiagno.changeWindowBussin = self.changeToUnidadDeNegocio
+        Factory.AcceptFormIdea.changeWindow = self.changeToPanel
+        Factory.AcceptFormUnit.changeWindow = self.changeToPanel
+
+        Factory.CaracterizacionAmpliadaButton.changeWindow = self.changeToCaracterizacionAmpliada
+        Factory.MonitoreoButton.changeWindow = self.changeToMonitoreo
+        Factory.PlanDeImplementacionButton.changeWindow = self.changeToPlanDeImplementacion
+        Factory.PlanDeFormacionButton.changeWindow = self.changeToActividadDeFormacion
+        Factory.PlanDeSeguimientoButton.changeWindow = self.changeToPlanDeImplementacion
 
         return self.sm
+
+    def changeToLogin(self, *args):
+        self.sm.current = 'Login'
+
+    def changeToPanel(self, *args):
+        self.sm.current = 'Panel'
+
+    def changeToInformacionGeneral(self, *args):
+        self.sm.current = 'InformacionGeneral'
+
+    def changeToDiagnosticoPerfilProductivo(self, *args):
+        self.sm.current = 'DiagnosticoPerfilProductivo'
+
+    def changeToIdeaDeNegocio(self, *args):
+        self.sm.current = 'IdeaDeNegocio'
+
+    def changeToUnidadDeNegocio(self, *args):
+        self.sm.current = 'UnidadDeNegocio'
+
+    def changeToCaracterizacionAmpliada(self, *args):
+        self.sm.current = 'CaracterizacionAmpliada'
+
+    def changeToMonitoreo(self, *args):
+        self.sm.current = 'Monitoreo'
+
+    def changeToDiagnosticoEmpresarial(self, *args):
+        self.sm.current = 'DiagnosticoEmpresarial'
+
+    def changeToPlanDeFormacion(self, *args):
+        self.sm.current = 'PlanDeFormacion'
+
+    def changeToActividadDeFormacion(self, *args):
+        self.sm.current = 'ActividadDeFormacion'
+
+    def changeToPlanDeImplementacion(self, *args):
+        self.sm.current = 'PlanDeImplementacion'
 
 
 if __name__ == '__main__':
@@ -54,5 +108,6 @@ if __name__ == '__main__':
     Window.left = 45
     Window.top = -25
     Window.clearcolor = [1, 1, 1, 1]
+    Window.softinput_mode = "below_target"
     corporation = MyApp()
     corporation.run()

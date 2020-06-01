@@ -31,6 +31,7 @@ class MonitoreoScreen(Screen):
     id_container_grid_2 = ObjectProperty()
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
+    id_homeButton = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)

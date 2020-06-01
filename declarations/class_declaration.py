@@ -194,7 +194,7 @@ class PopupFather(Popup):
         self.separator_color = 0, 0, 0, 0
         self.font_name = "montserrat"
         self.title_align = "center"
-        self.title_color = 1, 1, 1, 1
+        self.title_color = 0, 0, 0, 1
         self.size_hint = None, None
 
 

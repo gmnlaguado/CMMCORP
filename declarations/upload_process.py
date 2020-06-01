@@ -6,69 +6,70 @@ from kivy.clock import mainthread
 
 
 def uploadInformation():
-    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
-    verify = False
-    timeout = 30
-    debug = True
-
-    url = 'http://corpmundialmujer.herokuapp.com/'
-    end_point = 'payee'
-    url += end_point
-    tab = end_point
-    method = 'POST'
-    info_list = [json.dumps(dict(zip(querys.bringColumns(tab), list(pay)))) for pay in querys.bringData(tab)]
-    for info in info_list:
-        req = UrlRequest(url=url,
-                         on_success=request_sucess,
-                         on_failure=request_failure,
-                         on_progress=request_progress,
-                         on_error=request_error,
-                         req_body=info,
-                         req_headers=headers,
-                         method=method,
-                         verify=verify,
-                         timeout=timeout,
-                         debug=debug)
-        req.wait()
-
-    url = 'http://corpmundialmujer.herokuapp.com/'
-    end_point = 'payeeProjects'
-    url += end_point
-    tab = end_point
-    info_list = [json.dumps(dict(zip(querys.bringColumns(tab), list(pay)))) for pay in querys.bringData(tab)]
-    for info in info_list:
-        req = UrlRequest(url=url,
-                         on_success=request_sucess,
-                         on_failure=request_failure,
-                         on_progress=request_progress,
-                         on_error=request_error,
-                         req_body=info,
-                         req_headers=headers,
-                         method=method,
-                         verify=verify,
-                         timeout=timeout,
-                         debug=debug)
-        req.wait()
-
-    url = 'http://corpmundialmujer.herokuapp.com/'
-    end_point = 'productionProfileDiag'
-    url += end_point
-    tab = end_point
-
-    info_list = [json.dumps(dict(zip(querys.bringColumns(tab), list(pay)))) for pay in querys.bringData(tab)]
-    for info in info_list:
-        req = UrlRequest(url=url,
-                         on_success=request_sucess,
-                         on_failure=request_failure,
-                         on_progress=request_progress,
-                         on_error=request_error,
-                         req_body=info,
-                         req_headers=headers,
-                         method=method,
-                         verify=verify,
-                         timeout=timeout,
-                         debug=debug)
-        req.wait()
+    pass
+    # headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    # verify = False
+    # timeout = 30
+    # debug = True
+    #
+    # url = 'http://corpmundialmujer.herokuapp.com/'
+    # end_point = 'payee'
+    # url += end_point
+    # tab = end_point
+    # method = 'POST'
+    # info_list = [json.dumps(dict(zip(querys.bringColumns(tab), list(pay)))) for pay in querys.bringData(tab)]
+    # for info in info_list:
+    #     req = UrlRequest(url=url,
+    #                      on_success=request_sucess,
+    #                      on_failure=request_failure,
+    #                      on_progress=request_progress,
+    #                      on_error=request_error,
+    #                      req_body=info,
+    #                      req_headers=headers,
+    #                      method=method,
+    #                      verify=verify,
+    #                      timeout=timeout,
+    #                      debug=debug)
+    #     req.wait()
+    #
+    # url = 'http://corpmundialmujer.herokuapp.com/'
+    # end_point = 'payeeProjects'
+    # url += end_point
+    # tab = end_point
+    # info_list = [json.dumps(dict(zip(querys.bringColumns(tab), list(pay)))) for pay in querys.bringData(tab)]
+    # for info in info_list:
+    #     req = UrlRequest(url=url,
+    #                      on_success=request_sucess,
+    #                      on_failure=request_failure,
+    #                      on_progress=request_progress,
+    #                      on_error=request_error,
+    #                      req_body=info,
+    #                      req_headers=headers,
+    #                      method=method,
+    #                      verify=verify,
+    #                      timeout=timeout,
+    #                      debug=debug)
+    #     req.wait()
+    #
+    # url = 'http://corpmundialmujer.herokuapp.com/'
+    # end_point = 'productionProfileDiag'
+    # url += end_point
+    # tab = end_point
+    #
+    # info_list = [json.dumps(dict(zip(querys.bringColumns(tab), list(pay)))) for pay in querys.bringData(tab)]
+    # for info in info_list:
+    #     req = UrlRequest(url=url,
+    #                      on_success=request_sucess,
+    #                      on_failure=request_failure,
+    #                      on_progress=request_progress,
+    #                      on_error=request_error,
+    #                      req_body=info,
+    #                      req_headers=headers,
+    #                      method=method,
+    #                      verify=verify,
+    #                      timeout=timeout,
+    #                      debug=debug)
+    #     req.wait()
 
 
 @mainthread
