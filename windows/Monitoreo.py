@@ -15,16 +15,14 @@ class MonitoreoScreen(Screen):
     operator = None
     payeeDocument = None
     home = False
-    total_income_familiy = "Total de ingresos mensuales"
+    total_income_familiy = ""
 
     id_belongToAssosiation = ObjectProperty()
     id_ciiu = ObjectProperty()
     id_pension = ObjectProperty()
     id_bussinesSector = ObjectProperty()
     id_householdExpenses = ObjectProperty()
-    id_totalExpenses = ObjectProperty()
     id_householdIncomes = ObjectProperty()
-    id_totalIncomes = ObjectProperty()
     id_totalDependants = ObjectProperty()
     id_whoDefineIncome = ObjectProperty()
     id_houseType = ObjectProperty()
@@ -166,14 +164,18 @@ class MonitoreoScreen(Screen):
             box_container.add_widget(text1)
             self.id_container_grid_2.add_widget(box_container)
 
-        grid = SpinnerScroll(text="Total de trabajadores con contrato", values=[str(numb) for numb in range(1, 60)])
-        self.id_container_grid_2.add_widget(grid)
+        self.total_workers = 0
 
-        grid = SpinnerScroll(text="Total de trabajadores sin contrato", values=[str(numb) for numb in range(1, 60)])
-        self.id_container_grid_2.add_widget(grid)
+        grid_trabajadores_con_contrato = SpinnerScroll(text="Total de trabajadores con contrato", values=[str(numb) for numb in range(1, 60)])
+        grid_trabajadores_con_contrato.bind(text=self.calc_workers)
+        self.id_container_grid_2.add_widget(grid_trabajadores_con_contrato)
 
-        grid = LabelScroll(text="Total de trabajadores")
-        self.id_container_grid_2.add_widget(grid)
+        grid_trabajadores_sin_contrato = SpinnerScroll(text="Total de trabajadores sin contrato", values=[str(numb) for numb in range(1, 60)])
+        grid_trabajadores_sin_contrato.bind(text=self.calc_workers)
+        self.id_container_grid_2.add_widget(grid_trabajadores_sin_contrato)
+
+        self.grid_label_workers = LabelScroll(text="Total de trabajadores")
+        self.id_container_grid_2.add_widget(self.grid_label_workers)
 
         grid = SpinnerScroll(text="Cantidad de socios", values=[str(numb) for numb in range(1, 60)])
         self.id_container_grid_2.add_widget(grid)
@@ -182,6 +184,12 @@ class MonitoreoScreen(Screen):
         self.id_container_grid_2.add_widget(grid)
         self.id_householdExpenses.bind(on_release=self.openPopupGastos)
         self.id_householdIncomes.bind(on_release=self.openPopupIngresos)
+
+    def calc_workers(self, *args):
+        if args[1] != "Total de trabajadores con contrato" or args[1] != "Total de trabajadores sin contrato":
+            self.total_workers += int(args[1])
+            self.grid_label_workers.text = f'Cantidad total de trabajadores: {self.total_workers}'
+
 
     def checkAll(self, *args):
         AcceptFormMonitoreo(self.operator).open()
@@ -192,9 +200,7 @@ class MonitoreoScreen(Screen):
         self.id_pension.text = "Pensión"
         self.id_bussinesSector.text = "Sector Empresarial"
         self.id_householdExpenses.text = "Gastos del grupo familiar"
-        self.id_totalExpenses.text = "Total de gastos mensuales"
         self.id_householdIncomes.text = "Fuente de ingresos del grupo familiar"
-        self.id_totalIncomes.text = self.total_income_familiy
         self.id_totalDependants.text = "Total de personas que dependen de este ingreso"
         self.id_whoDefineIncome.text = "¿Quién define la distribución de ingresos?"
         self.id_houseType.text = "Tipo de vivienda"
@@ -279,6 +285,7 @@ class GastosDelGrupoFamiliarPopup(class_declaration.PopupFather):
         total_expenses = int(self.id_rentAndServices.text) + int(self.id_runningCosts.text) + int(
             self.id_education.text) + int(self.id_casualCosts.text) + int(self.id_obligations.text)
         print(total_expenses)
+        class_declaration.MessagePopup(f'Total gastos del grupo: {total_expenses}').open()
         self.dismiss()
 
 
@@ -300,6 +307,7 @@ class IngresosDelGrupoFamiliarPopup(class_declaration.PopupFather):
     def on_validate(self, *args):
         total_expenses = int(self.id_employees.text) + int(self.id_othersRelatives.text) + int(self.id_freelanceJobs.text) + int(self.id_pension.text) + int(self.id_entrepreneurship.text) + int(self.id_otherIncomes.text)
         print(total_expenses)
+        class_declaration.MessagePopup(f'Total ingresos del grupo: {total_expenses}').open()
         self.dismiss()
 
 
