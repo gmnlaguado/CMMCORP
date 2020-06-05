@@ -15,6 +15,7 @@ class MonitoreoScreen(Screen):
     operator = None
     payeeDocument = None
     home = False
+    total_income_familiy = "Total de ingresos mensuales"
 
     id_belongToAssosiation = ObjectProperty()
     id_ciiu = ObjectProperty()
@@ -41,7 +42,7 @@ class MonitoreoScreen(Screen):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.id_belongToAssosiation.values = querys.parametricList('yesNo')
-        self.id_ciiu.values = querys.parametricList('ciiu')
+        self.id_ciiu.values = querys.bringCIUU()
         self.id_pension.values = querys.parametricList('yesNo')
         self.id_bussinesSector.values = querys.parametricList('businessSector')
         self.id_totalDependants.values = [str(numb) for numb in range(1, 30)]
@@ -72,6 +73,10 @@ class MonitoreoScreen(Screen):
         grid = SpinnerScroll(text="Cuenta corriente", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
+        self.id_container_grid_2.bind(minimum_height=self.id_container_grid_2.setter('height'))
+        grid = SpinnerScroll(text="Cuenta de ahorros", values=["si", "no"])
+        self.id_container_grid_2.add_widget(grid)
+
         grid = SpinnerScroll(text="Créditos", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
@@ -99,6 +104,9 @@ class MonitoreoScreen(Screen):
         grid = SpinnerScroll(text="¿Cuál servicio tiene con Bancamía?", values=querys.parametricList('bancamia'))
         self.id_container_grid_2.add_widget(grid)
 
+        grid = SpinnerScroll(text="Pertenece a un programa público de desarrollo", values=["si", "no"])
+        self.id_container_grid_2.add_widget(grid)
+
         box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
         lab1 = Label(text="¿Cuál programa?", halign="left", valign="middle", size_hint=(None, None),
                      size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
@@ -111,14 +119,8 @@ class MonitoreoScreen(Screen):
         grid = SpinnerScroll(text="¿Depende económicamente de alguién?", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
-        lab1 = Label(text="¿De quién depende?", halign="left", valign="middle", size_hint=(None, None),
-                     size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
-                     text_size=(275, 40))
-        text1 = TextInputScroll()
-        box_container.add_widget(lab1)
-        box_container.add_widget(text1)
-        self.id_container_grid_2.add_widget(box_container)
+        grid = SpinnerScroll(text="¿De quién depende?", values=querys.parametricList('relyOn'))
+        self.id_container_grid_2.add_widget(grid)
 
         grid = SpinnerScroll(text="¿Cuántas horas a la semana dedica al cuidado de personas a cargo?",
                              values=[str(numb) for numb in range(1, 165)])
@@ -137,7 +139,16 @@ class MonitoreoScreen(Screen):
         grid = SpinnerScroll(text="¿Tiene NIT el negocio?", values=["si", "no"])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="¿Dónde opera su unidad productivo?", values=["si", "no"])
+        box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
+        lab1 = Label(text="Número NIT", halign="left", valign="middle", size_hint=(None, None),
+                     size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
+                     text_size=(275, 40))
+        text1 = TextInputScroll()
+        box_container.add_widget(lab1)
+        box_container.add_widget(text1)
+        self.id_container_grid_2.add_widget(box_container)
+
+        grid = SpinnerScroll(text="¿Dónde opera su unidad productivo?", values=querys.parametricList('whereDoYouOperate'))
         self.id_container_grid_2.add_widget(grid)
 
         input_list_labels = ["Ingreso del negocio", "Gastos Directos", "Gastos Indirectos", "Total de gastos",
@@ -155,7 +166,16 @@ class MonitoreoScreen(Screen):
             box_container.add_widget(text1)
             self.id_container_grid_2.add_widget(box_container)
 
-        grid = SpinnerScroll(text="Total de trabajadores", values=[str(numb) for numb in range(1, 60)])
+        grid = SpinnerScroll(text="Total de trabajadores con contrato", values=[str(numb) for numb in range(1, 60)])
+        self.id_container_grid_2.add_widget(grid)
+
+        grid = SpinnerScroll(text="Total de trabajadores sin contrato", values=[str(numb) for numb in range(1, 60)])
+        self.id_container_grid_2.add_widget(grid)
+
+        grid = LabelScroll(text="Total de trabajadores")
+        self.id_container_grid_2.add_widget(grid)
+
+        grid = SpinnerScroll(text="Cantidad de socios", values=[str(numb) for numb in range(1, 60)])
         self.id_container_grid_2.add_widget(grid)
 
         grid = SpinnerScroll(text="Tipo de local", values=["si", "no"])
@@ -174,7 +194,7 @@ class MonitoreoScreen(Screen):
         self.id_householdExpenses.text = "Gastos del grupo familiar"
         self.id_totalExpenses.text = "Total de gastos mensuales"
         self.id_householdIncomes.text = "Fuente de ingresos del grupo familiar"
-        self.id_totalIncomes.text = "Total de ingresos mensuales"
+        self.id_totalIncomes.text = self.total_income_familiy
         self.id_totalDependants.text = "Total de personas que dependen de este ingreso"
         self.id_whoDefineIncome.text = "¿Quién define la distribución de ingresos?"
         self.id_houseType.text = "Tipo de vivienda"
@@ -229,6 +249,18 @@ class SpinnerScroll(Spinner):
         self.complete = True
 
 
+class LabelScroll(Label):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.size = (673, 40)
+        self.font_name = "montserrat"
+        self.color = (0, 0, 0, 1)
+        self.size_hint = (None, None)
+        self.halign = "center"
+        self.valign = "middle"
+        self.class_type = "label"
+
+
 class GastosDelGrupoFamiliarPopup(class_declaration.PopupFather):
     id_rentAndServices = ObjectProperty()
     id_runningCosts = ObjectProperty()
@@ -244,6 +276,9 @@ class GastosDelGrupoFamiliarPopup(class_declaration.PopupFather):
         self.id_acceptButton.bind(on_release=self.on_validate)
 
     def on_validate(self, *args):
+        total_expenses = int(self.id_rentAndServices.text) + int(self.id_runningCosts.text) + int(
+            self.id_education.text) + int(self.id_casualCosts.text) + int(self.id_obligations.text)
+        print(total_expenses)
         self.dismiss()
 
 
@@ -263,6 +298,8 @@ class IngresosDelGrupoFamiliarPopup(class_declaration.PopupFather):
         self.id_acceptButton.bind(on_release=self.on_validate)
 
     def on_validate(self, *args):
+        total_expenses = int(self.id_employees.text) + int(self.id_othersRelatives.text) + int(self.id_freelanceJobs.text) + int(self.id_pension.text) + int(self.id_entrepreneurship.text) + int(self.id_otherIncomes.text)
+        print(total_expenses)
         self.dismiss()
 
 

@@ -191,3 +191,9 @@ def bringDescriptionsFromEducationPlan(program, line, level):
     result = db.parametricQuery("SELECT description FROM educationPlan WHERE program = '%s' AND line = '%s' AND level = '%s'" % (program, line, level)).fetchall()
     if result is not None:
         return [res[0] for res in result]
+
+def bringCIUU():
+    db = MyDB('parametric')
+    result = db.parametricQuery("SELECT id FROM ciiu").fetchall()
+    if result is not None:
+        return [str(res[0]) for res in result]

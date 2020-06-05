@@ -1,6 +1,5 @@
-.idea
+﻿.idea
 .buildozer
-bin
 
 windows/__pycache__/
 codes/__pycache__/
