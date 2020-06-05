@@ -49,7 +49,7 @@ class MyApp(App):
         self.sm.add_widget(ActividadDeFormacion.ActividadDeFormacionScreen(name="ActividadDeFormacion"))
         self.sm.add_widget(PlanDeImplementacion.PlanDeImplementacionScreen(name="PlanDeImplementacion"))
         self.sm.add_widget(ActividadDeImplementacion.ActividadDeImplementacionScreen(name="ActividadDeImplementacion"))
-        self.sm.current = 'Login'
+        self.sm.current = 'Panel'
 
         Factory.LoginProjectPopup.changeWindow = self.changeToPanel
         Factory.EmergentNuevoBeneficiario.changeWindow = self.changeToInformacionGeneral

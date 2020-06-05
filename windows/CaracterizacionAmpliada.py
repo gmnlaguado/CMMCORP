@@ -2,6 +2,8 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration
+from kivy.uix.label import Label
+from kivy.uix.spinner import Spinner
 
 
 class CaracterizacionAmpliadaScreen(Screen):
@@ -61,6 +63,23 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_householdMembers.values = [str(numb) for numb in range(1, 30)]
 
         self.id_signInButton.bind(on_release=self.checkAll)
+        self.id_childrenInformation.bind(on_release=self.childrenInformation)
+        self.id_dependantsInformation.bind(on_release=self.dependantsInformation)
+
+    def childrenInformation(self, *args):
+        if self.id_childrenNumber.text == '¿Número de hijos?':
+            pass
+        else:
+            if self.id_childrenNumber.text != "0":
+                InformacionHijos(int(self.id_childrenNumber.text)).open()
+
+    def dependantsInformation(self, *args):
+        if self.id_dependants.text == '¿Cuántas personas tiene a cargo?':
+            pass
+        else:
+            if self.id_dependants.text != "0":
+                InformacionPersonasACargo(int(self.id_dependants.text)).open()
+
 
     def checkAll(self, *args):
         AcceptFormCaracterizacionAmpliada(self.operator).open()
@@ -109,3 +128,136 @@ class AcceptFormCaracterizacionAmpliada(class_declaration.PopupFather):
 
     def changeWindow(self, *args):
         pass
+
+
+class InformacionHijos(class_declaration.PopupFather):
+    id_container_grid = ObjectProperty()
+    id_botonAceptar = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.cantidad = args[0]
+
+    def on_open(self):
+        self.id_botonAceptar.bind(on_release=self.accionAceptar)
+        self.id_container_grid.rows = int(self.cantidad) + 1
+        self.title = "Información sobre hijos e hijas"
+        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+
+        lab_1 = Label(text='Hijo', halign="center", valign="middle", size_hint=(None, None),
+                      size=(40, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(40, 40))
+        lab_2 = Label(text='Género', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+        lab_3 = Label(text='Mayor de edad', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+        lab_4 = Label(text='Cond. Discapacidad', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+
+        self.id_container_grid.add_widget(lab_1)
+        self.id_container_grid.add_widget(lab_2)
+        self.id_container_grid.add_widget(lab_3)
+        self.id_container_grid.add_widget(lab_4)
+
+        for idx in range(int(self.cantidad)):
+            lab = Label(text=str(idx + 1), halign="center", valign="middle", size_hint=(None, None),
+                        size=(77, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                        text_size=(77, 40), id=f'{idx + 1}')
+            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=["Masculino", "Femenino",
+                                                                                "Transgenerista", " No informa"])
+            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=["Si", "No"])
+            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=["Física", "Cognitiva",
+                                                                                             "Sensorial", "Intelectual",
+                                                                                             "Psicosocial", "Múltiple",
+                                                                                             "Ninguna", "ND"])
+
+            self.id_container_grid.add_widget(lab)
+            self.id_container_grid.add_widget(spin_gen)
+            self.id_container_grid.add_widget(spin_mayor)
+            self.id_container_grid.add_widget(spin_disc)
+
+    def accionAceptar(self, *args):
+        res = []
+        for idx, childs in enumerate(self.id_container_grid.children):
+            if idx < len(self.id_container_grid.children) - 4:
+                res.append(childs.text)
+        res = res[::-1]
+        CaracterizacionAmpliadaScreen.hijosACargo = res
+        if 'Género' in res or 'Mayoría' in res or 'Discapacidad' in res:
+            pass
+        else:
+            CaracterizacionAmpliadaScreen.listado_hijos = True
+            self.dismiss()
+
+
+class SpinnerScroll(Spinner):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.background_normal = "images/dropdown_scroll.png"
+        self.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.halign = "center"
+        self.valign = "middle"
+        self.size_hint = (None, None)
+        self.size = (318, 40)
+        self.color = (1, 1, 1, 1)
+        self.font_size = 20
+        self.font_name = "montserrat"
+        self.text_size = (318, 40)
+        self.diligenciado = False
+        self.id = 'Spinner'
+
+    def on_text(self, *args):
+        self.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+        self.diligenciado = True
+
+
+class InformacionPersonasACargo(class_declaration.PopupFather):
+    id_container_grid = ObjectProperty()
+    id_botonAceptar = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.cantidad = args[0]
+
+    def on_open(self):
+        self.id_container_grid.rows = int(self.cantidad) + 1
+        self.title = "Información sobre las personas que tiene a cargo"
+        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+
+        lab_1 = Label(text='#', halign="center", valign="middle", size_hint=(None, None),
+                      size=(40, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(40, 40))
+        lab_2 = Label(text='Género', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+        lab_3 = Label(text='Mayor de edad', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+        lab_4 = Label(text='Cond. Discapacidad', halign="center", valign="middle", size_hint=(None, None),
+                      size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                      text_size=(318, 40))
+
+        self.id_container_grid.add_widget(lab_1)
+        self.id_container_grid.add_widget(lab_2)
+        self.id_container_grid.add_widget(lab_3)
+        self.id_container_grid.add_widget(lab_4)
+
+        for idx in range(int(self.cantidad)):
+            lab = Label(text=str(idx + 1), halign="center", valign="middle", size_hint=(None, None),
+                        size=(77, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                        text_size=(77, 40), id=f'{idx + 1}')
+            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=["Masculino", "Femenino",
+                                                                                "Transgenerista", " No informa"])
+            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=["Si", "No"])
+            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=["Física", "Cognitiva",
+                                                                                             "Sensorial", "Intelectual",
+                                                                                             "Psicosocial", "Múltiple",
+                                                                                             "Ninguna", "ND"])
+
+            self.id_container_grid.add_widget(lab)
+            self.id_container_grid.add_widget(spin_gen)
+            self.id_container_grid.add_widget(spin_mayor)
+            self.id_container_grid.add_widget(spin_disc)
