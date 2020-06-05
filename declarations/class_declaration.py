@@ -175,7 +175,7 @@ class SpinnerFather(Spinner):
                           "Gastos y cantidad", "¿Pertenece a asociación", "¿Pertenece a alguna asociación?", 
                           "Total de personas que dependen de este ingreso", "¿Quién define la distribución de ingresos?",
                           "Material predominante de la vivienda", "Combustible de cocina", "Programa", "Linea", "Nivel",
-                          "Actividad De Formación"]
+                          "Actividad De Formación", 'Antiguedad del contrato']
 
     def on_text(self, *args):
         if args[1] not in self.text_init:

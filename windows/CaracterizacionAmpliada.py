@@ -37,6 +37,7 @@ class CaracterizacionAmpliadaScreen(Screen):
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
     id_homeButton = ObjectProperty()
+    id_agreementTime = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -61,6 +62,7 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_pension.values = querys.parametricList('yesNo')
         self.id_arl.values = querys.parametricList('yesNo')
         self.id_householdMembers.values = [str(numb) for numb in range(1, 30)]
+        self.id_agreementTime.values = [str(numb) for numb in range(1, 30)]
 
         self.id_signInButton.bind(on_release=self.checkAll)
         self.id_childrenInformation.bind(on_release=self.childrenInformation)
@@ -105,6 +107,7 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_arl.text = 'ARL'
         self.id_message.text = ''
         self.id_signInButton.text = 'Ingresar'
+        self.id_agreementTime.text = 'Antiguedad del contrato'
 
         self.id_observations.resetInput()
         self.id_factorsThatPreventYou.resetInput()
