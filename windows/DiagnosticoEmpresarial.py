@@ -63,7 +63,24 @@ class DiagnosticoEmpresarialScreen(Screen):
         self.id_signInButton.bind(on_release=self.checkAll)
 
     def checkAll(self, *args):
-        AcceptFormDiagnosticoEmpresarial(self.operator).open()
+        total_answers = []
+        self.id_message.text = ""
+        for grid in self.id_container_grid_1.children:
+            if len(grid.children) > 0:
+                for grid_children in grid.children:
+                    if len(grid_children.children) > 0:
+                        grupo = []
+                        for grid_grandson in grid_children.children:
+                            grupo.append(grid_grandson.children[0].active)
+                            if len(grupo) == 4:
+                                total_answers.append(grupo)
+                                grupo = []
+        print(total_answers)
+        for answ in total_answers:
+            if not True in answ:
+                self.id_message.text = "Faltan preguntas por responder"
+        if self.id_message.text == "":
+            AcceptFormDiagnosticoEmpresarial(self.operator).open()
 
 
 class AcceptFormDiagnosticoEmpresarial(class_declaration.PopupFather):
