@@ -1,7 +1,7 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import querys, class_declaration
+from declarations import querys, class_declaration, checkings
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
@@ -20,6 +20,8 @@ class PlanDeFormacionScreen(Screen):
     id_container_grid = ObjectProperty()
     id_title = ObjectProperty()
     id_signInButton = ObjectProperty()
+    id_message = ObjectProperty()
+    id_total_activities = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -30,9 +32,28 @@ class PlanDeFormacionScreen(Screen):
         self.id_level.bind(text=self.loadDescriptions)
         self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
         self.id_signInButton.bind(on_release=self.checkAll)
+        self.id_selectedActivities.bind(on_release=self.selectActivites)
+        self.all_activities = []
+
+    def selectActivites(self, *args):
+        self.id_message.text = ""
+        activities = self.id_container_grid.children
+        if len(activities) == 0:
+            self.id_message.text = "No hay actividades para seleccionar"
+        else:
+            for activity in activities:
+                activity_data = activity.children[0]
+                activity_desc = activity.children[1].text
+                if activity_data.complete:
+                    self.all_activities.append({activity_desc: activity_data.text})
+        print(self.all_activities)
+        self.id_total_activities.text = f'Actividades Seleccionadas {len(self.all_activities)}'
 
     def checkAll(self, *args):
-        AcceptFormPlanDeFormacion(self.operator).open()
+        if int(list(self.id_total_activities.text)[-1]) > 1:
+            AcceptFormPlanDeFormacion(self.operator).open()
+        else:
+            self.id_message.text = "Seleccione más de una actividad"
 
     def on_pre_enter(self, *args):
         self.id_program.text = "Programa"
@@ -79,7 +100,12 @@ class TextInputScrollData(TextInput):
         self.hint_text = "DD/MM/AAAA"
 
     def on_text_validate(self, *args):
-        self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        if checkings.date(self.text):
+            self.complete = True
+            self.background_color = (7 / 255, 7 / 255, 7 / 255, 0.1)
+        else:
+            self.complete = False
+            self.background_color = (255 / 255, 255 / 255, 255 / 255, 1)
 
 
 class AcceptFormPlanDeFormacion(class_declaration.PopupFather):
