@@ -4,6 +4,7 @@ from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration
 from kivy.uix.label import Label
 from kivy.uix.spinner import Spinner
+from codes import snippets
 
 
 class CaracterizacionAmpliadaScreen(Screen):
@@ -82,9 +83,17 @@ class CaracterizacionAmpliadaScreen(Screen):
             if self.id_dependants.text != "0":
                 InformacionPersonasACargo(int(self.id_dependants.text)).open()
 
-
     def checkAll(self, *args):
-        AcceptFormCaracterizacionAmpliada(self.operator).open()
+        self.id_message.text = ""
+        children_list = self.children[0].children
+        ret = snippets.chekingCompletes(children_list)
+        if not ret:
+            msg = "Formulario Incompleto"
+        else:
+            msg = ""
+        self.id_message.text = msg
+        if msg == "":
+            AcceptFormCaracterizacionAmpliada(self.operator).open()
 
     def on_pre_enter(self, *args):
         self.id_studies.text = 'Nivel de escolaridad'

@@ -73,7 +73,7 @@ class UnidadDeNegocioScreen(Screen):
 
         self.id_exists.values = ['No']
         self.id_howManyPartners.values = [str(numb) for numb in range(1, 70)]
-        self.id_ciiu.values = querys.parametricList('ciiu')
+        self.id_ciiu.values = querys.bringCIUU()
         self.id_sector.values = querys.parametricList('businessSector')
         self.id_regCamara.values = querys.parametricList('yesNo')
         self.id_withContract.values = [str(numb) for numb in range(1, 70)]

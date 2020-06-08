@@ -8,6 +8,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from kivy.uix.button import Button
+from codes import snippets
 
 
 class MonitoreoScreen(Screen):
@@ -190,9 +191,21 @@ class MonitoreoScreen(Screen):
             self.total_workers += int(args[1])
             self.grid_label_workers.text = f'Cantidad total de trabajadores: {self.total_workers}'
 
-
     def checkAll(self, *args):
-        AcceptFormMonitoreo(self.operator).open()
+        self.id_message.text = ""
+        for grid in self.id_container_grid_1.children:
+            if len(grid.children) > 0 and not True in [box.active for box in grid.children]:
+                self.id_message.text = "Faltan preguntas por responder"
+        if self.id_message.text == "":
+            children_list = self.children[0].children
+            ret = snippets.chekingCompletes(children_list)
+            if not ret:
+                msg = "Formulario Incompleto"
+            else:
+                msg = ""
+            self.id_message.text = msg
+            if msg == "":
+                AcceptFormMonitoreo(self.operator).open()
 
     def on_pre_enter(self, *args):
         self.id_belongToAssosiation.text = "¿Pertenece a alguna asociación?"
