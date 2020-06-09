@@ -12,6 +12,8 @@ class CaracterizacionAmpliadaScreen(Screen):
     operator = None
     payeeDocument = None
     home = False
+    listado_hijos = False
+    listado_cargo = False
 
     id_title = ObjectProperty()
     id_adittionalStudies = ObjectProperty()
@@ -85,15 +87,18 @@ class CaracterizacionAmpliadaScreen(Screen):
 
     def checkAll(self, *args):
         self.id_message.text = ""
-        children_list = self.children[0].children
-        ret = snippets.chekingCompletes(children_list)
-        if not ret:
-            msg = "Formulario Incompleto"
+        if self.listado_hijos and self.listado_cargo:
+            children_list = self.children[0].children
+            ret = snippets.chekingCompletes(children_list)
+            if not ret:
+                msg = "Formulario Incompleto"
+            else:
+                msg = ""
+            self.id_message.text = msg
+            if msg == "":
+                AcceptFormCaracterizacionAmpliada(self.operator).open()
         else:
-            msg = ""
-        self.id_message.text = msg
-        if msg == "":
-            AcceptFormCaracterizacionAmpliada(self.operator).open()
+            self.id_message.text = "Falta información por llenar"
 
     def on_pre_enter(self, *args):
         self.id_studies.text = 'Nivel de escolaridad'
@@ -233,6 +238,7 @@ class InformacionPersonasACargo(class_declaration.PopupFather):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.cantidad = args[0]
+        self.id_botonAceptar.bind(on_release=self.accionAceptar)
 
     def on_open(self):
         self.id_container_grid.rows = int(self.cantidad) + 1
@@ -273,3 +279,16 @@ class InformacionPersonasACargo(class_declaration.PopupFather):
             self.id_container_grid.add_widget(spin_gen)
             self.id_container_grid.add_widget(spin_mayor)
             self.id_container_grid.add_widget(spin_disc)
+
+    def accionAceptar(self, *args):
+        res = []
+        for idx, childs in enumerate(self.id_container_grid.children):
+            if idx < len(self.id_container_grid.children) - 4:
+                res.append(childs.text)
+        res = res[::-1]
+        CaracterizacionAmpliadaScreen.personasACargo = res
+        if 'Género' in res or 'Mayoría' in res or 'Discapacidad' in res:
+            pass
+        else:
+            CaracterizacionAmpliadaScreen.listado_cargo = True
+            self.dismiss()
