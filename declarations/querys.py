@@ -196,3 +196,15 @@ def bringCIUU():
     result = db.parametricQuery("SELECT id FROM ciiu").fetchall()
     if result is not None:
         return [str(res[0]) for res in result]
+
+
+def cargar_caracterizacion_ampliada(info):
+    print(info)
+
+
+def cargar_caracterizacion_ampliada_hijos(info):
+    print(info)
+
+
+def cargar_caracterizacion_ampliada_personas(info):
+    print(info)

@@ -155,8 +155,8 @@ class CaracterizacionAmpliadaScreen(Screen):
                 except AttributeError:
                     pass
 
-            dataFormating.caracterizacion_ampliada_informacion_hijos(informacion_limpia_hijos)
-            dataFormating.caracterizacion_ampliada_informacion_personas_a_cargo(informacion_limpia_personas)
+            dataFormating.caracterizacion_ampliada_informacion_hijos(informacion_limpia_hijos, information)
+            dataFormating.caracterizacion_ampliada_informacion_personas_a_cargo(informacion_limpia_personas, information)
             dataFormating.caracterizacion_ampliada(information)
 
 
@@ -215,13 +215,9 @@ class InformacionHijos(class_declaration.PopupFather):
             lab = Label(text=str(idx + 1), halign="center", valign="middle", size_hint=(None, None),
                         size=(77, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
                         text_size=(77, 40), id=f'{idx + 1}')
-            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=["Masculino", "Femenino",
-                                                                                "Transgenerista", " No informa"])
-            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=["Si", "No"])
-            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=["Física", "Cognitiva",
-                                                                                             "Sensorial", "Intelectual",
-                                                                                             "Psicosocial", "Múltiple",
-                                                                                             "Ninguna", "ND"])
+            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=querys.parametricList('gender'))
+            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=querys.parametricList('yesNo'))
+            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=querys.parametricList('disability'))
 
             self.id_container_grid.add_widget(lab)
             self.id_container_grid.add_widget(spin_gen)
@@ -301,13 +297,9 @@ class InformacionPersonasACargo(class_declaration.PopupFather):
             lab = Label(text=str(idx + 1), halign="center", valign="middle", size_hint=(None, None),
                         size=(77, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
                         text_size=(77, 40), id=f'{idx + 1}')
-            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=["Masculino", "Femenino",
-                                                                                "Transgenerista", " No informa"])
-            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=["Si", "No"])
-            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=["Física", "Cognitiva",
-                                                                                             "Sensorial", "Intelectual",
-                                                                                             "Psicosocial", "Múltiple",
-                                                                                             "Ninguna", "ND"])
+            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=querys.parametricList('gender'))
+            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=querys.parametricList('yesNo'))
+            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=querys.parametricList('disability'))
 
             self.id_container_grid.add_widget(lab)
             self.id_container_grid.add_widget(spin_gen)

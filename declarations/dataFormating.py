@@ -234,21 +234,69 @@ def caracterizacion_ampliada(info):
         info.id_factorsThatPreventYou.text,  # 21
         info.id_observations.text  # 22
     ]
-    print(org)
 
-def caracterizacion_ampliada_informacion_hijos(info):
+    org[0] = querys.idProject(org[0].lower())
+    org[4] = querys.idParametrics('studies', org[4])
+    org[5] = querys.idParametrics('yesNo', org[5])
+    org[6] = querys.idParametrics('yesNo', org[6])
+    org[7] = querys.idParametrics('yesNo', org[7])
+    org[8] = int(org[8])
+    org[9] = querys.idParametrics('healthRegime', org[9])
+    org[10] = querys.idParametrics('maritalStatus', org[10])
+    org[11] = querys.idParametrics('agreementType', org[11])
+    org[12] = querys.idParametrics('yesNo', org[12])
+    org[13] = int(org[13])
+    org[14] = int(org[14])
+    org[15] = querys.idParametrics('yesNo', org[15])
+    org[16] = int(org[16])
+    org[17] = querys.idParametrics('averageIncome', org[17])
+    org[18] = querys.idParametrics('averageIncome', org[18])
+    org[19] = querys.idParametrics('yesNo', org[19])
+    org[20] = querys.idParametrics('yesNo', org[20])
+    unique_id = org[0] + '__' + org[2] + '__' + org[1]
+    org.insert(0, unique_id)
+    org = tuple(org)
+    querys.cargar_caracterizacion_ampliada(org)
+
+
+def caracterizacion_ampliada_informacion_hijos(info, full_info):
     hijo = []
+    counter = 0
     for inf in info:
         hijo.append(inf)
         if len(hijo) == 3:
-            print(hijo)
+            counter += 1
+            hijo.insert(0, counter)
+            hijo.insert(0, full_info.operator)
+            hijo.insert(0, full_info.payeeDocument)
+            hijo.insert(0, full_info.project)
+            hijo[4] = querys.idParametrics('disability', hijo[4])
+            hijo[5] = querys.idParametrics('yesNo', hijo[5])
+            hijo[6] = querys.idParametrics('gender', hijo[6])
+            unique_id = hijo[0] + '__' + hijo[2] + '__' + hijo[1] + '__' + str(hijo[3])
+            hijo.insert(0, unique_id)
+            hijo = tuple(hijo)
+            querys.cargar_caracterizacion_ampliada_hijos(hijo)
             hijo = []
 
 
-def caracterizacion_ampliada_informacion_personas_a_cargo(info):
+def caracterizacion_ampliada_informacion_personas_a_cargo(info, full_info):
     persona = []
+    counter = 0
     for inf in info:
         persona.append(inf)
         if len(persona) == 3:
-            print(persona)
+            counter += 1
+            persona.insert(0, counter)
+            persona.insert(0, full_info.operator)
+            persona.insert(0, full_info.payeeDocument)
+            persona.insert(0, full_info.project)
+            persona[4] = querys.idParametrics('disability', persona[4])
+            persona[5] = querys.idParametrics('yesNo', persona[5])
+            persona[6] = querys.idParametrics('gender', persona[6])
+            unique_id = persona[0] + '__' + persona[2] + '__' + persona[1] + '__' + str(persona[3])
+            persona.insert(0, unique_id)
+            persona = tuple(persona)
+            querys.cargar_caracterizacion_ampliada_personas(persona)
             persona = []
+
