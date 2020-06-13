@@ -119,9 +119,11 @@ def bussinesIdeaData(info):
         info.id_imagine.text,  # 27
         'date'  # 28
     ]
+    if org[5][0] == '0':
+        org[5] = org[5][1:]
     org[0] = querys.idProject(org[0].lower())
     org[4] = querys.idParametrics('businessSector', org[4])
-    org[5] = querys.idParametrics('ciiu', org[5])
+    org[5] = int(org[5])
     org[6] = querys.idParametrics('departments', org[6])
     org[7] = querys.idParametrics('cities', org[7])
     org[8] = querys.idParametrics('howArise', org[8])
@@ -180,12 +182,15 @@ def bussinesUnitData(info):
         "date"                                              # 25
     ]
 
+    if org[5][0] == '0':
+        org[5] = org[5][1:]
+
     org[0] = querys.idProject(org[0].lower())
     org[4] = querys.idParametrics('departments', org[4])
     org[5] = querys.idParametrics('cities', org[5])
     org[6] = int(org[6])
     org[7] = querys.idParametrics('sign', org[7])
-    org[9] = querys.idParametrics('ciiu', org[9])
+    org[9] = int(org[9])
     org[10] = querys.indicator(org[4])
     org[11] = int(org[11])
     org[16] = snippets.formattingDate(org[16])
@@ -201,3 +206,49 @@ def bussinesUnitData(info):
 
     org = tuple(org)
     querys.loadBussinesUnit(org)
+
+
+def caracterizacion_ampliada(info):
+    org = [
+        info.project,  # 0
+        info.payeeDocument,  # 1
+        info.operator,  # 2
+        info.id_adittionalStudies.text,  # 3
+        info.id_studies.text,  # 4
+        info.id_workingRelationship.text,  # 5
+        info.id_freelance.text,  # 6
+        info.id_householdHead.text,  # 7
+        info.id_householdMembers.text,  # 8
+        info.id_healthRegime.text,  # 9
+        info.id_maritalStatus.text,  # 10
+        info.id_agreementType.text,  # 11
+        info.id_rut.text,  # 12
+        info.id_childrenNumber.text,  # 13
+        info.id_dependants.text,  # 14
+        info.id_coverTheFamily.text,  # 15
+        info.id_agreementTime.text,  # 16
+        info.id_averageIncomeContract.text,  # 17
+        info.id_averageIncomeActivity.text,  # 18
+        info.id_pension.text,  # 19
+        info.id_arl.text,  # 20
+        info.id_factorsThatPreventYou.text,  # 21
+        info.id_observations.text  # 22
+    ]
+    print(org)
+
+def caracterizacion_ampliada_informacion_hijos(info):
+    hijo = []
+    for inf in info:
+        hijo.append(inf)
+        if len(hijo) == 3:
+            print(hijo)
+            hijo = []
+
+
+def caracterizacion_ampliada_informacion_personas_a_cargo(info):
+    persona = []
+    for inf in info:
+        persona.append(inf)
+        if len(persona) == 3:
+            print(persona)
+            persona = []

@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from codes import snippets
 from declarations import querys, class_declaration, dataFormating
+from windows import DiagnosticoPerfilProductivo
 
 
 class InformacionGeneralScreen(Screen):
@@ -151,6 +152,7 @@ class InformacionGeneralScreen(Screen):
     def on_leave(self, *args):
         if not self.home:
             information = self
+            dataFormating.GeneralInformationData(information)
 
     def signal(self, *args):
         self.id_message.text = args[0].alertFlag['message']
@@ -165,7 +167,7 @@ class InformacionGeneralScreen(Screen):
             msg = ""
         self.id_message.text = msg
         if msg == "":
-            AcceptForm(self.operator).open()
+            AcceptForm(self.operator, self.id_payeeType.text).open()
 
 
 class AcceptForm(class_declaration.PopupFather):
@@ -174,12 +176,14 @@ class AcceptForm(class_declaration.PopupFather):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.operator = args[0]
+        self.payeeType = args[1]
         self.id_acceptButton.bind(on_release=self.on_validate)
 
     def on_pre_open(self):
         self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
 
     def on_validate(self, *args):
+        DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen.payeeType = self.payeeType
         self.dismiss()
         self.changeWindow()
 

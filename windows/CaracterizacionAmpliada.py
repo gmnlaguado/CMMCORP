@@ -1,7 +1,7 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import querys, class_declaration
+from declarations import querys, class_declaration, dataFormating
 from kivy.uix.label import Label
 from kivy.uix.spinner import Spinner
 from codes import snippets
@@ -14,6 +14,8 @@ class CaracterizacionAmpliadaScreen(Screen):
     home = False
     listado_hijos = False
     listado_cargo = False
+    informacion_hijos = None
+    informacion_personas_a_cargo = None
 
     id_title = ObjectProperty()
     id_adittionalStudies = ObjectProperty()
@@ -29,6 +31,7 @@ class CaracterizacionAmpliadaScreen(Screen):
     id_childrenNumber = ObjectProperty()
     id_dependants = ObjectProperty()
     id_coverTheFamily = ObjectProperty()
+    id_agreementTime = ObjectProperty()
     id_averageIncomeContract = ObjectProperty()
     id_averageIncomeActivity = ObjectProperty()
     id_childrenInformation = ObjectProperty()
@@ -40,7 +43,6 @@ class CaracterizacionAmpliadaScreen(Screen):
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
     id_homeButton = ObjectProperty()
-    id_agreementTime = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -67,9 +69,15 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_householdMembers.values = [str(numb) for numb in range(1, 30)]
         self.id_agreementTime.values = [str(numb) for numb in range(1, 30)]
 
+        self.id_homeButton.bind(on_press=self.setHome)
+
         self.id_signInButton.bind(on_release=self.checkAll)
         self.id_childrenInformation.bind(on_release=self.childrenInformation)
         self.id_dependantsInformation.bind(on_release=self.dependantsInformation)
+
+
+    def setHome(self, *args):
+        self.home = True
 
     def childrenInformation(self, *args):
         if self.id_childrenNumber.text == '¿Número de hijos?':
@@ -126,6 +134,30 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_observations.resetInput()
         self.id_factorsThatPreventYou.resetInput()
         self.id_adittionalStudies.resetInput()
+
+        self.home = False
+
+    def on_leave(self, *args):
+        informacion_limpia_hijos = []
+        informacion_limpia_personas = []
+        if not self.home:
+            information = self
+            for info in self.informacion_hijos:
+                try:
+                    if info.class_type == "spinner":
+                        informacion_limpia_hijos.append(info.text)
+                except AttributeError:
+                    pass
+            for info in self.informacion_personas_a_cargo:
+                try:
+                    if info.class_type == "spinner":
+                        informacion_limpia_personas.append(info.text)
+                except AttributeError:
+                    pass
+
+            dataFormating.caracterizacion_ampliada_informacion_hijos(informacion_limpia_hijos)
+            dataFormating.caracterizacion_ampliada_informacion_personas_a_cargo(informacion_limpia_personas)
+            dataFormating.caracterizacion_ampliada(information)
 
 
 class AcceptFormCaracterizacionAmpliada(class_declaration.PopupFather):
@@ -206,6 +238,7 @@ class InformacionHijos(class_declaration.PopupFather):
         if 'Género' in res or 'Mayoría' in res or 'Discapacidad' in res:
             pass
         else:
+            CaracterizacionAmpliadaScreen.informacion_hijos = self.id_container_grid.children
             CaracterizacionAmpliadaScreen.listado_hijos = True
             self.dismiss()
 
@@ -225,6 +258,7 @@ class SpinnerScroll(Spinner):
         self.text_size = (318, 40)
         self.diligenciado = False
         self.id = 'Spinner'
+        self.class_type = "spinner"
 
     def on_text(self, *args):
         self.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
@@ -290,5 +324,6 @@ class InformacionPersonasACargo(class_declaration.PopupFather):
         if 'Género' in res or 'Mayoría' in res or 'Discapacidad' in res:
             pass
         else:
+            CaracterizacionAmpliadaScreen.informacion_personas_a_cargo = self.id_container_grid.children
             CaracterizacionAmpliadaScreen.listado_cargo = True
             self.dismiss()

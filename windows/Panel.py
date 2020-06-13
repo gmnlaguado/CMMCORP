@@ -2,7 +2,8 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, upload_process
-from windows import PlanDeImplementacion
+from windows import PlanDeImplementacion, InformacionGeneral, DiagnosticoPerfilProductivo, UnidadDeNegocio, \
+    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion
 
 
 class PanelScreen(Screen):
@@ -99,8 +100,16 @@ class EmergentNuevoBeneficiario(class_declaration.PopupFather):
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            self.dismiss()
-            self.changeWindow()
+            projects = querys.payeeProjects(querys.idProject(self.project.lower()))
+            if not args[0].text in projects:
+                InformacionGeneral.InformacionGeneralScreen.payeeDocument = args[0].text
+                DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen.payeeDocument = args[0].text
+                IdeaDeNegocio.IdeaDeNegocioScreen.payeeDocument = args[0].text
+                UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = args[0].text
+                self.dismiss()
+                self.changeWindow()
+            else:
+                class_declaration.MessagePopup('El beneficiario ya tiene caracterización básica').open()
 
     def changeWindow(self, *args):
         pass
@@ -139,8 +148,16 @@ class CaracterizacionAmpliadaButton(class_declaration.PopupFather):
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            self.dismiss()
-            self.changeWindow()
+            projects = querys.payeeProjects(querys.idProject(self.project.lower()))
+            if not args[0].text in projects:
+                class_declaration.MessagePopup('El beneficiario no tiene caracterización básica').open()
+            else:
+                CaracterizacionAmpliada.CaracterizacionAmpliadaScreen.payeeDocument = args[0].text
+                Monitoreo.MonitoreoScreen.payeeDocument = args[0].text
+                UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = args[0].text
+                PlanDeFormacion.PlanDeFormacionScreen.payeeDocument = args[0].text
+                self.dismiss()
+                self.changeWindow()
 
     def changeWindow(self, *args):
         pass

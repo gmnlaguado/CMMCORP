@@ -23,21 +23,21 @@ class MyDB(object):
 
 def idOperator(username):
     db = MyDB('register')
-    result = db.query("SELECT document FROM operator WHERE username = :username", {'username': username}).fetchone()
+    result = db.query("SELECT document FROM odp_operario WHERE username = :username", {'username': username}).fetchone()
     if result is not None:
         return result[0]
 
 
 def idProject(project):
     db = MyDB('register')
-    result = db.query("SELECT id FROM projects WHERE name = :project", {'project': project}).fetchone()
+    result = db.query("SELECT id FROM proyectos WHERE name = :project", {'project': project}).fetchone()
     if result is not None:
         return result[0]
 
 
 def payeeProjects(project):
     db = MyDB('register')
-    result = db.query("SELECT payeeDocument FROM payeeProjects WHERE project = :project",
+    result = db.query("SELECT payeeDocument FROM beneficiario_proyectos WHERE project = :project",
                       {'project': project}).fetchall()
     if result is not None:
         return [res[0] for res in result]
@@ -45,14 +45,14 @@ def payeeProjects(project):
 
 def passwordOperator(document):
     db = MyDB('register')
-    result = db.query("SELECT password FROM operator WHERE document = :document", {'document': document}).fetchone()
+    result = db.query("SELECT password FROM odp_operario WHERE document = :document", {'document': document}).fetchone()
     if result is not None:
         return result[0]
 
 
 def projectsOperator(document):
     db = MyDB('register')
-    result = db.query("SELECT fkProject FROM operatorProjects WHERE fkOperator = :document",
+    result = db.query("SELECT fkProject FROM odp_operario_proyectos WHERE fkOperator = :document",
                       {'document': document}).fetchall()
     if result is not None:
         return [res[0] for res in result]
@@ -60,7 +60,7 @@ def projectsOperator(document):
 
 def nameProject(project):
     db = MyDB('register')
-    result = db.query("SELECT name FROM projects WHERE id = :project", {'project': project}).fetchone()
+    result = db.query("SELECT name FROM proyectos WHERE id = :project", {'project': project}).fetchone()
     if result is not None:
         return result[0]
 
@@ -130,30 +130,29 @@ def bringNeighborhoods(city):
 
 
 def loadPayee(info):
-    print(info)
     db = MyDB('register')
-    db.commit("INSERT INTO payee VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO informacion_general_beneficiario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
 
 
 def loadPayeeProjects(info):
     db = MyDB('register')
-    db.commit("INSERT INTO payeeProjects VALUES (?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO beneficiario_proyectos VALUES (?,?,?,?,?,?)", info)
 
 
 def loadProductionProfileDiag(info):
     db = MyDB('register')
-    db.commit("INSERT INTO productionProfileDiag VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"
+    db.commit("INSERT INTO diagnostico_de_perfil_productivo VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"
               ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
 
 
 def loadBussinesIdea(info):
     db = MyDB('register')
-    db.commit("INSERT INTO bussinesIdea VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO idea_de_negocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
 
 
 def loadBussinesUnit(info):
     db = MyDB('register')
-    db.commit("INSERT INTO bussinesUnit VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO unidad_de_negocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
 
 
 def bringColumns(table):
