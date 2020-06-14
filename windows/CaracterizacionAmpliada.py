@@ -5,6 +5,7 @@ from declarations import querys, class_declaration, dataFormating
 from kivy.uix.label import Label
 from kivy.uix.spinner import Spinner
 from codes import snippets
+from windows import Monitoreo
 
 
 class CaracterizacionAmpliadaScreen(Screen):
@@ -154,7 +155,7 @@ class CaracterizacionAmpliadaScreen(Screen):
                         informacion_limpia_personas.append(info.text)
                 except AttributeError:
                     pass
-
+            Monitoreo.MonitoreoScreen.payeeDocument = self.payeeDocument
             dataFormating.caracterizacion_ampliada_informacion_hijos(informacion_limpia_hijos, information)
             dataFormating.caracterizacion_ampliada_informacion_personas_a_cargo(informacion_limpia_personas, information)
             dataFormating.caracterizacion_ampliada(information)
