@@ -200,11 +200,24 @@ def bringCIUU():
 
 def cargar_caracterizacion_ampliada(info):
     print(info)
+    db = MyDB('register')
+    db.commit("INSERT INTO caracterizacion_ampliada VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
 
 
 def cargar_caracterizacion_ampliada_hijos(info):
     print(info)
+    db = MyDB('register')
+    db.commit("INSERT INTO caracterizacion_ampliada_informacion_hijos VALUES (?,?,?,?,?,?,?,?)", info)
 
 
 def cargar_caracterizacion_ampliada_personas(info):
     print(info)
+    db = MyDB('register')
+    db.commit("INSERT INTO caracterizacion_ampliada_informacion_personas_a_cargo VALUES (?,?,?,?,?,?,?,?)", info)
+
+
+def lista_de_caracterizaciones(project):
+    db = MyDB('register')
+    result = db.query("SELECT fkPayee FROM caracterizacion_ampliada WHERE fkProject = :project", {'project': project}).fetchall()
+    if result is not None:
+        return [res[0] for res in result]

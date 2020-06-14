@@ -152,12 +152,15 @@ class CaracterizacionAmpliadaButton(class_declaration.PopupFather):
             if not args[0].text in projects:
                 class_declaration.MessagePopup('El beneficiario no tiene caracterización básica').open()
             else:
-                CaracterizacionAmpliada.CaracterizacionAmpliadaScreen.payeeDocument = args[0].text
-                Monitoreo.MonitoreoScreen.payeeDocument = args[0].text
-                UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = args[0].text
-                PlanDeFormacion.PlanDeFormacionScreen.payeeDocument = args[0].text
-                self.dismiss()
-                self.changeWindow()
+                if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
+                    class_declaration.MessagePopup('El beneficiario ya tiene caracterización Ampliada').open()
+                else:
+                    CaracterizacionAmpliada.CaracterizacionAmpliadaScreen.payeeDocument = args[0].text
+                    Monitoreo.MonitoreoScreen.payeeDocument = args[0].text
+                    UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = args[0].text
+                    PlanDeFormacion.PlanDeFormacionScreen.payeeDocument = args[0].text
+                    self.dismiss()
+                    self.changeWindow()
 
     def changeWindow(self, *args):
         pass
