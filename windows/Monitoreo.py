@@ -193,7 +193,7 @@ class MonitoreoScreen(Screen):
         grid = SpinnerScroll(text="Cantidad de socios", values=[str(numb) for numb in range(1, 60)])
         self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="Tipo de local", values=["si", "no"])
+        grid = SpinnerScroll(text="Tipo de local", values=querys.parametricList('houseType'))
         self.id_container_grid_2.add_widget(grid)
         self.id_householdExpenses.bind(on_release=self.openPopupGastos)
         self.id_householdIncomes.bind(on_release=self.openPopupIngresos)

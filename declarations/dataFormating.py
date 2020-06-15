@@ -332,6 +332,8 @@ def monitoreo(info):
                 indice = 2
             org.append(indice)
 
+    org[4] = float(org[4])
+    org[5] = float(org[5])
     org[6] = querys.idParametrics('yesNo', org[6])
     org[7] = int(org[7])
     org[8] = querys.idParametrics('yesNo', org[8])
@@ -349,5 +351,58 @@ def monitoreo(info):
     unique_id = org[0] + '__' + org[2] + '__' + org[1] + '__' + str(org[3])
     org.insert(0, unique_id)
 
-    print(org)
-    print('\n\n')
+    lista_spinners = []
+    lista_texts = []
+    items_scroll = info.id_container_grid_2.children
+    for item in items_scroll[::-1]:
+        if len(item.children) > 0:
+            lista_texts.append(item.children[0].text)
+        try:
+            if item.class_type == "spinner":
+                lista_spinners.append(item.text)
+        except AttributeError:
+            pass
+    lista_spinners[0] = querys.idParametrics('yesNo', lista_spinners[0])
+    lista_spinners[1] = querys.idParametrics('yesNo', lista_spinners[1])
+    lista_spinners[2] = querys.idParametrics('yesNo', lista_spinners[2])
+    lista_spinners[3] = querys.idParametrics('yesNo', lista_spinners[3])
+    lista_spinners[4] = querys.idParametrics('yesNo', lista_spinners[4])
+    lista_spinners[5] = int(lista_spinners[5])
+    lista_spinners[6] = querys.idParametrics('yesNo', lista_spinners[6])
+    lista_spinners[7] = querys.idParametrics('bancamia', lista_spinners[7])
+    lista_spinners[8] = querys.idParametrics('yesNo', lista_spinners[8])
+    lista_spinners[9] = querys.idParametrics('yesNo', lista_spinners[9])
+    lista_spinners[10] = querys.idParametrics('relyOn', lista_spinners[10])
+    lista_spinners[11] = int(lista_spinners[11])
+    lista_spinners[12] = int(lista_spinners[12])
+    lista_spinners[13] = querys.idParametrics('yesNo', lista_spinners[13])
+    lista_spinners[14] = querys.idParametrics('yesNo', lista_spinners[14])
+    lista_spinners[15] = querys.idParametrics('yesNo', lista_spinners[15])
+    lista_spinners[16] = querys.idParametrics('whereDoYouOperate', lista_spinners[16])
+    lista_spinners[17] = int(lista_spinners[17])
+    lista_spinners[18] = int(lista_spinners[18])
+    lista_spinners[19] = int(lista_spinners[19])
+    lista_spinners[20] = querys.idParametrics('houseType', lista_spinners[20])
+    for item in lista_spinners:
+        org.append(item)
+
+    lista_texts[0] = float(lista_texts[0])
+    lista_texts[3] = float(lista_texts[3])
+    lista_texts[4] = float(lista_texts[4])
+    lista_texts[5] = float(lista_texts[5])
+    lista_texts[6] = float(lista_texts[6])
+    lista_texts[7] = float(lista_texts[7])
+    lista_texts[8] = float(lista_texts[8])
+    lista_texts[9] = float(lista_texts[9])
+    lista_texts[10] = float(lista_texts[10])
+    lista_texts[11] = float(lista_texts[11])
+    lista_texts[12] = float(lista_texts[12])
+    lista_texts[13] = float(lista_texts[13])
+    lista_texts[14] = float(lista_texts[14])
+
+    for item in lista_texts:
+        org.append(item)
+
+    org = tuple(org)
+    querys.cargar_monitoreo(org)
+
