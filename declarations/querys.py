@@ -199,19 +199,16 @@ def bringCIUU():
 
 
 def cargar_caracterizacion_ampliada(info):
-    print(info)
     db = MyDB('register')
     db.commit("INSERT INTO caracterizacion_ampliada VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
 
 
 def cargar_caracterizacion_ampliada_hijos(info):
-    print(info)
     db = MyDB('register')
     db.commit("INSERT INTO caracterizacion_ampliada_informacion_hijos VALUES (?,?,?,?,?,?,?,?)", info)
 
 
 def cargar_caracterizacion_ampliada_personas(info):
-    print(info)
     db = MyDB('register')
     db.commit("INSERT INTO caracterizacion_ampliada_informacion_personas_a_cargo VALUES (?,?,?,?,?,?,?,?)", info)
 

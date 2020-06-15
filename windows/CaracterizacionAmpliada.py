@@ -156,6 +156,7 @@ class CaracterizacionAmpliadaScreen(Screen):
                 except AttributeError:
                     pass
             Monitoreo.MonitoreoScreen.payeeDocument = self.payeeDocument
+            Monitoreo.MonitoreoScreen.numero_de_monitoreo = 1
             dataFormating.caracterizacion_ampliada_informacion_hijos(informacion_limpia_hijos, information)
             dataFormating.caracterizacion_ampliada_informacion_personas_a_cargo(informacion_limpia_personas, information)
             dataFormating.caracterizacion_ampliada(information)

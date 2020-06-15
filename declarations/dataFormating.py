@@ -300,3 +300,54 @@ def caracterizacion_ampliada_informacion_personas_a_cargo(info, full_info):
             querys.cargar_caracterizacion_ampliada_personas(persona)
             persona = []
 
+
+def monitoreo(info):
+    org = [
+        info.project,  # 0
+        info.payeeDocument,  # 1
+        info.operator,  # 2
+        info.numero_de_monitoreo,   # 3
+        info.total_income_familiy,  # 4
+        info.total_gastos_familia,  # 5
+        info.id_belongToAssosiation.text,  # 6
+        info.id_ciiu.text,  # 7
+        info.id_pension.text,  # 8
+        info.id_bussinesSector.text,  # 9
+        info.id_totalDependants.text,  # 10
+        info.id_whoDefineIncome.text,  # 11
+        info.id_houseType.text,  # 12
+        info.id_houseMaterial.text,  # 13
+        info.id_bedroomsNumber.text,  # 14
+        info.id_kitchenFuel.text,  # 15
+        info.id_tier.text,  # 16
+        info.id_houseAge.text,  # 17
+        info.id_cual_asociacion.text,  # 18
+        info.id_asociacion_mujeres.text  # 19
+    ]
+
+    for grid in info.id_container_grid_1.children[::-1]:
+        if len(grid.children) > 0:
+            indice = [box.active for box in grid.children].index(True)
+            if indice == 0:
+                indice = 2
+            org.append(indice)
+
+    org[6] = querys.idParametrics('yesNo', org[6])
+    org[7] = int(org[7])
+    org[8] = querys.idParametrics('yesNo', org[8])
+    org[9] = querys.idParametrics('businessSector', org[9])
+    org[10] = int(org[10])
+    org[11] = querys.idParametrics('whoDefineIncome', org[11])
+    org[12] = querys.idParametrics('houseType', org[12])
+    org[13] = querys.idParametrics('houseMaterial', org[13])
+    org[14] = int(org[14])
+    org[15] = querys.idParametrics('kitchenFuel', org[15])
+    org[16] = int(org[16])
+    org[17] = querys.idParametrics('houseAge', org[17])
+    org[19] = querys.idParametrics('yesNo', org[19])
+
+    unique_id = org[0] + '__' + org[2] + '__' + org[1] + '__' + str(org[3])
+    org.insert(0, unique_id)
+
+    print(org)
+    print('\n\n')

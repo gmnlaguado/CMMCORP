@@ -1,7 +1,7 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import querys, class_declaration
+from declarations import querys, class_declaration, dataFormating
 from kivy.uix.label import Label
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.boxlayout import BoxLayout
@@ -18,6 +18,7 @@ class MonitoreoScreen(Screen):
     home = False
     total_income_familiy = 0
     total_gastos_familia = 0
+    numero_de_monitoreo = 0
 
     id_belongToAssosiation = ObjectProperty()
     id_ciiu = ObjectProperty()
@@ -301,6 +302,9 @@ class MonitoreoScreen(Screen):
 
     def openPopupIngresos(self, *args):
         IngresosDelGrupoFamiliarPopup().open()
+
+    def on_leave(self, *args):
+        dataFormating.monitoreo(self)
 
 
 class TextInputScroll(TextInput):
