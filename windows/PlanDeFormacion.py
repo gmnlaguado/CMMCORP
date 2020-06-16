@@ -34,6 +34,7 @@ class PlanDeFormacionScreen(Screen):
         self.id_signInButton.bind(on_release=self.checkAll)
         self.id_selectedActivities.bind(on_release=self.selectActivites)
         self.all_activities = []
+        self.selected = []
 
     def selectActivites(self, *args):
         self.id_message.text = ""
@@ -44,13 +45,16 @@ class PlanDeFormacionScreen(Screen):
             for activity in activities:
                 activity_data = activity.children[0]
                 activity_desc = activity.children[1].text
+                activity_desc = activity_desc[8:]
                 if activity_data.complete:
-                    self.all_activities.append({activity_desc: activity_data.text})
-        print(self.all_activities)
+                    if not activity_desc in self.selected:
+                        self.selected.append(activity_desc)
+                        self.all_activities.append({activity_desc: activity_data.text})
         self.id_total_activities.text = f'Actividades Seleccionadas {len(self.all_activities)}'
+        print(self.all_activities)
 
     def checkAll(self, *args):
-        if int(list(self.id_total_activities.text)[-1]) > 1:
+        if len(self.all_activities) > 1:
             AcceptFormPlanDeFormacion(self.operator).open()
         else:
             self.id_message.text = "Seleccione más de una actividad"
