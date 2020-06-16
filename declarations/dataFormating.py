@@ -406,3 +406,31 @@ def monitoreo(info):
     org = tuple(org)
     querys.cargar_monitoreo(org)
 
+
+def diagnostico_empresarial(info, monitoreo):
+    org = [
+        info.project,  # 0
+        info.payeeDocument,  # 1
+        info.operator,  # 2
+        monitoreo,  # 3
+        info.puntaje_categoria[0],  # 4
+        info.puntaje_categoria[1],  # 5
+        info.puntaje_categoria[2],  # 6
+        info.puntaje_categoria[3],  # 7
+        info.puntaje_categoria[4],  # 8
+        info.puntaje_categoria[5],  # 9
+        info.puntaje_categoria[6],  # 10
+        info.puntaje_categoria[7],  # 11
+        info.puntaje_categoria[8],  # 12
+        info.puntaje_total  # 13
+    ]
+
+    unique_id = org[0] + '__' + org[2] + '__' + org[1] + '__' + str(org[3])
+    org.insert(0, unique_id)
+    org = tuple(org)
+    print('\n\n\n', org)
+    querys.cargar_diagnostico_empresarial(org)
+
+
+
+

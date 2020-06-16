@@ -3,7 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, upload_process
 from windows import PlanDeImplementacion, InformacionGeneral, DiagnosticoPerfilProductivo, UnidadDeNegocio, \
-    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion
+    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion, DiagnosticoEmpresarial
 
 
 class PanelScreen(Screen):
@@ -158,6 +158,7 @@ class CaracterizacionAmpliadaButton(class_declaration.PopupFather):
                     CaracterizacionAmpliada.CaracterizacionAmpliadaScreen.payeeDocument = args[0].text
                     Monitoreo.MonitoreoScreen.payeeDocument = args[0].text
                     UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = args[0].text
+                    DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen.payeeDocument = args[0].text
                     PlanDeFormacion.PlanDeFormacionScreen.payeeDocument = args[0].text
                     self.dismiss()
                     self.changeWindow()
