@@ -231,10 +231,27 @@ class PlanDeFormacionButton(class_declaration.PopupFather):
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            self.dismiss()
-            self.changeWindow()
+            projects = querys.payeeProjects(querys.idProject(self.project.lower()))
+            if not args[0].text in projects:
+                class_declaration.MessagePopup('El beneficiario no tiene caracterización básica').open()
+            else:
+                if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
+                    if querys.numero_de_monitoreo(args[0].text) == 1:
+                        if querys.plan_de_formacion_habilitado(args[0].text) == 2:
+                            self.dismiss()
+                            self.changeWindow()
+                        else:
+                            self.dismiss()
+                            self.changeToPlan()
+                    else:
+                        class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
+                else:
+                    class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
 
     def changeWindow(self, *args):
+        pass
+
+    def changeToPlan(self, *args):
         pass
 
 

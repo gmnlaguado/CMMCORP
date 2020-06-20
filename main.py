@@ -74,6 +74,7 @@ class MyApp(App):
         Factory.AcceptFormActividadDeImplementacion.changeWindow = self.changeToPanel
         Factory.AcceptFormCaracterizacionAmpliada.changeToUnidad = self.changeToUnidadDeNegocio
         Factory.AcceptFormUnit.changeToMonitoreo = self.changeToMonitoreo
+        Factory.PlanDeFormacionButton.changeToPlan = self.changeToPlanDeFormacion
 
         return self.sm
 

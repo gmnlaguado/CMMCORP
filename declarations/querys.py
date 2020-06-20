@@ -136,7 +136,7 @@ def loadPayee(info):
 
 def loadPayeeProjects(info):
     db = MyDB('register')
-    db.commit("INSERT INTO beneficiario_proyectos VALUES (?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO beneficiario_proyectos VALUES (?,?,?,?,?,?,?,?,?)", info)
 
 
 def loadProductionProfileDiag(info):
@@ -236,3 +236,25 @@ def tipo_de_beneficiario(beneficiario):
                       {'beneficiario': beneficiario}).fetchone()
     if result is not None:
         return result[0]
+
+
+def numero_de_monitoreo(beneficiario):
+    db = MyDB('register')
+    result = db.query("SELECT numero_monitoreo FROM monitoreo WHERE fk_beneficiario = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def plan_de_formacion_habilitado(beneficiario):
+    db = MyDB('register')
+    result = db.query("SELECT plan_de_formacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def habilitar_plan_de_formacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET plan_de_formacion = 1 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
+

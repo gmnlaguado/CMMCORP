@@ -78,6 +78,9 @@ def GeneralInformationData(information):
 
 def payeeProjectsData(info, clean):
     if clean:
+        info.append(2)
+        info.append(2)
+        info.append(2)
         info = tuple(info)
         querys.loadPayeeProjects(info)
 
@@ -331,7 +334,7 @@ def monitoreo(info):
             if indice == 0:
                 indice = 2
             org.append(indice)
-
+    org[0] = querys.idProject(info.project.lower())
     org[4] = float(org[4])
     org[5] = float(org[5])
     org[6] = querys.idParametrics('yesNo', org[6])
@@ -405,6 +408,9 @@ def monitoreo(info):
 
     org = tuple(org)
     querys.cargar_monitoreo(org)
+
+    if info.numero_de_monitoreo == 1:
+        querys.habilitar_plan_de_formacion(info.payeeDocument, querys.idProject(info.project.lower()))
 
 
 def diagnostico_empresarial(info, monitoreo):
