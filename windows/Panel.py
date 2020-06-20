@@ -106,6 +106,7 @@ class EmergentNuevoBeneficiario(class_declaration.PopupFather):
                 DiagnosticoPerfilProductivo.DiagnosticoPerfilProductivoScreen.payeeDocument = args[0].text
                 IdeaDeNegocio.IdeaDeNegocioScreen.payeeDocument = args[0].text
                 UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = args[0].text
+                UnidadDeNegocio.UnidadDeNegocioScreen.caracterizacion_ampliada = False
                 self.dismiss()
                 self.changeWindow()
             else:

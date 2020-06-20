@@ -49,7 +49,7 @@ class MyApp(App):
         self.sm.add_widget(ActividadDeFormacion.ActividadDeFormacionScreen(name="ActividadDeFormacion"))
         self.sm.add_widget(PlanDeImplementacion.PlanDeImplementacionScreen(name="PlanDeImplementacion"))
         self.sm.add_widget(ActividadDeImplementacion.ActividadDeImplementacionScreen(name="ActividadDeImplementacion"))
-        self.sm.current = 'PlanDeFormacion'
+        self.sm.current = 'Login'
 
         Factory.LoginProjectPopup.changeWindow = self.changeToPanel
         Factory.EmergentNuevoBeneficiario.changeWindow = self.changeToInformacionGeneral
@@ -67,11 +67,13 @@ class MyApp(App):
 
         Factory.AcceptFormCaracterizacionAmpliada.changeWindow = self.changeToMonitoreo
         Factory.AcceptFormMonitoreo.changeWindow = self.changeToDiagnosticoEmpresarial
-        Factory.AcceptFormDiagnosticoEmpresarial.changeWindow = self.changeToPlanDeFormacion
+        Factory.AcceptFormDiagnosticoEmpresarial.changeWindow = self.changeToPanel
         Factory.AcceptFormPlanDeFormacion.changeWindow = self.changeToPanel
         Factory.AcceptFormActividadDeFormacion.changeWindow = self.changeToPanel
         Factory.AcceptFormPlanDeImplementacion.changeWindow = self.changeToPanel
         Factory.AcceptFormActividadDeImplementacion.changeWindow = self.changeToPanel
+        Factory.AcceptFormCaracterizacionAmpliada.changeToUnidad = self.changeToUnidadDeNegocio
+        Factory.AcceptFormUnit.changeToMonitoreo = self.changeToMonitoreo
 
         return self.sm
 

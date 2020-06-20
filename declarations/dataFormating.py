@@ -428,7 +428,6 @@ def diagnostico_empresarial(info, monitoreo):
     unique_id = org[0] + '__' + org[2] + '__' + org[1] + '__' + str(org[3])
     org.insert(0, unique_id)
     org = tuple(org)
-    print('\n\n\n', org)
     querys.cargar_diagnostico_empresarial(org)
 
 

@@ -228,3 +228,11 @@ def cargar_monitoreo(info):
 def cargar_diagnostico_empresarial(info):
     db = MyDB('register')
     db.commit("INSERT INTO diagnostico_empresarial VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def tipo_de_beneficiario(beneficiario):
+    db = MyDB('register')
+    result = db.query("SELECT payeeType FROM informacion_general_beneficiario WHERE document = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchone()
+    if result is not None:
+        return result[0]

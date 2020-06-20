@@ -9,6 +9,7 @@ class UnidadDeNegocioScreen(Screen):
     payeeDocument = None
     project = None
     operator = None
+    caracterizacion_ampliada = False
 
     id_unit = ObjectProperty()
     id_exists = ObjectProperty()
@@ -154,6 +155,13 @@ class AcceptFormUnit(class_declaration.PopupFather):
     def on_validate(self, *args):
         self.dismiss()
         self.changeWindow()
+        if UnidadDeNegocioScreen.caracterizacion_ampliada:
+            self.changeToMonitoreo()
+        else:
+            self.changeWindow()
 
     def changeWindow(self, *args):
+        pass
+
+    def changeToMonitoreo(self, *args):
         pass

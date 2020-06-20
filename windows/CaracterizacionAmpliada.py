@@ -5,7 +5,7 @@ from declarations import querys, class_declaration, dataFormating
 from kivy.uix.label import Label
 from kivy.uix.spinner import Spinner
 from codes import snippets
-from windows import Monitoreo
+from windows import Monitoreo, UnidadDeNegocio
 
 
 class CaracterizacionAmpliadaScreen(Screen):
@@ -105,7 +105,7 @@ class CaracterizacionAmpliadaScreen(Screen):
                 msg = ""
             self.id_message.text = msg
             if msg == "":
-                AcceptFormCaracterizacionAmpliada(self.operator).open()
+                AcceptFormCaracterizacionAmpliada(self.operator, self.payeeDocument).open()
         else:
             self.id_message.text = "Falta información por llenar"
 
@@ -168,6 +168,7 @@ class AcceptFormCaracterizacionAmpliada(class_declaration.PopupFather):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.operator = args[0]
+        self.payee = args[1]
         self.id_acceptButton.bind(on_release=self.on_validate)
 
     def on_pre_open(self):
@@ -175,9 +176,16 @@ class AcceptFormCaracterizacionAmpliada(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         self.dismiss()
-        self.changeWindow()
+        if querys.tipo_de_beneficiario(self.payee) == 1:
+            UnidadDeNegocio.UnidadDeNegocioScreen.caracterizacion_ampliada = True
+            self.changeToUnidad()
+        else:
+            self.changeWindow()
 
     def changeWindow(self, *args):
+        pass
+
+    def changeToUnidad(self, *args):
         pass
 
 
