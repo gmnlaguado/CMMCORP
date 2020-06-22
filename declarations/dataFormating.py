@@ -437,5 +437,30 @@ def diagnostico_empresarial(info, monitoreo):
     querys.cargar_diagnostico_empresarial(org)
 
 
+def plan_de_formacion(info):
+    for idx, item in enumerate(info.all_activities):
+        keys, values = list(item.keys())[0], list(item.values())[0]
+
+        org = [
+            info.project,  # 0
+            info.payeeDocument,  # 1
+            info.operator  # 2
+        ]
+        org[0] = querys.idProject(info.project.lower())
+        org.append(idx)
+        unique_id = org[0] + '__' + org[2] + '__' + org[1] + '__' + str(org[3])
+        org.insert(0, unique_id)
+        org.append(querys.traer_id_de_actividad_de_formacion(keys))
+        org.append(values)
+        org.append('')
+        org.append(2)
+        org = tuple(org)
+        querys.cargar_plan_de_formacion(org)
+    querys.deshabilitar_plan_de_formacion(info.payeeDocument, querys.idProject(info.project.lower()))
+
+
+
+
+
 
 

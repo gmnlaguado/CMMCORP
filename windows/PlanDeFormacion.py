@@ -1,7 +1,7 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import querys, class_declaration, checkings
+from declarations import querys, class_declaration, checkings, dataFormating
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
 from kivy.uix.boxlayout import BoxLayout
@@ -51,7 +51,6 @@ class PlanDeFormacionScreen(Screen):
                         self.selected.append(activity_desc)
                         self.all_activities.append({activity_desc: activity_data.text})
         self.id_total_activities.text = f'Actividades Seleccionadas {len(self.all_activities)}'
-        print(self.all_activities)
 
     def checkAll(self, *args):
         if len(self.all_activities) > 1:
@@ -85,6 +84,9 @@ class PlanDeFormacionScreen(Screen):
                 box_layout.add_widget(lab)
                 box_layout.add_widget(textInputData)
                 self.id_container_grid.add_widget(box_layout)
+
+    def on_leave(self, *args):
+        dataFormating.plan_de_formacion(self)
 
 
 class TextInputScrollData(TextInput):

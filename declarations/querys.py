@@ -258,3 +258,34 @@ def habilitar_plan_de_formacion(beneficiario, project):
     db = MyDB('register')
     db.commit("UPDATE beneficiario_proyectos SET plan_de_formacion = 1 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
 
+
+def deshabilitar_plan_de_formacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET plan_de_formacion = 2 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
+
+
+def obtener_estado(beneficiario):
+    db = MyDB('register')
+    result = db.query("SELECT status FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def inactivar_beneficiario(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET status = 2 WHERE payeeDocument = :beneficiario AND project = :project",
+        (beneficiario, project))
+
+
+def traer_id_de_actividad_de_formacion(actividad):
+    db = MyDB('parametric')
+    result = db.query("SELECT id FROM educationPlan WHERE description = :actividad",
+                      {'actividad': actividad}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def cargar_plan_de_formacion(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO plan_de_formacion VALUES (?,?,?,?,?,?,?,?,?)", info)

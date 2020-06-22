@@ -156,13 +156,16 @@ class CaracterizacionAmpliadaButton(class_declaration.PopupFather):
                 if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
                     class_declaration.MessagePopup('El beneficiario ya tiene caracterización Ampliada').open()
                 else:
-                    CaracterizacionAmpliada.CaracterizacionAmpliadaScreen.payeeDocument = args[0].text
-                    Monitoreo.MonitoreoScreen.payeeDocument = args[0].text
-                    UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = args[0].text
-                    DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen.payeeDocument = args[0].text
-                    PlanDeFormacion.PlanDeFormacionScreen.payeeDocument = args[0].text
-                    self.dismiss()
-                    self.changeWindow()
+                    if querys.obtener_estado(args[0].text) == 2:
+                        class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
+                    else:
+                        CaracterizacionAmpliada.CaracterizacionAmpliadaScreen.payeeDocument = args[0].text
+                        Monitoreo.MonitoreoScreen.payeeDocument = args[0].text
+                        UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = args[0].text
+                        DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen.payeeDocument = args[0].text
+                        PlanDeFormacion.PlanDeFormacionScreen.payeeDocument = args[0].text
+                        self.dismiss()
+                        self.changeWindow()
 
     def changeWindow(self, *args):
         pass
@@ -235,18 +238,22 @@ class PlanDeFormacionButton(class_declaration.PopupFather):
             if not args[0].text in projects:
                 class_declaration.MessagePopup('El beneficiario no tiene caracterización básica').open()
             else:
-                if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
-                    if querys.numero_de_monitoreo(args[0].text) == 1:
-                        if querys.plan_de_formacion_habilitado(args[0].text) == 2:
-                            self.dismiss()
-                            self.changeWindow()
-                        else:
-                            self.dismiss()
-                            self.changeToPlan()
-                    else:
-                        class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
+                if querys.obtener_estado(args[0].text) == 2:
+                    class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
                 else:
-                    class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
+                    if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
+                        if querys.numero_de_monitoreo(args[0].text) == 1:
+                            if querys.plan_de_formacion_habilitado(args[0].text) == 2:
+                                self.dismiss()
+                                self.changeWindow()
+                            else:
+                                PlanDeFormacion.PlanDeFormacionScreen.payeeDocument = args[0].text
+                                self.dismiss()
+                                self.changeToPlan()
+                        else:
+                            class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
+                    else:
+                        class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
 
     def changeWindow(self, *args):
         pass
@@ -314,11 +321,18 @@ class InactivarButton(class_declaration.PopupFather):
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            self.dismiss()
-            self.changeWindow()
-
-    def changeWindow(self, *args):
-        pass
+            projects = querys.payeeProjects(querys.idProject(self.project.lower()))
+            if not args[0].text in projects:
+                class_declaration.MessagePopup('El beneficiario no existe').open()
+            else:
+                if querys.obtener_estado(args[0].text) == 2:
+                    class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
+                elif querys.obtener_estado(args[0].text) == 3:
+                    class_declaration.MessagePopup('El beneficiario ya terminó todo su proceso').open()
+                else:
+                    class_declaration.MessagePopup(f'El beneficiario {args[0].text} fue inactivado').open()
+                    querys.inactivar_beneficiario(args[0].text, querys.idProject(self.project.lower()))
+                    self.dismiss()
 
 
 class ActualizarButton(class_declaration.PopupFather):
