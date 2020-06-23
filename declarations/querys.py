@@ -136,7 +136,7 @@ def loadPayee(info):
 
 def loadPayeeProjects(info):
     db = MyDB('register')
-    db.commit("INSERT INTO beneficiario_proyectos VALUES (?,?,?,?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO beneficiario_proyectos VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", info)
 
 
 def loadProductionProfileDiag(info):
@@ -241,9 +241,9 @@ def tipo_de_beneficiario(beneficiario):
 def numero_de_monitoreo(beneficiario):
     db = MyDB('register')
     result = db.query("SELECT numero_monitoreo FROM monitoreo WHERE fk_beneficiario = :beneficiario",
-                      {'beneficiario': beneficiario}).fetchone()
+                      {'beneficiario': beneficiario}).fetchall()
     if result is not None:
-        return result[0]
+        return max([res[0] for res in result])
 
 
 def plan_de_formacion_habilitado(beneficiario):
@@ -254,9 +254,22 @@ def plan_de_formacion_habilitado(beneficiario):
         return result[0]
 
 
+def plan_de_implementacion_habilitado(beneficiario):
+    db = MyDB('register')
+    result = db.query("SELECT plan_de_implementacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchone()
+    if result is not None:
+        return result[0]
+
+
 def habilitar_plan_de_formacion(beneficiario, project):
     db = MyDB('register')
     db.commit("UPDATE beneficiario_proyectos SET plan_de_formacion = 1 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
+
+
+def habilitar_plan_de_implementacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET plan_de_implementacion = 1 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
 
 
 def deshabilitar_plan_de_formacion(beneficiario, project):
@@ -305,8 +318,22 @@ def traer_descripcion_actividad_formacion(id_actividad):
     if result is not None:
         return result[0]
 
+
 def dar_actividad_de_formacion_como_finalizada(beneficiario, project, actividad, fecha):
     db = MyDB('register')
     db.commit("UPDATE plan_de_formacion SET completada = 1, fecha_realizada = :fecha WHERE beneficiario = :beneficiario AND proyecto = :project AND id_actividad = :actividad",
               (fecha, beneficiario, project, actividad))
+
+
+def dar_terminada_formacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET concluido_formacion = 1 WHERE payeeDocument = :beneficiario AND project = :project",(beneficiario, project))
+
+
+def comprobar_plan_de_formacion(beneficiario, project):
+    db = MyDB('register')
+    result = db.query("SELECT concluido_formacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario AND project = :project",
+                      {'beneficiario': beneficiario, 'project': project}).fetchone()
+    if result is not None:
+        return result[0]
 

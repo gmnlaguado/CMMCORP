@@ -163,7 +163,6 @@ class CaracterizacionAmpliadaButton(class_declaration.PopupFather):
                         Monitoreo.MonitoreoScreen.payeeDocument = args[0].text
                         UnidadDeNegocio.UnidadDeNegocioScreen.payeeDocument = args[0].text
                         DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen.payeeDocument = args[0].text
-                        PlanDeFormacion.PlanDeFormacionScreen.payeeDocument = args[0].text
                         self.dismiss()
                         self.changeWindow()
 
@@ -187,8 +186,27 @@ class MonitoreoButton(class_declaration.PopupFather):
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            self.dismiss()
-            self.changeWindow()
+            projects = querys.payeeProjects(querys.idProject(self.project.lower()))
+            if not args[0].text in projects:
+                class_declaration.MessagePopup('El beneficiario no tiene caracterización básica').open()
+            else:
+                if querys.obtener_estado(args[0].text) == 2:
+                    class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
+                else:
+                    if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
+                        if querys.numero_de_monitoreo(args[0].text) == 1:
+                            if querys.comprobar_plan_de_formacion(args[0].text, querys.idProject(self.project.lower())) == 1:
+                                Monitoreo.MonitoreoScreen.numero_de_monitoreo = 2
+                                Monitoreo.MonitoreoScreen.payeeDocument = args[0].text
+                                DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen.payeeDocument = args[0].text
+                                self.changeWindow()
+                                self.dismiss()
+                            else:
+                                class_declaration.MessagePopup('El beneficiario no ha terminado la formación').open()
+                        else:
+                            class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
+                    else:
+                        class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
 
     def changeWindow(self, *args):
         pass
@@ -210,9 +228,21 @@ class PlanDeImplementacionButton(class_declaration.PopupFather):
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            PlanDeImplementacion.PlanDeImplementacionScreen.form_title = "Plan de Implementación"
-            self.dismiss()
-            self.changeWindow()
+            projects = querys.payeeProjects(querys.idProject(self.project.lower()))
+            if not args[0].text in projects:
+                class_declaration.MessagePopup('El beneficiario no tiene caracterización básica').open()
+            else:
+                if querys.obtener_estado(args[0].text) == 2:
+                    class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
+                else:
+                    if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
+                        if querys.numero_de_monitoreo(args[0].text) == 2:
+                            self.changeWindow()
+                            self.dismiss()
+                        else:
+                            class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
+                    else:
+                        class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
 
     def changeWindow(self, *args):
         pass
@@ -257,7 +287,6 @@ class PlanDeFormacionButton(class_declaration.PopupFather):
 
                                     elif completada == 1:
                                         completados += 1
-
                                 ActividadDeFormacion.ActividadDeFormacionScreen.actividades = actividades_string
                                 ActividadDeFormacion.ActividadDeFormacionScreen.payeeDocument = args[0].text
                                 ActividadDeFormacion.ActividadDeFormacionScreen.project = self.project
@@ -301,9 +330,21 @@ class PlanDeSeguimientoButton(class_declaration.PopupFather):
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            PlanDeImplementacion.PlanDeImplementacionScreen.form_title = "Plan de Seguimiento"
-            self.dismiss()
-            self.changeWindow()
+            projects = querys.payeeProjects(querys.idProject(self.project.lower()))
+            if not args[0].text in projects:
+                class_declaration.MessagePopup('El beneficiario no tiene caracterización básica').open()
+            else:
+                if querys.obtener_estado(args[0].text) == 3:
+                    class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
+                else:
+                    if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
+                        if querys.numero_de_monitoreo(args[0].text) == 3:
+                            self.changeWindow()
+                            self.dismiss()
+                        else:
+                            class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
+                    else:
+                        class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
 
     def changeWindow(self, *args):
         pass

@@ -46,7 +46,7 @@ class ActividadDeFormacionScreen(Screen):
 
     def selectActivity(self, *args):
         if args[1] != "Actividad De Formación":
-            SeleccionarActividad(self.payeeDocument, querys.idProject(self.project.lower()), args[1]).open()
+            SeleccionarActividad(self.payeeDocument, querys.idProject(self.project.lower()), args[1], self.operator, self.actividades_faltantes).open()
 
 
 class SeleccionarActividad(class_declaration.PopupFather):
@@ -57,10 +57,12 @@ class SeleccionarActividad(class_declaration.PopupFather):
         self.document = args[0]
         self.project = args[1]
         self.actividad = args[2]
-        self.id_date.bind(on_text_validate=self.on_validate)
+        self.operator = args[3]
+        self.faltantes = args[4]
+        self.id_date.bind(on_release=self.on_validate)
 
     def on_pre_open(self):
-        self.title = f"Ingrese la meta de la actividad"
+        self.title = f"{self.operator} ¿Está seguro de registrar esta actividad?"
 
     def on_validate(self, *args):
         act = self.actividad.split(' ')[:-1]
@@ -68,6 +70,8 @@ class SeleccionarActividad(class_declaration.PopupFather):
         act = querys.traer_id_de_actividad_de_formacion(act)
         querys.dar_actividad_de_formacion_como_finalizada(self.document, self.project, act, str(datetime.date.today()))
         class_declaration.MessagePopup('La actividad ha sido registrada').open()
+        if self.faltantes == 1:
+            querys.dar_terminada_formacion(self.document, self.project)
         self.changeWindow()
         self.dismiss()
 

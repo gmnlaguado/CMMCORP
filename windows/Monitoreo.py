@@ -60,6 +60,7 @@ class MonitoreoScreen(Screen):
         self.id_houseAge.values = querys.parametricList('houseAge')
         self.id_asociacion_mujeres.values = querys.parametricList('yesNo')
         self.scroll_complete = False
+        self.id_homeButton.bind(on_press=self.setHome)
 
         self.id_signInButton.bind(on_release=self.checkAll)
         self.id_belongToAssosiation.bind(text=self.pertenecer_asociacion)
@@ -198,6 +199,9 @@ class MonitoreoScreen(Screen):
         self.id_householdExpenses.bind(on_release=self.openPopupGastos)
         self.id_householdIncomes.bind(on_release=self.openPopupIngresos)
 
+    def setHome(self, *args):
+        self.home = True
+
     def ingresar_programa(self, *args):
         if args[1] == "no":
             self.text_cual_programa.complete = True
@@ -304,7 +308,8 @@ class MonitoreoScreen(Screen):
         IngresosDelGrupoFamiliarPopup().open()
 
     def on_leave(self, *args):
-        dataFormating.monitoreo(self)
+        if not self.home:
+            dataFormating.monitoreo(self)
 
 
 class TextInputScroll(TextInput):
