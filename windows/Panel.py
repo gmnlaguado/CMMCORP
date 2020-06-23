@@ -3,7 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, upload_process
 from windows import PlanDeImplementacion, InformacionGeneral, DiagnosticoPerfilProductivo, UnidadDeNegocio, \
-    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion, DiagnosticoEmpresarial
+    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion, DiagnosticoEmpresarial, ActividadDeFormacion
 
 
 class PanelScreen(Screen):
@@ -244,8 +244,31 @@ class PlanDeFormacionButton(class_declaration.PopupFather):
                     if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
                         if querys.numero_de_monitoreo(args[0].text) == 1:
                             if querys.plan_de_formacion_habilitado(args[0].text) == 2:
-                                self.dismiss()
-                                self.changeWindow()
+                                actividades = querys.traer_actividades_formacion(args[0].text, querys.idProject(self.project.lower()))
+                                actividades_string = []
+                                completados, faltantes = 0, 0
+                                for activ in actividades:
+                                    num, fecha, completada = activ
+                                    if completada == 2:
+                                        faltantes += 1
+                                        num = querys.traer_descripcion_actividad_formacion(num)
+                                        string_mostrar = num + ' ' + fecha
+                                        actividades_string.append(string_mostrar)
+
+                                    elif completada == 1:
+                                        completados += 1
+
+                                ActividadDeFormacion.ActividadDeFormacionScreen.actividades = actividades_string
+                                ActividadDeFormacion.ActividadDeFormacionScreen.payeeDocument = args[0].text
+                                ActividadDeFormacion.ActividadDeFormacionScreen.project = self.project
+                                ActividadDeFormacion.ActividadDeFormacionScreen.actividades_faltantes = faltantes
+                                ActividadDeFormacion.ActividadDeFormacionScreen.actividades_realizadas = completados
+                                if faltantes == 0:
+                                    class_declaration.MessagePopup('El beneficiario ya realizó todas las actividades').open()
+                                else:
+                                    self.dismiss()
+                                    self.changeWindow()
+
                             else:
                                 PlanDeFormacion.PlanDeFormacionScreen.payeeDocument = args[0].text
                                 self.dismiss()

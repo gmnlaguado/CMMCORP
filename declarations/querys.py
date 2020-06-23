@@ -289,3 +289,24 @@ def traer_id_de_actividad_de_formacion(actividad):
 def cargar_plan_de_formacion(info):
     db = MyDB('register')
     db.commit("INSERT INTO plan_de_formacion VALUES (?,?,?,?,?,?,?,?,?)", info)
+
+
+def traer_actividades_formacion(beneficiario, proyecto):
+    db = MyDB('register')
+    result = db.query("SELECT id_actividad, fecha_actividad, completada FROM plan_de_formacion WHERE beneficiario = :beneficiario AND proyecto = :proyecto",{'beneficiario': beneficiario, 'proyecto': proyecto}).fetchall()
+    if result is not None:
+        return [list(res) for res in result]
+
+
+def traer_descripcion_actividad_formacion(id_actividad):
+    db = MyDB('parametric')
+    result = db.query("SELECT description FROM educationPlan WHERE id = :id_actividad",
+                      {'id_actividad': id_actividad}).fetchone()
+    if result is not None:
+        return result[0]
+
+def dar_actividad_de_formacion_como_finalizada(beneficiario, project, actividad, fecha):
+    db = MyDB('register')
+    db.commit("UPDATE plan_de_formacion SET completada = 1, fecha_realizada = :fecha WHERE beneficiario = :beneficiario AND proyecto = :project AND id_actividad = :actividad",
+              (fecha, beneficiario, project, actividad))
+

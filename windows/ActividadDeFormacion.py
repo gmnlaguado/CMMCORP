@@ -1,7 +1,8 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import class_declaration
+from declarations import class_declaration, querys
+import datetime
 
 
 class ActividadDeFormacionScreen(Screen):
@@ -9,6 +10,9 @@ class ActividadDeFormacionScreen(Screen):
     operator = None
     payeeDocument = None
     home = False
+    actividades = []
+    actividades_realizadas = 0
+    actividades_faltantes = 0
 
     id_title = ObjectProperty()
     id_payee = ObjectProperty()
@@ -32,10 +36,17 @@ class ActividadDeFormacionScreen(Screen):
 
     def on_pre_enter(self, *args):
         self.id_activities.text = "Actividad De Formación"
+        self.id_activities.values = self.actividades
+        self.id_payee.text = f'Beneficiario {self.payeeDocument}'
+        self.id_payeeDocument.text = f'Proyecto: {self.project}'
+        self.id_done.text = f'A. realizadas {self.actividades_realizadas}'
+        self.id_pending.text = f'A. faltantes {self.actividades_faltantes}'
+        porcentaje = (self.actividades_realizadas/(self.actividades_faltantes + self.actividades_realizadas))*100
+        self.id_percentage.text = f'Porcentaje {porcentaje:.1f}%'
 
     def selectActivity(self, *args):
         if args[1] != "Actividad De Formación":
-            SeleccionarActividad().open()
+            SeleccionarActividad(self.payeeDocument, querys.idProject(self.project.lower()), args[1]).open()
 
 
 class SeleccionarActividad(class_declaration.PopupFather):
@@ -43,13 +54,25 @@ class SeleccionarActividad(class_declaration.PopupFather):
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
+        self.document = args[0]
+        self.project = args[1]
+        self.actividad = args[2]
         self.id_date.bind(on_text_validate=self.on_validate)
 
     def on_pre_open(self):
-        self.title = f"Ingrese la fecha a realizar la actividad"
+        self.title = f"Ingrese la meta de la actividad"
 
     def on_validate(self, *args):
+        act = self.actividad.split(' ')[:-1]
+        act = ' '.join(act)
+        act = querys.traer_id_de_actividad_de_formacion(act)
+        querys.dar_actividad_de_formacion_como_finalizada(self.document, self.project, act, str(datetime.date.today()))
+        class_declaration.MessagePopup('La actividad ha sido registrada').open()
+        self.changeWindow()
         self.dismiss()
+
+    def changeWindow(self, *args):
+        pass
 
 
 class AcceptFormActividadDeFormacion(class_declaration.PopupFather):
