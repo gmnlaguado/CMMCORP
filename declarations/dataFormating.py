@@ -78,12 +78,9 @@ def GeneralInformationData(information):
 
 def payeeProjectsData(info, clean):
     if clean:
-        info.append(2)
-        info.append(2)
-        info.append(2)
-        info.append(2)
-        info.append(2)
-        info.append(2)
+        for i in range(6):
+            info.append(2)
+        info.append(1)
         info = tuple(info)
         querys.loadPayeeProjects(info)
 
@@ -263,6 +260,7 @@ def caracterizacion_ampliada(info):
     org.insert(0, unique_id)
     org = tuple(org)
     querys.cargar_caracterizacion_ampliada(org)
+    querys.modificar_etapa_del_proceso(info.payeeDocument, org[1], 2)
 
 
 def caracterizacion_ampliada_informacion_hijos(info, full_info):
@@ -436,7 +434,7 @@ def diagnostico_empresarial(info, monitoreo):
         info.puntaje_categoria[8],  # 12
         info.puntaje_total  # 13
     ]
-
+    org[0] = querys.idProject(info.project.lower())
     unique_id = org[0] + '__' + org[2] + '__' + org[1] + '__' + str(org[3])
     org.insert(0, unique_id)
     org = tuple(org)

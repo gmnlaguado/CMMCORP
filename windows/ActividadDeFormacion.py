@@ -72,6 +72,7 @@ class SeleccionarActividad(class_declaration.PopupFather):
         class_declaration.MessagePopup('La actividad ha sido registrada').open()
         if self.faltantes == 1:
             querys.dar_terminada_formacion(self.document, self.project)
+            querys.modificar_etapa_del_proceso(self.document, self.project, 3)
         self.changeWindow()
         self.dismiss()
 

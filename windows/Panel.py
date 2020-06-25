@@ -237,14 +237,22 @@ class PlanDeImplementacionButton(class_declaration.PopupFather):
                 else:
                     if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
                         if querys.numero_de_monitoreo(args[0].text) == 2:
-                            self.changeWindow()
-                            self.dismiss()
+                            if querys.plan_de_implementacion_habilitado(args[0].text) == 2:
+                                self.dismiss()
+                                self.changeWindow()
+                            else:
+                                PlanDeImplementacion.PlanDeImplementacionScreen.payeeDocument = args[0].text
+                                self.dismiss()
+                                self.changeToPlan()
                         else:
                             class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
                     else:
                         class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
 
     def changeWindow(self, *args):
+        pass
+
+    def changeToPlan(self, *args):
         pass
 
 
@@ -266,7 +274,7 @@ class PlanDeFormacionButton(class_declaration.PopupFather):
         else:
             projects = querys.payeeProjects(querys.idProject(self.project.lower()))
             if not args[0].text in projects:
-                class_declaration.MessagePopup('El beneficiario no tiene caracterización básica').open()
+                class_declaration.MessagePopup('El beneficiario no existe').open()
             else:
                 if querys.obtener_estado(args[0].text) == 2:
                     class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()

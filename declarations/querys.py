@@ -136,7 +136,7 @@ def loadPayee(info):
 
 def loadPayeeProjects(info):
     db = MyDB('register')
-    db.commit("INSERT INTO beneficiario_proyectos VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO beneficiario_proyectos VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
 
 
 def loadProductionProfileDiag(info):
@@ -336,4 +336,17 @@ def comprobar_plan_de_formacion(beneficiario, project):
                       {'beneficiario': beneficiario, 'project': project}).fetchone()
     if result is not None:
         return result[0]
+
+
+def traer_puntajes_diagnostico(beneficiario, project):
+    db = MyDB('register')
+    result = db.query("SELECT categoria_1, categoria_2, categoria_3, categoria_4, categoria_5, categoria_6, categoria_7, categoria_8, categoria_9  FROM diagnostico_empresarial WHERE fk_beneficiario = :beneficiario AND fk_proyecto = :project",
+        {'beneficiario': beneficiario, 'project': project}).fetchone()
+    return list(result)
+
+
+def modificar_etapa_del_proceso(beneficiario, project, etapa):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET etapa_del_proceso = :etapa WHERE payeeDocument = :beneficiario AND project = :project",
+        (etapa, beneficiario, project))
 

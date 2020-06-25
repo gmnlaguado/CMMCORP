@@ -62,6 +62,7 @@ class MyApp(App):
         Factory.CaracterizacionAmpliadaButton.changeWindow = self.changeToCaracterizacionAmpliada
         Factory.MonitoreoButton.changeWindow = self.changeToMonitoreo
         Factory.PlanDeImplementacionButton.changeWindow = self.changeToActividadDeImplementacion
+        Factory.PlanDeImplementacionButton.changeToPlan = self.changeToPlanDeImplementacion
         Factory.PlanDeFormacionButton.changeWindow = self.changeToActividadDeFormacion
         Factory.PlanDeSeguimientoButton.changeWindow = self.changeToPlanDeImplementacion
 
