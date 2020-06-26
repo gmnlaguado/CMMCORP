@@ -7,6 +7,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.checkbox import CheckBox
+from kivy.uix.button import Button
 
 
 class ActividadDeImplementacionScreen(Screen):
@@ -25,6 +26,8 @@ class ActividadDeImplementacionScreen(Screen):
         super().__init__(**kwargs)
         self.id_title.text = "Actividad de Implementación"
         self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+        button_1 = ButtonScroll(text="Ingresar")
+        self.id_container_grid.add_widget(button_1)
         spinner_1 = SpinnerScroll(text="Tipo de visita", values=["si", "no"])
         self.id_container_grid.add_widget(spinner_1)
         label_1 = LabelScroll(text="Si elige otro, indique la dirección")
@@ -77,6 +80,22 @@ class SpinnerScroll(Spinner):
         self.background_normal = ""
         self.complete = False
         self.class_type = "spinner"
+
+
+class ButtonScroll(Spinner):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.size = (673, 40)
+        self.font_size = 24
+        self.font_name = "montserrat"
+        self.color = (1, 1, 1, 1)
+        self.size_hint = (None, None)
+        self.halign = "center"
+        self.valign = "middle"
+        self.background_color = (61 / 255, 119 / 255, 0 / 255, 0.7)
+        self.background_normal = ""
+        self.complete = False
+        self.class_type = "button"
 
 
 class LabelScroll(Label):

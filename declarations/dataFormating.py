@@ -463,8 +463,20 @@ def plan_de_formacion(info):
     querys.deshabilitar_plan_de_formacion(info.payeeDocument, querys.idProject(info.project.lower()))
 
 
-
-
-
-
+def plan_de_implementacion(info):
+    resp = info.total_plan
+    org = [
+        info.project,  # 0
+        info.payeeDocument,  # 1
+        info.operator
+    ]
+    org[0] = querys.idProject(info.project.lower())
+    unique_id = org[0] + '__' + org[2] + '__' + org[1]
+    org.insert(0, unique_id)
+    for re in resp:
+        for rr in re:
+            org.append(rr)
+    org = tuple(org)
+    querys.plan_de_implementacion(org)
+    querys.deshabilitar_plan_de_implementacion(info.payeeDocument, querys.idProject(info.project.lower()))
 

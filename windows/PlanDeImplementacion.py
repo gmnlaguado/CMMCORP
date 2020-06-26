@@ -4,6 +4,7 @@ from kivy.properties import ObjectProperty
 from kivy.uix.textinput import TextInput
 from declarations import querys, class_declaration
 from kivy.uix.label import Label
+from declarations import dataFormating
 
 
 class PlanDeImplementacionScreen(Screen):
@@ -29,7 +30,29 @@ class PlanDeImplementacionScreen(Screen):
         self.id_signInButton.bind(on_release=self.checkAll)
 
     def checkAll(self, *args):
-        AcceptFormPlanDeImplementacion(self.operator).open()
+        self.id_message.text = ""
+        hijos = self.id_container_grid.children
+        categoria, total_plan = [], []
+        informacion_categoria, informacion_total = [], []
+        for son in hijos[::-1]:
+            try:
+                if son.class_type == "input":
+                    informacion_categoria.append(son.text)
+                    categoria.append(son.complete)
+                    if len(categoria) == 3:
+                        informacion_total.append(informacion_categoria)
+                        total_plan.append(categoria)
+                        categoria = []
+                        informacion_categoria = []
+            except AttributeError:
+                pass
+
+        for cat in total_plan:
+            if False in cat:
+                self.id_message.text = "Faltan campos por diligenciar"
+        if self.id_message.text == "":
+            self.total_plan = informacion_total
+            AcceptFormPlanDeImplementacion(self.operator).open()
 
     def on_pre_enter(self, *args):
         if self.form_title is not None:
@@ -55,6 +78,9 @@ class PlanDeImplementacionScreen(Screen):
             data_2 = TextInputScrollData()
             self.id_container_grid.add_widget(data_2)
 
+    def on_leave(self, *args):
+        dataFormating.plan_de_implementacion(self)
+
 
 class TextInputScroll(TextInput):
     def __init__(self, *args, **kwargs):
@@ -70,6 +96,10 @@ class TextInputScroll(TextInput):
         self.complete = False
         self.class_type = "input"
         self.multiline = False
+
+    def on_text_validate(self, *args):
+        self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        self.complete = True
 
 
 class TextInputScrollData(TextInput):
@@ -87,6 +117,10 @@ class TextInputScrollData(TextInput):
         self.class_type = "input"
         self.multiline = False
         self.hint_text = "DD/MM/AAAA"
+
+    def on_text_validate(self, *args):
+        self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        self.complete = True
 
 
 class AcceptFormPlanDeImplementacion(class_declaration.PopupFather):

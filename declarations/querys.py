@@ -277,6 +277,11 @@ def deshabilitar_plan_de_formacion(beneficiario, project):
     db.commit("UPDATE beneficiario_proyectos SET plan_de_formacion = 2 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
 
 
+def deshabilitar_plan_de_implementacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET plan_de_implementacion = 2 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
+
+
 def obtener_estado(beneficiario):
     db = MyDB('register')
     result = db.query("SELECT status FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
@@ -350,3 +355,7 @@ def modificar_etapa_del_proceso(beneficiario, project, etapa):
     db.commit("UPDATE beneficiario_proyectos SET etapa_del_proceso = :etapa WHERE payeeDocument = :beneficiario AND project = :project",
         (etapa, beneficiario, project))
 
+
+def plan_de_implementacion(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO plan_de_implementacion VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
