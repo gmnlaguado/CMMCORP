@@ -38,7 +38,7 @@ class ActividadDeImplementacionScreen(Screen):
         self.id_container_grid.add_widget(label_1)
         input_1 = TextInputScroll()
         self.id_container_grid.add_widget(input_1)
-        spinner_2 = SpinnerScroll(text="Plan de Inversiones", values=querys.parametricList('yesNo'))
+        spinner_2 = SpinnerScroll(text="Plan de Inversiones", values=querys.parametricList('plan_de_inversiones'))
         self.id_container_grid.add_widget(spinner_2)
         label_2 = LabelScroll(text="Observaciones")
         self.id_container_grid.add_widget(label_2)
@@ -52,10 +52,10 @@ class ActividadDeImplementacionScreen(Screen):
         contain.add_widget(check)
         self.id_container_grid.add_widget(contain)
 
-        spinner_3 = SpinnerScroll(text="¿Seguimiento al desembolso?", values=querys.parametricList('yesNo'))
+        spinner_3 = SpinnerScroll(text="¿Seguimiento al desembolso?", values=querys.parametricList('seguimiento_desembolso'))
         self.id_container_grid.add_widget(spinner_3)
 
-        spinner_4 = SpinnerScroll(text="En caso de alerta ¿Cuál?", values=querys.parametricList('yesNo'))
+        spinner_4 = SpinnerScroll(text="En caso de alerta ¿Cuál?", values=querys.parametricList('alerta_seguimiento'))
         self.id_container_grid.add_widget(spinner_4)
 
         label_4 = LabelScroll(text="Si elige otro, por favor explique")
