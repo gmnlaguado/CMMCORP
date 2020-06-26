@@ -16,6 +16,8 @@ class ActividadDeImplementacionScreen(Screen):
     operator = None
     payeeDocument = None
     home = False
+    estados_metas = []
+    metas_terminadas = False
 
     id_title = ObjectProperty()
     id_payeeName = ObjectProperty()
@@ -28,6 +30,7 @@ class ActividadDeImplementacionScreen(Screen):
         self.id_title.text = "Actividad de Implementación"
         self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
         button_1 = ButtonScroll(text="Ingresar")
+        button_1.bind(on_release=self.estados)
         self.id_container_grid.add_widget(button_1)
         spinner_1 = SpinnerScroll(text="Tipo de visita", values=querys.parametricList('tipo_visita'))
         self.id_container_grid.add_widget(spinner_1)
@@ -62,6 +65,9 @@ class ActividadDeImplementacionScreen(Screen):
         self.id_container_grid.add_widget(input_3)
 
         self.id_signInButton.bind(on_release=self.checkAll)
+
+    def estados(self, *args):
+        Estado_de_metas().open()
 
     def checkAll(self, *args):
         AcceptFormActividadDeImplementacion(self.operator, self.payeeDocument, self.project).open()
@@ -155,3 +161,67 @@ class AcceptFormActividadDeImplementacion(class_declaration.PopupFather):
 
     def changeWindow(self, *args):
         pass
+
+
+class Estado_de_metas(class_declaration.PopupFather):
+    id_container_grid = ObjectProperty()
+    id_botonAceptar = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.title = "Estado de las metas"
+
+    def on_open(self):
+        self.id_botonAceptar.bind(on_release=self.accionAceptar)
+        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+        categories = querys.parametricList('businessDiagnosisCategories')
+
+        for cat in categories:
+            lab_1 = Label(text=cat, halign="center", valign="middle", size_hint=(None, None),
+                          size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                          text_size=(318, 40))
+            lab_2 = Label(text='Esto es el ejemplo de una meta, ahora la única meta que tengo es...', halign="center", valign="middle", size_hint=(None, None),
+                          size=(400, 40), color=(0, 0, 0, 0.85), font_size=14, font_name="montserrat",
+                          text_size=(400, 40))
+            spin_gen = SpinnerScroll_short(text='Estado de la meta', values=querys.parametricList('estado_meta'))
+
+            self.id_container_grid.add_widget(lab_1)
+            self.id_container_grid.add_widget(lab_2)
+            self.id_container_grid.add_widget(spin_gen)
+
+    def accionAceptar(self, *args):
+        dili,answ = [], []
+        for idx, childs in enumerate(self.id_container_grid.children):
+            if idx % 3 == 0:
+                dili.append(childs.diligenciado)
+                if childs.diligenciado:
+                    answ.append(childs.text)
+        if False in dili:
+            ActividadDeImplementacionScreen.metas_terminadas = False
+        else:
+            ActividadDeImplementacionScreen.estados_metas = answ
+            ActividadDeImplementacionScreen.metas_terminadas = True
+            self.dismiss()
+
+
+class SpinnerScroll_short(Spinner):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.background_normal = "images/dropdown_scroll.png"
+        self.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
+        self.halign = "center"
+        self.valign = "middle"
+        self.size_hint = (None, None)
+        self.size = (318, 40)
+        self.color = (1, 1, 1, 1)
+        self.font_size = 20
+        self.font_name = "montserrat"
+        self.text_size = (318, 40)
+        self.diligenciado = False
+        self.id = 'Spinner'
+        self.class_type = "spinner"
+
+    def on_text(self, *args):
+        self.background_color = 11 / 255, 69 / 255, 0 / 255, 0.7
+        self.diligenciado = True
+
