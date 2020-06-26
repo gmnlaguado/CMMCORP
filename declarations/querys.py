@@ -222,7 +222,7 @@ def lista_de_caracterizaciones(project):
 
 def cargar_monitoreo(info):
     db = MyDB('register')
-    db.commit("INSERT INTO monitoreo VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO monitoreo VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
 
 
 def cargar_diagnostico_empresarial(info):
@@ -335,9 +335,22 @@ def dar_terminada_formacion(beneficiario, project):
     db.commit("UPDATE beneficiario_proyectos SET concluido_formacion = 1 WHERE payeeDocument = :beneficiario AND project = :project",(beneficiario, project))
 
 
+def dar_terminada_implementacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET concluido_implementacion = 1 WHERE payeeDocument = :beneficiario AND project = :project",(beneficiario, project))
+
+
 def comprobar_plan_de_formacion(beneficiario, project):
     db = MyDB('register')
     result = db.query("SELECT concluido_formacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario AND project = :project",
+                      {'beneficiario': beneficiario, 'project': project}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def comprobar_plan_de_implementacion(beneficiario, project):
+    db = MyDB('register')
+    result = db.query("SELECT concluido_implementacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario AND project = :project",
                       {'beneficiario': beneficiario, 'project': project}).fetchone()
     if result is not None:
         return result[0]

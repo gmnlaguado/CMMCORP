@@ -8,6 +8,7 @@ from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.checkbox import CheckBox
 from kivy.uix.button import Button
+from windows import Monitoreo
 
 
 class ActividadDeImplementacionScreen(Screen):
@@ -144,6 +145,11 @@ class AcceptFormActividadDeImplementacion(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         querys.sumar_una_actividad(self.payee, self.project)
+        visitas = list(querys.ver_cuantas_visitas(self.payee, self.project))
+        if visitas[1] == visitas[0]:
+            querys.dar_terminada_implementacion(self.payee, self.project)
+            Monitoreo.MonitoreoScreen.numero_de_monitoreo = 2
+            querys.modificar_etapa_del_proceso(self.payee, self.project, 4)
         self.dismiss()
         self.changeWindow()
 

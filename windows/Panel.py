@@ -196,15 +196,20 @@ class MonitoreoButton(class_declaration.PopupFather):
                     if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
                         if querys.numero_de_monitoreo(args[0].text) == 1:
                             if querys.comprobar_plan_de_formacion(args[0].text, querys.idProject(self.project.lower())) == 1:
-                                Monitoreo.MonitoreoScreen.numero_de_monitoreo = 2
                                 Monitoreo.MonitoreoScreen.payeeDocument = args[0].text
                                 DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen.payeeDocument = args[0].text
+                                Monitoreo.MonitoreoScreen.numero_de_monitoreo = 2
                                 self.changeWindow()
                                 self.dismiss()
                             else:
                                 class_declaration.MessagePopup('El beneficiario no ha terminado la formación').open()
                         else:
-                            class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
+                            print(querys.comprobar_plan_de_implementacion(args[0].text, querys.idProject(self.project.lower())))
+                            if querys.comprobar_plan_de_implementacion(args[0].text, querys.idProject(self.project.lower())) == 1:
+                                self.changeWindow()
+                                self.dismiss()
+                            else:
+                                class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
                     else:
                         class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
 
@@ -244,7 +249,7 @@ class PlanDeImplementacionButton(class_declaration.PopupFather):
                                     self.dismiss()
                                     self.changeWindow()
                                 else:
-                                    class_declaration.MessagePopup('El beneficiario ya completó el seguimiento').open()
+                                    class_declaration.MessagePopup('El beneficiario ya completó la implementación').open()
                             else:
                                 PlanDeImplementacion.PlanDeImplementacionScreen.payeeDocument = args[0].text
                                 self.dismiss()

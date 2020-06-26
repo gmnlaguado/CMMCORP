@@ -160,7 +160,7 @@ class numero_de_visitas_implementacion(class_declaration.PopupFather):
         self.id_visitas.bind(text=self.on_selection)
 
     def on_pre_open(self):
-        self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
+        self.title = f"ODP {self.operator} ingrese la cantidad de visitas de implementación"
 
     def on_selection(self, *args):
         PlanDeImplementacionScreen.numero_de_vis = int(args[1])

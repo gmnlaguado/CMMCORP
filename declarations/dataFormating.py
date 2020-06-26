@@ -407,6 +407,7 @@ def monitoreo(info):
     for item in lista_texts:
         org.append(item)
 
+    org.append(str(datetime.date.today()))
     org = tuple(org)
     querys.cargar_monitoreo(org)
 
