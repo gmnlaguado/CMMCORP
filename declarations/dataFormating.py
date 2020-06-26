@@ -468,7 +468,9 @@ def plan_de_implementacion(info):
     org = [
         info.project,  # 0
         info.payeeDocument,  # 1
-        info.operator
+        info.operator,
+        info.numero_de_vis,
+        0
     ]
     org[0] = querys.idProject(info.project.lower())
     unique_id = org[0] + '__' + org[2] + '__' + org[1]

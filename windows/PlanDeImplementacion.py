@@ -2,7 +2,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from kivy.uix.textinput import TextInput
-from declarations import querys, class_declaration
+from declarations import querys, class_declaration, checkings
 from kivy.uix.label import Label
 from declarations import dataFormating
 
@@ -13,6 +13,7 @@ class PlanDeImplementacionScreen(Screen):
     operator = None
     payeeDocument = None
     home = False
+    numero_de_vis = 0
 
     id_title = ObjectProperty()
     id_container_grid = ObjectProperty()
@@ -52,7 +53,7 @@ class PlanDeImplementacionScreen(Screen):
                 self.id_message.text = "Faltan campos por diligenciar"
         if self.id_message.text == "":
             self.total_plan = informacion_total
-            AcceptFormPlanDeImplementacion(self.operator).open()
+            numero_de_visitas_implementacion(self.operator).open()
 
     def on_pre_enter(self, *args):
         if self.form_title is not None:
@@ -98,8 +99,12 @@ class TextInputScroll(TextInput):
         self.multiline = False
 
     def on_text_validate(self, *args):
-        self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
-        self.complete = True
+        if checkings.text(self.text):
+            self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+            self.complete = True
+        else:
+            self.background_color = (255 / 255, 255 / 255, 255 / 255, 1)
+            self.complete = False
 
 
 class TextInputScrollData(TextInput):
@@ -119,8 +124,12 @@ class TextInputScrollData(TextInput):
         self.hint_text = "DD/MM/AAAA"
 
     def on_text_validate(self, *args):
-        self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
-        self.complete = True
+        if checkings.date(self.text):
+            self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+            self.complete = True
+        else:
+            self.background_color = (255 / 255, 255 / 255, 255 / 255, 1)
+            self.complete = False
 
 
 class AcceptFormPlanDeImplementacion(class_declaration.PopupFather):
@@ -140,3 +149,20 @@ class AcceptFormPlanDeImplementacion(class_declaration.PopupFather):
 
     def changeWindow(self, *args):
         pass
+
+
+class numero_de_visitas_implementacion(class_declaration.PopupFather):
+    id_visitas = ObjectProperty()
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.operator = args[0]
+        self.id_visitas.bind(text=self.on_selection)
+
+    def on_pre_open(self):
+        self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
+
+    def on_selection(self, *args):
+        PlanDeImplementacionScreen.numero_de_vis = int(args[1])
+        self.dismiss()
+        AcceptFormPlanDeImplementacion(self.operator).open()

@@ -358,4 +358,27 @@ def modificar_etapa_del_proceso(beneficiario, project, etapa):
 
 def plan_de_implementacion(info):
     db = MyDB('register')
-    db.commit("INSERT INTO plan_de_implementacion VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+    db.commit("INSERT INTO plan_de_implementacion VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def sumar_una_actividad(beneficiario, project):
+    db = MyDB('register')
+    result = db.query("SELECT numero_realizadas FROM plan_de_implementacion WHERE payeeDocument = :beneficiario AND project = :project",
+        {'beneficiario': beneficiario, 'project': project}).fetchone()
+    if result is not None:
+        result = result[0]
+        result += 1
+        db.commit("UPDATE plan_de_implementacion SET numero_realizadas = :result WHERE payeeDocument = :beneficiario AND project = :project",
+            (result, beneficiario, project))
+
+
+def ver_cuantas_visitas(beneficiario, project):
+    db = MyDB('register')
+    result = db.query(
+        "SELECT numero_de_visitas, numero_realizadas FROM plan_de_implementacion WHERE payeeDocument = :beneficiario AND project = :project",
+        {'beneficiario': beneficiario, 'project': project}).fetchone()
+    return result
+
+
+
+

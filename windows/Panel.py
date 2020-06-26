@@ -3,7 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, upload_process
 from windows import PlanDeImplementacion, InformacionGeneral, DiagnosticoPerfilProductivo, UnidadDeNegocio, \
-    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion, DiagnosticoEmpresarial, ActividadDeFormacion
+    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion, DiagnosticoEmpresarial, ActividadDeFormacion, ActividadDeImplementacion
 
 
 class PanelScreen(Screen):
@@ -238,8 +238,13 @@ class PlanDeImplementacionButton(class_declaration.PopupFather):
                     if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
                         if querys.numero_de_monitoreo(args[0].text) == 2:
                             if querys.plan_de_implementacion_habilitado(args[0].text) == 2:
-                                self.dismiss()
-                                self.changeWindow()
+                                ActividadDeImplementacion.ActividadDeImplementacionScreen.payeeDocument = args[0].text
+                                visitas = list(querys.ver_cuantas_visitas(args[0].text, querys.idProject(self.project.lower())))
+                                if visitas[1] < visitas[0]:
+                                    self.dismiss()
+                                    self.changeWindow()
+                                else:
+                                    class_declaration.MessagePopup('El beneficiario ya completó el seguimiento').open()
                             else:
                                 PlanDeImplementacion.PlanDeImplementacionScreen.payeeDocument = args[0].text
                                 self.dismiss()

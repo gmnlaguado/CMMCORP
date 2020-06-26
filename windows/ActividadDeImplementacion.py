@@ -1,7 +1,7 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import class_declaration
+from declarations import class_declaration, querys
 from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from kivy.uix.label import Label
@@ -28,13 +28,13 @@ class ActividadDeImplementacionScreen(Screen):
         self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
         button_1 = ButtonScroll(text="Ingresar")
         self.id_container_grid.add_widget(button_1)
-        spinner_1 = SpinnerScroll(text="Tipo de visita", values=["si", "no"])
+        spinner_1 = SpinnerScroll(text="Tipo de visita", values=querys.parametricList('tipo_visita'))
         self.id_container_grid.add_widget(spinner_1)
         label_1 = LabelScroll(text="Si elige otro, indique la dirección")
         self.id_container_grid.add_widget(label_1)
         input_1 = TextInputScroll()
         self.id_container_grid.add_widget(input_1)
-        spinner_2 = SpinnerScroll(text="Plan de Inversiones", values=["si", "no"])
+        spinner_2 = SpinnerScroll(text="Plan de Inversiones", values=querys.parametricList('yesNo'))
         self.id_container_grid.add_widget(spinner_2)
         label_2 = LabelScroll(text="Observaciones")
         self.id_container_grid.add_widget(label_2)
@@ -48,10 +48,10 @@ class ActividadDeImplementacionScreen(Screen):
         contain.add_widget(check)
         self.id_container_grid.add_widget(contain)
 
-        spinner_3 = SpinnerScroll(text="¿Seguimiento al desembolso?", values=["si", "no"])
+        spinner_3 = SpinnerScroll(text="¿Seguimiento al desembolso?", values=querys.parametricList('yesNo'))
         self.id_container_grid.add_widget(spinner_3)
 
-        spinner_4 = SpinnerScroll(text="En caso de alerta ¿Cuál?", values=["si", "no"])
+        spinner_4 = SpinnerScroll(text="En caso de alerta ¿Cuál?", values=querys.parametricList('yesNo'))
         self.id_container_grid.add_widget(spinner_4)
 
         label_4 = LabelScroll(text="Si elige otro, por favor explique")
@@ -63,7 +63,7 @@ class ActividadDeImplementacionScreen(Screen):
         self.id_signInButton.bind(on_release=self.checkAll)
 
     def checkAll(self, *args):
-        AcceptFormActividadDeImplementacion(self.operator).open()
+        AcceptFormActividadDeImplementacion(self.operator, self.payeeDocument, self.project).open()
 
 
 class SpinnerScroll(Spinner):
@@ -82,7 +82,7 @@ class SpinnerScroll(Spinner):
         self.class_type = "spinner"
 
 
-class ButtonScroll(Spinner):
+class ButtonScroll(Button):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.size = (673, 40)
@@ -135,12 +135,15 @@ class AcceptFormActividadDeImplementacion(class_declaration.PopupFather):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.operator = args[0]
+        self.payee = args[1]
+        self.project = querys.idProject(args[2].lower())
         self.id_acceptButton.bind(on_release=self.on_validate)
 
     def on_pre_open(self):
         self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
 
     def on_validate(self, *args):
+        querys.sumar_una_actividad(self.payee, self.project)
         self.dismiss()
         self.changeWindow()
 
