@@ -74,6 +74,7 @@ class SeleccionarActividad(class_declaration.PopupFather):
         if self.faltantes == 1:
             querys.dar_terminada_formacion(self.document, self.project)
             querys.modificar_etapa_del_proceso(self.document, self.project, 3)
+            querys.habilitar_monitoreo(self.document, self.project)
         self.changeWindow()
         self.dismiss()
 

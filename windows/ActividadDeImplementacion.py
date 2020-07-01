@@ -167,7 +167,7 @@ class AcceptFormActividadDeImplementacion(class_declaration.PopupFather):
         visitas = list(querys.ver_cuantas_visitas(self.payee, self.project))
         if visitas[1] == visitas[0]:
             querys.dar_terminada_implementacion(self.payee, self.project)
-            Monitoreo.MonitoreoScreen.numero_de_monitoreo = 3
+            querys.habilitar_monitoreo(self.payee, self.project)
             querys.modificar_etapa_del_proceso(self.payee, self.project, 4)
         self.dismiss()
         self.changeWindow()

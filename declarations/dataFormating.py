@@ -78,7 +78,7 @@ def GeneralInformationData(information):
 
 def payeeProjectsData(info, clean):
     if clean:
-        for i in range(6):
+        for i in range(7):
             info.append(2)
         info.append(1)
         info = tuple(info)
@@ -416,6 +416,8 @@ def monitoreo(info):
 
     if info.numero_de_monitoreo == 2:
         querys.habilitar_plan_de_implementacion(info.payeeDocument, querys.idProject(info.project.lower()))
+
+    querys.deshabilitar_monitoreo(info.payeeDocument, querys.idProject(info.project.lower()))
 
 
 def diagnostico_empresarial(info, monitoreo):

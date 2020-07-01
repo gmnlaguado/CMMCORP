@@ -183,34 +183,49 @@ class MonitoreoButton(class_declaration.PopupFather):
         self.title = f"ODP {self.operator} ingrese el número de documento del beneficiario"
 
     def on_validate(self, *args):
+
+        # Variables
+        beneficiario = args[0].text
+        proyecto = querys.idProject(self.project.lower())
+        monitoreo_habilitado = False
+
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            projects = querys.payeeProjects(querys.idProject(self.project.lower()))
-            if not args[0].text in projects:
+            projects = querys.payeeProjects(proyecto)
+            if not beneficiario in projects:
                 class_declaration.MessagePopup('El beneficiario no tiene caracterización básica').open()
             else:
-                if querys.obtener_estado(args[0].text) == 2:
+                if querys.obtener_estado(beneficiario) == 2:
                     class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
                 else:
-                    if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
-                        if querys.numero_de_monitoreo(args[0].text) == 1:
-                            if querys.comprobar_plan_de_formacion(args[0].text, querys.idProject(self.project.lower())) == 1:
-                                Monitoreo.MonitoreoScreen.payeeDocument = args[0].text
-                                DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen.payeeDocument = args[0].text
-                                Monitoreo.MonitoreoScreen.numero_de_monitoreo = 2
-                                self.changeWindow()
-                                self.dismiss()
-                            else:
-                                class_declaration.MessagePopup('El beneficiario no ha terminado la formación').open()
+                    if beneficiario in querys.lista_de_caracterizaciones(proyecto):
+
+                        # Asignación de beneficiario a monitoreo y diagnostico empresarial
+                        Monitoreo.MonitoreoScreen.payeeDocument = beneficiario
+                        DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen.payeeDocument = beneficiario
+
+                        # Ya hizo todas las actividades de implementación
+                        if querys.comprobar_monitoreo(beneficiario, proyecto) == 1 and \
+                                querys.comprobar_plan_de_implementacion(beneficiario, proyecto) == 1:
+                            Monitoreo.MonitoreoScreen.numero_de_monitoreo = 3
+                            monitoreo_habilitado = True
+
+                        # Ya hizo todas las actividades de formación
+                        elif querys.comprobar_monitoreo(beneficiario, proyecto) == 1 and \
+                                querys.comprobar_plan_de_formacion(beneficiario, proyecto) == 1:
+                            Monitoreo.MonitoreoScreen.numero_de_monitoreo = 2
+                            monitoreo_habilitado = True
+
                         else:
-                            if querys.comprobar_plan_de_implementacion(args[0].text, querys.idProject(self.project.lower())) == 1:
-                                self.changeWindow()
-                                self.dismiss()
-                            else:
-                                class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
+                            class_declaration.MessagePopup('El beneficiario no habilitado el monitoreo').open()
+
                     else:
                         class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
+
+        if monitoreo_habilitado:
+            self.changeWindow()
+            self.dismiss()
 
     def changeWindow(self, *args):
         pass
@@ -240,7 +255,7 @@ class PlanDeImplementacionButton(class_declaration.PopupFather):
                     class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
                 else:
                     if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
-                        if querys.numero_de_monitoreo(args[0].text) == 2:
+                        if querys.etapa_del_proceso(args[0].text) == 3:
                             if querys.plan_de_implementacion_habilitado(args[0].text) == 2:
                                 ActividadDeImplementacion.ActividadDeImplementacionScreen.payeeDocument = args[0].text
                                 visitas = list(querys.ver_cuantas_visitas(args[0].text, querys.idProject(self.project.lower())))
@@ -289,7 +304,7 @@ class PlanDeFormacionButton(class_declaration.PopupFather):
                     class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
                 else:
                     if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
-                        if querys.numero_de_monitoreo(args[0].text) == 1:
+                        if querys.etapa_del_proceso(args[0].text) == 2:
                             if querys.plan_de_formacion_habilitado(args[0].text) == 2:
                                 actividades = querys.traer_actividades_formacion(args[0].text, querys.idProject(self.project.lower()))
                                 actividades_string = []
@@ -355,7 +370,7 @@ class PlanDeSeguimientoButton(class_declaration.PopupFather):
                     class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
                 else:
                     if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
-                        if querys.numero_de_monitoreo(args[0].text) == 3:
+                        if querys.etapa_del_proceso(args[0].text) == 4 and querys.comprobar_monitoreo(args[0].text, querys.idProject(self.project.lower())) == 2:
                             self.changeWindow()
                             self.dismiss()
                         else:

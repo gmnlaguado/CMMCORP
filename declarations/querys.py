@@ -21,6 +21,9 @@ class MyDB(object):
         self._db_connection.close()
 
 
+# Register
+    # Select
+
 def idOperator(username):
     db = MyDB('register')
     result = db.query("SELECT document FROM odp_operario WHERE username = :username", {'username': username}).fetchone()
@@ -61,6 +64,266 @@ def projectsOperator(document):
 def nameProject(project):
     db = MyDB('register')
     result = db.query("SELECT name FROM proyectos WHERE id = :project", {'project': project}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def bringData(table):
+    db = MyDB('register')
+    result = db.parametricQuery("SELECT * FROM %s" % table).fetchall()
+    return result
+
+
+def tipo_de_beneficiario(beneficiario):
+    db = MyDB('register')
+    result = db.query("SELECT payeeType FROM informacion_general_beneficiario WHERE document = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def plan_de_formacion_habilitado(beneficiario):
+    db = MyDB('register')
+    result = db.query("SELECT plan_de_formacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def plan_de_implementacion_habilitado(beneficiario):
+    db = MyDB('register')
+    result = db.query("SELECT plan_de_implementacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def etapa_del_proceso(beneficiario):
+    db = MyDB('register')
+    result = db.query("SELECT etapa_del_proceso FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def traer_actividades_formacion(beneficiario, proyecto):
+    db = MyDB('register')
+    result = db.query("SELECT id_actividad, fecha_actividad, completada FROM plan_de_formacion WHERE beneficiario = :beneficiario AND proyecto = :proyecto",{'beneficiario': beneficiario, 'proyecto': proyecto}).fetchall()
+    if result is not None:
+        return [list(res) for res in result]
+
+
+def comprobar_plan_de_formacion(beneficiario, project):
+    db = MyDB('register')
+    result = db.query("SELECT concluido_formacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario AND project = :project",
+                      {'beneficiario': beneficiario, 'project': project}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def comprobar_plan_de_implementacion(beneficiario, project):
+    db = MyDB('register')
+    result = db.query("SELECT concluido_implementacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario AND project = :project",
+                      {'beneficiario': beneficiario, 'project': project}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def comprobar_monitoreo(beneficiario, project):
+    db = MyDB('register')
+    result = db.query(
+        "SELECT monitoreo FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario AND project = :project",
+        {'beneficiario': beneficiario, 'project': project}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+def traer_puntajes_diagnostico(beneficiario, project):
+    db = MyDB('register')
+    result = db.query("SELECT categoria_1, categoria_2, categoria_3, categoria_4, categoria_5, categoria_6, categoria_7, categoria_8, categoria_9  FROM diagnostico_empresarial WHERE fk_beneficiario = :beneficiario AND fk_proyecto = :project",
+        {'beneficiario': beneficiario, 'project': project}).fetchone()
+    return list(result)
+
+
+def ver_cuantas_visitas(beneficiario, project):
+    db = MyDB('register')
+    result = db.query(
+        "SELECT numero_de_visitas, numero_realizadas FROM plan_de_implementacion WHERE payeeDocument = :beneficiario AND project = :project",
+        {'beneficiario': beneficiario, 'project': project}).fetchone()
+    return result
+
+
+def traer_metas_implementacion(beneficiario, proyecto):
+    db = MyDB('register')
+    result = db.query("SELECT meta_1, meta_2, meta_3, meta_4, meta_5, meta_6, meta_7, meta_8, meta_9 FROM "
+                      "plan_de_implementacion WHERE payeeDocument = :beneficiario AND project = :project",
+        {'beneficiario': beneficiario, 'project': proyecto}).fetchone()
+    return list(result)
+
+
+def lista_de_caracterizaciones(project):
+    db = MyDB('register')
+    result = db.query("SELECT fkPayee FROM caracterizacion_ampliada WHERE fkProject = :project", {'project': project}).fetchall()
+    if result is not None:
+        return [res[0] for res in result]
+
+
+def obtener_estado(beneficiario):
+    db = MyDB('register')
+    result = db.query("SELECT status FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchone()
+    if result is not None:
+        return result[0]
+
+
+# Register
+    # Insert Into
+
+
+def loadPayee(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO informacion_general_beneficiario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def loadPayeeProjects(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO beneficiario_proyectos VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def loadProductionProfileDiag(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO diagnostico_de_perfil_productivo VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"
+              ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def loadBussinesIdea(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO idea_de_negocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def loadBussinesUnit(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO unidad_de_negocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def cargar_caracterizacion_ampliada(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO caracterizacion_ampliada VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def cargar_caracterizacion_ampliada_hijos(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO caracterizacion_ampliada_informacion_hijos VALUES (?,?,?,?,?,?,?,?)", info)
+
+
+def cargar_caracterizacion_ampliada_personas(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO caracterizacion_ampliada_informacion_personas_a_cargo VALUES (?,?,?,?,?,?,?,?)", info)
+
+
+def cargar_monitoreo(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO monitoreo VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def cargar_diagnostico_empresarial(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO diagnostico_empresarial VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def cargar_plan_de_formacion(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO plan_de_formacion VALUES (?,?,?,?,?,?,?,?,?)", info)
+
+
+def cargar_actividad_implementacion(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO actividad_implementacion VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+def plan_de_implementacion(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO plan_de_implementacion VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+# Register
+    # Update
+
+def habilitar_monitoreo(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET monitoreo = 1 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
+
+
+def habilitar_plan_de_formacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET plan_de_formacion = 1 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
+
+
+def habilitar_plan_de_implementacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET plan_de_implementacion = 1 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
+
+
+def deshabilitar_plan_de_formacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET plan_de_formacion = 2 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
+
+
+def deshabilitar_monitoreo(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET monitoreo = 2 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
+
+
+def deshabilitar_plan_de_implementacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET plan_de_implementacion = 2 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
+
+
+def inactivar_beneficiario(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET status = 2 WHERE payeeDocument = :beneficiario AND project = :project",
+        (beneficiario, project))
+
+
+def dar_actividad_de_formacion_como_finalizada(beneficiario, project, actividad, fecha):
+    db = MyDB('register')
+    db.commit("UPDATE plan_de_formacion SET completada = 1, fecha_realizada = :fecha WHERE beneficiario = :beneficiario AND proyecto = :project AND id_actividad = :actividad",
+              (fecha, beneficiario, project, actividad))
+
+
+def dar_terminada_formacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET concluido_formacion = 1 WHERE payeeDocument = :beneficiario AND project = :project",(beneficiario, project))
+
+
+def dar_terminada_implementacion(beneficiario, project):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET concluido_implementacion = 1 WHERE payeeDocument = :beneficiario AND project = :project",(beneficiario, project))
+
+
+def sumar_una_actividad(beneficiario, project):
+    db = MyDB('register')
+    result = db.query("SELECT numero_realizadas FROM plan_de_implementacion WHERE payeeDocument = :beneficiario AND project = :project",
+        {'beneficiario': beneficiario, 'project': project}).fetchone()
+    if result is not None:
+        result = result[0]
+        result += 1
+        db.commit("UPDATE plan_de_implementacion SET numero_realizadas = :result WHERE payeeDocument = :beneficiario AND project = :project",
+            (result, beneficiario, project))
+
+
+def modificar_etapa_del_proceso(beneficiario, project, etapa):
+    db = MyDB('register')
+    db.commit("UPDATE beneficiario_proyectos SET etapa_del_proceso = :etapa WHERE payeeDocument = :beneficiario AND project = :project",
+        (etapa, beneficiario, project))
+
+# Parametric
+    # Select
+
+
+def traer_id_de_actividad_de_formacion(actividad):
+    db = MyDB('parametric')
+    result = db.query("SELECT id FROM educationPlan WHERE description = :actividad",
+                      {'actividad': actividad}).fetchone()
     if result is not None:
         return result[0]
 
@@ -129,49 +392,12 @@ def bringNeighborhoods(city):
         return [res[0] for res in result]
 
 
-def loadPayee(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO informacion_general_beneficiario VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
-
-
-def loadPayeeProjects(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO beneficiario_proyectos VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
-
-
-def loadProductionProfileDiag(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO diagnostico_de_perfil_productivo VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?"
-              ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
-
-
-def loadBussinesIdea(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO idea_de_negocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
-
-
-def loadBussinesUnit(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO unidad_de_negocio VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
-
-
-def bringColumns(table):
-    db = MyDB('register')
-    result = db.parametricQuery("PRAGMA table_info(%s)" % table).fetchall()
-    if result is not None:
-        return [res[1] for res in result]
-
-
-def bringData(table):
-    db = MyDB('register')
-    result = db.parametricQuery("SELECT * FROM %s" % table).fetchall()
-    return result
-
 def bringProgramFromEducationPlan():
     db = MyDB('parametric')
     result = db.parametricQuery("SELECT program FROM educationPlan GROUP BY program").fetchall()
     if result is not None:
         return [res[0] for res in result]
+
 
 def bringLineFromEducationPlan(program):
     db = MyDB('parametric')
@@ -179,11 +405,13 @@ def bringLineFromEducationPlan(program):
     if result is not None:
         return [res[0] for res in result]
 
+
 def bringLevelFromEducationPlan(program, line):
     db = MyDB('parametric')
     result = db.parametricQuery("SELECT level FROM educationPlan WHERE program = '%s' AND line = '%s' GROUP BY level" % (program, line)).fetchall()
     if result is not None:
         return [res[0] for res in result]
+
 
 def bringDescriptionsFromEducationPlan(program, line, level):
     db = MyDB('parametric')
@@ -191,129 +419,12 @@ def bringDescriptionsFromEducationPlan(program, line, level):
     if result is not None:
         return [res[0] for res in result]
 
+
 def bringCIUU():
     db = MyDB('parametric')
     result = db.parametricQuery("SELECT id FROM ciiu").fetchall()
     if result is not None:
         return [str(res[0]) for res in result]
-
-
-def cargar_caracterizacion_ampliada(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO caracterizacion_ampliada VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
-
-
-def cargar_caracterizacion_ampliada_hijos(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO caracterizacion_ampliada_informacion_hijos VALUES (?,?,?,?,?,?,?,?)", info)
-
-
-def cargar_caracterizacion_ampliada_personas(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO caracterizacion_ampliada_informacion_personas_a_cargo VALUES (?,?,?,?,?,?,?,?)", info)
-
-
-def lista_de_caracterizaciones(project):
-    db = MyDB('register')
-    result = db.query("SELECT fkPayee FROM caracterizacion_ampliada WHERE fkProject = :project", {'project': project}).fetchall()
-    if result is not None:
-        return [res[0] for res in result]
-
-
-def cargar_monitoreo(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO monitoreo VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
-
-
-def cargar_diagnostico_empresarial(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO diagnostico_empresarial VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
-
-
-def tipo_de_beneficiario(beneficiario):
-    db = MyDB('register')
-    result = db.query("SELECT payeeType FROM informacion_general_beneficiario WHERE document = :beneficiario",
-                      {'beneficiario': beneficiario}).fetchone()
-    if result is not None:
-        return result[0]
-
-
-def numero_de_monitoreo(beneficiario):
-    db = MyDB('register')
-    result = db.query("SELECT numero_monitoreo FROM monitoreo WHERE fk_beneficiario = :beneficiario",
-                      {'beneficiario': beneficiario}).fetchall()
-    if result is not None:
-        return max([res[0] for res in result])
-
-
-def plan_de_formacion_habilitado(beneficiario):
-    db = MyDB('register')
-    result = db.query("SELECT plan_de_formacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
-                      {'beneficiario': beneficiario}).fetchone()
-    if result is not None:
-        return result[0]
-
-
-def plan_de_implementacion_habilitado(beneficiario):
-    db = MyDB('register')
-    result = db.query("SELECT plan_de_implementacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
-                      {'beneficiario': beneficiario}).fetchone()
-    if result is not None:
-        return result[0]
-
-
-def habilitar_plan_de_formacion(beneficiario, project):
-    db = MyDB('register')
-    db.commit("UPDATE beneficiario_proyectos SET plan_de_formacion = 1 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
-
-
-def habilitar_plan_de_implementacion(beneficiario, project):
-    db = MyDB('register')
-    db.commit("UPDATE beneficiario_proyectos SET plan_de_implementacion = 1 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
-
-
-def deshabilitar_plan_de_formacion(beneficiario, project):
-    db = MyDB('register')
-    db.commit("UPDATE beneficiario_proyectos SET plan_de_formacion = 2 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
-
-
-def deshabilitar_plan_de_implementacion(beneficiario, project):
-    db = MyDB('register')
-    db.commit("UPDATE beneficiario_proyectos SET plan_de_implementacion = 2 WHERE payeeDocument = :beneficiario AND project = :project", (beneficiario, project))
-
-
-def obtener_estado(beneficiario):
-    db = MyDB('register')
-    result = db.query("SELECT status FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario",
-                      {'beneficiario': beneficiario}).fetchone()
-    if result is not None:
-        return result[0]
-
-
-def inactivar_beneficiario(beneficiario, project):
-    db = MyDB('register')
-    db.commit("UPDATE beneficiario_proyectos SET status = 2 WHERE payeeDocument = :beneficiario AND project = :project",
-        (beneficiario, project))
-
-
-def traer_id_de_actividad_de_formacion(actividad):
-    db = MyDB('parametric')
-    result = db.query("SELECT id FROM educationPlan WHERE description = :actividad",
-                      {'actividad': actividad}).fetchone()
-    if result is not None:
-        return result[0]
-
-
-def cargar_plan_de_formacion(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO plan_de_formacion VALUES (?,?,?,?,?,?,?,?,?)", info)
-
-
-def traer_actividades_formacion(beneficiario, proyecto):
-    db = MyDB('register')
-    result = db.query("SELECT id_actividad, fecha_actividad, completada FROM plan_de_formacion WHERE beneficiario = :beneficiario AND proyecto = :proyecto",{'beneficiario': beneficiario, 'proyecto': proyecto}).fetchall()
-    if result is not None:
-        return [list(res) for res in result]
 
 
 def traer_descripcion_actividad_formacion(id_actividad):
@@ -324,85 +435,8 @@ def traer_descripcion_actividad_formacion(id_actividad):
         return result[0]
 
 
-def dar_actividad_de_formacion_como_finalizada(beneficiario, project, actividad, fecha):
+def bringColumns(table):
     db = MyDB('register')
-    db.commit("UPDATE plan_de_formacion SET completada = 1, fecha_realizada = :fecha WHERE beneficiario = :beneficiario AND proyecto = :project AND id_actividad = :actividad",
-              (fecha, beneficiario, project, actividad))
-
-
-def dar_terminada_formacion(beneficiario, project):
-    db = MyDB('register')
-    db.commit("UPDATE beneficiario_proyectos SET concluido_formacion = 1 WHERE payeeDocument = :beneficiario AND project = :project",(beneficiario, project))
-
-
-def dar_terminada_implementacion(beneficiario, project):
-    db = MyDB('register')
-    db.commit("UPDATE beneficiario_proyectos SET concluido_implementacion = 1 WHERE payeeDocument = :beneficiario AND project = :project",(beneficiario, project))
-
-
-def comprobar_plan_de_formacion(beneficiario, project):
-    db = MyDB('register')
-    result = db.query("SELECT concluido_formacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario AND project = :project",
-                      {'beneficiario': beneficiario, 'project': project}).fetchone()
+    result = db.parametricQuery("PRAGMA table_info(%s)" % table).fetchall()
     if result is not None:
-        return result[0]
-
-
-def comprobar_plan_de_implementacion(beneficiario, project):
-    db = MyDB('register')
-    result = db.query("SELECT concluido_implementacion FROM beneficiario_proyectos WHERE payeeDocument = :beneficiario AND project = :project",
-                      {'beneficiario': beneficiario, 'project': project}).fetchone()
-    if result is not None:
-        return result[0]
-
-
-def traer_puntajes_diagnostico(beneficiario, project):
-    db = MyDB('register')
-    result = db.query("SELECT categoria_1, categoria_2, categoria_3, categoria_4, categoria_5, categoria_6, categoria_7, categoria_8, categoria_9  FROM diagnostico_empresarial WHERE fk_beneficiario = :beneficiario AND fk_proyecto = :project",
-        {'beneficiario': beneficiario, 'project': project}).fetchone()
-    return list(result)
-
-
-def modificar_etapa_del_proceso(beneficiario, project, etapa):
-    db = MyDB('register')
-    db.commit("UPDATE beneficiario_proyectos SET etapa_del_proceso = :etapa WHERE payeeDocument = :beneficiario AND project = :project",
-        (etapa, beneficiario, project))
-
-
-def plan_de_implementacion(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO plan_de_implementacion VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
-
-
-def sumar_una_actividad(beneficiario, project):
-    db = MyDB('register')
-    result = db.query("SELECT numero_realizadas FROM plan_de_implementacion WHERE payeeDocument = :beneficiario AND project = :project",
-        {'beneficiario': beneficiario, 'project': project}).fetchone()
-    if result is not None:
-        result = result[0]
-        result += 1
-        db.commit("UPDATE plan_de_implementacion SET numero_realizadas = :result WHERE payeeDocument = :beneficiario AND project = :project",
-            (result, beneficiario, project))
-
-
-def ver_cuantas_visitas(beneficiario, project):
-    db = MyDB('register')
-    result = db.query(
-        "SELECT numero_de_visitas, numero_realizadas FROM plan_de_implementacion WHERE payeeDocument = :beneficiario AND project = :project",
-        {'beneficiario': beneficiario, 'project': project}).fetchone()
-    return result
-
-
-def cargar_actividad_implementacion(info):
-    db = MyDB('register')
-    db.commit("INSERT INTO actividad_implementacion VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
-
-
-def traer_metas_implementacion(beneficiario, proyecto):
-    db = MyDB('register')
-    result = db.query("SELECT meta_1, meta_2, meta_3, meta_4, meta_5, meta_6, meta_7, meta_8, meta_9 FROM "
-                      "plan_de_implementacion WHERE payeeDocument = :beneficiario AND project = :project",
-        {'beneficiario': beneficiario, 'project': proyecto}).fetchone()
-    return list(result)
-
-
+        return [res[1] for res in result]
