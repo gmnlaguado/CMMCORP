@@ -393,5 +393,16 @@ def ver_cuantas_visitas(beneficiario, project):
     return result
 
 
+def cargar_actividad_implementacion(info):
+    db = MyDB('register')
+    db.commit("INSERT INTO actividad_implementacion VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", info)
+
+
+def traer_metas_implementacion(beneficiario, proyecto):
+    db = MyDB('register')
+    result = db.query("SELECT meta_1, meta_2, meta_3, meta_4, meta_5, meta_6, meta_7, meta_8, meta_9 FROM "
+                      "plan_de_implementacion WHERE payeeDocument = :beneficiario AND project = :project",
+        {'beneficiario': beneficiario, 'project': proyecto}).fetchone()
+    return list(result)
 
 

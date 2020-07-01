@@ -3,6 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import class_declaration, querys
 import datetime
+from windows import Monitoreo
 
 
 class ActividadDeFormacionScreen(Screen):

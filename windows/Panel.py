@@ -204,7 +204,6 @@ class MonitoreoButton(class_declaration.PopupFather):
                             else:
                                 class_declaration.MessagePopup('El beneficiario no ha terminado la formación').open()
                         else:
-                            print(querys.comprobar_plan_de_implementacion(args[0].text, querys.idProject(self.project.lower())))
                             if querys.comprobar_plan_de_implementacion(args[0].text, querys.idProject(self.project.lower())) == 1:
                                 self.changeWindow()
                                 self.dismiss()

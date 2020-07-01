@@ -483,3 +483,50 @@ def plan_de_implementacion(info):
     querys.plan_de_implementacion(org)
     querys.deshabilitar_plan_de_implementacion(info.payeeDocument, querys.idProject(info.project.lower()))
 
+
+def actividad_implementacion(info):
+    org = [
+        info.project,  # 0
+        info.payeeDocument,  # 1
+        info.operator
+    ]
+    org[0] = querys.idProject(info.project.lower())
+    visitas = list(querys.ver_cuantas_visitas(info.payeeDocument, querys.idProject(info.project.lower())))
+    org.append(visitas[1])
+
+    for metas in info.estados_metas[::-1]:
+         org.append(querys.idParametrics('estado_meta', metas))
+
+    org.append(querys.idParametrics('tipo_visita', info.spinner_1.text))
+
+    if info.input_1.text == "":
+        info.input_1.text = "No aplica"
+    org.append(info.input_1.text)
+
+    org.append(querys.idParametrics('plan_de_inversiones', info.spinner_2.text))
+
+    if info.input_2.text == "":
+        info.input_2.text = "No aplica"
+    org.append(info.input_2.text)
+
+    seg = querys.idParametrics('seguimiento_desembolso', info.seguimiento_desembolso)
+    aler = querys.idParametrics('alerta_seguimiento', info.alerta_cumplimiento)
+
+    if seg is None:
+        seg = 0
+    if aler is None:
+        aler = 0
+
+    org.append(seg)
+    org.append(aler)
+
+    if info.otro_tipo_de_alerta == "":
+        info.otro_tipo_de_alerta = "No aplica"
+
+    org.append(info.otro_tipo_de_alerta)
+    unique_id = org[0] + '__' + org[2] + '__' + org[1] + '__' + str(org[3])
+    org.insert(0, unique_id)
+    org = tuple(org)
+    querys.cargar_actividad_implementacion(org)
+
+
