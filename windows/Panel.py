@@ -369,14 +369,7 @@ class PlanDeSeguimientoButton(class_declaration.PopupFather):
                 if querys.obtener_estado(args[0].text) == 3:
                     class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
                 else:
-                    if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
-                        if querys.etapa_del_proceso(args[0].text) == 4 and querys.comprobar_monitoreo(args[0].text, querys.idProject(self.project.lower())) == 2:
-                            self.changeWindow()
-                            self.dismiss()
-                        else:
-                            class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
-                    else:
-                        class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
+                    pass
 
     def changeWindow(self, *args):
         pass

@@ -16,8 +16,8 @@ class MonitoreoScreen(Screen):
     operator = None
     payeeDocument = None
     home = False
-    total_income_familiy = 0
-    total_gastos_familia = 0
+    # total_income_familiy = 0
+    # total_gastos_familia = 0
     numero_de_monitoreo = 0
 
     id_belongToAssosiation = ObjectProperty()
@@ -41,6 +41,8 @@ class MonitoreoScreen(Screen):
     id_homeButton = ObjectProperty()
     id_cual_asociacion = ObjectProperty()
     id_asociacion_mujeres = ObjectProperty()
+    ingresos_familia = ObjectProperty()
+    gastos_familia = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -266,10 +268,10 @@ class MonitoreoScreen(Screen):
         if not self.scroll_complete:
             self.id_message.text = "Faltan todavía preguntas por responder"
 
-        if self.total_income_familiy == 0:
+        if self.ingresos_familia == "":
             self.id_message.text = "Faltan los ingresos familiares"
 
-        if self.total_gastos_familia == 0:
+        if self.gastos_familia == "":
             self.id_message.text = "Faltan los gastos familiares"
 
         if self.id_message.text == "":
@@ -380,8 +382,8 @@ class GastosDelGrupoFamiliarPopup(class_declaration.PopupFather):
     def on_validate(self, *args):
         total_expenses = int(self.id_rentAndServices.text) + int(self.id_runningCosts.text) + int(
             self.id_education.text) + int(self.id_casualCosts.text) + int(self.id_obligations.text)
-        MonitoreoScreen.total_gastos_familia = total_expenses
-        class_declaration.MessagePopup(f'Total gastos del grupo: {total_expenses}').open()
+        MonitoreoScreen.gastos_familia = str(total_expenses)
+        # class_declaration.MessagePopup(f'Total gastos del grupo: {total_expenses}').open()
         self.dismiss()
 
 
@@ -402,8 +404,8 @@ class IngresosDelGrupoFamiliarPopup(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         total_expenses = int(self.id_employees.text) + int(self.id_othersRelatives.text) + int(self.id_freelanceJobs.text) + int(self.id_pension.text) + int(self.id_entrepreneurship.text) + int(self.id_otherIncomes.text)
-        MonitoreoScreen.total_income_familiy = total_expenses
-        class_declaration.MessagePopup(f'Total ingresos del grupo: {total_expenses}').open()
+        MonitoreoScreen.ingresos_familia = str(total_expenses)
+        # class_declaration.MessagePopup(f'Total ingresos del grupo: {total_expenses}').open()
         self.dismiss()
 
 

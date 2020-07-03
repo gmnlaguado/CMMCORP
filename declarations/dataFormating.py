@@ -311,8 +311,8 @@ def monitoreo(info):
         info.payeeDocument,  # 1
         info.operator,  # 2
         info.numero_de_monitoreo,   # 3
-        info.total_income_familiy,  # 4
-        info.total_gastos_familia,  # 5
+        info.ingresos_familia,  # 4
+        info.gastos_familia,  # 5
         info.id_belongToAssosiation.text,  # 6
         info.id_ciiu.text,  # 7
         info.id_pension.text,  # 8
