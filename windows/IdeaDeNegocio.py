@@ -54,22 +54,22 @@ class IdeaDeNegocioScreen(Screen):
         self.id_firstYearSales.hint_text = "Ventas Primer año"
         self.id_imagine.hint_text = "Imagine su negocio"
 
-        self.id_bussinesSector.values = querys.parametricList('businessSector')
-        self.id_studies.values = querys.parametricList('studies')
-        self.id_agricultural.values = querys.parametricList('yesNo')
-        self.id_needColabs.values = querys.parametricList('yesNo')
-        self.id_weeklyTime.values = querys.parametricList('weeklyTime')
-        self.id_whyNot.values = querys.parametricList('whyNot')
+        self.id_bussinesSector.values = querys.parametricList('sector_empresarial')
+        self.id_studies.values = querys.parametricList('estudios')
+        self.id_agricultural.values = querys.parametricList('si_no')
+        self.id_needColabs.values = querys.parametricList('si_no')
+        self.id_weeklyTime.values = querys.parametricList('tiempo_semanal')
+        self.id_whyNot.values = querys.parametricList('por_que_no')
         self.id_months.values = [str(numb) for numb in range(1, 70)]
         ciius = querys.bringCIUU()
         ciius = ['0'+cii if len(cii) == 3 else cii for cii in ciius]
         self.id_ciiu.values = ciius
-        self.id_howArise.values = querys.parametricList('howArise')
-        self.id_haveExperience.values = querys.parametricList('yesNo')
+        self.id_howArise.values = querys.parametricList('como_surge')
+        self.id_haveExperience.values = querys.parametricList('si_no')
         self.id_departments.values = querys.bringDepartments(169)
-        self.id_dedicationTime.values = querys.parametricList('dedicationTime')
-        self.id_productServices.values = querys.parametricList('productServices')
-        self.id_investmentPercent.values = querys.parametricList('inversionPercentage')
+        self.id_dedicationTime.values = querys.parametricList('tiempo_a_dedicar')
+        self.id_productServices.values = querys.parametricList('producto_o_servicio')
+        self.id_investmentPercent.values = querys.parametricList('porcentaje_de_inversion')
 
         self.id_departments.bind(text=self.fillCities)
 

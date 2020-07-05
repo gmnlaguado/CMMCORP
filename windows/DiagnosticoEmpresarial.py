@@ -24,9 +24,9 @@ class DiagnosticoEmpresarialScreen(Screen):
 
         self.puntajes = [10, 7, 4, 0]
 
-        questions = querys.parametricList('businessDiagnosisQuestions')
-        categories = querys.parametricList('businessDiagnosisCategories')
-        answers = querys.parametricList('businessDiagnosisAnswers')
+        questions = querys.parametricList('preguntas_diagnostico_empresarial')
+        categories = querys.parametricList('categorias_diagnostico_empresarial')
+        answers = querys.parametricList('respuestas_diagnostico_empresarial')
         counter = 0
         totalAnswers = 0
         self.id_container_grid_1.bind(minimum_height=self.id_container_grid_1.setter('height'))

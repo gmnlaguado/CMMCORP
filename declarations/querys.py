@@ -322,7 +322,7 @@ def modificar_etapa_del_proceso(beneficiario, project, etapa):
 
 def traer_id_de_actividad_de_formacion(actividad):
     db = MyDB('parametric')
-    result = db.query("SELECT id FROM educationPlan WHERE description = :actividad",
+    result = db.query("SELECT id FROM actividades_de_formacion WHERE description = :actividad",
                       {'actividad': actividad}).fetchone()
     if result is not None:
         return result[0]
@@ -330,7 +330,7 @@ def traer_id_de_actividad_de_formacion(actividad):
 
 def indicator(department):
     db = MyDB('parametric')
-    result = db.query("SELECT indicative FROM departments WHERE id = :department",
+    result = db.query("SELECT indicative FROM departamentos WHERE id = :department",
                       {'department': department}).fetchone()
     if result is not None:
         return result[0]
@@ -359,63 +359,63 @@ def dataParametrics(table, ids):
 
 def bringDepartments(country):
     db = MyDB('parametric')
-    result = db.query("SELECT data FROM departments WHERE fkCountry = :country", {'country': country}).fetchall()
+    result = db.query("SELECT data FROM departamentos WHERE fkCountry = :country", {'country': country}).fetchall()
     if result is not None:
         return [res[0] for res in result]
 
 
 def idDepartments(department):
     db = MyDB('parametric')
-    result = db.query("SELECT id FROM departments WHERE data = :department", {'department': department}).fetchone()
+    result = db.query("SELECT id FROM departamentos WHERE data = :department", {'department': department}).fetchone()
     if result is not None:
         return result[0]
 
 
 def bringCities(department):
     db = MyDB('parametric')
-    result = db.query("SELECT data FROM cities WHERE fkDepartment = :department", {'department': department}).fetchall()
+    result = db.query("SELECT data FROM ciudades WHERE fkDepartment = :department", {'department': department}).fetchall()
     if result is not None:
         return [res[0] for res in result]
 
 
 def idCities(city):
     db = MyDB('parametric')
-    result = db.query("SELECT id FROM cities WHERE data = :city", {'city': city}).fetchone()
+    result = db.query("SELECT id FROM ciudades WHERE data = :city", {'city': city}).fetchone()
     if result is not None:
         return result[0]
 
 
 def bringNeighborhoods(city):
     db = MyDB('parametric')
-    result = db.query("SELECT data FROM neighborhoods WHERE fkCities = :city", {'city': city}).fetchall()
+    result = db.query("SELECT data FROM barrios WHERE fkCities = :city", {'city': city}).fetchall()
     if result is not None:
         return [res[0] for res in result]
 
 
 def bringProgramFromEducationPlan():
     db = MyDB('parametric')
-    result = db.parametricQuery("SELECT program FROM educationPlan GROUP BY program").fetchall()
+    result = db.parametricQuery("SELECT program FROM actividades_de_formacion GROUP BY program").fetchall()
     if result is not None:
         return [res[0] for res in result]
 
 
 def bringLineFromEducationPlan(program):
     db = MyDB('parametric')
-    result = db.parametricQuery("SELECT line FROM educationPlan WHERE program = '%s' GROUP BY line" % program).fetchall()
+    result = db.parametricQuery("SELECT line FROM actividades_de_formacion WHERE program = '%s' GROUP BY line" % program).fetchall()
     if result is not None:
         return [res[0] for res in result]
 
 
 def bringLevelFromEducationPlan(program, line):
     db = MyDB('parametric')
-    result = db.parametricQuery("SELECT level FROM educationPlan WHERE program = '%s' AND line = '%s' GROUP BY level" % (program, line)).fetchall()
+    result = db.parametricQuery("SELECT level FROM actividades_de_formacion WHERE program = '%s' AND line = '%s' GROUP BY level" % (program, line)).fetchall()
     if result is not None:
         return [res[0] for res in result]
 
 
 def bringDescriptionsFromEducationPlan(program, line, level):
     db = MyDB('parametric')
-    result = db.parametricQuery("SELECT description FROM educationPlan WHERE program = '%s' AND line = '%s' AND level = '%s'" % (program, line, level)).fetchall()
+    result = db.parametricQuery("SELECT description FROM actividades_de_formacion WHERE program = '%s' AND line = '%s' AND level = '%s'" % (program, line, level)).fetchall()
     if result is not None:
         return [res[0] for res in result]
 
@@ -429,7 +429,7 @@ def bringCIUU():
 
 def traer_descripcion_actividad_formacion(id_actividad):
     db = MyDB('parametric')
-    result = db.query("SELECT description FROM educationPlan WHERE id = :id_actividad",
+    result = db.query("SELECT description FROM actividades_de_formacion WHERE id = :id_actividad",
                       {'id_actividad': id_actividad}).fetchone()
     if result is not None:
         return result[0]

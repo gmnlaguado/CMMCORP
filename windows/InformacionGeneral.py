@@ -63,16 +63,16 @@ class InformacionGeneralScreen(Screen):
         self.id_birthdate.bind(on_text_validate=self.birthdate)
         self.homeButton.bind(on_press=self.setHome)
 
-        self.id_documentType.values = querys.parametricList('documentType')
-        self.id_sex.values = querys.parametricList('sex')
-        self.id_payeeType.values = querys.parametricList('payeeType')
-        self.id_nationality.values = querys.parametricList('countries')
-        self.id_country.values = querys.parametricList('countries')
-        self.id_environment.values = querys.parametricList('environment')
-        self.id_sign.values = querys.parametricList('sign')
-        self.id_gender.values = querys.parametricList('gender')
-        self.id_ethnicGroup.values = querys.parametricList('ethnicGroup')
-        self.id_disability.values = querys.parametricList('disability')
+        self.id_documentType.values = querys.parametricList('tipo_de_documento')
+        self.id_sex.values = querys.parametricList('sexo')
+        self.id_payeeType.values = querys.parametricList('tipo_de_beneficiario')
+        self.id_nationality.values = querys.parametricList('paises')
+        self.id_country.values = querys.parametricList('paises')
+        self.id_environment.values = querys.parametricList('entornos')
+        self.id_sign.values = querys.parametricList('rotulos')
+        self.id_gender.values = querys.parametricList('genero')
+        self.id_ethnicGroup.values = querys.parametricList('grupo_etnico')
+        self.id_disability.values = querys.parametricList('discapacidades')
         self.id_expeditionDepto.values = querys.bringDepartments(169)
         self.id_tier.values = [str(numb) for numb in range(1, 8)]
 
@@ -90,14 +90,14 @@ class InformacionGeneralScreen(Screen):
             age = snippets.ageCalculation(args[0].text)
             self.id_age.text = f'Edad {age}'
             if age >= 15:
-                self.id_ageRange.text = querys.dataParametrics('ageRange', snippets.rangeCalculation(age))
+                self.id_ageRange.text = querys.dataParametrics('rangos_de_edad', snippets.rangeCalculation(age))
             else:
                 self.id_message.text = "El beneficiario debe tener más de 15 años"
                 args[0].complete = False
 
     def fillDepartments(self, *args):
         self.id_message.text = ""
-        id_country = querys.idParametrics('countries', args[1])
+        id_country = querys.idParametrics('paises', args[1])
         if id_country is not None:
             self.id_departments.values = querys.bringDepartments(id_country)
 

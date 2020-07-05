@@ -52,21 +52,21 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_factorsThatPreventYou.hint_text = "Factores que le impiden participar en este proyecto"
         self.id_observations.hint_text = "Observaciones / aclaraciones"
 
-        self.id_studies.values = querys.parametricList('studies')
-        self.id_workingRelationship.values = querys.parametricList('yesNo')
-        self.id_freelance.values = querys.parametricList('yesNo')
-        self.id_householdHead.values = querys.parametricList('yesNo')
-        self.id_healthRegime.values = querys.parametricList('healthRegime')
-        self.id_maritalStatus.values = querys.parametricList('maritalStatus')
-        self.id_agreementType.values = querys.parametricList('agreementType')
-        self.id_rut.values = querys.parametricList('yesNo')
+        self.id_studies.values = querys.parametricList('estudios')
+        self.id_workingRelationship.values = querys.parametricList('si_no')
+        self.id_freelance.values = querys.parametricList('si_no')
+        self.id_householdHead.values = querys.parametricList('si_no')
+        self.id_healthRegime.values = querys.parametricList('regimen_de_salud')
+        self.id_maritalStatus.values = querys.parametricList('estado_civil')
+        self.id_agreementType.values = querys.parametricList('tipos_de_contrato')
+        self.id_rut.values = querys.parametricList('si_no')
         self.id_childrenNumber.values = [str(numb) for numb in range(1, 30)]
         self.id_dependants.values = [str(numb) for numb in range(1, 30)]
-        self.id_coverTheFamily.values = querys.parametricList('yesNo')
-        self.id_averageIncomeContract.values = querys.parametricList('averageIncome')
-        self.id_averageIncomeActivity.values = querys.parametricList('averageIncome')
-        self.id_pension.values = querys.parametricList('yesNo')
-        self.id_arl.values = querys.parametricList('yesNo')
+        self.id_coverTheFamily.values = querys.parametricList('si_no')
+        self.id_averageIncomeContract.values = querys.parametricList('promedio_de_ingresos')
+        self.id_averageIncomeActivity.values = querys.parametricList('promedio_de_ingresos')
+        self.id_pension.values = querys.parametricList('si_no')
+        self.id_arl.values = querys.parametricList('si_no')
         self.id_householdMembers.values = [str(numb) for numb in range(1, 30)]
         self.id_agreementTime.values = [str(numb) for numb in range(1, 30)]
 
@@ -225,9 +225,9 @@ class InformacionHijos(class_declaration.PopupFather):
             lab = Label(text=str(idx + 1), halign="center", valign="middle", size_hint=(None, None),
                         size=(77, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
                         text_size=(77, 40), id=f'{idx + 1}')
-            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=querys.parametricList('gender'))
-            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=querys.parametricList('yesNo'))
-            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=querys.parametricList('disability'))
+            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=querys.parametricList('genero'))
+            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=querys.parametricList('si_no'))
+            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=querys.parametricList('discapacidades'))
 
             self.id_container_grid.add_widget(lab)
             self.id_container_grid.add_widget(spin_gen)
@@ -307,9 +307,9 @@ class InformacionPersonasACargo(class_declaration.PopupFather):
             lab = Label(text=str(idx + 1), halign="center", valign="middle", size_hint=(None, None),
                         size=(77, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
                         text_size=(77, 40), id=f'{idx + 1}')
-            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=querys.parametricList('gender'))
-            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=querys.parametricList('yesNo'))
-            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=querys.parametricList('disability'))
+            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=querys.parametricList('genero'))
+            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=querys.parametricList('si_no'))
+            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=querys.parametricList('discapacidades'))
 
             self.id_container_grid.add_widget(lab)
             self.id_container_grid.add_widget(spin_gen)

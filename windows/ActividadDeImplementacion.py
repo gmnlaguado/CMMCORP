@@ -257,7 +257,7 @@ class Estado_de_metas(class_declaration.PopupFather):
     def on_open(self):
         self.id_botonAceptar.bind(on_release=self.accionAceptar)
         self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
-        categories = querys.parametricList('businessDiagnosisCategories')
+        categories = querys.parametricList('categorias_diagnostico_empresarial')
         metas = querys.traer_metas_implementacion(self.payee, self.project)
         for idx, cat in enumerate(categories):
             lab_1 = Label(text=cat, halign="center", valign="middle", size_hint=(None, None),

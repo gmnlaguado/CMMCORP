@@ -62,7 +62,7 @@ class PlanDeImplementacionScreen(Screen):
         self.id_container_grid.clear_widgets()
         self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
         scores = querys.traer_puntajes_diagnostico(self.payeeDocument, querys.idProject(self.project.lower()))
-        lines = querys.parametricList('developingLines')
+        lines = querys.parametricList('lineas_de_desarrollo')
         for idx, quest in enumerate(lines):
             lab = Label(text=quest, halign="left", valign="middle", size_hint=(None, None),
                         size=(228, 63), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",

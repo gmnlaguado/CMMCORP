@@ -19,7 +19,7 @@ class DiagnosticoPerfilProductivoScreen(Screen):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.id_signInButton.bind(on_press=self.checkAll)
-        questions = querys.parametricList('diagnosticQuestions')
+        questions = querys.parametricList('preguntas_de_diagnostico')
         self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
         for idx, quest in enumerate(questions):
             lab = Label(text=f'{idx + 1}]  ' + quest, halign="justify", valign="middle", size_hint=(None, None),
