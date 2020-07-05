@@ -40,8 +40,16 @@ class UnidadDeNegocioScreen(Screen):
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(**kwargs)
+    def signal(self, *args):
+        self.id_message.text = args[0].alertFlag['message']
+
+    def fillCities(self, *args):
+        self.id_message.text = ""
+        id_department = querys.idDepartments(args[1])
+        if id_department is not None:
+            self.id_cities.values = querys.bringCities(id_department)
+
+    def on_pre_enter(self, *args):
         self.id_phone.input_type = 'number'
         self.id_cellphone.input_type = 'number'
         self.id_cellphone2.input_type = 'number'
@@ -101,16 +109,6 @@ class UnidadDeNegocioScreen(Screen):
         self.id_liabilitiesDescription.bind(on_text_validate=self.signal)
         self.id_signInButton.bind(on_release=self.checkAll)
 
-    def signal(self, *args):
-        self.id_message.text = args[0].alertFlag['message']
-
-    def fillCities(self, *args):
-        self.id_message.text = ""
-        id_department = querys.idDepartments(args[1])
-        if id_department is not None:
-            self.id_cities.values = querys.bringCities(id_department)
-
-    def on_pre_enter(self, *args):
         self.id_unit.resetInput()
         self.id_email.resetInput()
         self.id_webPage.resetInput()

@@ -38,8 +38,7 @@ class IdeaDeNegocioScreen(Screen):
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(**kwargs)
+    def on_pre_enter(self, *args):
         self.id_assetInvestment.input_type = 'number'
         self.id_firstYearSales.input_type = 'number'
         self.id_initialInvestment.input_type = 'number'
@@ -84,7 +83,6 @@ class IdeaDeNegocioScreen(Screen):
 
         self.id_signInButton.bind(on_release=self.checkAll)
 
-    def on_pre_enter(self, *args):
         self.id_bussinesSector.text = "Sector Empresarial"
         self.id_cities.text = "Ciudad"
         self.id_studies.text = "Estudios sobre el tema"

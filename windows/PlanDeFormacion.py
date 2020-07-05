@@ -23,8 +23,7 @@ class PlanDeFormacionScreen(Screen):
     id_message = ObjectProperty()
     id_total_activities = ObjectProperty()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(**kwargs)
+    def on_pre_enter(self, *args):
         self.id_title.text = "Plan de Formación"
         self.id_program.values = querys.bringProgramFromEducationPlan()
         self.id_program.bind(text=self.loadLines)
@@ -35,6 +34,10 @@ class PlanDeFormacionScreen(Screen):
         self.id_selectedActivities.bind(on_release=self.selectActivites)
         self.all_activities = []
         self.selected = []
+
+        self.id_program.text = "Programa"
+        self.id_line.text = "Linea"
+        self.id_level.text = "Nivel"
 
     def selectActivites(self, *args):
         self.id_message.text = ""
@@ -58,10 +61,6 @@ class PlanDeFormacionScreen(Screen):
         else:
             self.id_message.text = "Seleccione más de una actividad"
 
-    def on_pre_enter(self, *args):
-        self.id_program.text = "Programa"
-        self.id_line.text = "Linea"
-        self.id_level.text = "Nivel"
 
     def loadLines(self, *args):
         if args[1] != "Programa":

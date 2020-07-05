@@ -26,6 +26,9 @@ class PanelScreen(Screen):
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
+        pass
+
+    def on_pre_enter(self, *args):
         self.static_titulo.text = "Panel General"
         self.id_newPayee.text = "Nuevo Beneficiario"
         self.id_monitor.text = "Monitoreo"
@@ -50,6 +53,8 @@ class PanelScreen(Screen):
         self.id_inactivate.bind(on_release=self.inactivate)
         self.id_reload.bind(on_release=self.reload)
 
+        self.id_proyecto.text = f'ODP {self.operator} está en el proyecto {self.project}'
+
     def extendedChar(self, *args):
         CaracterizacionAmpliadaButton(self.operator, self.project).open()
 
@@ -73,9 +78,6 @@ class PanelScreen(Screen):
 
     def reload(self, *args):
         ActualizarButton(self.operator).open()
-
-    def on_pre_enter(self, *args):
-        self.id_proyecto.text = f'ODP {self.operator} está en el proyecto {self.project}'
 
     def newPayee(self, *args):
         EmergentNuevoBeneficiario(self.operator, self.project).open()

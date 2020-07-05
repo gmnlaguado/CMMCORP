@@ -16,23 +16,22 @@ class DiagnosticoPerfilProductivoScreen(Screen):
     id_message: ObjectProperty()
     id_signInButton: ObjectProperty()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(**kwargs)
-        self.id_signInButton.bind(on_press=self.checkAll)
-        questions = querys.parametricList('preguntas_de_diagnostico')
-        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
-        for idx, quest in enumerate(questions):
-            lab = Label(text=f'{idx + 1}]  ' + quest, halign="justify", valign="middle", size_hint=(None, None),
-                        size=(815, 51), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
-                        text_size=(815, 51))
-            box_container = BoxLayout()
-            for i in ['Si', 'MasMenos', 'No']:
-                check = CheckBox(group=f"pregunta_{idx + 1}", color=(0, 1, 0, 1))
-                box_container.add_widget(check)
-            self.id_container_grid.add_widget(lab)
-            self.id_container_grid.add_widget(box_container)
-
     def on_pre_enter(self):
+        if not len(self.id_container_grid.children) > 0:
+            self.id_signInButton.bind(on_press=self.checkAll)
+            questions = querys.parametricList('preguntas_de_diagnostico')
+            self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+            for idx, quest in enumerate(questions):
+                lab = Label(text=f'{idx + 1}]  ' + quest, halign="justify", valign="middle", size_hint=(None, None),
+                            size=(815, 51), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                            text_size=(815, 51))
+                box_container = BoxLayout()
+                for i in ['Si', 'MasMenos', 'No']:
+                    check = CheckBox(group=f"pregunta_{idx + 1}", color=(0, 1, 0, 1))
+                    box_container.add_widget(check)
+                self.id_container_grid.add_widget(lab)
+                self.id_container_grid.add_widget(box_container)
+
         for idx1, grid in enumerate(self.id_container_grid.children):
             if len(grid.children) > 0:
                 for idx2, box in enumerate(grid.children):

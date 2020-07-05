@@ -45,6 +45,11 @@ class MonitoreoScreen(Screen):
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
+
+
+
+    def on_pre_enter(self, *args):
+
         self.id_belongToAssosiation.values = querys.parametricList('si_no')
         ciius = querys.bringCIUU()
         ciius = ['0' + cii if len(cii) == 3 else cii for cii in ciius]
@@ -65,113 +70,43 @@ class MonitoreoScreen(Screen):
 
         self.id_signInButton.bind(on_release=self.checkAll)
         self.id_belongToAssosiation.bind(text=self.pertenecer_asociacion)
+        self.id_householdExpenses.bind(on_release=self.openPopupGastos)
+        self.id_householdIncomes.bind(on_release=self.openPopupIngresos)
 
-        questions = querys.parametricList('caracteristicas_del_hogar')
-        self.id_container_grid_1.bind(minimum_height=self.id_container_grid_1.setter('height'))
-        for idx, quest in enumerate(questions):
-            lab = Label(text=f'{idx + 1}]  ' + quest, halign="left", valign="middle", size_hint=(None, None),
-                        size=(235, 18), color=(0, 0, 0, 0.85), font_size=14, font_name="montserrat",
-                        text_size=(235, 18))
-            box_container = BoxLayout()
-            for i in ['Si', 'No']:
-                check = CheckBox(group=f"pregunta_{idx + 1}", color=(0, 1, 0, 1))
-                box_container.add_widget(check)
-            self.id_container_grid_1.add_widget(lab)
-            self.id_container_grid_1.add_widget(box_container)
+        if not len(self.id_container_grid_1.children) > 0:
+            questions = querys.parametricList('caracteristicas_del_hogar')
+            self.id_container_grid_1.bind(minimum_height=self.id_container_grid_1.setter('height'))
+            for idx, quest in enumerate(questions):
+                lab = Label(text=f'{idx + 1}]  ' + quest, halign="left", valign="middle", size_hint=(None, None),
+                            size=(235, 18), color=(0, 0, 0, 0.85), font_size=14, font_name="montserrat",
+                            text_size=(235, 18))
+                box_container = BoxLayout()
+                for i in ['Si', 'No']:
+                    check = CheckBox(group=f"pregunta_{idx + 1}", color=(0, 1, 0, 1))
+                    box_container.add_widget(check)
+                self.id_container_grid_1.add_widget(lab)
+                self.id_container_grid_1.add_widget(box_container)
 
-        self.id_container_grid_2.bind(minimum_height=self.id_container_grid_2.setter('height'))
-        grid = SpinnerScroll(text="Cuenta corriente", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid)
+        if not len(self.id_container_grid_2.children) > 0:
+            self.id_container_grid_2.bind(minimum_height=self.id_container_grid_2.setter('height'))
+            grid = SpinnerScroll(text="Cuenta corriente", values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid)
 
-        self.id_container_grid_2.bind(minimum_height=self.id_container_grid_2.setter('height'))
-        grid = SpinnerScroll(text="Cuenta de ahorros", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid)
+            self.id_container_grid_2.bind(minimum_height=self.id_container_grid_2.setter('height'))
+            grid = SpinnerScroll(text="Cuenta de ahorros", values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="Créditos", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid)
+            grid = SpinnerScroll(text="Créditos", values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="Pensiones", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid)
+            grid = SpinnerScroll(text="Pensiones", values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid)
 
-        grid = SpinnerScroll(text="Seguros", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid)
+            grid = SpinnerScroll(text="Seguros", values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid)
 
-        box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
-        lab1 = Label(text="Monte del crédito", halign="left", valign="middle", size_hint=(None, None),
-                     size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
-                     text_size=(275, 40))
-        text1 = TextInputScroll()
-        box_container.add_widget(lab1)
-        box_container.add_widget(text1)
-        self.id_container_grid_2.add_widget(box_container)
-
-        grid = SpinnerScroll(text="Número de cuotas", values=[str(numb) for numb in range(1, 65)])
-        self.id_container_grid_2.add_widget(grid)
-
-        grid = SpinnerScroll(text="¿Alguno de estos servicios los tiene con Bancamía?", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid)
-
-        grid = SpinnerScroll(text="¿Cuál servicio tiene con Bancamía?", values=querys.parametricList('bancamia'))
-        self.id_container_grid_2.add_widget(grid)
-
-        grid_pertenece = SpinnerScroll(text="Pertenece a un programa público de desarrollo", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid_pertenece)
-        grid_pertenece.bind(text=self.ingresar_programa)
-
-        box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
-        lab1 = Label(text="¿Cuál programa?", halign="left", valign="middle", size_hint=(None, None),
-                     size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
-                     text_size=(275, 40))
-
-        self.text_cual_programa = TextInputScroll()
-        box_container.add_widget(lab1)
-        box_container.add_widget(self.text_cual_programa)
-        self.id_container_grid_2.add_widget(box_container)
-
-        grid = SpinnerScroll(text="¿Depende económicamente de alguién?", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid)
-
-        grid = SpinnerScroll(text="¿De quién depende?", values=querys.parametricList('de_quien_depende'))
-        self.id_container_grid_2.add_widget(grid)
-
-        grid = SpinnerScroll(text="¿Cuántas horas a la semana dedica al cuidado de personas a cargo?",
-                             values=[str(numb) for numb in range(1, 165)])
-        self.id_container_grid_2.add_widget(grid)
-
-        grid = SpinnerScroll(text="¿Cuántas horas a la semana dedica a la recreación?",
-                             values=[str(numb) for numb in range(1, 165)])
-        self.id_container_grid_2.add_widget(grid)
-
-        grid = SpinnerScroll(text="¿El negocio tiene RUT?", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid)
-
-        grid = SpinnerScroll(text="¿Tiene registro de cámara de comercio?", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid)
-
-        grid_tiene_nit = SpinnerScroll(text="¿Tiene NIT el negocio?", values=querys.parametricList('si_no'))
-        self.id_container_grid_2.add_widget(grid_tiene_nit)
-        grid_tiene_nit.bind(text=self.tiene_nit)
-
-        box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
-        lab1 = Label(text="Número NIT", halign="left", valign="middle", size_hint=(None, None),
-                     size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
-                     text_size=(275, 40))
-        self.numero_nit = TextInputScroll()
-        box_container.add_widget(lab1)
-        box_container.add_widget(self.numero_nit)
-        self.id_container_grid_2.add_widget(box_container)
-
-        grid = SpinnerScroll(text="¿Dónde opera su unidad productivo?", values=querys.parametricList('donde_opera'))
-        self.id_container_grid_2.add_widget(grid)
-
-        input_list_labels = ["Ingreso del negocio", "Gastos Directos", "Gastos Indirectos", "Total de gastos",
-                             "Excedentes",
-                             "Activo Fijo", "Activo No Fijo", "Total Actvios", "Pasivo Corto", "Pasivo Largo", "Deudas",
-                             "Patrimonio"]
-
-        for input_label_value in input_list_labels:
             box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
-            lab1 = Label(text=input_label_value, halign="left", valign="middle", size_hint=(None, None),
+            lab1 = Label(text="Monte del crédito", halign="left", valign="middle", size_hint=(None, None),
                          size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
                          text_size=(275, 40))
             text1 = TextInputScroll()
@@ -179,26 +114,119 @@ class MonitoreoScreen(Screen):
             box_container.add_widget(text1)
             self.id_container_grid_2.add_widget(box_container)
 
-        self.total_workers = 0
+            grid = SpinnerScroll(text="Número de cuotas", values=[str(numb) for numb in range(1, 65)])
+            self.id_container_grid_2.add_widget(grid)
 
-        grid_trabajadores_con_contrato = SpinnerScroll(text="Total de trabajadores con contrato", values=[str(numb) for numb in range(1, 60)])
-        grid_trabajadores_con_contrato.bind(text=self.calc_workers)
-        self.id_container_grid_2.add_widget(grid_trabajadores_con_contrato)
+            grid = SpinnerScroll(text="¿Alguno de estos servicios los tiene con Bancamía?",
+                                 values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid)
 
-        grid_trabajadores_sin_contrato = SpinnerScroll(text="Total de trabajadores sin contrato", values=[str(numb) for numb in range(1, 60)])
-        grid_trabajadores_sin_contrato.bind(text=self.calc_workers)
-        self.id_container_grid_2.add_widget(grid_trabajadores_sin_contrato)
+            grid = SpinnerScroll(text="¿Cuál servicio tiene con Bancamía?", values=querys.parametricList('bancamia'))
+            self.id_container_grid_2.add_widget(grid)
 
-        self.grid_label_workers = LabelScroll(text="Total de trabajadores")
-        self.id_container_grid_2.add_widget(self.grid_label_workers)
+            grid_pertenece = SpinnerScroll(text="Pertenece a un programa público de desarrollo",
+                                           values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid_pertenece)
+            grid_pertenece.bind(text=self.ingresar_programa)
 
-        grid = SpinnerScroll(text="Cantidad de socios", values=[str(numb) for numb in range(1, 60)])
-        self.id_container_grid_2.add_widget(grid)
+            box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
+            lab1 = Label(text="¿Cuál programa?", halign="left", valign="middle", size_hint=(None, None),
+                         size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
+                         text_size=(275, 40))
 
-        grid = SpinnerScroll(text="Tipo de local", values=querys.parametricList('tipo_de_casa'))
-        self.id_container_grid_2.add_widget(grid)
-        self.id_householdExpenses.bind(on_release=self.openPopupGastos)
-        self.id_householdIncomes.bind(on_release=self.openPopupIngresos)
+            self.text_cual_programa = TextInputScroll()
+            box_container.add_widget(lab1)
+            box_container.add_widget(self.text_cual_programa)
+            self.id_container_grid_2.add_widget(box_container)
+
+            grid = SpinnerScroll(text="¿Depende económicamente de alguién?", values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid)
+
+            grid = SpinnerScroll(text="¿De quién depende?", values=querys.parametricList('de_quien_depende'))
+            self.id_container_grid_2.add_widget(grid)
+
+            grid = SpinnerScroll(text="¿Cuántas horas a la semana dedica al cuidado de personas a cargo?",
+                                 values=[str(numb) for numb in range(1, 165)])
+            self.id_container_grid_2.add_widget(grid)
+
+            grid = SpinnerScroll(text="¿Cuántas horas a la semana dedica a la recreación?",
+                                 values=[str(numb) for numb in range(1, 165)])
+            self.id_container_grid_2.add_widget(grid)
+
+            grid = SpinnerScroll(text="¿El negocio tiene RUT?", values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid)
+
+            grid = SpinnerScroll(text="¿Tiene registro de cámara de comercio?", values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid)
+
+            grid_tiene_nit = SpinnerScroll(text="¿Tiene NIT el negocio?", values=querys.parametricList('si_no'))
+            self.id_container_grid_2.add_widget(grid_tiene_nit)
+            grid_tiene_nit.bind(text=self.tiene_nit)
+
+            box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
+            lab1 = Label(text="Número NIT", halign="left", valign="middle", size_hint=(None, None),
+                         size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
+                         text_size=(275, 40))
+            self.numero_nit = TextInputScroll()
+            box_container.add_widget(lab1)
+            box_container.add_widget(self.numero_nit)
+            self.id_container_grid_2.add_widget(box_container)
+
+            grid = SpinnerScroll(text="¿Dónde opera su unidad productivo?", values=querys.parametricList('donde_opera'))
+            self.id_container_grid_2.add_widget(grid)
+
+            input_list_labels = ["Ingreso del negocio", "Gastos Directos", "Gastos Indirectos", "Total de gastos",
+                                 "Excedentes",
+                                 "Activo Fijo", "Activo No Fijo", "Total Actvios", "Pasivo Corto", "Pasivo Largo", "Deudas",
+                                 "Patrimonio"]
+
+            for input_label_value in input_list_labels:
+                box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
+                lab1 = Label(text=input_label_value, halign="left", valign="middle", size_hint=(None, None),
+                             size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
+                             text_size=(275, 40))
+                text1 = TextInputScroll()
+                box_container.add_widget(lab1)
+                box_container.add_widget(text1)
+                self.id_container_grid_2.add_widget(box_container)
+
+            self.total_workers = 0
+
+            grid_trabajadores_con_contrato = SpinnerScroll(text="Total de trabajadores con contrato",
+                                                           values=[str(numb) for numb in range(1, 60)])
+            grid_trabajadores_con_contrato.bind(text=self.calc_workers)
+            self.id_container_grid_2.add_widget(grid_trabajadores_con_contrato)
+
+            grid_trabajadores_sin_contrato = SpinnerScroll(text="Total de trabajadores sin contrato",
+                                                           values=[str(numb) for numb in range(1, 60)])
+            grid_trabajadores_sin_contrato.bind(text=self.calc_workers)
+            self.id_container_grid_2.add_widget(grid_trabajadores_sin_contrato)
+
+            self.grid_label_workers = LabelScroll(text="Total de trabajadores")
+            self.id_container_grid_2.add_widget(self.grid_label_workers)
+
+            grid = SpinnerScroll(text="Cantidad de socios", values=[str(numb) for numb in range(1, 60)])
+            self.id_container_grid_2.add_widget(grid)
+
+            grid = SpinnerScroll(text="Tipo de local", values=querys.parametricList('tipo_de_casa'))
+            self.id_container_grid_2.add_widget(grid)
+
+        self.id_belongToAssosiation.text = "¿Pertenece a alguna asociación?"
+        self.id_ciiu.text = "CIIU"
+        self.id_pension.text = "Pensión"
+        self.id_bussinesSector.text = "Sector Empresarial"
+        self.id_householdExpenses.text = "Gastos del grupo familiar"
+        self.id_householdIncomes.text = "Fuente de ingresos del grupo familiar"
+        self.id_totalDependants.text = "Total de personas que dependen de este ingreso"
+        self.id_whoDefineIncome.text = "¿Quién define la distribución de ingresos?"
+        self.id_houseType.text = "Tipo de vivienda"
+        self.id_houseMaterial.text = "Material predominante de la vivienda"
+        self.id_bedroomsNumber.text = "Número de dormitorios"
+        self.id_kitchenFuel.text = "Combustible de cocina"
+        self.id_tier.text = "Estrato"
+        self.id_houseAge.text = "Antiguedad"
+        self.id_asociacion_mujeres.text = "¿Es una asociación de mujeres?"
+        self.scroll_complete = False
 
     def setHome(self, *args):
         self.home = True
@@ -284,23 +312,7 @@ class MonitoreoScreen(Screen):
             if msg == "":
                 AcceptFormMonitoreo(self.operator).open()
 
-    def on_pre_enter(self, *args):
-        self.id_belongToAssosiation.text = "¿Pertenece a alguna asociación?"
-        self.id_ciiu.text = "CIIU"
-        self.id_pension.text = "Pensión"
-        self.id_bussinesSector.text = "Sector Empresarial"
-        self.id_householdExpenses.text = "Gastos del grupo familiar"
-        self.id_householdIncomes.text = "Fuente de ingresos del grupo familiar"
-        self.id_totalDependants.text = "Total de personas que dependen de este ingreso"
-        self.id_whoDefineIncome.text = "¿Quién define la distribución de ingresos?"
-        self.id_houseType.text = "Tipo de vivienda"
-        self.id_houseMaterial.text = "Material predominante de la vivienda"
-        self.id_bedroomsNumber.text = "Número de dormitorios"
-        self.id_kitchenFuel.text = "Combustible de cocina"
-        self.id_tier.text = "Estrato"
-        self.id_houseAge.text = "Antiguedad"
-        self.id_asociacion_mujeres.text = "¿Es una asociación de mujeres?"
-        self.scroll_complete = False
+
 
     def openPopupGastos(self, *args):
         GastosDelGrupoFamiliarPopup().open()

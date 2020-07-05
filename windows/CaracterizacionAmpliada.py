@@ -45,8 +45,7 @@ class CaracterizacionAmpliadaScreen(Screen):
     id_signInButton = ObjectProperty()
     id_homeButton = ObjectProperty()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(**kwargs)
+    def on_pre_enter(self, *args):
         self.id_title.text = "Caracterización Ampliada"
         self.id_adittionalStudies.hint_text = "Formación superior o cursos complementarios"
         self.id_factorsThatPreventYou.hint_text = "Factores que le impiden participar en este proyecto"
@@ -76,6 +75,33 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_childrenInformation.bind(on_release=self.childrenInformation)
         self.id_dependantsInformation.bind(on_release=self.dependantsInformation)
 
+        self.id_studies.text = 'Nivel de escolaridad'
+        self.id_workingRelationship.text = '¿Tiene vinculación laboral con contrato?'
+        self.id_freelance.text = '¿Independiente?'
+        self.id_householdHead.text = '¿Es cabeza de familia?'
+        self.id_householdMembers.text = 'Número de integrantes en el hogar'
+        self.id_healthRegime.text = 'Régimen de salud'
+        self.id_maritalStatus.text = 'Estado Civil'
+        self.id_agreementType.text = 'Tipo de contrato'
+        self.id_rut.text = '¿Tiene RUT?'
+        self.id_childrenNumber.text = '¿Número de hijos?'
+        self.id_dependants.text = '¿Cuántas personas tiene a cargo?'
+        self.id_coverTheFamily.text = '¿Cubre su familia?'
+        self.id_averageIncomeContract.text = 'Promedio de ingresos por contrato'
+        self.id_averageIncomeActivity.text = 'Promedio de ingresos en esta actividad'
+        self.id_childrenInformation.text = 'Información de hijos'
+        self.id_dependantsInformation.text = 'Info. personas a cargo'
+        self.id_pension.text = 'Pensión'
+        self.id_arl.text = 'ARL'
+        self.id_message.text = ''
+        self.id_signInButton.text = 'Ingresar'
+        self.id_agreementTime.text = 'Antiguedad del contrato'
+
+        self.id_observations.resetInput()
+        self.id_factorsThatPreventYou.resetInput()
+        self.id_adittionalStudies.resetInput()
+
+        self.home = False
 
     def setHome(self, *args):
         self.home = True
@@ -108,35 +134,6 @@ class CaracterizacionAmpliadaScreen(Screen):
                 AcceptFormCaracterizacionAmpliada(self.operator, self.payeeDocument).open()
         else:
             self.id_message.text = "Falta información por llenar"
-
-    def on_pre_enter(self, *args):
-        self.id_studies.text = 'Nivel de escolaridad'
-        self.id_workingRelationship.text = '¿Tiene vinculación laboral con contrato?'
-        self.id_freelance.text = '¿Independiente?'
-        self.id_householdHead.text = '¿Es cabeza de familia?'
-        self.id_householdMembers.text = 'Número de integrantes en el hogar'
-        self.id_healthRegime.text = 'Régimen de salud'
-        self.id_maritalStatus.text = 'Estado Civil'
-        self.id_agreementType.text = 'Tipo de contrato'
-        self.id_rut.text = '¿Tiene RUT?'
-        self.id_childrenNumber.text = '¿Número de hijos?'
-        self.id_dependants.text = '¿Cuántas personas tiene a cargo?'
-        self.id_coverTheFamily.text = '¿Cubre su familia?'
-        self.id_averageIncomeContract.text = 'Promedio de ingresos por contrato'
-        self.id_averageIncomeActivity.text = 'Promedio de ingresos en esta actividad'
-        self.id_childrenInformation.text = 'Información de hijos'
-        self.id_dependantsInformation.text = 'Info. personas a cargo'
-        self.id_pension.text = 'Pensión'
-        self.id_arl.text = 'ARL'
-        self.id_message.text = ''
-        self.id_signInButton.text = 'Ingresar'
-        self.id_agreementTime.text = 'Antiguedad del contrato'
-
-        self.id_observations.resetInput()
-        self.id_factorsThatPreventYou.resetInput()
-        self.id_adittionalStudies.resetInput()
-
-        self.home = False
 
     def on_leave(self, *args):
         informacion_limpia_hijos = []

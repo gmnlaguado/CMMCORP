@@ -44,8 +44,7 @@ class InformacionGeneralScreen(Screen):
     id_signInButton = ObjectProperty()
     homeButton = ObjectProperty()
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(**kwargs)
+    def on_pre_enter(self, *args):
         self.id_title.text = "Información General"
         self.id_name.hint_text = "Nombres del beneficiario"
         self.id_lastName.hint_text = "Apellidos del beneficiario"
@@ -80,6 +79,34 @@ class InformacionGeneralScreen(Screen):
         self.id_departments.bind(text=self.fillCities)
         self.id_expeditionDepto.bind(text=self.fillCitiesExpedition)
         self.id_cities.bind(text=self.fillNeighborhoods)
+
+        self.id_documentType.text = "Tipo de documento"
+        self.id_expeditionDepto.text = "Depto. Expedición"
+        self.id_expeditionCity.text = "Ciudad Expedición"
+        self.id_sex.text = "Sexo"
+        self.id_payeeType.text = "Tipo"
+        self.id_nationality.text = "Nacionalidad"
+        self.id_country.text = "País"
+        self.id_departments.text = "Departamento"
+        self.id_cities.text = "Ciudad"
+        self.id_environment.text = "Entorno"
+        self.id_sign.text = "Rótulo"
+        self.id_neighborhoods.text = "Barrio"
+        self.id_tier.text = "Estrato"
+        self.id_gender.text = "Género"
+        self.id_ethnicGroup.text = "Etnia"
+        self.id_disability.text = "Cond. Discapacidad"
+
+        self.id_name.resetInput()
+        self.id_lastName.resetInput()
+        self.id_birthdate.resetInput()
+        self.id_address.resetInput()
+        self.id_telephone.resetInput()
+        self.id_cellphone.resetInput()
+        self.id_cellphone2.resetInput()
+        self.id_email.resetInput()
+
+        self.home = False
 
     def setHome(self, *args):
         self.home = True
@@ -119,35 +146,6 @@ class InformacionGeneralScreen(Screen):
         if id_city is not None:
             neigh = querys.bringNeighborhoods(id_city)
             self.id_neighborhoods.values = [ne.capitalize() for ne in neigh]
-
-    def on_pre_enter(self, *args):
-        self.id_documentType.text = "Tipo de documento"
-        self.id_expeditionDepto.text = "Depto. Expedición"
-        self.id_expeditionCity.text = "Ciudad Expedición"
-        self.id_sex.text = "Sexo"
-        self.id_payeeType.text = "Tipo"
-        self.id_nationality.text = "Nacionalidad"
-        self.id_country.text = "País"
-        self.id_departments.text = "Departamento"
-        self.id_cities.text = "Ciudad"
-        self.id_environment.text = "Entorno"
-        self.id_sign.text = "Rótulo"
-        self.id_neighborhoods.text = "Barrio"
-        self.id_tier.text = "Estrato"
-        self.id_gender.text = "Género"
-        self.id_ethnicGroup.text = "Etnia"
-        self.id_disability.text = "Cond. Discapacidad"
-
-        self.id_name.resetInput()
-        self.id_lastName.resetInput()
-        self.id_birthdate.resetInput()
-        self.id_address.resetInput()
-        self.id_telephone.resetInput()
-        self.id_cellphone.resetInput()
-        self.id_cellphone2.resetInput()
-        self.id_email.resetInput()
-
-        self.home = False
 
     def on_leave(self, *args):
         if not self.home:

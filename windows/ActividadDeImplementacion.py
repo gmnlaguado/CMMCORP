@@ -29,36 +29,34 @@ class ActividadDeImplementacionScreen(Screen):
     id_container_grid = ObjectProperty()
     id_signInButton = ObjectProperty()
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.id_title.text = "Actividad de Implementación"
-        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
-        button_1 = ButtonScroll(text="Ingresar")
-        button_1.bind(on_release=self.estados)
-        self.id_container_grid.add_widget(button_1)
-        self.spinner_1 = SpinnerScroll(text="Tipo de visita", values=querys.parametricList('tipo_visita'))
-        self.id_container_grid.add_widget(self.spinner_1)
-        label_1 = LabelScroll(text="Si elige otro, indique la dirección")
-        self.id_container_grid.add_widget(label_1)
-        self.input_1 = TextInputScroll()
-        self.id_container_grid.add_widget(self.input_1)
-        self.spinner_2 = SpinnerScroll(text="Plan de Inversiones", values=querys.parametricList('plan_de_inversiones'))
-        self.id_container_grid.add_widget(self.spinner_2)
-        label_2 = LabelScroll(text="Observaciones")
-        self.id_container_grid.add_widget(label_2)
-        self.input_2 = TextInputScroll()
-        self.id_container_grid.add_widget(self.input_2)
+    def on_pre_enter(self, *args):
+        if not len(self.id_container_grid.children) > 0:
+            self.id_title.text = "Actividad de Implementación"
+            self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+            button_1 = ButtonScroll(text="Ingresar")
+            button_1.bind(on_release=self.estados)
+            self.id_container_grid.add_widget(button_1)
+            self.spinner_1 = SpinnerScroll(text="Tipo de visita", values=querys.parametricList('tipo_visita'))
+            self.id_container_grid.add_widget(self.spinner_1)
+            label_1 = LabelScroll(text="Si elige otro, indique la dirección")
+            self.id_container_grid.add_widget(label_1)
+            self.input_1 = TextInputScroll()
+            self.id_container_grid.add_widget(self.input_1)
+            self.spinner_2 = SpinnerScroll(text="Plan de Inversiones", values=querys.parametricList('plan_de_inversiones'))
+            self.id_container_grid.add_widget(self.spinner_2)
+            label_2 = LabelScroll(text="Observaciones")
+            self.id_container_grid.add_widget(label_2)
+            self.input_2 = TextInputScroll()
+            self.id_container_grid.add_widget(self.input_2)
 
-        contain = BoxLayout(size_hint=(None, None), size=(673, 40))
-        label_3 = LabelScroll(text="Seguimiento al desembolso")
-        contain.add_widget(label_3)
-        self.check = CheckBox(group=f"following", color=(0, 1, 0, 1))
-        contain.add_widget(self.check)
-        self.id_container_grid.add_widget(contain)
+            contain = BoxLayout(size_hint=(None, None), size=(673, 40))
+            label_3 = LabelScroll(text="Seguimiento al desembolso")
+            contain.add_widget(label_3)
+            self.check = CheckBox(group=f"following", color=(0, 1, 0, 1))
+            contain.add_widget(self.check)
+            self.id_container_grid.add_widget(contain)
 
         self.id_signInButton.bind(on_release=self.checkAll)
-
-    def on_pre_enter(self, *args):
         self.id_payeeDocument.text = f'Beneficiario {self.payeeDocument}'
         self.id_payeeName.text = f'Proyecto {self.project}'
 

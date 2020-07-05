@@ -26,16 +26,14 @@ class ActividadDeFormacionScreen(Screen):
     id_signInButton = ObjectProperty()
     id_homeButton = ObjectProperty()
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.id_title.text = "Actvidad de Formación"
-        self.id_activities.bind(text=self.selectActivity)
-        self.id_signInButton.bind(on_release=self.checkAll)
-
     def checkAll(self, *args):
         AcceptFormActividadDeFormacion(self.operator).open()
 
     def on_pre_enter(self, *args):
+        self.id_title.text = "Actvidad de Formación"
+        self.id_activities.bind(text=self.selectActivity)
+        self.id_signInButton.bind(on_release=self.checkAll)
+
         self.id_activities.text = "Actividad De Formación"
         self.id_activities.values = self.actividades
         self.id_payee.text = f'Beneficiario {self.payeeDocument}'

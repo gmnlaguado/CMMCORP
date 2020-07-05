@@ -19,6 +19,7 @@ class LoginScreen(Screen):
 
         self.static_password.text = "Contraseña"
 
+    def on_pre_enter(self, *args):
         self.elements = []
         self.elements.append(self.id_username)
         self.elements.append(self.id_password)

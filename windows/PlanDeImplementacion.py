@@ -23,12 +23,34 @@ class PlanDeImplementacionScreen(Screen):
     id_signInButton = ObjectProperty()
     id_homeButton = ObjectProperty()
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+    def on_pre_enter(self, *args):
         self.id_title.text = "Plan de Implementación"
         self.id_lineLabel.text = "Línea"
         self.id_finishedDataLabel.text = "Terminación"
         self.id_signInButton.bind(on_release=self.checkAll)
+
+        if self.form_title is not None:
+            self.id_title.text = self.form_title
+
+        self.id_container_grid.clear_widgets()
+        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+        scores = querys.traer_puntajes_diagnostico(self.payeeDocument, querys.idProject(self.project.lower()))
+        lines = querys.parametricList('lineas_de_desarrollo')
+        for idx, quest in enumerate(lines):
+            lab = Label(text=quest, halign="left", valign="middle", size_hint=(None, None),
+                        size=(228, 63), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
+                        text_size=(228, 63))
+            self.id_container_grid.add_widget(lab)
+            lab_score = Label(text=str(scores[idx]), halign="center", valign="middle", size_hint=(None, None),
+                              size=(28, 63), color=(0, 0, 0, 0.85), font_size=16, font_name="montserrat",
+                              text_size=(28, 63))
+            self.id_container_grid.add_widget(lab_score)
+            goal = TextInputScroll()
+            self.id_container_grid.add_widget(goal)
+            data_1 = TextInputScrollData()
+            self.id_container_grid.add_widget(data_1)
+            data_2 = TextInputScrollData()
+            self.id_container_grid.add_widget(data_2)
 
     def checkAll(self, *args):
         self.id_message.text = ""
@@ -54,30 +76,6 @@ class PlanDeImplementacionScreen(Screen):
         if self.id_message.text == "":
             self.total_plan = informacion_total
             numero_de_visitas_implementacion(self.operator).open()
-
-    def on_pre_enter(self, *args):
-        if self.form_title is not None:
-            self.id_title.text = self.form_title
-
-        self.id_container_grid.clear_widgets()
-        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
-        scores = querys.traer_puntajes_diagnostico(self.payeeDocument, querys.idProject(self.project.lower()))
-        lines = querys.parametricList('lineas_de_desarrollo')
-        for idx, quest in enumerate(lines):
-            lab = Label(text=quest, halign="left", valign="middle", size_hint=(None, None),
-                        size=(228, 63), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
-                        text_size=(228, 63))
-            self.id_container_grid.add_widget(lab)
-            lab_score = Label(text=str(scores[idx]), halign="center", valign="middle", size_hint=(None, None),
-                              size=(28, 63), color=(0, 0, 0, 0.85), font_size=16, font_name="montserrat",
-                              text_size=(28, 63))
-            self.id_container_grid.add_widget(lab_score)
-            goal = TextInputScroll()
-            self.id_container_grid.add_widget(goal)
-            data_1 = TextInputScrollData()
-            self.id_container_grid.add_widget(data_1)
-            data_2 = TextInputScrollData()
-            self.id_container_grid.add_widget(data_2)
 
     def on_leave(self, *args):
         dataFormating.plan_de_implementacion(self)
