@@ -62,7 +62,7 @@ def GeneralInformationData(information):
     org[28] = querys.idParametrics('discapacidades', org[28])
 
     org = tuple(org)
-    querys.loadPayee(org)
+    querys.cargar('informacion_general_beneficiario', 29, org)
 
     unique_id = org[0]+'__'+org[17]+'__'+org[4]
     pro = [
@@ -82,12 +82,12 @@ def payeeProjectsData(info, clean):
             info.append(2)
         info.append(1)
         info = tuple(info)
-        querys.loadPayeeProjects(info)
+        querys.cargar('beneficiario_proyectos', 14, info)
 
 
 def productionProfileDiagData(info):
     info = tuple(info)
-    querys.loadProductionProfileDiag(info)
+    querys.cargar('diagnostico_de_perfil_productivo', 71, info)
 
 
 def bussinesIdeaData(info):
@@ -152,7 +152,7 @@ def bussinesIdeaData(info):
     unique_id = org[0] + '__' + org[2] + '__' + org[1]
     org.insert(0, unique_id)
     org = tuple(org)
-    querys.loadBussinesIdea(org)
+    querys.cargar('idea_de_negocio', 30, org)
 
 
 def bussinesUnitData(info):
@@ -208,7 +208,7 @@ def bussinesUnitData(info):
     org.insert(0, unique_id)
 
     org = tuple(org)
-    querys.loadBussinesUnit(org)
+    querys.cargar('unidad_de_negocio', 27, org)
 
 
 def caracterizacion_ampliada(info):
