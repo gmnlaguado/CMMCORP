@@ -166,9 +166,9 @@ class AcceptFormActividadDeImplementacion(class_declaration.PopupFather):
         querys.sumar_una_actividad(self.payee, self.project)
         visitas = list(querys.ver_cuantas_visitas(self.payee, self.project))
         if visitas[1] == visitas[0]:
-            querys.dar_terminada_implementacion(self.payee, self.project)
-            querys.habilitar_monitoreo(self.payee, self.project)
-            querys.modificar_etapa_del_proceso(self.payee, self.project, 4)
+            querys.registrar('beneficiario_proyectos', 'concluido_implementacion',self.payee, self.project, 1)
+            querys.registrar('beneficiario_proyectos', 'monitoreo', self.payee, self.project, 1)
+            querys.registrar('beneficiario_proyectos', 'etapa_del_proceso', self.payee, self.project, 4)
         self.dismiss()
         self.changeWindow()
 

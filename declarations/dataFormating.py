@@ -259,8 +259,8 @@ def caracterizacion_ampliada(info):
     unique_id = org[0] + '__' + org[2] + '__' + org[1]
     org.insert(0, unique_id)
     org = tuple(org)
-    querys.cargar_caracterizacion_ampliada(org)
-    querys.modificar_etapa_del_proceso(info.payeeDocument, org[1], 2)
+    querys.cargar('caracterizacion_ampliada', 24, org)
+    querys.registrar('beneficiario_proyectos', 'etapa_del_proceso', info.payeeDocument, org[1], 2)
 
 
 def caracterizacion_ampliada_informacion_hijos(info, full_info):
@@ -280,7 +280,7 @@ def caracterizacion_ampliada_informacion_hijos(info, full_info):
             unique_id = hijo[0] + '__' + hijo[2] + '__' + hijo[1] + '__' + str(hijo[3])
             hijo.insert(0, unique_id)
             hijo = tuple(hijo)
-            querys.cargar_caracterizacion_ampliada_hijos(hijo)
+            querys.cargar('caracterizacion_ampliada_informacion_hijos', 8, hijo)
             hijo = []
 
 
@@ -301,7 +301,7 @@ def caracterizacion_ampliada_informacion_personas_a_cargo(info, full_info):
             unique_id = persona[0] + '__' + persona[2] + '__' + persona[1] + '__' + str(persona[3])
             persona.insert(0, unique_id)
             persona = tuple(persona)
-            querys.cargar_caracterizacion_ampliada_personas(persona)
+            querys.cargar('caracterizacion_ampliada_informacion_personas_a_cargo', 8, persona)
             persona = []
 
 
@@ -409,15 +409,18 @@ def monitoreo(info):
 
     org.append(str(datetime.date.today()))
     org = tuple(org)
-    querys.cargar_monitoreo(org)
+    querys.cargar('monitoreo', 72, org)
 
     if info.numero_de_monitoreo == 1:
-        querys.habilitar_plan_de_formacion(info.payeeDocument, querys.idProject(info.project.lower()))
+        querys.registrar('beneficiario_proyectos', 'plan_de_formacion', info.payeeDocument, querys.idProject(info.project.lower()), 1)
 
-    if info.numero_de_monitoreo == 2:
-        querys.habilitar_plan_de_implementacion(info.payeeDocument, querys.idProject(info.project.lower()))
+    elif info.numero_de_monitoreo == 2:
+        querys.registrar('beneficiario_proyectos', 'plan_de_implementacion', info.payeeDocument, querys.idProject(info.project.lower()), 1)
 
-    querys.deshabilitar_monitoreo(info.payeeDocument, querys.idProject(info.project.lower()))
+    elif info.numero_de_monitoreo == 3:
+        querys.registrar('beneficiario_proyectos', 'plan_de_seguimiento', info.payeeDocument, querys.idProject(info.project.lower()), 1)
+
+    querys.registrar('beneficiario_proyectos', 'monitoreo', info.payeeDocument, querys.idProject(info.project.lower()), 2)
 
 
 def diagnostico_empresarial(info, monitoreo):
@@ -441,7 +444,7 @@ def diagnostico_empresarial(info, monitoreo):
     unique_id = org[0] + '__' + org[2] + '__' + org[1] + '__' + str(org[3])
     org.insert(0, unique_id)
     org = tuple(org)
-    querys.cargar_diagnostico_empresarial(org)
+    querys.cargar('diagnostico_empresarial', 15, org)
 
 
 def plan_de_formacion(info):
@@ -462,8 +465,8 @@ def plan_de_formacion(info):
         org.append('')
         org.append(2)
         org = tuple(org)
-        querys.cargar_plan_de_formacion(org)
-    querys.deshabilitar_plan_de_formacion(info.payeeDocument, querys.idProject(info.project.lower()))
+        querys.cargar('plan_de_formacion', 9, org)
+    querys.registrar('beneficiario_proyectos', 'plan_de_formacion', info.payeeDocument, querys.idProject(info.project.lower()), 2)
 
 
 def plan_de_implementacion(info):
@@ -482,8 +485,8 @@ def plan_de_implementacion(info):
         for rr in re:
             org.append(rr)
     org = tuple(org)
-    querys.plan_de_implementacion(org)
-    querys.deshabilitar_plan_de_implementacion(info.payeeDocument, querys.idProject(info.project.lower()))
+    querys.cargar('plan_de_implementacion', 33, org)
+    querys.registrar('beneficiario_proyectos', 'plan_de_implementacion', info.payeeDocument, querys.idProject(info.project.lower()), 2)
 
 
 def actividad_implementacion(info):
@@ -529,6 +532,6 @@ def actividad_implementacion(info):
     unique_id = org[0] + '__' + org[2] + '__' + org[1] + '__' + str(org[3])
     org.insert(0, unique_id)
     org = tuple(org)
-    querys.cargar_actividad_implementacion(org)
+    querys.cargar('actividad_implementacion', 21, org)
 
 

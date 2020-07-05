@@ -72,9 +72,9 @@ class SeleccionarActividad(class_declaration.PopupFather):
         querys.dar_actividad_de_formacion_como_finalizada(self.document, self.project, act, str(datetime.date.today()))
         class_declaration.MessagePopup('La actividad ha sido registrada').open()
         if self.faltantes == 1:
-            querys.dar_terminada_formacion(self.document, self.project)
-            querys.modificar_etapa_del_proceso(self.document, self.project, 3)
-            querys.habilitar_monitoreo(self.document, self.project)
+            querys.registrar('beneficiario_proyectos', 'concluido_formacion', self.document, self.project, 1)
+            querys.registrar('beneficiario_proyectos', 'etapa_del_proceso', self.document, self.project, 3)
+            querys.registrar('beneficiario_proyectos', 'monitoreo', self.document, self.project, 1)
         self.changeWindow()
         self.dismiss()
 

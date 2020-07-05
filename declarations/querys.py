@@ -195,10 +195,16 @@ def cargar(tabla, columnas, info):
 # Update
 
 
-def registrar_avance(tabla, columna, beneficiario, proyecto, valor):
+def registrar(tabla, columna, beneficiario, proyecto, valor):
     db = MyDB('register')
     db.commit("UPDATE %s SET %s = :valor WHERE payeeDocument = :beneficiario AND "
               "project = :project" % (tabla, columna), (valor, beneficiario, proyecto))
+
+
+def dar_actividad_de_formacion_como_finalizada(beneficiario, project, actividad, fecha):
+    db = MyDB('register')
+    db.commit("UPDATE plan_de_formacion SET completada = 1, fecha_realizada = :fecha WHERE beneficiario = :beneficiario AND proyecto = :project AND id_actividad = :actividad",
+              (fecha, beneficiario, project, actividad))
 
 
 def sumar_una_actividad(beneficiario, project):

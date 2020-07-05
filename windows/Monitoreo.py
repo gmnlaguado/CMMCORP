@@ -7,7 +7,6 @@ from kivy.uix.checkbox import CheckBox
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
-from kivy.uix.button import Button
 from codes import snippets
 
 
