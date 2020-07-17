@@ -169,6 +169,14 @@ class InformacionGeneralScreen(Screen):
 
     def checkAll(self, *args):
         self.id_message.text = ""
+        if len(self.id_cellphone2.text) == 0:
+            self.id_cellphone2.text = '0000000000'
+            self.id_cellphone2.on_text_validate()
+
+        if len(self.id_email.text) == 0:
+            self.id_email.text = 'No Aplica'
+            self.id_email.on_text_validate()
+
         children_list = self.children[0].children
         ret = snippets.chekingCompletes(children_list)
         if not ret:
