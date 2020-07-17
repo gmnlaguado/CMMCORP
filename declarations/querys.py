@@ -289,7 +289,6 @@ def idCities(city):
     if result is not None:
         return result[0]
 
-
 def bringNeighborhoods(city):
     db = MyDB('parametric')
     result = db.query("SELECT data FROM barrios WHERE fkCities = :city", {'city': city}).fetchall()

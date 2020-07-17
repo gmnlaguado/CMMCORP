@@ -65,8 +65,9 @@ class InformacionGeneralScreen(Screen):
         self.id_documentType.values = querys.parametricList('tipo_de_documento')
         self.id_sex.values = querys.parametricList('sexo')
         self.id_payeeType.values = querys.parametricList('tipo_de_beneficiario')
-        self.id_nationality.values = querys.parametricList('paises')
-        self.id_country.values = querys.parametricList('paises')
+        nacionalidades = [nn.title() for nn in querys.parametricList('paises')]
+        self.id_nationality.values = nacionalidades
+        self.id_country.values = nacionalidades
         self.id_environment.values = querys.parametricList('entornos')
         self.id_sign.values = querys.parametricList('rotulos')
         self.id_gender.values = querys.parametricList('genero')
@@ -124,7 +125,7 @@ class InformacionGeneralScreen(Screen):
 
     def fillDepartments(self, *args):
         self.id_message.text = ""
-        id_country = querys.idParametrics('paises', args[1])
+        id_country = querys.idParametrics('paises', args[1].lower())
         if id_country is not None:
             self.id_departments.values = querys.bringDepartments(id_country)
 
@@ -132,20 +133,31 @@ class InformacionGeneralScreen(Screen):
         self.id_message.text = ""
         id_department = querys.idDepartments(args[1])
         if id_department is not None:
-            self.id_cities.values = querys.bringCities(id_department)
+            if id_department == 11:
+                self.id_cities.text = args[1]
+                self.fillNeighborhoods(*args)
+            else:
+                self.id_cities.values = querys.bringCities(id_department)
 
     def fillCitiesExpedition(self, *args):
         self.id_message.text = ""
         id_department = querys.idDepartments(args[1])
         if id_department is not None:
-            self.id_expeditionCity.values = querys.bringCities(id_department)
+            if id_department == 11:
+                self.id_expeditionCity.text = args[1]
+            else:
+                self.id_expeditionCity.values = querys.bringCities(id_department)
 
     def fillNeighborhoods(self, *args):
         self.id_message.text = ""
         id_city = querys.idCities(args[1])
-        if id_city is not None:
-            neigh = querys.bringNeighborhoods(id_city)
+        if args[1] == "Bogotá D.C.":
+            neigh = querys.bringNeighborhoods(11001)
             self.id_neighborhoods.values = [ne.capitalize() for ne in neigh]
+        else:
+            if id_city is not None:
+                neigh = querys.bringNeighborhoods(id_city)
+                self.id_neighborhoods.values = [ne.capitalize() for ne in neigh]
 
     def on_leave(self, *args):
         if not self.home:
