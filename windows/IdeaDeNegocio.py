@@ -130,7 +130,10 @@ class IdeaDeNegocioScreen(Screen):
         self.id_message.text = ""
         id_department = querys.idDepartments(args[1])
         if id_department is not None:
-            self.id_cities.values = querys.bringCities(id_department)
+            if id_department == 11:
+                self.id_cities.text = args[1]
+            else:
+                self.id_cities.values = querys.bringCities(id_department)
 
     def on_leave(self, *args):
         information = self

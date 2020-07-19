@@ -40,15 +40,6 @@ class UnidadDeNegocioScreen(Screen):
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
 
-    def signal(self, *args):
-        self.id_message.text = args[0].alertFlag['message']
-
-    def fillCities(self, *args):
-        self.id_message.text = ""
-        id_department = querys.idDepartments(args[1])
-        if id_department is not None:
-            self.id_cities.values = querys.bringCities(id_department)
-
     def on_pre_enter(self, *args):
         self.id_phone.input_type = 'number'
         self.id_cellphone.input_type = 'number'
@@ -74,8 +65,8 @@ class UnidadDeNegocioScreen(Screen):
         self.id_email.hint_text = "Email"
         self.id_webPage.hint_text = "Página Web"
         self.id_phone.hint_text = "Tel. Fijo"
-        self.id_cellphone.hint_text = "Tel. Celular"
-        self.id_cellphone2.hint_text = "Tel. Celular"
+        self.id_cellphone.hint_text = "Tel. Celular 1"
+        self.id_cellphone2.hint_text = "Tel. Celular 2"
         self.id_description.hint_text = "Descripción de Unidad"
         self.id_briefcase.hint_text = "Portafolio"
         self.id_liabilitiesDescription.hint_text = "Descripción de pasivos"
@@ -122,8 +113,33 @@ class UnidadDeNegocioScreen(Screen):
         self.id_nit.resetInput()
         self.id_liabilitiesDescription.resetInput()
 
+    def signal(self, *args):
+        self.id_message.text = args[0].alertFlag['message']
+
+    def fillCities(self, *args):
+        self.id_message.text = ""
+        id_department = querys.idDepartments(args[1])
+        if id_department is not None:
+            if id_department == 11:
+                self.id_cities.text = args[1]
+            else:
+                self.id_cities.values = querys.bringCities(id_department)
+
     def checkAll(self, *args):
         self.id_message.text = ""
+
+        if len(self.id_cellphone2.text) == 0:
+            self.id_cellphone2.text = '0000000000'
+            self.id_cellphone2.on_text_validate()
+
+        if len(self.id_email.text) == 0:
+            self.id_email.text = 'No Aplica'
+            self.id_email.on_text_validate()
+
+        if len(self.id_webPage.text) == 0:
+            self.id_webPage.text = 'No Aplica'
+            self.id_webPage.on_text_validate()
+
         children_list = self.children[0].children
         ret = snippets.chekingCompletes(children_list)
         if not ret:

@@ -151,13 +151,9 @@ class InformacionGeneralScreen(Screen):
     def fillNeighborhoods(self, *args):
         self.id_message.text = ""
         id_city = querys.idCities(args[1])
-        if args[1] == "Bogotá D.C.":
-            neigh = querys.bringNeighborhoods(11001)
+        if id_city is not None:
+            neigh = querys.bringNeighborhoods(id_city)
             self.id_neighborhoods.values = [ne.capitalize() for ne in neigh]
-        else:
-            if id_city is not None:
-                neigh = querys.bringNeighborhoods(id_city)
-                self.id_neighborhoods.values = [ne.capitalize() for ne in neigh]
 
     def on_leave(self, *args):
         if not self.home:
