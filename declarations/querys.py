@@ -349,3 +349,16 @@ def bringColumns(table):
     result = db.parametricQuery("PRAGMA table_info(%s)" % table).fetchall()
     if result is not None:
         return [res[1] for res in result]
+
+
+def lista_de_tablas():
+    db = MyDB('register')
+    result = db.parametricQuery("SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%' AND "
+                                "name NOT LIKE 'odp_%' AND name NOT LIKE 'proyectos'").fetchall()
+    result = [res[0] for res in result]
+    return result
+
+
+def limpiar_tabla(tabla):
+    db = MyDB('register')
+    db.commit("DELETE FROM %s LIMIT :limite" % tabla, {'limite': 10000})

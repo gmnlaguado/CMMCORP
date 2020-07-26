@@ -130,8 +130,11 @@ class AcceptLoading(class_declaration.PopupFather):
         self.title = f"ODP {self.operator} esta acción requiere conexión a internet. ¿Desea continuar?"
 
     def on_validate(self, *args):
-        class_declaration.MessagePopup(f'Starting sending POST requests').open()
+        # class_declaration.MessagePopup(f'Starting sending POST requests').open()
         # upload_process.uploadInformation()
+        tablas = querys.lista_de_tablas()
+        for tabs in tablas:
+            querys.limpiar_tabla(tabs)
         self.dismiss()
 
 
