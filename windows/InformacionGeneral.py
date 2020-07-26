@@ -136,6 +136,9 @@ class InformacionGeneralScreen(Screen):
             if id_department == 11:
                 self.id_cities.text = args[1]
                 self.fillNeighborhoods(*args)
+            elif id_department == 999 or id_department == 9999:
+                self.id_cities.text = args[1]
+                self.fillNeighborhoods(*args)
             else:
                 self.id_cities.values = querys.bringCities(id_department)
 
@@ -151,7 +154,9 @@ class InformacionGeneralScreen(Screen):
     def fillNeighborhoods(self, *args):
         self.id_message.text = ""
         id_city = querys.idCities(args[1])
-        if id_city is not None:
+        if args[1] == 'Otro':
+            self.id_neighborhoods.text = args[1]
+        elif id_city is not None:
             neigh = querys.bringNeighborhoods(id_city)
             self.id_neighborhoods.values = [ne.capitalize() for ne in neigh]
 

@@ -45,7 +45,10 @@ def GeneralInformationData(information):
     org[8] = querys.idParametrics('departamentos', org[8])
     org[9] = querys.idParametrics('paises', org[9].lower())
     org[10] = querys.idParametrics('rotulos', org[10])
-    org[12] = querys.idParametrics('barrios', org[12].upper())
+    if org[12] == 'Otro':
+        org[12] = '9999'
+    else:
+        org[12] = querys.idParametrics('barrios', org[12].upper())
     org[13] = querys.indicator(org[8])
     org[14] = int(org[14])
     org[15] = int(org[15])
