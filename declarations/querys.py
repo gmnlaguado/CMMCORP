@@ -188,8 +188,9 @@ def obtener_estado(beneficiario):
 def cargar(tabla, columnas, info):
     columnas -= 1
     db = MyDB('register')
-    query = "INSERT INTO %s VALUES" + " (?"+", ?"*columnas+")"
+    query = "INSERT INTO %s VALUES" + " (?" + ", ?" * columnas + ")"
     db.commit(query % tabla, info)
+
 
 # Register
 # Update
@@ -203,8 +204,9 @@ def registrar(tabla, columna, beneficiario, proyecto, valor):
 
 def dar_actividad_de_formacion_como_finalizada(beneficiario, project, actividad, fecha):
     db = MyDB('register')
-    db.commit("UPDATE plan_de_formacion SET completada = 1, fecha_realizada = :fecha WHERE beneficiario = :beneficiario AND proyecto = :project AND id_actividad = :actividad",
-              (fecha, beneficiario, project, actividad))
+    db.commit(
+        "UPDATE plan_de_formacion SET completada = 1, fecha_realizada = :fecha WHERE beneficiario = :beneficiario AND proyecto = :project AND id_actividad = :actividad",
+        (fecha, beneficiario, project, actividad))
 
 
 def sumar_una_actividad(beneficiario, project):
@@ -289,6 +291,7 @@ def idCities(city):
     if result is not None:
         return result[0]
 
+
 def bringNeighborhoods(city):
     db = MyDB('parametric')
     result = db.query("SELECT data FROM barrios WHERE fkCities = :city", {'city': city}).fetchall()
@@ -362,3 +365,10 @@ def lista_de_tablas():
 def limpiar_tabla(tabla):
     db = MyDB('register')
     db.commit("DELETE FROM %s LIMIT :limite" % tabla, {'limite': 10000})
+
+def obtener_toda_info(tabla):
+    db = MyDB('register')
+    result = db.parametricQuery("SELECT * FROM %s" % tabla).fetchall()
+    return result
+
+

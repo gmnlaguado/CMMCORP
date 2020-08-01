@@ -131,10 +131,8 @@ class AcceptLoading(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         # class_declaration.MessagePopup(f'Starting sending POST requests').open()
-        # upload_process.uploadInformation()
-        tablas = querys.lista_de_tablas()
-        for tabs in tablas:
-            querys.limpiar_tabla(tabs)
+        upload_process.uploadInformation()
+
         self.dismiss()
 
 
