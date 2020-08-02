@@ -1,65 +1,122 @@
 # coding=utf-8
 from flask import Flask, request
-import pymssql
 import os
 
-API_USUARIO = os.environ.get('Usuario_Api')
-API_CONTRASENA = os.environ.get('Contrasena_Api')
-API_BASE_DE_DATOS = os.environ.get('Base_Datos_Api)
-
-
-class MyDB(object):
-    def __init__(self):
-        db_host = '127.0.0.1'
-        db_name = API_BASE_DE_DATOS
-        db_user = API_USUARIO
-        db_password = API_CONTRASENA
-        self._db_connection = pymssql.connect(server=db_host, user=db_user, password=db_password, database=db_name)
-        self._db_cur = self._db_connection.cursor()
-
-    def commit(self, query):
-        self._db_cur.execute(query)
-        return self._db_connection.commit()
-
-    def __del__(self):
-        self._db_connection.close()
-
-
 app = Flask(__name__)
-app.debug = True
 
 
 @app.route('/')
 def index():
-    return '<h1>Aplicación de la corporación en línea</h1>'
+    return '<h1>Aplicación de la corporación mundial de la mujer en línea</h1>'
 
 
-@app.route('/informacion_general', methods=['POST'])
-def add_payee():
-    payee_info = request.json
-    return f'{payee_info}'
+@app.route('/actividad_implementacion', methods=['POST'])
+def actividad_implementacion():
+    informacion = request.json
+    return f'actividad_implementacion\n\n{informacion}'
+
+
+@app.route('/actividad_seguimiento', methods=['POST'])
+def actividad_seguimiento():
+    informacion = request.json
+    return f'actividad_seguimiento\n\n{informacion}'
 
 
 @app.route('/beneficiario_proyectos', methods=['POST'])
-def add_payee_projects():
-    return 'Complete payee_projects'
+def beneficiario_proyectos():
+    informacion = request.json
+    return f'beneficiario_proyectos\n\n{informacion}'
+
+
+@app.route('/caracterizacion_ampliada', methods=['POST'])
+def caracterizacion_ampliada():
+    informacion = request.json
+    return f'caracterizacion_ampliada\n\n{informacion}'
+
+
+@app.route('/caracterizacion_ampliada_informacion_hijos', methods=['POST'])
+def caracterizacion_ampliada_informacion_hijos():
+    informacion = request.json
+    return f'caracterizacion_ampliada_informacion_hijos\n\n{informacion}'
+
+
+@app.route('/caracterizacion_ampliada_informacion_personas_a_cargo', methods=['POST'])
+def caracterizacion_ampliada_informacion_personas_a_cargo():
+    informacion = request.json
+    return f'caracterizacion_ampliada_informacion_personas_a_cargo\n\n{informacion}'
 
 
 @app.route('/diagnostico_de_perfil_productivo', methods=['POST'])
-def add_production_profile_diag():
-    return 'Complete production_profile_diag'
+def diagnostico_de_perfil_productivo():
+    informacion = request.json
+    return f'diagnostico_de_perfil_productivo\n\n{informacion}'
+
+
+@app.route('/diagnostico_empresarial', methods=['POST'])
+def diagnostico_empresarial():
+    informacion = request.json
+    return f'diagnostico_empresarial\n\n{informacion}'
 
 
 @app.route('/idea_de_negocio', methods=['POST'])
-def add_bussines_idea():
-    return 'Complete bussines_idea'
+def idea_de_negocio():
+    informacion = request.json
+    return f'idea_de_negocio\n\n{informacion}'
+
+
+@app.route('/informacion_general_beneficiario', methods=['POST'])
+def informacion_general_beneficiario():
+    informacion = request.json
+    return f'informacion_general_beneficiario\n\n{informacion}'
+
+
+@app.route('/monitoreo', methods=['POST'])
+def monitoreo():
+    informacion = request.json
+    return f'monitoreo\n\n{informacion}'
+
+
+@app.route('/odp_operario', methods=['POST'])
+def odp_operario():
+    informacion = request.json
+    return f'odp_operario\n\n{informacion}'
+
+
+@app.route('/odp_operario_proyectos', methods=['POST'])
+def odp_operario_proyectos():
+    informacion = request.json
+    return f'odp_operario_proyectos\n\n{informacion}'
+
+
+@app.route('/plan_de_formacion', methods=['POST'])
+def plan_de_formacion():
+    informacion = request.json
+    return f'plan_de_formacion\n\n{informacion}'
+
+
+@app.route('/plan_de_implementacion', methods=['POST'])
+def plan_de_implementacion():
+    informacion = request.json
+    return f'plan_de_implementacion\n\n{informacion}'
+
+
+@app.route('/plan_de_seguimiento', methods=['POST'])
+def plan_de_seguimiento():
+    informacion = request.json
+    return f'plan_de_seguimiento\n\n{informacion}'
+
+
+@app.route('/proyectos', methods=['POST'])
+def proyectos():
+    informacion = request.json
+    return f'proyectos\n\n{informacion}'
 
 
 @app.route('/unidad_de_negocio', methods=['POST'])
-def add_bussines_unit():
-    return 'Complete bussines_unit'
-
+def unidad_de_negocio():
+    informacion = request.json
+    return f'unidad_de_negocio\n\n{informacion}'
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host= '0.0.0.0')
 
