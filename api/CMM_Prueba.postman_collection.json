@@ -1,0 +1,586 @@
+{
+	"info": {
+		"_postman_id": "ccbbccde-21d9-48c2-9539-f072b11119f1",
+		"name": "CMM_Prueba",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "actividad_implementacion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/actividad_implementacion",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"actividad_implementacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actividad_seguimiento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/actividad_seguimiento",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"actividad_seguimiento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "beneficiario_proyectos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/beneficiario_proyectos",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"beneficiario_proyectos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "caracterizacion_ampliada",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/caracterizacion_ampliada",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"caracterizacion_ampliada"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "caracterizacion_ampliada_informacion_hijos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/caracterizacion_ampliada_informacion_hijos",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"caracterizacion_ampliada_informacion_hijos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "caracterizacion_ampliada_informacion_personas_a_cargo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/caracterizacion_ampliada_informacion_personas_a_cargo",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"caracterizacion_ampliada_informacion_personas_a_cargo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "diagnostico_de_perfil_productivo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/diagnostico_de_perfil_productivo",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"diagnostico_de_perfil_productivo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "diagnostico_empresarial",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/diagnostico_empresarial",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"diagnostico_empresarial"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "idea_de_negocio",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/idea_de_negocio",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"idea_de_negocio"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "informacion_general_beneficiario",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/informacion_general_beneficiario",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"informacion_general_beneficiario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "monitoreo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/monitoreo",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"monitoreo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "odp_operario",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/odp_operario",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"odp_operario"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "odp_operario_proyectos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/odp_operario_proyectos",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"odp_operario_proyectos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "plan_de_formacion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/plan_de_formacion",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"plan_de_formacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "plan_de_implementacion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/plan_de_implementacion",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"plan_de_implementacion"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "plan_de_seguimiento",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/plan_de_seguimiento",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"plan_de_seguimiento"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "proyectos",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/proyectos",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"proyectos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "unidad_de_negocio",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"prueba\":\"contenido de prueba\"\r\n}"
+				},
+				"url": {
+					"raw": "http://190.145.94.92:5000/unidad_de_negocio",
+					"protocol": "http",
+					"host": [
+						"190",
+						"145",
+						"94",
+						"92"
+					],
+					"port": "5000",
+					"path": [
+						"unidad_de_negocio"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
