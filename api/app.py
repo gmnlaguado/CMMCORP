@@ -1,19 +1,45 @@
 # coding=utf-8
 from flask import Flask, request
 import os
+import pymssql
+
+class MyDB(object):
+    def __init__(self):
+        db_host = '190.145.94.92'
+        db_name = 'CMMCRSocial'
+        db_user = 'Arnulforojas'
+        db_password = 'Arojas032020'
+        self._db_connection = pymssql.connect(server=db_host, user=db_user, password=db_password, database=db_name)
+        self._db_cur = self._db_connection.cursor()
+
+    def commit(self, query):
+        self._db_cur.execute(query)
+        return self._db_connection.commit()
+
+    def __del__(self):
+        self._db_connection.close()
+
+
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return '<h1>Aplicación de la corporación mundial de la mujer en línea</h1>'
+    return '<h1>actividad_implementacion</h1>'
 
 
 @app.route('/actividad_implementacion', methods=['POST'])
 def actividad_implementacion():
     informacion = request.json
-    return f'actividad_implementacion\n\n{informacion}'
+    info = []
+    for item in informacion.values():
+        info.append(item)
+    info = tuple(info)
+    query = "INSERT INTO actividad_implementacion VALUES ('%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s,'%s',%s,%s,'%s')" % info
+    db = MyDB()
+    db.commit(query)
+    return f'actividad_implementacion\n\n{query}'
 
 
 @app.route('/actividad_seguimiento', methods=['POST'])
