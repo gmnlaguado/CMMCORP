@@ -75,7 +75,7 @@ def caracterizacion_ampliada():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO caracterizacion_ampliada VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s','%s')" % info
+    query = "INSERT INTO caracterizacion_ampliada VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s)" % info
     db = MyDB()
     db.commit(query)
     return f'caracterizacion_ampliada\n\n{query}'
