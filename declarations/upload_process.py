@@ -14,7 +14,7 @@ def uploadInformation():
     for tab in tablas:
         res = querys.obtener_toda_info(tab)
         if len(res) > 0:
-            res = json.dumps(dict(zip(querys.bringColumns(tab), list(res))))
+            res = json.dumps({tab: res[0]})
             req = UrlRequest(url=url,
             on_success=request_sucess,
             on_progress=request_progress,
@@ -27,7 +27,10 @@ def uploadInformation():
 
 
 def request_sucess(req, result):
-    print("\n\n\n Respuesta correcta \n\n\n")
+    resultado = result['data']
+    resultado = resultado.split('": [')
+    print(f"\n\n\n{resultado[0][2:]}\n{resultado[1][:-2]}\n\n")
+
 
 def request_progress(req, current_size, total_size):
     print("\n\n\n Respuesta en proceso \n\n\n")
