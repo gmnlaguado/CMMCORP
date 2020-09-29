@@ -19,3 +19,5 @@ ALTER TABLE informacion_general_beneficiario ALTER COLUMN cellphone bigint;
 
 
 sqlcmd -S 190.145.94.92 -d CMMCRSocial -U Arnulforojas -P Arojas032020
+
+python -m PyInstaller --name cmm_app --icon C:\Users\drarn\Documents\Documents\Dev\cmm\compilacion_windows\windows_app_icon.ico C:\Users\drarn\Documents\Documents\Dev\cmm\corpMundialMujer\main.py

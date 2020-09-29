@@ -170,6 +170,10 @@ class InformacionGeneralScreen(Screen):
 
     def checkAll(self, *args):
         self.id_message.text = ""
+        if len(self.id_telephone.text) == 0:
+            self.id_telephone.text = '0000000'
+            self.id_telephone.on_text_validate()
+            
         if len(self.id_cellphone2.text) == 0:
             self.id_cellphone2.text = '0000000000'
             self.id_cellphone2.on_text_validate()

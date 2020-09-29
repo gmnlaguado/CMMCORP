@@ -121,9 +121,8 @@ class MyApp(App):
 
 
 if __name__ == '__main__':
-    Window.size = (1280, 800)
-    Window.left = 45
-    Window.top = -25
+    Window.fullscreen =  'auto'
+    Window. borderless = 1
     Window.clearcolor = [1, 1, 1, 1]
     Window.softinput_mode = "below_target"
     corporation = MyApp()

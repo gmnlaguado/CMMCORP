@@ -190,7 +190,7 @@ class PopupFather(Popup):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.background = "images/green_background.png"
-        self.background_color = 0, 0, 0, 0.8
+        self.background_color = 1, 1, 1, 1
         self.separator_color = 0, 0, 0, 0
         self.font_name = "montserrat"
         self.title_align = "center"
@@ -202,7 +202,7 @@ class MessagePopup(Popup):
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.background = "images/green_background.png"
-        self.background_color = 0, 0, 0, 0.8
+        self.background_color = 1, 1, 1, 1
         self.separator_color = 0, 0, 0, 0
         self.font_name = "montserrat"
         self.title_align = "center"
