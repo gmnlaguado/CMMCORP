@@ -16,6 +16,9 @@ class MyDB(object):
         self._db_cur.execute(query)
         return self._db_connection.commit()
 
+    def parametricQuery(self, query):
+        return self._db_cur.execute(query)
+
     def __del__(self):
         self._db_connection.close()
 
@@ -26,7 +29,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return '<h1>actividad_implementacion</h1>'
+    return '<h1>Información Operarios</h1>'
 
 
 @app.route('/actividad_implementacion', methods=['POST'])
@@ -261,6 +264,13 @@ def unidad_de_negocio():
     db = MyDB()
     db.commit(query)
     return f'unidad_de_negocio\n\n{query}'
+
+
+@app.route('/obtener_operarios', methods=['GET'])
+def obtener_operarios():
+    db = MyDB()
+    result = db.parametricQuery("SELECT * FROM odp_operario").fetchall()
+    return f'<h1>{result}</h1>'
 
 if __name__ == "__main__":
     app.run(host= '0.0.0.0')

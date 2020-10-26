@@ -220,3 +220,15 @@ class MessagePopup(Popup):
     def dismissCall(self, dt):
         self.dismiss()
 
+
+class Wifi_Status(Button):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.background_normal = './images/wifi_no.png'
+        self.background_down = './images/wifi_no.png'
+        self.size_hint = None, None
+        self.size = 30,25
+        self.class_type = "button"
+        self.top = 800-64
+        self.x = 357.05
+        self.conexion = False

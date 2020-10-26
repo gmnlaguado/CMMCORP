@@ -1,6 +1,6 @@
 # coding=utf-8
 from datetime import date
-
+import requests
 
 def chekingCompletes(children_list):
     for idx, child in enumerate(children_list):
@@ -44,3 +44,12 @@ def rangeCalculation(age):
 def formattingDate(datetime_date):
     datetime_date = '-'.join(datetime_date.split('/')[::-1])
     return datetime_date
+
+
+def verificando_wifi(url='http://www.google.com/', timeout=3):
+    try:
+        r = requests.head(url, timeout=timeout)
+        return True
+    except requests.ConnectionError as ex:
+        print(ex)
+        return False

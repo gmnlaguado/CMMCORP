@@ -1,18 +1,18 @@
 # coding=utf-8
 from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
-from declarations import querys, class_declaration
+from declarations import querys, class_declaration, upload_process
 from windows import Panel, InformacionGeneral, IdeaDeNegocio, UnidadDeNegocio, \
     CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, ActividadDeFormacion, \
     PlanDeImplementacion, ActividadDeImplementacion
-
-
+from codes import snippets
 class LoginScreen(Screen):
     id_username = ObjectProperty()
     static_password = ObjectProperty()
     id_password = ObjectProperty()
     id_message = ObjectProperty()
     id_signInButton = ObjectProperty()
+    id_wifi = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
@@ -27,6 +27,9 @@ class LoginScreen(Screen):
         self.id_username.bind(on_text_validate=self.signal)
         self.id_password.bind(on_text_validate=self.signal)
         self.id_signInButton.bind(on_release=self.checkAll)
+        if snippets.verificando_wifi():
+            self.id_wifi.background_normal = './images/wifi_si.png'
+            self.id_wifi.conexion = True
 
     def signal(self, *args):
         self.id_message.text = args[0].alertFlag['message']
@@ -37,6 +40,7 @@ class LoginScreen(Screen):
         else:
             op = querys.idOperator(self.id_username.text)
             if op is not None:
+                upload_process.get_operarios()
                 ps = querys.passwordOperator(op)
                 if self.id_password.text == ps:
                     LoginProjectPopup(self.id_username.text, op).open()
