@@ -271,7 +271,15 @@ def obtener_operarios():
     db = MyDB()
     db.parametricQuery("SELECT document, name, username, password FROM odp_operario")
     result = db._db_cur.fetchall()
-    return f'<h1>{result}</h1>'
+    return f'{result}'
+    
+
+@app.route('/obtener_operarios_proyectos', methods=['POST'])
+def obtener_operarios_proyectos():
+    db = MyDB()
+    db.parametricQuery("SELECT id, fkOperator, fkProject FROM odp_operario_proyectos")
+    result = db._db_cur.fetchall()
+    return f'{result}'
 
 if __name__ == "__main__":
     app.run(host= '0.0.0.0')
