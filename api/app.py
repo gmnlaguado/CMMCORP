@@ -266,10 +266,11 @@ def unidad_de_negocio():
     return f'unidad_de_negocio\n\n{query}'
 
 
-@app.route('/obtener_operarios', methods=['GET'])
+@app.route('/obtener_operarios', methods=['POST'])
 def obtener_operarios():
     db = MyDB()
-    result = db.parametricQuery("SELECT * FROM odp_operario").fetchall()
+    db.parametricQuery("SELECT document, name, username, password FROM odp_operario")
+    result = db._db_cur.fetchall()
     return f'<h1>{result}</h1>'
 
 if __name__ == "__main__":
