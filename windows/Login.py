@@ -6,6 +6,7 @@ from windows import Panel, InformacionGeneral, IdeaDeNegocio, UnidadDeNegocio, \
     CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, ActividadDeFormacion, \
     PlanDeImplementacion, ActividadDeImplementacion
 from codes import snippets
+
 class LoginScreen(Screen):
     id_username = ObjectProperty()
     static_password = ObjectProperty()
@@ -30,6 +31,7 @@ class LoginScreen(Screen):
         if snippets.verificando_wifi():
             self.id_wifi.background_normal = './images/wifi_si.png'
             upload_process.get_operarios()
+            upload_process.get_operarios_proyectos()
 
 
     def signal(self, *args):
