@@ -29,7 +29,8 @@ class LoginScreen(Screen):
         self.id_signInButton.bind(on_release=self.checkAll)
         if snippets.verificando_wifi():
             self.id_wifi.background_normal = './images/wifi_si.png'
-            self.id_wifi.conexion = True
+            upload_process.get_operarios()
+
 
     def signal(self, *args):
         self.id_message.text = args[0].alertFlag['message']

@@ -1,6 +1,7 @@
 # coding=utf-8
 from datetime import date
 import requests
+from declarations import querys
 
 def chekingCompletes(children_list):
     for idx, child in enumerate(children_list):
@@ -53,3 +54,19 @@ def verificando_wifi(url='http://www.google.com/', timeout=3):
     except requests.ConnectionError as ex:
         print(ex)
         return False
+
+
+def actualizando_operarios(data):
+    info = data[2:-2].decode("utf-8") 
+    info = info.split("), (")
+    operarios = []
+    for inf in info:
+        operario = []
+        for data in inf.split(", "):
+            operario.append(data[1:-1])
+        operario.append(1)
+        operarios.append(tuple(operario))
+
+    querys.limpiar_tabla("odp_operario")
+    for operario_info in operarios:
+        querys.cargar('odp_operario', 5, operario_info)

@@ -17,6 +17,10 @@ class MyDB(object):
         self._db_cur.execute(query, params)
         return self._db_connection.commit()
 
+    def fast_commit(self, query):
+        self._db_cur.execute(query)
+        return self._db_connection.commit()
+
     def __del__(self):
         self._db_connection.close()
 
@@ -364,11 +368,9 @@ def lista_de_tablas():
 
 def limpiar_tabla(tabla):
     db = MyDB('register')
-    db.commit("DELETE FROM %s LIMIT :limite" % tabla, {'limite': 10000})
+    db.fast_commit("DELETE FROM %s" % tabla)
 
 def obtener_toda_info(tabla):
     db = MyDB('register')
     result = db.parametricQuery("SELECT * FROM %s" % tabla).fetchall()
     return result
-
-
