@@ -18,7 +18,7 @@ class DiagnosticoPerfilProductivoScreen(Screen):
 
     def on_pre_enter(self):
         if not len(self.id_container_grid.children) > 0:
-            self.id_signInButton.bind(on_press=self.checkAll)
+            self.id_signInButton.bind(on_release=self.checkAll)
             questions = querys.parametricList('preguntas_de_diagnostico')
             self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
             for idx, quest in enumerate(questions):
@@ -67,7 +67,7 @@ class AcceptFormDiagno(class_declaration.PopupFather):
 
     def on_pre_open(self):
         self.title = f"ODP Operario verifique que la información es correcta antes de continuar"
-
+        
     def on_validate(self, *args):
         self.dismiss()
         if self.payeeType == "Emprendedor":
