@@ -221,10 +221,10 @@ class InformacionHijos(class_declaration.PopupFather):
         for idx in range(int(self.cantidad)):
             lab = Label(text=str(idx + 1), halign="center", valign="middle", size_hint=(None, None),
                         size=(77, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
-                        text_size=(77, 40), id=f'{idx + 1}')
-            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=querys.parametricList('genero'))
-            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=querys.parametricList('si_no'))
-            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=querys.parametricList('discapacidades'))
+                        text_size=(77, 40))
+            spin_gen = SpinnerScroll(text='Género', values=querys.parametricList('genero'))
+            spin_mayor = SpinnerScroll(text='Mayoría', values=querys.parametricList('si_no'))
+            spin_disc = SpinnerScroll(text='Discapacidad', values=querys.parametricList('discapacidades'))
 
             self.id_container_grid.add_widget(lab)
             self.id_container_grid.add_widget(spin_gen)
@@ -303,10 +303,10 @@ class InformacionPersonasACargo(class_declaration.PopupFather):
         for idx in range(int(self.cantidad)):
             lab = Label(text=str(idx + 1), halign="center", valign="middle", size_hint=(None, None),
                         size=(77, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
-                        text_size=(77, 40), id=f'{idx + 1}')
-            spin_gen = SpinnerScroll(text='Género', id=f'genero_{idx}', values=querys.parametricList('genero'))
-            spin_mayor = SpinnerScroll(text='Mayoría', id=f'mayoria_{idx}', values=querys.parametricList('si_no'))
-            spin_disc = SpinnerScroll(text='Discapacidad', id=f'discapacidad_{idx}', values=querys.parametricList('discapacidades'))
+                        text_size=(77, 40))
+            spin_gen = SpinnerScroll(text='Género', values=querys.parametricList('genero'))
+            spin_mayor = SpinnerScroll(text='Mayoría', values=querys.parametricList('si_no'))
+            spin_disc = SpinnerScroll(text='Discapacidad', values=querys.parametricList('discapacidades'))
 
             self.id_container_grid.add_widget(lab)
             self.id_container_grid.add_widget(spin_gen)
