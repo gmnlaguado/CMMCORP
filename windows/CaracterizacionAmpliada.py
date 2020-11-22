@@ -59,15 +59,15 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_maritalStatus.values = querys.parametricList('estado_civil')
         self.id_agreementType.values = querys.parametricList('tipos_de_contrato')
         self.id_rut.values = querys.parametricList('si_no')
-        self.id_childrenNumber.values = [str(numb) for numb in range(1, 30)]
-        self.id_dependants.values = [str(numb) for numb in range(1, 30)]
+        self.id_childrenNumber.values = [str(numb) for numb in range(0, 30)]
+        self.id_dependants.values = [str(numb) for numb in range(0, 30)]
         self.id_coverTheFamily.values = querys.parametricList('si_no')
         self.id_averageIncomeContract.values = querys.parametricList('promedio_de_ingresos')
         self.id_averageIncomeActivity.values = querys.parametricList('promedio_de_ingresos')
         self.id_pension.values = querys.parametricList('si_no')
         self.id_arl.values = querys.parametricList('si_no')
-        self.id_householdMembers.values = [str(numb) for numb in range(1, 30)]
-        self.id_agreementTime.values = [str(numb) for numb in range(1, 30)]
+        self.id_householdMembers.values = [str(numb) for numb in range(0, 30)]
+        self.id_agreementTime.values = [str(numb) for numb in range(0, 30)]
 
         self.id_homeButton.bind(on_press=self.setHome)
 
@@ -101,7 +101,19 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_factorsThatPreventYou.resetInput()
         self.id_adittionalStudies.resetInput()
 
+        self.id_workingRelationship.bind(text=self.no_vincula_laboralmente)
+
         self.home = False
+
+    def no_vincula_laboralmente(self, *args):
+        if args[1] == "No":
+            self.id_agreementType.text = "No Aplica"
+            self.id_averageIncomeContract.text = "No Aplica"
+            self.id_agreementTime.text = "0"
+        else:
+            self.id_agreementType.text = 'Tipo de contrato'
+            self.id_averageIncomeContract.text = 'Promedio de ingresos por contrato'
+            self.id_agreementTime.text = 'Antiguedad del contrato'
 
     def setHome(self, *args):
         self.home = True
@@ -122,6 +134,12 @@ class CaracterizacionAmpliadaScreen(Screen):
 
     def checkAll(self, *args):
         self.id_message.text = ""
+
+        if self.id_childrenNumber.text == "0":
+            self.listado_hijos = True
+        if self.id_dependants.text == "0":
+            self.listado_cargo = True
+
         if self.listado_hijos and self.listado_cargo:
             children_list = self.children[0].children
             ret = snippets.chekingCompletes(children_list)
@@ -140,18 +158,20 @@ class CaracterizacionAmpliadaScreen(Screen):
         informacion_limpia_personas = []
         if not self.home:
             information = self
-            for info in self.informacion_hijos:
-                try:
-                    if info.class_type == "spinner":
-                        informacion_limpia_hijos.append(info.text)
-                except AttributeError:
-                    pass
-            for info in self.informacion_personas_a_cargo:
-                try:
-                    if info.class_type == "spinner":
-                        informacion_limpia_personas.append(info.text)
-                except AttributeError:
-                    pass
+            if self.informacion_hijos is not None:
+                for info in self.informacion_hijos:
+                    try:
+                        if info.class_type == "spinner":
+                            informacion_limpia_hijos.append(info.text)
+                    except AttributeError:
+                        pass
+            if self.informacion_personas_a_cargo is not None:
+                for info in self.informacion_personas_a_cargo:
+                    try:
+                        if info.class_type == "spinner":
+                            informacion_limpia_personas.append(info.text)
+                    except AttributeError:
+                        pass
             Monitoreo.MonitoreoScreen.payeeDocument = self.payeeDocument
             Monitoreo.MonitoreoScreen.numero_de_monitoreo = 1
             dataFormating.caracterizacion_ampliada_informacion_hijos(informacion_limpia_hijos, information)
