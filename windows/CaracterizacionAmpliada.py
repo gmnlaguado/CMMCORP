@@ -102,6 +102,7 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_adittionalStudies.resetInput()
 
         self.id_workingRelationship.bind(text=self.no_vincula_laboralmente)
+        self.id_freelance.bind(text=self.es_independiente)
 
         self.home = False
 
@@ -114,6 +115,14 @@ class CaracterizacionAmpliadaScreen(Screen):
             self.id_agreementType.text = 'Tipo de contrato'
             self.id_averageIncomeContract.text = 'Promedio de ingresos por contrato'
             self.id_agreementTime.text = 'Antiguedad del contrato'
+
+    def es_independiente(self, *args):
+        if args[1] == "No":
+            self.id_rut.text = "No"
+            self.id_averageIncomeActivity.text = "No Aplica"
+        else: 
+            self.id_rut.text = '¿Tiene RUT?'
+            self.id_averageIncomeActivity.text = 'Promedio de ingresos en esta actividad'
 
     def setHome(self, *args):
         self.home = True
