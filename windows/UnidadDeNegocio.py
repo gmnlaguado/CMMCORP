@@ -47,7 +47,6 @@ class UnidadDeNegocioScreen(Screen):
 
         self.id_exists.text = "Si existe seleccione"
         self.id_howManyPartners.text = "¿Cuantos socios?"
-        self.id_ciiu.text = "CIIU"
         self.id_sector.text = "Sector empresarial"
         self.id_regCamara.text = "Reg. Cámara comercio"
         self.id_withContract.text = "Colab. con contrato"
@@ -97,6 +96,7 @@ class UnidadDeNegocioScreen(Screen):
         self.id_briefcase.bind(on_text_validate=self.signal)
         self.id_creation.bind(on_text_validate=self.signal)
         self.id_nit.bind(on_text_validate=self.signal)
+        self.id_ciiu.bind(on_text_validate=self.signal)
         self.id_liabilitiesDescription.bind(on_text_validate=self.signal)
         self.id_signInButton.bind(on_release=self.checkAll)
 

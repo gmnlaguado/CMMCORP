@@ -60,9 +60,7 @@ class IdeaDeNegocioScreen(Screen):
         self.id_weeklyTime.values = querys.parametricList('tiempo_semanal')
         self.id_whyNot.values = querys.parametricList('por_que_no')
         self.id_months.values = [str(numb) for numb in range(1, 70)]
-        ciius = querys.bringCIUU()
-        ciius = ['0'+cii if len(cii) == 3 else cii for cii in ciius]
-        self.id_ciiu.values = ciius
+        
         self.id_howArise.values = querys.parametricList('como_surge')
         self.id_haveExperience.values = querys.parametricList('si_no')
         self.id_departments.values = querys.bringDepartments(169)
@@ -80,6 +78,7 @@ class IdeaDeNegocioScreen(Screen):
         self.id_capitalWorkInvestment.bind(on_text_validate=self.signal)
         self.id_firstYearSales.bind(on_text_validate=self.signal)
         self.id_imagine.bind(on_text_validate=self.signal)
+        self.id_ciiu.bind(on_text_validate=self.signal)
 
         self.id_signInButton.bind(on_release=self.checkAll)
 
@@ -91,7 +90,6 @@ class IdeaDeNegocioScreen(Screen):
         self.id_weeklyTime.text = "Tiempo semanal a dedicar"
         self.id_whyNot.text = "¿Por qué no empezaba?"
         self.id_months.text = "Meses que lleva el negocio"
-        self.id_ciiu.text = "CIIU"
         self.id_howArise.text = "¿Cómo surge la idea?"
         self.id_haveExperience.text = "¿Experiencia?"
         self.id_departments.text = "Departamento"

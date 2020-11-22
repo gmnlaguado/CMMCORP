@@ -6,6 +6,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.popup import Popup
 from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
+from declarations import querys
 
 
 class BoxLayoutFull(BoxLayout):
@@ -92,6 +93,15 @@ class TextInputFather(TextInput):
                 self.complete = True
             else:
                 self.alert = "Formato de dinero Incorrecto"
+                self.complete = False
+
+        if self.text_type == "ciiu":
+            ciius = querys.bringCIUU()
+            ciius = ['0'+cii if len(cii) == 3 else cii for cii in ciius]
+            if self.text in ciius:
+                self.complete = True
+            else: 
+                self.alert = "Código CIIU no existe"
                 self.complete = False
 
         if self.text_type == "nothing":
