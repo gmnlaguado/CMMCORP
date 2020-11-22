@@ -30,6 +30,7 @@ INSERT INTO proyectos (id, name, data) VALUES ('prueba001', 'prueba', '2010-03-1
 
 SPEC EXAMPLE
 
+python -m PyInstaller cmm_app.spec
 
 # -*- mode: python ; coding: utf-8 -*-
 from kivy_deps import sdl2, glew

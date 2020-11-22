@@ -391,11 +391,12 @@ class GastosDelGrupoFamiliarPopup(class_declaration.PopupFather):
         self.id_acceptButton.bind(on_release=self.on_validate)
 
     def on_validate(self, *args):
-        total_expenses = int(self.id_rentAndServices.text) + int(self.id_runningCosts.text) + int(
-            self.id_education.text) + int(self.id_casualCosts.text) + int(self.id_obligations.text)
-        MonitoreoScreen.gastos_familia = str(total_expenses)
-        # class_declaration.MessagePopup(f'Total gastos del grupo: {total_expenses}').open()
-        self.dismiss()
+        if self.id_rentAndServices.complete and self.id_runningCosts.complete and self.id_education.complete and self.id_casualCosts.complete and self.id_obligations.complete:
+            total_expenses = int(self.id_rentAndServices.text) + int(self.id_runningCosts.text) + int(
+                self.id_education.text) + int(self.id_casualCosts.text) + int(self.id_obligations.text)
+            MonitoreoScreen.gastos_familia = str(total_expenses)
+            # class_declaration.MessagePopup(f'Total gastos del grupo: {total_expenses}').open()
+            self.dismiss()
 
 
 class IngresosDelGrupoFamiliarPopup(class_declaration.PopupFather):
@@ -414,10 +415,11 @@ class IngresosDelGrupoFamiliarPopup(class_declaration.PopupFather):
         self.id_acceptButton.bind(on_release=self.on_validate)
 
     def on_validate(self, *args):
-        total_expenses = int(self.id_employees.text) + int(self.id_othersRelatives.text) + int(self.id_freelanceJobs.text) + int(self.id_pension.text) + int(self.id_entrepreneurship.text) + int(self.id_otherIncomes.text)
-        MonitoreoScreen.ingresos_familia = str(total_expenses)
-        # class_declaration.MessagePopup(f'Total ingresos del grupo: {total_expenses}').open()
-        self.dismiss()
+        if self.id_employees.complete and self.id_othersRelatives.complete and self.id_freelanceJobs.complete and self.id_pension.complete and self.id_entrepreneurship.complete and self.id_otherIncomes.complete:
+            total_expenses = int(self.id_employees.text) + int(self.id_othersRelatives.text) + int(self.id_freelanceJobs.text) + int(self.id_pension.text) + int(self.id_entrepreneurship.text) + int(self.id_otherIncomes.text)
+            MonitoreoScreen.ingresos_familia = str(total_expenses)
+            # class_declaration.MessagePopup(f'Total ingresos del grupo: {total_expenses}').open()
+            self.dismiss()
 
 
 class AcceptFormMonitoreo(class_declaration.PopupFather):
