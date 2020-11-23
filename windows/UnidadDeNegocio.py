@@ -71,14 +71,14 @@ class UnidadDeNegocioScreen(Screen):
         self.id_liabilitiesDescription.hint_text = "Descripción de pasivos"
 
         self.id_exists.values = ['No']
-        self.id_howManyPartners.values = [str(numb) for numb in range(1, 70)]
+        self.id_howManyPartners.values = [str(numb) for numb in range(0, 70)]
         ciius = querys.bringCIUU()
         ciius = ['0' + cii if len(cii) == 3 else cii for cii in ciius]
         self.id_ciiu.values = ciius
         self.id_sector.values = querys.parametricList('sector_empresarial')
         self.id_regCamara.values = querys.parametricList('si_no')
-        self.id_withContract.values = [str(numb) for numb in range(1, 70)]
-        self.id_withoutContract.values = [str(numb) for numb in range(1, 70)]
+        self.id_withContract.values = [str(numb) for numb in range(0, 70)]
+        self.id_withoutContract.values = [str(numb) for numb in range(0, 70)]
         self.id_departments.values = querys.bringDepartments(169)
         self.id_sign.values = querys.parametricList('rotulos')
         self.id_tier.values = [str(numb) for numb in range(1, 8)]

@@ -56,11 +56,11 @@ class MonitoreoScreen(Screen):
         self.id_ciiu.values = ciius
         self.id_pension.values = querys.parametricList('si_no')
         self.id_bussinesSector.values = querys.parametricList('sector_empresarial')
-        self.id_totalDependants.values = [str(numb) for numb in range(1, 30)]
+        self.id_totalDependants.values = [str(numb) for numb in range(0, 30)]
         self.id_whoDefineIncome.values = querys.parametricList('quien_define_el_ingreso')
         self.id_houseType.values = querys.parametricList('tipo_de_casa')
         self.id_houseMaterial.values = querys.parametricList('material_de_la_casa')
-        self.id_bedroomsNumber.values = [str(numb) for numb in range(1, 30)]
+        self.id_bedroomsNumber.values = [str(numb) for numb in range(0, 30)]
         self.id_kitchenFuel.values = querys.parametricList('combustible_de_cocina')
         self.id_tier.values = [str(numb) for numb in range(1, 8)]
         self.id_houseAge.values = querys.parametricList('antiguedad_de_la_casa')
@@ -139,18 +139,19 @@ class MonitoreoScreen(Screen):
             box_container.add_widget(self.text_cual_programa)
             self.id_container_grid_2.add_widget(box_container)
 
-            grid = SpinnerScroll(text="¿Depende económicamente de alguién?", values=querys.parametricList('si_no'))
-            self.id_container_grid_2.add_widget(grid)
+            self.depende_de_alguien = SpinnerScroll(text="¿Depende económicamente de alguién?", values=querys.parametricList('si_no'))
+            self.depende_de_alguien.bind(text=self.no_depende)
+            self.id_container_grid_2.add_widget(self.depende_de_alguien)
 
-            grid = SpinnerScroll(text="¿De quién depende?", values=querys.parametricList('de_quien_depende'))
-            self.id_container_grid_2.add_widget(grid)
+            self.de_quien_depende_usted = SpinnerScroll(text="¿De quién depende?", values=querys.parametricList('de_quien_depende'))
+            self.id_container_grid_2.add_widget(self.de_quien_depende_usted)
 
             grid = SpinnerScroll(text="¿Cuántas horas a la semana dedica al cuidado de personas a cargo?",
-                                 values=[str(numb) for numb in range(1, 165)])
+                                 values=[str(numb) for numb in range(0, 165)])
             self.id_container_grid_2.add_widget(grid)
 
             grid = SpinnerScroll(text="¿Cuántas horas a la semana dedica a la recreación?",
-                                 values=[str(numb) for numb in range(1, 165)])
+                                 values=[str(numb) for numb in range(0, 165)])
             self.id_container_grid_2.add_widget(grid)
 
             grid = SpinnerScroll(text="¿El negocio tiene RUT?", values=querys.parametricList('si_no'))
@@ -200,19 +201,19 @@ class MonitoreoScreen(Screen):
             self.total_workers = 0
 
             grid_trabajadores_con_contrato = SpinnerScroll(text="Total de trabajadores con contrato",
-                                                           values=[str(numb) for numb in range(1, 60)])
+                                                           values=[str(numb) for numb in range(0, 60)])
             grid_trabajadores_con_contrato.bind(text=self.calc_workers)
             self.id_container_grid_2.add_widget(grid_trabajadores_con_contrato)
 
             grid_trabajadores_sin_contrato = SpinnerScroll(text="Total de trabajadores sin contrato",
-                                                           values=[str(numb) for numb in range(1, 60)])
+                                                           values=[str(numb) for numb in range(0, 60)])
             grid_trabajadores_sin_contrato.bind(text=self.calc_workers)
             self.id_container_grid_2.add_widget(grid_trabajadores_sin_contrato)
 
             self.grid_label_workers = LabelScroll(text="Total de trabajadores")
             self.id_container_grid_2.add_widget(self.grid_label_workers)
 
-            grid = SpinnerScroll(text="Cantidad de socios", values=[str(numb) for numb in range(1, 60)])
+            grid = SpinnerScroll(text="Cantidad de socios", values=[str(numb) for numb in range(0, 60)])
             self.id_container_grid_2.add_widget(grid)
 
             grid = SpinnerScroll(text="Tipo de local", values=querys.parametricList('tipo_de_casa'))
@@ -234,6 +235,14 @@ class MonitoreoScreen(Screen):
         self.id_houseAge.text = "Antiguedad"
         self.id_asociacion_mujeres.text = "¿Es una asociación de mujeres?"
         self.scroll_complete = False
+    
+    def no_depende(self, *args):
+        if args[1] == "No":
+            self.de_quien_depende_usted.text = "No Aplica"
+            self.de_quien_depende_usted.complete = True
+        elif args[1] == "Si":
+            self.de_quien_depende_usted.complete = False
+            self.de_quien_depende_usted.text = "¿De quién depende?"
 
     def sumando_activos(self, *args):
         #print(args[0].text)
@@ -255,33 +264,32 @@ class MonitoreoScreen(Screen):
         self.home = True
 
     def ingresar_programa(self, *args):
-        if args[1] == "no":
+        if args[1] == "No":
             self.text_cual_programa.complete = True
             self.text_cual_programa.text = "No Aplica"
             self.text_cual_programa.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
-        elif args[1] == "si":
+        elif args[1] == "Si":
             self.text_cual_programa.complete = False
             self.text_cual_programa.text = ""
             self.text_cual_programa.background_color = 255 / 255, 255 / 255, 255 / 255, 1
 
     def tiene_nit(self, *args):
-        if args[1] == "no":
+        if args[1] == "No":
             self.numero_nit.text = "No Aplica"
             self.numero_nit.complete = True
             self.numero_nit.background_color = (7 / 255, 7 / 255, 7 / 255, 0.1)
-        elif args[1] == "si":
+        elif args[1] == "Si":
             self.numero_nit.text = ""
             self.numero_nit.complete = False
             self.numero_nit.background_color = (255 / 255, 255 / 255, 255 / 255, 1)
 
     def pertenecer_asociacion(self, *args):
-
-        if args[1] == "no":
+        if args[1] == "No":
             self.id_cual_asociacion.text = "No Aplica"
             self.id_cual_asociacion.complete = True
             self.id_cual_asociacion.background_color = (7 / 255, 7 / 255, 7 / 255, 0.1)
-            self.id_asociacion_mujeres.text = "no"
-        elif args[1] == "si":
+            self.id_asociacion_mujeres.text = "No"
+        elif args[1] == "Si":
             self.id_asociacion_mujeres.text = "¿Es una asociación de mujeres?"
             self.id_cual_asociacion.text = ""
             self.id_cual_asociacion.complete = False
