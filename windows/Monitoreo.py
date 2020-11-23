@@ -177,15 +177,22 @@ class MonitoreoScreen(Screen):
 
             input_list_labels = ["Ingreso del negocio", "Gastos Directos", "Gastos Indirectos", "Total de gastos",
                                  "Excedentes",
-                                 "Activo Fijo", "Activo No Fijo", "Total Actvios", "Pasivo Corto", "Pasivo Largo", "Deudas",
+                                 "Activo Fijo", "Activo No Fijo", "Total Activos", "Pasivo Corto", "Pasivo Largo", "Deudas",
                                  "Patrimonio"]
 
             for input_label_value in input_list_labels:
                 box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
                 lab1 = Label(text=input_label_value, halign="left", valign="middle", size_hint=(None, None),
-                             size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
-                             text_size=(275, 40))
+                            size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
+                            text_size=(275, 40))
                 text1 = TextInputScroll()
+
+                if input_label_value == "Total Activos":
+                    text1.readonly = True
+
+                if input_label_value == "Activo Fijo" or input_label_value == "Activo No Fijo":
+                    text1.bind(on_text_validate = self.sumando_activos)
+
                 box_container.add_widget(lab1)
                 box_container.add_widget(text1)
                 self.id_container_grid_2.add_widget(box_container)
@@ -227,6 +234,22 @@ class MonitoreoScreen(Screen):
         self.id_houseAge.text = "Antiguedad"
         self.id_asociacion_mujeres.text = "¿Es una asociación de mujeres?"
         self.scroll_complete = False
+
+    def sumando_activos(self, *args):
+        #print(args[0].text)
+        #print()
+        #print(self.id_container_grid_2.children)
+        #print()
+        #print('\t\t',self.id_container_grid_2.children[9].children)
+
+        if len(self.id_container_grid_2.children[9].children[0].text) == 0:
+            self.id_container_grid_2.children[9].children[0].text = args[0].text
+        else:
+            valor = int(self.id_container_grid_2.children[9].children[0].text) + int(args[0].text)
+            self.id_container_grid_2.children[9].children[0].text = str(valor)
+            
+        self.id_container_grid_2.children[9].children[0].complete = True
+        self.id_container_grid_2.children[9].children[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
 
     def setHome(self, *args):
         self.home = True
@@ -339,6 +362,7 @@ class TextInputScroll(TextInput):
         self.complete = False
         self.class_type = "input"
         self.multiline = False
+        self.readonly = False
 
     def on_text_validate(self, *args):
         self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
