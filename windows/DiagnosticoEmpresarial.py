@@ -43,7 +43,7 @@ class DiagnosticoEmpresarialScreen(Screen):
             # Questions Statement
             box_container = BoxLayout(size_hint=(None, None), size=(1035, 110))
             lab = Label(text=quest, halign="center", valign="middle", size_hint=(None, None),
-                        size=(294, 109), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
+                        size=(294, 109), color=(0, 0, 0, 0.85), font_size=18, font_name="montserrat",
                         text_size=(294, 109))
             box_container.add_widget(lab)
 
@@ -53,7 +53,7 @@ class DiagnosticoEmpresarialScreen(Screen):
                 # Single Option
                 line_container = BoxLayout(size_hint=(None, None), size=(696, 20))
                 ans = Label(text=answers[totalAnswers], halign="center", valign="middle", size_hint=(None, None),
-                            size=(661, 18), color=(0, 0, 0, 0.85), font_size=14, font_name="montserrat",
+                            size=(661, 18), color=(0, 0, 0, 0.85), font_size=12, font_name="montserrat",
                             text_size=(661, 18))
                 check = CheckBox(group=f"pregunta_{counter}_opcion{idx}", color=(0, 1, 0, 1))
                 totalAnswers += 1

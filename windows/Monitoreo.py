@@ -188,11 +188,14 @@ class MonitoreoScreen(Screen):
                             text_size=(275, 40))
                 text1 = TextInputScroll()
 
-                if input_label_value == "Total Activos":
+                if input_label_value == "Total Activos" or input_label_value == "Total de gastos":
                     text1.readonly = True
 
                 if input_label_value == "Activo Fijo" or input_label_value == "Activo No Fijo":
                     text1.bind(on_text_validate = self.sumando_activos)
+                
+                if input_label_value == "Gastos Directos" or input_label_value == "Gastos Indirectos":
+                    text1.bind(on_text_validate = self.total_gastos_suma)
 
                 box_container.add_widget(lab1)
                 box_container.add_widget(text1)
@@ -243,6 +246,7 @@ class MonitoreoScreen(Screen):
         elif args[1] == "Si":
             self.de_quien_depende_usted.complete = False
             self.de_quien_depende_usted.text = "¿De quién depende?"
+            self.de_quien_depende_usted.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
 
     def sumando_activos(self, *args):
         #print(args[0].text)
@@ -258,7 +262,17 @@ class MonitoreoScreen(Screen):
             self.id_container_grid_2.children[9].children[0].text = str(valor)
             
         self.id_container_grid_2.children[9].children[0].complete = True
-        self.id_container_grid_2.children[9].children[0].background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+        self.id_container_grid_2.children[9].children[0].background_color = 20 / 255, 20 / 255, 20 / 255, 0.1
+
+    def total_gastos_suma(self, *args):
+        if len(self.id_container_grid_2.children[13].children[0].text) == 0:
+            self.id_container_grid_2.children[13].children[0].text = args[0].text
+        else:
+            valor = int(self.id_container_grid_2.children[13].children[0].text) + int(args[0].text)
+            self.id_container_grid_2.children[13].children[0].text = str(valor)
+            
+        self.id_container_grid_2.children[13].children[0].complete = True
+        self.id_container_grid_2.children[13].children[0].background_color = 20 / 255, 20 / 255, 20 / 255, 0.1
 
     def setHome(self, *args):
         self.home = True
