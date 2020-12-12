@@ -177,6 +177,10 @@ class InformacionGeneralScreen(Screen):
         if len(self.id_email.text) == 0:
             self.id_email.text = 'No Aplica'
             self.id_email.on_text_validate()
+        
+        if len(self.id_telephone.text) == 0:
+            self.id_telephone.text = '0000000'
+            self.id_telephone.on_text_validate()
 
         children_list = self.children[0].children
         ret = snippets.chekingCompletes(children_list)

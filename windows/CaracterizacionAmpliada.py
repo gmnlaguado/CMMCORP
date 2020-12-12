@@ -144,6 +144,10 @@ class CaracterizacionAmpliadaScreen(Screen):
     def checkAll(self, *args):
         self.id_message.text = ""
 
+        if len(self.id_observations.text) == 0:
+            self.id_observations.text = 'Sin observaciones'
+            self.id_observations.on_text_validate()
+
         if self.id_childrenNumber.text == "0":
             self.listado_hijos = True
         if self.id_dependants.text == "0":

@@ -50,6 +50,6 @@ def cellphone(cellphone):
 
 
 def money(money):
-    if re.search(r"[^(0-9,.)]", money) is None and len(money) != 0:
+    if re.search(r"^[0-9]+(\.[0-9]{1,2})?$", money) is None and len(money) != 0:
         return True
     return False

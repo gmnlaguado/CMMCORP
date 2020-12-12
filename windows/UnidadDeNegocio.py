@@ -12,7 +12,6 @@ class UnidadDeNegocioScreen(Screen):
     caracterizacion_ampliada = False
 
     id_unit = ObjectProperty()
-    id_exists = ObjectProperty()
     id_howManyPartners = ObjectProperty()
     id_ciiu = ObjectProperty()
     id_email = ObjectProperty()
@@ -45,7 +44,6 @@ class UnidadDeNegocioScreen(Screen):
         self.id_cellphone.input_type = 'number'
         self.id_cellphone2.input_type = 'number'
 
-        self.id_exists.text = "Si existe seleccione"
         self.id_howManyPartners.text = "¿Cuantos socios?"
         self.id_sector.text = "Sector empresarial"
         self.id_regCamara.text = "Reg. Cámara comercio"
@@ -70,7 +68,6 @@ class UnidadDeNegocioScreen(Screen):
         self.id_briefcase.hint_text = "Portafolio"
         self.id_liabilitiesDescription.hint_text = "Descripción de pasivos"
 
-        self.id_exists.values = ['No']
         self.id_howManyPartners.values = [str(numb) for numb in range(0, 70)]
         ciius = querys.bringCIUU()
         ciius = ['0' + cii if len(cii) == 3 else cii for cii in ciius]
@@ -139,6 +136,10 @@ class UnidadDeNegocioScreen(Screen):
         if len(self.id_webPage.text) == 0:
             self.id_webPage.text = 'No Aplica'
             self.id_webPage.on_text_validate()
+        
+        if len(self.id_phone.text) == 0:
+            self.id_phone.text = '0000000'
+            self.id_phone.on_text_validate()
 
         children_list = self.children[0].children
         ret = snippets.chekingCompletes(children_list)
