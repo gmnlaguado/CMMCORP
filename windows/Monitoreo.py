@@ -72,6 +72,7 @@ class MonitoreoScreen(Screen):
         self.id_belongToAssosiation.bind(text=self.pertenecer_asociacion)
         self.id_householdExpenses.bind(on_release=self.openPopupGastos)
         self.id_householdIncomes.bind(on_release=self.openPopupIngresos)
+        self.id_ciiu.bind(on_text_validate=self.signal)
 
         if not len(self.id_container_grid_1.children) > 0:
             questions = querys.parametricList('caracteristicas_del_hogar')
@@ -223,7 +224,6 @@ class MonitoreoScreen(Screen):
             self.id_container_grid_2.add_widget(grid)
 
         self.id_belongToAssosiation.text = "¿Pertenece a alguna asociación?"
-        self.id_ciiu.text = "CIIU"
         self.id_pension.text = "Pensión"
         self.id_bussinesSector.text = "Sector Empresarial"
         self.id_householdExpenses.text = "Gastos del grupo familiar"
@@ -239,6 +239,9 @@ class MonitoreoScreen(Screen):
         self.id_asociacion_mujeres.text = "¿Es una asociación de mujeres?"
         self.scroll_complete = False
     
+    def signal(self, *args):
+        self.id_message.text = args[0].alertFlag['message']
+
     def no_depende(self, *args):
         if args[1] == "No":
             self.de_quien_depende_usted.text = "No Aplica"
