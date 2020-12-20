@@ -95,6 +95,13 @@ class TextInputFather(TextInput):
                 self.alert = "Formato de dinero Incorrecto"
                 self.complete = False
 
+        if self.text_type == "after_date":
+            if checkings.after_date(self.text):
+                self.complete = True
+            else:
+                self.alert = "Formato de fecha incorrecto"
+                self.complete = False
+
         if self.text_type == "ciiu":
             ciius = querys.bringCIUU()
             ciius = ['0'+cii if len(cii) == 3 else cii for cii in ciius]

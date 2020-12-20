@@ -22,3 +22,4 @@ INSERT INTO payee VALUES ('oficial24','jose luis','Aguero Ruiz',1,'654321',5004,
 buildozer android debug deploy run logcat
 
 EXEC sp_rename 'production_profile_diag', 'productionProfileDiag';
+

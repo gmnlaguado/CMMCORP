@@ -24,6 +24,15 @@ def date(date):
                     return True
     return False
 
+def after_date(date):
+    if re.search(r'^\d{2}[/]\d{2}[/]\d{4}$', date) is not None:
+            date = date.split('/')
+            hoy = str(datetime.date.today()).split('-') [::-1]
+            if date[-1] >= hoy[-1]:
+                if date[1] >= hoy[1]:
+                    if date[0] > hoy[0]:
+                        return True
+    return False
 
 def name(name):
     if re.search(r'^[a-z,A-Z]+( [a-z,A-Z]+)?$', name) is not None and len(name) > 0:
@@ -50,6 +59,6 @@ def cellphone(cellphone):
 
 
 def money(money):
-    if re.search(r"^[0-9]+(\.[0-9]{1,2})?$", money) is None and len(money) != 0:
+    if re.search(r"^[0-9]{0,3}(\.[0-9]{3}){0,3}$", money) is not None and len(money) != 0:
         return True
     return False

@@ -441,6 +441,13 @@ class GastosDelGrupoFamiliarPopup(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         if self.id_rentAndServices.complete and self.id_runningCosts.complete and self.id_education.complete and self.id_casualCosts.complete and self.id_obligations.complete:
+            
+            self.id_rentAndServices.text = self.id_rentAndServices.text.replace('.','')
+            self.id_runningCosts.text = self.id_runningCosts.text.replace('.','')
+            self.id_education.text = self.id_education.text.replace('.','')
+            self.id_casualCosts.text = self.id_casualCosts.text.replace('.','')
+            self.id_obligations.text = self.id_obligations.text.replace('.','')
+
             total_expenses = int(self.id_rentAndServices.text) + int(self.id_runningCosts.text) + int(
                 self.id_education.text) + int(self.id_casualCosts.text) + int(self.id_obligations.text)
             MonitoreoScreen.gastos_familia = str(total_expenses)
@@ -465,6 +472,14 @@ class IngresosDelGrupoFamiliarPopup(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         if self.id_employees.complete and self.id_othersRelatives.complete and self.id_freelanceJobs.complete and self.id_pension.complete and self.id_entrepreneurship.complete and self.id_otherIncomes.complete:
+            
+            self.id_employees.text = self.id_employees.text.replace('.','')
+            self.id_othersRelatives.text = self.id_othersRelatives.text.replace('.','')
+            self.id_freelanceJobs.text = self.id_freelanceJobs.text.replace('.','')
+            self.id_pension.text = self.id_pension.text.replace('.','')
+            self.id_entrepreneurship.text = self.id_entrepreneurship.text.replace('.','')
+            self.id_otherIncomes.text = self.id_otherIncomes.text.replace('.','')
+            
             total_expenses = int(self.id_employees.text) + int(self.id_othersRelatives.text) + int(self.id_freelanceJobs.text) + int(self.id_pension.text) + int(self.id_entrepreneurship.text) + int(self.id_otherIncomes.text)
             MonitoreoScreen.ingresos_familia = str(total_expenses)
             # class_declaration.MessagePopup(f'Total ingresos del grupo: {total_expenses}').open()

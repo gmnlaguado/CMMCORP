@@ -105,7 +105,7 @@ class TextInputScrollData(TextInput):
         self.hint_text = "DD/MM/AAAA"
 
     def on_text_validate(self, *args):
-        if checkings.date(self.text):
+        if checkings.after_date(self.text):
             self.complete = True
             self.background_color = (7 / 255, 7 / 255, 7 / 255, 0.1)
         else:
