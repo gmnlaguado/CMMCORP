@@ -62,3 +62,8 @@ def money(money):
     if re.search(r"^[0-9]{0,3}(\.[0-9]{3}){0,3}$", money) is not None and len(money) != 0:
         return True
     return False
+
+def nit(nit):
+    if re.search(r"^[0-9]{8,10}(\-[0-9]{1}){1}$", nit) is not None and len(nit) != 0:
+        return True
+    return False

@@ -101,6 +101,13 @@ class TextInputFather(TextInput):
             else:
                 self.alert = "Formato de fecha incorrecto"
                 self.complete = False
+        
+        if self.text_type == "nit":
+            if checkings.nit(self.text):
+                self.complete = True
+            else:
+                self.alert = "Formato de NIT incorrecto"
+                self.complete = False
 
         if self.text_type == "ciiu":
             ciius = querys.bringCIUU()

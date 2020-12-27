@@ -148,6 +148,10 @@ class CaracterizacionAmpliadaScreen(Screen):
             self.id_observations.text = 'Sin observaciones'
             self.id_observations.on_text_validate()
 
+        if len(self.id_factorsThatPreventYou.text) == 0:
+            self.id_factorsThatPreventYou.text = 'Ninguno'
+            self.id_factorsThatPreventYou.on_text_validate()
+
         if self.id_childrenNumber.text == "0":
             self.listado_hijos = True
         if self.id_dependants.text == "0":

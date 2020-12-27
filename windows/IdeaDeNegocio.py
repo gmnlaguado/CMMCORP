@@ -42,19 +42,17 @@ class IdeaDeNegocioScreen(Screen):
         self.id_assetInvestment.input_type = 'number'
         self.id_firstYearSales.input_type = 'number'
         self.id_initialInvestment.input_type = 'number'
-        self.id_capitalWorkInvestment.input_type = 'number'
         self.id_firstMonthSales.input_type = 'number'
 
         self.id_briefcase.hint_text = "Portafolio"
         self.id_assetInvestment.hint_text = "Inv. Activos"
         self.id_firstMonthSales.hint_text = "Ventas primer mes"
         self.id_initialInvestment.hint_text = "Inv. Inicial"
-        self.id_capitalWorkInvestment.hint_text = "Inv. Capital Trabajo"
         self.id_firstYearSales.hint_text = "Ventas Primer año"
         self.id_imagine.hint_text = "Imagine su negocio"
 
         self.id_bussinesSector.values = querys.parametricList('sector_empresarial')
-        self.id_studies.values = querys.parametricList('estudios')
+        self.id_studies.values = querys.parametricList('si_no')
         self.id_agricultural.values = querys.parametricList('si_no')
         self.id_needColabs.values = querys.parametricList('si_no')
         self.id_weeklyTime.values = querys.parametricList('tiempo_semanal')
@@ -72,10 +70,9 @@ class IdeaDeNegocioScreen(Screen):
 
         self.id_entrepreneurship.bind(on_text_validate=self.signal)
         self.id_briefcase.bind(on_text_validate=self.signal)
-        self.id_assetInvestment.bind(on_text_validate=self.signal)
-        self.id_firstMonthSales.bind(on_text_validate=self.signal)
+        self.id_firstMonthSales.bind(on_text_validate=self.capital_trabajo)
         self.id_initialInvestment.bind(on_text_validate=self.signal)
-        self.id_capitalWorkInvestment.bind(on_text_validate=self.signal)
+        self.id_assetInvestment.bind(on_text_validate=self.signal)
         self.id_firstYearSales.bind(on_text_validate=self.signal)
         self.id_imagine.bind(on_text_validate=self.signal)
         self.id_ciiu.bind(on_text_validate=self.signal)
@@ -104,10 +101,23 @@ class IdeaDeNegocioScreen(Screen):
         self.id_assetInvestment.resetInput()
         self.id_firstMonthSales.resetInput()
         self.id_initialInvestment.resetInput()
-        self.id_capitalWorkInvestment.resetInput()
+        self.id_capitalWorkInvestment.text = "Capital de trabajo"
         self.id_firstYearSales.resetInput()
         self.id_imagine.resetInput()
 
+    def capital_trabajo(self, *args):
+        self.signal(args[0])
+        if self.id_message.text == "":
+            activos = self.id_initialInvestment.text
+            inicial = self.id_assetInvestment.text
+
+            val_1 = activos.replace('.','')
+            val_2 = inicial.replace('.','')
+
+            valor = int(val_1) + int(val_2)
+            self.id_capitalWorkInvestment.text = str(valor)
+
+        
     def checkAll(self, *args):
         self.id_message.text = ""
         children_list = self.children[0].children

@@ -8,6 +8,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from codes import snippets
+from declarations import checkings
 
 
 class MonitoreoScreen(Screen):
@@ -56,7 +57,7 @@ class MonitoreoScreen(Screen):
         self.id_ciiu.values = ciius
         self.id_pension.values = querys.parametricList('si_no')
         self.id_bussinesSector.values = querys.parametricList('sector_empresarial')
-        self.id_totalDependants.values = [str(numb) for numb in range(0, 30)]
+        self.id_totalDependants.values = [str(numb) for numb in range(1, 30)]
         self.id_whoDefineIncome.values = querys.parametricList('quien_define_el_ingreso')
         self.id_houseType.values = querys.parametricList('tipo_de_casa')
         self.id_houseMaterial.values = querys.parametricList('material_de_la_casa')
@@ -193,9 +194,11 @@ class MonitoreoScreen(Screen):
                     text1.readonly = True
 
                 if input_label_value == "Activo Fijo" or input_label_value == "Activo No Fijo":
+                    text1.text_type = "money"
                     text1.bind(on_text_validate = self.sumando_activos)
                 
                 if input_label_value == "Gastos Directos" or input_label_value == "Gastos Indirectos":
+                    text1.text_type = "money"
                     text1.bind(on_text_validate = self.total_gastos_suma)
 
                 box_container.add_widget(lab1)
@@ -252,17 +255,19 @@ class MonitoreoScreen(Screen):
             self.de_quien_depende_usted.background_color = 61 / 255, 119 / 255, 0 / 255, 0.7
 
     def sumando_activos(self, *args):
-        #print(args[0].text)
-        #print()
-        #print(self.id_container_grid_2.children)
-        #print()
-        #print('\t\t',self.id_container_grid_2.children[9].children)
 
         if len(self.id_container_grid_2.children[9].children[0].text) == 0:
             self.id_container_grid_2.children[9].children[0].text = args[0].text
         else:
-            valor = int(self.id_container_grid_2.children[9].children[0].text) + int(args[0].text)
-            self.id_container_grid_2.children[9].children[0].text = str(valor)
+            
+            if checkings.money(args[0].text):
+
+                val_1 = self.id_container_grid_2.children[9].children[0].text.replace('.','')
+                val_2 = args[0].text.replace('.','')
+
+                valor = int(val_1) + int(val_2)
+
+                self.id_container_grid_2.children[9].children[0].text = str(valor)
             
         self.id_container_grid_2.children[9].children[0].complete = True
         self.id_container_grid_2.children[9].children[0].background_color = 20 / 255, 20 / 255, 20 / 255, 0.1
@@ -271,11 +276,35 @@ class MonitoreoScreen(Screen):
         if len(self.id_container_grid_2.children[13].children[0].text) == 0:
             self.id_container_grid_2.children[13].children[0].text = args[0].text
         else:
-            valor = int(self.id_container_grid_2.children[13].children[0].text) + int(args[0].text)
-            self.id_container_grid_2.children[13].children[0].text = str(valor)
+            
+            if checkings.money(args[0].text):
+
+                val_1 = self.id_container_grid_2.children[13].children[0].text.replace('.','')
+                val_2 = args[0].text.replace('.','')
+
+                valor = int(val_1) + int(val_2)
+
+                self.id_container_grid_2.children[13].children[0].text = str(valor)
+                self.id_container_grid_2.children[12].children[0].text = self.total_excedentes()
+                self.id_container_grid_2.children[12].children[0].complete = True
+                self.id_container_grid_2.children[12].children[0].background_color = 20 / 255, 20 / 255, 20 / 255, 0.1
             
         self.id_container_grid_2.children[13].children[0].complete = True
         self.id_container_grid_2.children[13].children[0].background_color = 20 / 255, 20 / 255, 20 / 255, 0.1
+
+        
+
+    def total_excedentes(self, *args):
+        ingresos = self.id_container_grid_2.children[16].children[0].text
+        total_gastos = self.id_container_grid_2.children[13].children[0].text
+        if len(ingresos) > 0 and len(total_gastos) > 0:
+            ingresos = ingresos.replace('.','')
+            total_gastos = total_gastos.replace('.','')
+            excedentes = int(ingresos) - int(total_gastos)
+            return str(excedentes)
+        return str(0)
+
+
 
     def setHome(self, *args):
         self.home = True
@@ -388,10 +417,20 @@ class TextInputScroll(TextInput):
         self.class_type = "input"
         self.multiline = False
         self.readonly = False
+        self.text_type = "Nada"
 
     def on_text_validate(self, *args):
-        self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
-        self.complete = True
+        if self.text_type == "money":
+            if checkings.money(self.text):
+                self.complete = True
+                self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+            else:
+                self.alert = "Formato de dinero Incorrecto"
+                self.complete = False
+                self.background_color = 1, 1, 1, 1
+        else:
+            self.complete = True
+            self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
 
 
 class SpinnerScroll(Spinner):
