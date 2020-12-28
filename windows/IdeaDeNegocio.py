@@ -57,7 +57,7 @@ class IdeaDeNegocioScreen(Screen):
         self.id_needColabs.values = querys.parametricList('si_no')
         self.id_weeklyTime.values = querys.parametricList('tiempo_semanal')
         self.id_whyNot.values = querys.parametricList('por_que_no')
-        self.id_months.values = [str(numb) for numb in range(1, 70)]
+        self.id_months.values = [str(numb) for numb in range(0, 70)]
         
         self.id_howArise.values = querys.parametricList('como_surge')
         self.id_haveExperience.values = querys.parametricList('si_no')

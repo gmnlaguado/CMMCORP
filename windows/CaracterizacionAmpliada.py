@@ -66,7 +66,7 @@ class CaracterizacionAmpliadaScreen(Screen):
         self.id_averageIncomeActivity.values = querys.parametricList('promedio_de_ingresos')
         self.id_pension.values = querys.parametricList('si_no')
         self.id_arl.values = querys.parametricList('si_no')
-        self.id_householdMembers.values = [str(numb) for numb in range(0, 30)]
+        self.id_householdMembers.values = [str(numb) for numb in range(1, 30)]
         self.id_agreementTime.values = [str(numb) for numb in range(0, 30)]
 
         self.id_homeButton.bind(on_press=self.setHome)

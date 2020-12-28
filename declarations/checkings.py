@@ -59,7 +59,7 @@ def cellphone(cellphone):
 
 
 def money(money):
-    if re.search(r"^[0-9]{0,3}(\.[0-9]{3}){0,3}$", money) is not None and len(money) != 0:
+    if re.search(r"^[0-9]{0,3}(\.[0-9]{3}){0,3}$", money) is not None and len(money) > 3:
         return True
     return False
 

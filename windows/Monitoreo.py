@@ -108,7 +108,7 @@ class MonitoreoScreen(Screen):
             self.id_container_grid_2.add_widget(grid)
 
             box_container = BoxLayout(size_hint=(None, None), size=(673, 40))
-            lab1 = Label(text="Monte del crédito", halign="left", valign="middle", size_hint=(None, None),
+            lab1 = Label(text="Monto del crédito", halign="left", valign="middle", size_hint=(None, None),
                          size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
                          text_size=(275, 40))
             text1 = TextInputScroll()
