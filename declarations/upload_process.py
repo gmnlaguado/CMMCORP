@@ -7,7 +7,7 @@ import json
 
 
 def get_operarios():
-    url = 'http://190.145.94.92:5000/obtener_operarios'
+    url = 'http://190.145.94.94:5000/obtener_operarios'
     method = "POST"
     req_body = "req_body"
     req = UrlRequest(url, 
