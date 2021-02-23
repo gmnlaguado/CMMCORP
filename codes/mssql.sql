@@ -1,4 +1,4 @@
-sqlcmd -S 190.145.94.91 -U Arnulforojas -P 'Arojas032020'
+sqlcmd -S 190.145.94.94 -U Arnulforojas -P 'Arojas032020'
 USE CMMCRSocial;
 USE CMMCRsocialparametricas;
 SELECT names, lastNames FROM payee;
@@ -12,13 +12,13 @@ DELETE FROM productionProfileDiag;
 
 
 
-sqlcmd -S 190.145.94.92 -d CMMCRSocial -U API -P Api*2020*
+sqlcmd -S 190.145.94.94 -d CMMCRSocial -U API -P Api*2020*
 
 
 ALTER TABLE informacion_general_beneficiario ALTER COLUMN cellphone bigint;
 
 
-sqlcmd -S 190.145.94.92 -d CMMCRSocial -U Arnulforojas -P Arojas032020
+sqlcmd -S 190.145.94.94 -d CMMCRSocial -U Arnulforojas -P Arojas032020
 
 sqlcmd -S 190.145.94.94 -d CMMCRSocial -U Arnulforojas -P Arojas032020
 
