@@ -5,7 +5,7 @@ import pymssql
 
 class MyDB(object):
     def __init__(self):
-        db_host = '190.145.94.94'
+        db_host = '190.145.94.93'
         db_name = 'CMMCRSocial'
         db_user = 'Arnulforojas'
         db_password = 'Arojas032020'
