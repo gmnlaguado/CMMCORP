@@ -7,8 +7,8 @@ class MyDB(object):
     def __init__(self):
         db_host = '190.145.94.93'
         db_name = 'CMMCRSocial'
-        db_user = 'Arnulforojas'
-        db_password = 'Arojas032020'
+        db_user = 'GeorgeNino'
+        db_password = 'Gmnino@2021'
         self._db_connection = pymssql.connect(server=db_host, user=db_user, password=db_password, database=db_name)
         self._db_cur = self._db_connection.cursor()
 
