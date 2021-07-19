@@ -9,6 +9,8 @@ from kivy.uix.spinner import Spinner
 from kivy.uix.textinput import TextInput
 from codes import snippets
 from declarations import checkings
+from money import money
+
 
 
 class MonitoreoScreen(Screen):
@@ -116,7 +118,7 @@ class MonitoreoScreen(Screen):
             box_container.add_widget(text1)
             self.id_container_grid_2.add_widget(box_container)
 
-            grid = SpinnerScroll(text="Número de cuotas", values=[str(numb) for numb in range(1, 65)])
+            grid = SpinnerScroll(text="Número de cuotas", values=[str(numb) for numb in range(0, 65)])
             self.id_container_grid_2.add_widget(grid)
 
             grid = SpinnerScroll(text="¿Alguno de estos servicios los tiene con Bancamía?",

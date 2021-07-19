@@ -68,6 +68,7 @@ class LoginProjectPopup(class_declaration.PopupFather):
         self.id_projects.values = projects
         self.id_projects.bind(text=self.on_selection)
 
+
     def on_selection(self, *args):
         Panel.PanelScreen.operator = self.operator
         Panel.PanelScreen.project = args[1]

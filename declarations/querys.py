@@ -185,6 +185,12 @@ def obtener_estado(beneficiario):
     if result is not None:
         return result[0]
 
+def consulta_beneficiario(beneficiario, proyecto):
+    db = MyDB('register')
+    result = db.query("SELECT MT.fecha, MT.numero_monitoreo, IGB.project, IGB.names, IGB.lastNames, IGB.operator, IGB.birthdate, IGB.docType, IGB.date, IGB.country, IGB.address, IGB.cellphone, IGB.cellphone2, IGB.email, IGB.sex, IGB.telephone,IGB.ethnicGroup, IGB.gender FROM dbo.informacion_general_beneficiario AS IGB INNER JOIN dbo.monitoreo AS MT ON IGB.project = MT.fk_proyecto INNER JOIN dbo.idea_de_negocio AS IDN ON IGB.project = IDN.fkProject CROSS JOIN dbo.unidad_de_negocio AS UDN INNER JOIN dbo.plan_de_formacion AS PDF ON IGB.project = PDF.proyecto INNER JOIN dbo.actividad_implementacion AS AI ON IGB.project = AI.project",
+                      {'beneficiario': beneficiario, 'proyecto': proyecto}).fetchone()
+    if result is not None:
+        return result[0]
 
 # Register
 # Insert Into
@@ -374,3 +380,7 @@ def obtener_toda_info(tabla):
     db = MyDB('register')
     result = db.parametricQuery("SELECT * FROM %s" % tabla).fetchall()
     return result
+
+
+def plan_de_seguimiento_habilitado(text):
+    return None

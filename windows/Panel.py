@@ -1,9 +1,12 @@
 # coding=utf-8
-from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
+from kivy.uix.screenmanager import Screen
+
 from declarations import querys, class_declaration, upload_process
+from declarations.querys import consulta_beneficiario
 from windows import PlanDeImplementacion, InformacionGeneral, DiagnosticoPerfilProductivo, UnidadDeNegocio, \
-    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion, DiagnosticoEmpresarial, ActividadDeFormacion, ActividadDeImplementacion
+    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion, DiagnosticoEmpresarial, ActividadDeFormacion, \
+    ActividadDeImplementacion, PlanDeSeguimiento, ActividadDeSeguimiento
 
 
 class PanelScreen(Screen):
@@ -349,6 +352,7 @@ class PlanDeFormacionButton(class_declaration.PopupFather):
         pass
 
 
+
 class PlanDeSeguimientoButton(class_declaration.PopupFather):
     id_payee = ObjectProperty()
 
@@ -372,10 +376,33 @@ class PlanDeSeguimientoButton(class_declaration.PopupFather):
                 if querys.obtener_estado(args[0].text) == 3:
                     class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
                 else:
-                    pass
+                    if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
+                        if querys.etapa_del_proceso(args[0].text) == 4:
+                            if querys.plan_de_seguimiento_habilitado(args[0].text) == 2:
+                                ActividadDeSeguimiento.ActividadDeSeguimientoScreen.payeeDocument = args[0].text
+                                visitas = list(
+                                    querys.ver_cuantas_visitas(args[0].text, querys.idProject(self.project.lower())))
+                                if visitas[1] < visitas[0]:
+                                    self.dismiss()
+                                    self.changeWindow()
+                                else:
+                                    class_declaration.MessagePopup(
+                                        'El beneficiario ya completó la implementación').open()
+                            else:
+                                PlanDeSeguimiento.PlanDeSeguimientoScreen.payeeDocument = args[0].text
+                                self.dismiss()
+                                self.changeToPlan()
+                        else:
+                            class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
+                    else:
+                        class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
 
-    def changeWindow(self, *args):
-        pass
+        def changeWindow(self, *args):
+            pass
+
+        def changeToPlan(self, *args):
+            pass
+
 
 
 class ConsultarButton(class_declaration.PopupFather):
@@ -394,8 +421,7 @@ class ConsultarButton(class_declaration.PopupFather):
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            self.dismiss()
-
+            pass
 
 class InactivarButton(class_declaration.PopupFather):
     id_payee = ObjectProperty()

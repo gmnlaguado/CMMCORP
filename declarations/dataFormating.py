@@ -537,4 +537,3 @@ def actividad_implementacion(info):
     org = tuple(org)
     querys.cargar('actividad_implementacion', 21, org)
 
-

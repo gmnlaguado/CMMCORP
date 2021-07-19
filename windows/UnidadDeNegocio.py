@@ -3,7 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, dataFormating
 from codes import snippets
-
+from money import money
 
 class UnidadDeNegocioScreen(Screen):
     payeeDocument = None
@@ -52,7 +52,7 @@ class UnidadDeNegocioScreen(Screen):
         self.id_departments.text = "Departamento"
         self.id_cities.text = "Ciudad"
         self.id_sign.text = "Rótulo"
-        self.id_tier.text = "Estrato"
+        self.id_tier.text = "Indicativo"
         self.id_descriptionLabel.text = "Descripción"
         self.id_creationLabel.text = "Creación"
         self.id_liabilitiesDescriptionLabel.text = "Descripción pasivos"

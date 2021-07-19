@@ -34,7 +34,6 @@ class PlanDeFormacionScreen(Screen):
         self.id_selectedActivities.bind(on_release=self.selectActivites)
         self.all_activities = []
         self.selected = []
-
         self.id_program.text = "Programa"
         self.id_line.text = "Linea"
         self.id_level.text = "Nivel"

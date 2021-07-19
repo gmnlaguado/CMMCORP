@@ -93,7 +93,7 @@ class InformacionGeneralScreen(Screen):
         self.id_environment.text = "Entorno"
         self.id_sign.text = "Rótulo"
         self.id_neighborhoods.text = "Barrio"
-        self.id_tier.text = "Estrato"
+        self.id_tier.text = "Indicativo"
         self.id_gender.text = "Género"
         self.id_ethnicGroup.text = "Etnia"
         self.id_disability.text = "Cond. Discapacidad"
@@ -181,6 +181,7 @@ class InformacionGeneralScreen(Screen):
         if len(self.id_telephone.text) == 0:
             self.id_telephone.text = '0000000'
             self.id_telephone.on_text_validate()
+
 
         children_list = self.children[0].children
         ret = snippets.chekingCompletes(children_list)
