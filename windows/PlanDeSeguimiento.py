@@ -7,21 +7,13 @@ from kivy.uix.label import Label
 from declarations import dataFormating
 
 
-def numero_de_visitas_formacion(operator):
-    pass
-
-
-class AcceptFormPlanDeSeguimiento:
-    pass
-
-
 class PlanDeSeguimientoScreen(Screen):
     form_title = None
     project = None
     operator = None
-    payeedocument = None
+    payeeDocument = None
     home = False
-    numero_de_visitas = 0
+    numero_de_vis = 0
 
     id_title = ObjectProperty()
     id_container_grid = ObjectProperty()
@@ -31,9 +23,9 @@ class PlanDeSeguimientoScreen(Screen):
     id_signInButton = ObjectProperty()
     id_homeButton = ObjectProperty()
 
-    def on_pre_open(self, *args):
+    def on_pre_enter(self, *args):
         self.id_title.text = "Plan de Seguimiento"
-        self.id_lineLabel.text = "Linea"
+        self.id_lineLabel.text = "Línea"
         self.id_finishedDataLabel.text = "Terminación"
         self.id_signInButton.bind(on_release=self.checkAll)
 
@@ -41,8 +33,10 @@ class PlanDeSeguimientoScreen(Screen):
             self.id_title.text = self.form_title
 
         self.id_container_grid.clear_widgets()
-        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
-        scores = querys.traer_puntajes_diagnostico(self.payeeDocument, querys.idProject(self.project.lower()))
+        self.id_container_grid.bind(
+            minimum_height=self.id_container_grid.setter('height'))
+        scores = querys.traer_puntajes_diagnostico(
+            self.payeeDocument, querys.idProject(self.project.lower()))
         lines = querys.parametricList('lineas_de_desarrollo')
         for idx, quest in enumerate(lines):
             lab = Label(text=quest, halign="left", valign="middle", size_hint=(None, None),
@@ -83,88 +77,92 @@ class PlanDeSeguimientoScreen(Screen):
                 self.id_message.text = "Faltan campos por diligenciar"
         if self.id_message.text == "":
             self.total_plan = informacion_total
-            numero_de_visitas_formacion(self.operator).open()
+            numero_de_visitas_seguimiento(self.operator).open()
 
     def on_leave(self, *args):
-        dataFormating.plan_de_implementacion(self)
+        dataFormating.plan_de_seguimiento(self)
 
-    class TextInputScroll(TextInput):
-        def __init__(self, *args, **kwargs):
-            super().__init__(**kwargs)
-            self.size = (402, 40)
-            self.font_name = "montserrat"
-            self.color = (1, 1, 1, 1)
-            self.size_hint = (None, None)
-            self.halign = "center"
-            self.valign = "middle"
+
+class TextInputScroll(TextInput):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.size = (402, 40)
+        self.font_name = "montserrat"
+        self.color = (1, 1, 1, 1)
+        self.size_hint = (None, None)
+        self.halign = "center"
+        self.valign = "middle"
+        self.background_color = (255 / 255, 255 / 255, 255 / 255, 1)
+        self.background_normal = ""
+        self.complete = False
+        self.class_type = "input"
+        self.multiline = False
+
+    def on_text_validate(self, *args):
+        if checkings.text(self.text):
+            self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+            self.complete = True
+        else:
             self.background_color = (255 / 255, 255 / 255, 255 / 255, 1)
-            self.background_normal = ""
             self.complete = False
-            self.class_type = "input"
-            self.multiline = False
 
-        def on_text_validate(self, *args):
-            if checkings.text(self.text):
-                self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
-                self.complete = True
-            else:
-                self.background_color = (255 / 255, 255 / 255, 255 / 255, 1)
-                self.complete = False
 
-    class TextInputScrollData(TextInput):
-        def __init__(self, *args, **kwargs):
-            super().__init__(**kwargs)
-            self.size = (186, 40)
-            self.font_name = "montserrat"
-            self.color = (1, 1, 1, 1)
-            self.size_hint = (None, None)
-            self.halign = "center"
-            self.valign = "middle"
+class TextInputScrollData(TextInput):
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.size = (186, 40)
+        self.font_name = "montserrat"
+        self.color = (1, 1, 1, 1)
+        self.size_hint = (None, None)
+        self.halign = "center"
+        self.valign = "middle"
+        self.background_color = (255/255, 255/255, 255/255, 1)
+        self.background_normal = ""
+        self.complete = False
+        self.class_type = "input"
+        self.multiline = False
+        self.hint_text = "DD/MM/AAAA"
+
+    def on_text_validate(self, *args):
+        if checkings.date(self.text):
+            self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
+            self.complete = True
+        else:
             self.background_color = (255 / 255, 255 / 255, 255 / 255, 1)
-            self.background_normal = ""
             self.complete = False
-            self.class_type = "input"
-            self.multiline = False
-            self.hint_text = "DD/MM/AAAA"
 
-        def on_text_validate(self, *args):
-            if checkings.date(self.text):
-                self.background_color = 7 / 255, 7 / 255, 7 / 255, 0.1
-                self.complete = True
-            else:
-                self.background_color = (255 / 255, 255 / 255, 255 / 255, 1)
-                self.complete = False
 
-    class AcceptFormPlanDeImplementacion(class_declaration.PopupFather):
-        id_acceptButton = ObjectProperty()
+class AcceptFormPlanDeSeguimiento(class_declaration.PopupFather):
+    id_acceptButton = ObjectProperty()
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(**kwargs)
-            self.operator = args[0]
-            self.id_acceptButton.bind(on_release=self.on_validate)
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.operator = args[0]
+        self.id_acceptButton.bind(on_release=self.on_validate)
 
-        def on_pre_open(self):
-            self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
+    def on_pre_open(self):
+        self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
 
-        def on_validate(self, *args):
-            self.dismiss()
-            self.changeWindow()
+    def on_validate(self, *args):
+        self.dismiss()
+        self.changeWindow()
 
-        def changeWindow(self, *args):
-            pass
+    def changeWindow(self, *args):
+        pass
 
-    class numero_de_visitas_implementacion(class_declaration.PopupFather):
-        id_visitas = ObjectProperty()
 
-        def __init__(self, *args, **kwargs):
-            super().__init__(**kwargs)
-            self.operator = args[0]
-            self.id_visitas.bind(text=self.on_selection)
+class numero_de_visitas_seguimiento(class_declaration.PopupFather):
+    id_visitas = ObjectProperty()
 
-        def on_pre_open(self):
-            self.title = f"ODP {self.operator} ingrese la cantidad de visitas de implementación"
+    def __init__(self, *args, **kwargs):
+        super().__init__(**kwargs)
+        self.operator = args[0]
+        self.id_visitas.bind(text=self.on_selection)
 
-        def on_selection(self, *args):
-            PlanDeSeguimientoScreen.numero_de_vis = int(args[1])
-            self.dismiss()
-            AcceptFormPlanDeSeguimiento(self.operator).open()
+    def on_pre_open(self):
+        self.title = f"ODP {self.operator} ingrese la cantidad de visitas de seguimiento"
+
+    def on_selection(self, *args):
+        PlanDeSeguimientoScreen.numero_de_vis = int(args[1])
+        self.dismiss()
+        AcceptFormPlanDeSeguimiento(self.operator).open()

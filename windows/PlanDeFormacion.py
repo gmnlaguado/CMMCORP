@@ -34,6 +34,7 @@ class PlanDeFormacionScreen(Screen):
         self.id_selectedActivities.bind(on_release=self.selectActivites)
         self.all_activities = []
         self.selected = []
+
         self.id_program.text = "Programa"
         self.id_line.text = "Linea"
         self.id_level.text = "Nivel"
@@ -55,10 +56,19 @@ class PlanDeFormacionScreen(Screen):
         self.id_total_activities.text = f'Actividades Seleccionadas {len(self.all_activities)}'
 
     def checkAll(self, *args):
-        if len(self.all_activities) > 1:
+        actividades_min = 0
+        tipo_beneficiario = querys.consulta_tipo_beneficiario(self.payeeDocument, querys.idProject(
+            self.project.lower()))
+
+        if querys.tipo_de_beneficiario == 1:
+            actividades_min = 15
+        else:
+            actividades_min = 10
+
+        if len(self.all_activities) > actividades_min:
             AcceptFormPlanDeFormacion(self.operator).open()
         else:
-            self.id_message.text = "Seleccione más de una actividad"
+            self.id_message.text = f"Seleccione más de {actividades_min} actividades"
 
 
     def loadLines(self, *args):

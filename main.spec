@@ -1,40 +1,5 @@
-sqlcmd -S 190.145.94.93 -U GeorgeNino -P 'Gmnino@2021'
-USE CMMCRSocial;
-USE CMMCRsocialparametricas;
-SELECT names, lastNames FROM payee;
-DELETE FROM payee;
 
-SELECT id FROM payeeProjects;
-DELETE FROM payeeProjects;
-
-SELECT payeeDocument FROM productionProfileDiag;
-DELETE FROM productionProfileDiag;
-
-
-
-sqlcmd -S 190.145.94.93 -d CMMCRSocial -U API -P Api*2020*
-
-
-ALTER TABLE informacion_general_beneficiario ALTER COLUMN cellphone bigint;
-
-
-sqlcmd -S 190.145.94.93 -d CMMCRSocial -U GeorgeNino -P Gmnino@2021
-
-sqlcmd -S 190.145.94.93 -d CMMCRSocial -U GeorgeNino -P Gmnino@2021
-
-python -m PyInstaller --name cmm_app --icon C:\Users\EmpropazTI\Pictures\corpMundialMujer-master\images\icono.ico C:\Users\EmpropazTI\Pictures\corpMundialMujer-master\main.py
-
-INSERT INTO odp_operario (document ,name, username, password, type) VALUES ('12345', 'carlos jose', 'carlos23', 'asdf', 1)
-
-INSERT INTO odp_operario_proyectos (id, fkOperator, fkProject) VALUES ('1234__prueba001', '12345', 'prueba001');
-
-INSERT INTO proyectos (id, name, data) VALUES ('prueba001', 'prueba', '2010-03-15')
-
-SPEC EXAMPLE
-
-python -m PyInstaller cmm_app.spec
-
-# -*- mode: python ; coding: utf-8 -*-
+ # -*- mode: python ; coding: utf-8 -*-
 from kivy_deps import sdl2, glew
 block_cipher = None
 
@@ -115,227 +80,227 @@ CREATE TABLE [barrios] (
   [data] varchar(255) NOT NULL,
   [fkCities] int NOT NULL
 );
-GO    
+GO
 CREATE TABLE [tipo_de_beneficiario] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [rangos_de_edad] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [entornos] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [sexo] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [genero] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [grupo_etnico] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [discapacidades] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [sector_empresarial] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [ciiu] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [como_surge] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [tiempo_a_dedicar] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [estudios] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [si_no] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [producto_o_servicio] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [porcentaje_de_inversion] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [tiempo_semanal] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [por_que_no] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [regimen_de_salud] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [estado_civil] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [tipos_de_contrato] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [promedio_de_ingresos] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [quien_define_el_ingreso] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [tipo_de_casa] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [material_de_la_casa] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [combustible_de_cocina] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [antiguedad_de_la_casa] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [bancamia] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [de_quien_depende] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [donde_opera] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [alerta_seguimiento] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [caracteristicas_del_hogar] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [categorias_diagnostico_empresarial] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [estado_del_beneficiario] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [estado_meta] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [etapa_del_proceso] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [lineas_de_desarrollo] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [plan_de_inversiones] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [preguntas_de_diagnostico] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [preguntas_diagnostico_empresarial] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [respuestas_diagnostico_empresarial] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [seguimiento_desembolso] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [tipo_de_credito] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [tipo_visita] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 CREATE TABLE [vulnerabilidad] (
   [id] int NOT NULL,
   [data] varchar(255) NOT NULL
 );
-GO    
+GO
 
 SELECT *FROM SYSOBJECTS WHERE  xtype = 'U';
 GO

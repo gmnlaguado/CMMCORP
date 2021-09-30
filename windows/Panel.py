@@ -1,13 +1,13 @@
 # coding=utf-8
-from kivy.properties import ObjectProperty
 from kivy.uix.screenmanager import Screen
-
+from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, upload_process
-from declarations.querys import consulta_beneficiario
 from windows import PlanDeImplementacion, InformacionGeneral, DiagnosticoPerfilProductivo, UnidadDeNegocio, \
-    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion, DiagnosticoEmpresarial, ActividadDeFormacion, \
-    ActividadDeImplementacion, PlanDeSeguimiento, ActividadDeSeguimiento
-
+    IdeaDeNegocio, CaracterizacionAmpliada, Monitoreo, PlanDeFormacion, DiagnosticoEmpresarial, \
+    ActividadDeFormacion, ActividadDeImplementacion, ConsultarView, PlanDeSeguimiento, ActividadDeSeguimiento
+import pandas as pd
+from openpyxl import load_workbook
+from kivy.app import App
 
 class PanelScreen(Screen):
     operator = None
@@ -87,7 +87,6 @@ class PanelScreen(Screen):
 
     def loadInformation(self, *args):
         AcceptLoading(self.operator).open()
-
 
 class EmergentNuevoBeneficiario(class_declaration.PopupFather):
     id_payee = ObjectProperty()
@@ -352,7 +351,6 @@ class PlanDeFormacionButton(class_declaration.PopupFather):
         pass
 
 
-
 class PlanDeSeguimientoButton(class_declaration.PopupFather):
     id_payee = ObjectProperty()
 
@@ -369,45 +367,53 @@ class PlanDeSeguimientoButton(class_declaration.PopupFather):
         if not args[0].alertFlag['complete']:
             class_declaration.MessagePopup(args[0].alertFlag['message']).open()
         else:
-            projects = querys.payeeProjects(querys.idProject(self.project.lower()))
+            projects = querys.payeeProjects(
+                querys.idProject(self.project.lower()))
             if not args[0].text in projects:
-                class_declaration.MessagePopup('El beneficiario no tiene caracterización básica').open()
+                class_declaration.MessagePopup(
+                    'El beneficiario no tiene caracterización básica').open()
             else:
-                if querys.obtener_estado(args[0].text) == 3:
-                    class_declaration.MessagePopup('El beneficiario se encuentra inactivo').open()
+                if querys.obtener_estado(args[0].text) == 2:
+                    class_declaration.MessagePopup(
+                        'El beneficiario se encuentra inactivo').open()
                 else:
                     if args[0].text in querys.lista_de_caracterizaciones(querys.idProject(self.project.lower())):
                         if querys.etapa_del_proceso(args[0].text) == 4:
                             if querys.plan_de_seguimiento_habilitado(args[0].text) == 2:
                                 ActividadDeSeguimiento.ActividadDeSeguimientoScreen.payeeDocument = args[0].text
-                                visitas = list(
-                                    querys.ver_cuantas_visitas(args[0].text, querys.idProject(self.project.lower())))
+                                ActividadDeSeguimiento.ActividadDeSeguimientoScreen.project = self.project
+                                ActividadDeSeguimiento.ActividadDeSeguimientoScreen.operator = self.operator
+                                visitas = list(querys.ver_cuantas_visitas_seguimiento(
+                                    args[0].text, querys.idProject(self.project.lower())))
                                 if visitas[1] < visitas[0]:
                                     self.dismiss()
                                     self.changeWindow()
                                 else:
                                     class_declaration.MessagePopup(
-                                        'El beneficiario ya completó la implementación').open()
+                                        'El beneficiario ya completó el seguimiento').open()
                             else:
                                 PlanDeSeguimiento.PlanDeSeguimientoScreen.payeeDocument = args[0].text
+                                PlanDeSeguimiento.PlanDeSeguimientoScreen.project = self.project
+                                PlanDeSeguimiento.PlanDeSeguimientoScreen.operator = self.operator
                                 self.dismiss()
                                 self.changeToPlan()
                         else:
-                            class_declaration.MessagePopup('El Beneficiario no tiene los monitoreos necesarios').open()
+                            class_declaration.MessagePopup(
+                                'El Beneficiario no tiene los segui necesarios').open()
                     else:
-                        class_declaration.MessagePopup('El beneficiario no tiene caracterización Ampliada').open()
+                        class_declaration.MessagePopup(
+                            'El beneficiario no tiene caracterización Ampliada').open()
 
-        def changeWindow(self, *args):
-            pass
+    def changeWindow(self, *args):
+        pass
 
-        def changeToPlan(self, *args):
-            pass
-
+    def changeToPlan(self, *args):
+        pass
 
 
 class ConsultarButton(class_declaration.PopupFather):
     id_payee = ObjectProperty()
-
+    
     def __init__(self, *args, **kwargs):
         super().__init__(**kwargs)
         self.operator = args[0]
@@ -419,10 +425,42 @@ class ConsultarButton(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         if not args[0].alertFlag['complete']:
-            class_declaration.MessagePopup(args[0].alertFlag['message']).open()
-        else:
-            pass
 
+            class_declaration.MessagePopup(
+                args[0].alertFlag['message']).dismiss()
+        else:
+            self.dismiss()
+            app = App.get_running_app()
+            app.add_screen(
+                ConsultarView.ConsultarScreen(name="ConsultarScreen", slug=args[0].text))
+            app.change_screen('ConsultarScreen')
+        
+
+            print("Unidad de negocio")
+            print(querys.consulta_beneficiario(args[0].text, querys.idProject(self.project.lower()), "unidad_de_negocio"))
+            print()
+
+            print("Caracterización ampliada")
+            print(querys.consulta_beneficiario(args[0].text, querys.idProject(self.project.lower()), "caracterizacion_ampliada"))
+            print()
+
+
+            #print("Plan Formacion")
+            #print(querys.consulta_beneficiario(args[0].text, querys.idProject(self.project.lower()),"plan_de_formacion"))
+            #print()
+
+            #print("monitoreo")
+            #print(querys.consulta_beneficiario(args[0].text, querys.idProject(self.project.lower()),"monitoreo"))
+            #print()
+
+            #print("Plan Implementacion")
+            #print(querys.consulta_beneficiario(args[0].text, querys.idProject(self.project.lower()),"plan_de_implementacion"))
+            #print()
+            #print(querys.consulta_beneficiario.to_excel('C:/Users/EmpropazTI/Desktop.xlsx'))
+            #self.dismiss()
+
+    def changeWindow(self, *args):
+        pass
 class InactivarButton(class_declaration.PopupFather):
     id_payee = ObjectProperty()
 
@@ -449,7 +487,7 @@ class InactivarButton(class_declaration.PopupFather):
                     class_declaration.MessagePopup('El beneficiario ya terminó todo su proceso').open()
                 else:
                     class_declaration.MessagePopup(f'El beneficiario {args[0].text} fue inactivado').open()
-                    querys.inactivar_beneficiario(args[0].text, querys.idProject(self.project.lower()))
+                    querys.cambiar_estado(args[0].text, querys.idProject(self.project.lower()))
                     self.dismiss()
 
 

@@ -4,7 +4,7 @@ from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, upload_process
 from windows import Panel, InformacionGeneral, IdeaDeNegocio, UnidadDeNegocio, \
     CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, ActividadDeFormacion, \
-    PlanDeImplementacion, ActividadDeImplementacion
+    PlanDeImplementacion, ActividadDeImplementacion, ConsultarView
 from codes import snippets
 
 class LoginScreen(Screen):
@@ -68,7 +68,6 @@ class LoginProjectPopup(class_declaration.PopupFather):
         self.id_projects.values = projects
         self.id_projects.bind(text=self.on_selection)
 
-
     def on_selection(self, *args):
         Panel.PanelScreen.operator = self.operator
         Panel.PanelScreen.project = args[1]
@@ -102,6 +101,9 @@ class LoginProjectPopup(class_declaration.PopupFather):
 
         ActividadDeImplementacion.ActividadDeImplementacionScreen.operator = self.operator
         ActividadDeImplementacion.ActividadDeImplementacionScreen.project = args[1]
+
+        ConsultarView.ConsultarScreen.operator = self.operator
+        ConsultarView.ConsultarScreen.project = args[1]
 
         self.dismiss()
         self.changeWindow()

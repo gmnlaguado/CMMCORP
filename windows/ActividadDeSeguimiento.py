@@ -32,17 +32,20 @@ class ActividadDeSeguimientoScreen(Screen):
     def on_pre_enter(self, *args):
         if not len(self.id_container_grid.children) > 0:
             self.id_title.text = "Actividad de Seguimiento"
-            self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
+            self.id_container_grid.bind(
+                minimum_height=self.id_container_grid.setter('height'))
             button_1 = ButtonScroll(text="Ingresar")
             button_1.bind(on_release=self.estados)
             self.id_container_grid.add_widget(button_1)
-            self.spinner_1 = SpinnerScroll(text="Tipo de visita", values=querys.parametricList('tipo_visita'))
+            self.spinner_1 = SpinnerScroll(
+                text="Tipo de visita", values=querys.parametricList('tipo_visita'))
             self.id_container_grid.add_widget(self.spinner_1)
             label_1 = LabelScroll(text="Si elige otro, indique la dirección")
             self.id_container_grid.add_widget(label_1)
             self.input_1 = TextInputScroll()
             self.id_container_grid.add_widget(self.input_1)
-            self.spinner_2 = SpinnerScroll(text="Plan de Inversiones", values=querys.parametricList('plan_de_inversiones'))
+            self.spinner_2 = SpinnerScroll(
+                text="Plan de Inversiones", values=querys.parametricList('plan_de_inversiones'))
             self.id_container_grid.add_widget(self.spinner_2)
             label_2 = LabelScroll(text="Observaciones")
             self.id_container_grid.add_widget(label_2)
@@ -61,29 +64,28 @@ class ActividadDeSeguimientoScreen(Screen):
         self.id_payeeName.text = f'Proyecto {self.project}'
 
     def on_leave(self, *args):
-        dataFormating.actividad_implementacion(self)
+        dataFormating.actividad_seguimiento(self)
 
     def estados(self, *args):
-        Estado_de_metas(self.payeeDocument, self.project).open()
+        Estado_de_metas_seguimiento(self.payeeDocument, self.project).open()
 
     def checkAll(self, *args):
         if self.metas_terminadas:
             if self.spinner_1.complete and self.spinner_2:
                 if self.check.active:
-                    SeguimientoDesembolso(self.operator, self.payeeDocument, querys.idProject(self.project.lower())).open()
+                    SeguimientoDesembolsoSeguimiento(self.operator, self.payeeDocument, querys.idProject(
+                        self.project.lower())).open()
                 else:
-                    AcceptFormActividadDeSeguimiento(self.operator, self.payeeDocument, querys.idProject(self.project.lower())).open()
+                    AcceptFormActividadDeSeguimiento(
+                        self.operator, self.payeeDocument, querys.idProject(self.project.lower())).open()
             else:
-                class_declaration.MessagePopup("Faltan preguntas por responder").open()
+                class_declaration.MessagePopup(
+                    "Faltan preguntas por responder").open()
         else:
             class_declaration.MessagePopup("Estado de metas incompleto").open()
 
 
-class AcceptFormActividadDeSeguimiento:
-    pass
-
-
-class SeguimientoDesembolso(class_declaration.PopupFather):
+class SeguimientoDesembolsoSeguimiento(class_declaration.PopupFather):
     id_projects = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
@@ -94,19 +96,22 @@ class SeguimientoDesembolso(class_declaration.PopupFather):
 
     def on_pre_open(self):
         self.title = f"¿Cuál es el seguimiento al desembolso?"
-        self.id_projects.values = querys.parametricList('seguimiento_desembolso')
+        self.id_projects.values = querys.parametricList(
+            'seguimiento_desembolso')
         self.id_projects.bind(text=self.on_selection)
 
     def on_selection(self, *args):
         self.dismiss()
         ActividadDeSeguimientoScreen.seguimiento_desembolso = args[1]
         if args[1] == "Alerta de cumplimiento de compromisos":
-            AlertaSeguimientoDesembolso(self.operator, self.payee, self.project).open()
+            AlertaSeguimientoDesembolsoSeguimiento(
+                self.operator, self.payee, self.project).open()
         else:
-            AcceptFormActividadDeSeguimiento(self.operator, self.payee, self.project).open()
+            AcceptFormActividadDeSeguimiento(
+                self.operator, self.payee, self.project).open()
 
 
-class AlertaSeguimientoDesembolso(class_declaration.PopupFather):
+class AlertaSeguimientoDesembolsoSeguimiento(class_declaration.PopupFather):
     id_projects = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
@@ -124,12 +129,14 @@ class AlertaSeguimientoDesembolso(class_declaration.PopupFather):
         self.dismiss()
         ActividadDeSeguimientoScreen.alerta_cumplimiento = args[1]
         if args[1] == "Otro":
-            OtroSeguimientoDesembolso(self.operator, self.project, self.payee).open()
+            OtroSeguimientoDesembolsoSeguimiento(
+                self.operator, self.project, self.payee).open()
         else:
-            AcceptFormActividadDeSeguimiento(self.operator, self.payee, self.project).open()
+            AcceptFormActividadDeSeguimiento(
+                self.operator, self.payee, self.project).open()
 
 
-class OtroSeguimientoDesembolso(class_declaration.PopupFather):
+class OtroSeguimientoDesembolsoSeguimiento(class_declaration.PopupFather):
     id_payee = ObjectProperty()
 
     def __init__(self, *args, **kwargs):
@@ -148,7 +155,8 @@ class OtroSeguimientoDesembolso(class_declaration.PopupFather):
         else:
             self.dismiss()
             ActividadDeSeguimientoScreen.otro_tipo_de_alerta = args[0].text
-            AcceptFormActividadDeSeguimiento(self.operator, self.payee, self.project).open()
+            AcceptFormActividadDeSeguimiento(
+                self.operator, self.payee, self.project).open()
 
 
 class AcceptFormActividadDeSeguimiento(class_declaration.PopupFather):
@@ -165,12 +173,15 @@ class AcceptFormActividadDeSeguimiento(class_declaration.PopupFather):
         self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
 
     def on_validate(self, *args):
-        querys.sumar_una_actividad(self.payee, self.project)
-        visitas = list(querys.ver_cuantas_visitas(self.payee, self.project))
+        querys.sumar_un_seguimiento(self.payee, self.project)
+        visitas = list(querys.ver_cuantas_visitas_seguimiento(self.payee, self.project))
         if visitas[1] == visitas[0]:
-            querys.registrar('beneficiario_proyectos', 'concluido_implementacion',self.payee, self.project, 1)
-            querys.registrar('beneficiario_proyectos', 'monitoreo', self.payee, self.project, 1)
-            querys.registrar('beneficiario_proyectos', 'etapa_del_proceso', self.payee, self.project, 4)
+            querys.registrar('beneficiario_proyectos',
+                             'concluido_seguimiento', self.payee, self.project, 1)
+            querys.registrar('beneficiario_proyectos',
+                             'monitoreo', self.payee, self.project, 1)
+            querys.registrar('beneficiario_proyectos',
+                             'etapa_del_proceso', self.payee, self.project, 5)
         self.dismiss()
         self.changeWindow()
 
@@ -246,7 +257,7 @@ class TextInputScroll(TextInput):
         self.multiline = False
 
 
-class Estado_de_metas(class_declaration.PopupFather):
+class Estado_de_metas_seguimiento(class_declaration.PopupFather):
     id_container_grid = ObjectProperty()
     id_botonAceptar = ObjectProperty()
 
@@ -258,9 +269,11 @@ class Estado_de_metas(class_declaration.PopupFather):
 
     def on_open(self):
         self.id_botonAceptar.bind(on_release=self.accionAceptar)
-        self.id_container_grid.bind(minimum_height=self.id_container_grid.setter('height'))
-        categories = querys.parametricList('categorias_diagnostico_empresarial')
-        metas = querys.traer_metas_implementacion(self.payee, self.project)
+        self.id_container_grid.bind(
+            minimum_height=self.id_container_grid.setter('height'))
+        categories = querys.parametricList(
+            'categorias_diagnostico_empresarial')
+        metas = querys.traer_metas_seguimiento(self.payee, self.project)
         for idx, cat in enumerate(categories):
             lab_1 = Label(text=cat, halign="center", valign="middle", size_hint=(None, None),
                           size=(318, 40), color=(0, 0, 0, 0.85), font_size=20, font_name="montserrat",
@@ -268,14 +281,15 @@ class Estado_de_metas(class_declaration.PopupFather):
             lab_2 = Label(text=metas[idx], halign="center", valign="middle", size_hint=(None, None),
                           size=(400, 40), color=(0, 0, 0, 0.85), font_size=14, font_name="montserrat",
                           text_size=(400, 40))
-            spin_gen = SpinnerScroll_short(text='Estado de la meta', values=querys.parametricList('estado_meta'))
+            spin_gen = SpinnerScroll_short(
+                text='Estado de la meta', values=querys.parametricList('estado_meta'))
 
             self.id_container_grid.add_widget(lab_1)
             self.id_container_grid.add_widget(lab_2)
             self.id_container_grid.add_widget(spin_gen)
 
     def accionAceptar(self, *args):
-        dili,answ = [], []
+        dili, answ = [], []
         for idx, childs in enumerate(self.id_container_grid.children):
             if idx % 3 == 0:
                 dili.append(childs.diligenciado)

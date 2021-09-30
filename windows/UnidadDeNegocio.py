@@ -3,7 +3,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, dataFormating
 from codes import snippets
-from money import money
+
 
 class UnidadDeNegocioScreen(Screen):
     payeeDocument = None

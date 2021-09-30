@@ -256,7 +256,3 @@ class Wifi_Status(Button):
         self.top = 800-64
         self.x = 357.05
         self.conexion = False
-
-
-def messagePopup(param):
-    return None

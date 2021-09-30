@@ -138,12 +138,12 @@ def bussinesIdeaData(info):
     org[11] = querys.idParametrics('si_no', org[11])
     org[12] = querys.idParametrics('producto_o_servicio', org[12])
     org[14] = querys.idParametrics('si_no', org[14])
-    org[16] = float(org[16])
-    org[17] = float(org[17])
+    org[16] = float(org[16].replace('.',''))
+    org[17] = float(org[17].replace('.',''))
     org[18] = querys.idParametrics('porcentaje_de_inversion', org[18])
-    org[19] = float(org[19])
-    org[20] = float(org[20])
-    org[21] = float(org[21])
+    org[19] = float(org[19].replace('.',''))
+    org[20] = float(org[20].replace('.',''))
+    org[21] = float(org[21].replace('.',''))
     org[22] = querys.idParametrics('si_no', org[22])
     if org[23] is None:
         org[23] = ""
@@ -393,19 +393,19 @@ def monitoreo(info):
     for item in lista_spinners:
         org.append(item)
 
-    lista_texts[0] = float(lista_texts[0])
-    lista_texts[3] = float(lista_texts[3])
-    lista_texts[4] = float(lista_texts[4])
-    lista_texts[5] = float(lista_texts[5])
-    lista_texts[6] = float(lista_texts[6])
-    lista_texts[7] = float(lista_texts[7])
-    lista_texts[8] = float(lista_texts[8])
-    lista_texts[9] = float(lista_texts[9])
-    lista_texts[10] = float(lista_texts[10])
-    lista_texts[11] = float(lista_texts[11])
-    lista_texts[12] = float(lista_texts[12])
-    lista_texts[13] = float(lista_texts[13])
-    lista_texts[14] = float(lista_texts[14])
+    lista_texts[0] = float(lista_texts[0].replace('.',''))
+    lista_texts[3] = float(lista_texts[3].replace('.',''))
+    lista_texts[4] = float(lista_texts[4].replace('.',''))
+    lista_texts[5] = float(lista_texts[5].replace('.',''))
+    lista_texts[6] = float(lista_texts[6].replace('.',''))
+    lista_texts[7] = float(lista_texts[7].replace('.',''))
+    lista_texts[8] = float(lista_texts[8].replace('.',''))
+    lista_texts[9] = float(lista_texts[9].replace('.',''))
+    lista_texts[10] = float(lista_texts[10].replace('.',''))
+    lista_texts[11] = float(lista_texts[11].replace('.',''))
+    lista_texts[12] = float(lista_texts[12].replace('.',''))
+    lista_texts[13] = float(lista_texts[13].replace('.',''))
+    lista_texts[14] = float(lista_texts[14].replace('.',''))
 
     for item in lista_texts:
         org.append(item)
@@ -491,6 +491,26 @@ def plan_de_implementacion(info):
     querys.cargar('plan_de_implementacion', 33, org)
     querys.registrar('beneficiario_proyectos', 'plan_de_implementacion', info.payeeDocument, querys.idProject(info.project.lower()), 2)
 
+def plan_de_seguimiento(info):
+    resp = info.total_plan
+    org = [
+        info.project,  # 0
+        info.payeeDocument,  # 1
+        info.operator,
+        info.numero_de_vis,
+        0
+    ]
+    org[0] = querys.idProject(info.project.lower())
+    unique_id = org[0] + '__' + org[2] + '__' + org[1]
+    org.insert(0, unique_id)
+    for re in resp:
+        for rr in re:
+            org.append(rr)
+    org = tuple(org)
+    querys.cargar('plan_de_seguimiento', 33, org)
+    querys.registrar('beneficiario_proyectos', 'plan_de_seguimiento',
+                     info.payeeDocument, querys.idProject(info.project.lower()), 2)
+
 
 def actividad_implementacion(info):
     org = [
@@ -537,3 +557,51 @@ def actividad_implementacion(info):
     org = tuple(org)
     querys.cargar('actividad_implementacion', 21, org)
 
+
+def actividad_seguimiento(info):
+    org = [
+        info.project,  # 0
+        info.payeeDocument,  # 1
+        info.operator
+    ]
+    org[0] = querys.idProject(info.project.lower())
+    visitas = list(querys.ver_cuantas_visitas_seguimiento(
+        info.payeeDocument, querys.idProject(info.project.lower())))
+    org.append(visitas[1])
+
+    for metas in info.estados_metas[::-1]:
+        org.append(querys.idParametrics('estado_meta', metas))
+
+    org.append(querys.idParametrics('tipo_visita', info.spinner_1.text))
+
+    if info.input_1.text == "":
+        info.input_1.text = "No aplica"
+    org.append(info.input_1.text)
+
+    org.append(querys.idParametrics(
+        'plan_de_inversiones', info.spinner_2.text))
+
+    if info.input_2.text == "":
+        info.input_2.text = "No aplica"
+    org.append(info.input_2.text)
+
+    seg = querys.idParametrics(
+        'seguimiento_desembolso', info.seguimiento_desembolso)
+    aler = querys.idParametrics('alerta_seguimiento', info.alerta_cumplimiento)
+
+    if seg is None:
+        seg = 0
+    if aler is None:
+        aler = 0
+
+    org.append(seg)
+    org.append(aler)
+
+    if info.otro_tipo_de_alerta == "":
+        info.otro_tipo_de_alerta = "No aplica"
+
+    org.append(info.otro_tipo_de_alerta)
+    unique_id = org[0] + '__' + org[2] + '__' + org[1] + '__' + str(org[3])
+    org.insert(0, unique_id)
+    org = tuple(org)
+    querys.cargar('actividad_seguimiento', 21, org)

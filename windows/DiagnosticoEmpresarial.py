@@ -117,7 +117,6 @@ class AcceptFormDiagnosticoEmpresarial(class_declaration.PopupFather):
         self.operator = args[0]
         self.id_acceptButton.bind(on_release=self.on_validate)
 
-
     def on_pre_open(self):
         self.title = f"ODP {self.operator} verifique que la información es correcta antes de continuar"
 

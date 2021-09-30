@@ -7,7 +7,7 @@ from kivy.core.text import LabelBase
 from kivy.uix.screenmanager import ScreenManager
 from windows import Login, Panel, InformacionGeneral, DiagnosticoPerfilProductivo, IdeaDeNegocio, UnidadDeNegocio, \
     CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, ActividadDeFormacion, \
-    PlanDeImplementacion, ActividadDeImplementacion
+    PlanDeImplementacion, ActividadDeImplementacion, ConsultarView, PlanDeSeguimiento, ActividadDeSeguimiento
 
 
 class MyApp(App):
@@ -32,6 +32,10 @@ class MyApp(App):
         Builder.load_file(f"windows/ActividadDeFormacion.kv")
         Builder.load_file(f"windows/PlanDeImplementacion.kv")
         Builder.load_file(f"windows/ActividadDeImplementacion.kv")
+        Builder.load_file(f"windows/ConsutarView.kv")
+
+        Builder.load_file(f"windows/PlanDeSeguimiento.kv")
+        Builder.load_file(f"windows/ActividadDeSeguimiento.kv")
 
         Builder.load_file('declarations/templates_declaration.kv')
 
@@ -46,9 +50,17 @@ class MyApp(App):
         self.sm.add_widget(Monitoreo.MonitoreoScreen(name="Monitoreo"))
         self.sm.add_widget(DiagnosticoEmpresarial.DiagnosticoEmpresarialScreen(name="DiagnosticoEmpresarial"))
         self.sm.add_widget(PlanDeFormacion.PlanDeFormacionScreen(name="PlanDeFormacion"))
+
         self.sm.add_widget(ActividadDeFormacion.ActividadDeFormacionScreen(name="ActividadDeFormacion"))
         self.sm.add_widget(PlanDeImplementacion.PlanDeImplementacionScreen(name="PlanDeImplementacion"))
-        self.sm.add_widget(ActividadDeImplementacion.ActividadDeImplementacionScreen(name="ActividadDeImplementacion"))
+        self.sm.add_widget(ActividadDeImplementacion.ActividadDeImplementacionScreen(
+            name="ActividadDeImplementacion"))
+
+        self.sm.add_widget(ActividadDeSeguimiento.ActividadDeSeguimientoScreen(
+            name="ActividadDeSeguimiento"))
+        self.sm.add_widget(PlanDeSeguimiento.PlanDeSeguimientoScreen(
+            name="PlanDeSeguimiento"))
+        
         self.sm.current = 'Login'
 
         Factory.LoginProjectPopup.changeWindow = self.changeToPanel
@@ -61,10 +73,14 @@ class MyApp(App):
 
         Factory.CaracterizacionAmpliadaButton.changeWindow = self.changeToCaracterizacionAmpliada
         Factory.MonitoreoButton.changeWindow = self.changeToMonitoreo
+
         Factory.PlanDeImplementacionButton.changeWindow = self.changeToActividadDeImplementacion
         Factory.PlanDeImplementacionButton.changeToPlan = self.changeToPlanDeImplementacion
+
         Factory.PlanDeFormacionButton.changeWindow = self.changeToActividadDeFormacion
-        Factory.PlanDeSeguimientoButton.changeWindow = self.changeToPlanDeImplementacion
+
+        Factory.PlanDeSeguimientoButton.changeWindow = self.changeToActividadDeSeguimiento
+        Factory.PlanDeSeguimientoButton.changeToPlan = self.changeToPlanDeSeguimiento
 
         Factory.AcceptFormCaracterizacionAmpliada.changeWindow = self.changeToMonitoreo
         Factory.AcceptFormMonitoreo.changeWindow = self.changeToDiagnosticoEmpresarial
@@ -72,11 +88,18 @@ class MyApp(App):
         Factory.AcceptFormPlanDeFormacion.changeWindow = self.changeToPanel
         Factory.AcceptFormActividadDeFormacion.changeWindow = self.changeToPanel
         Factory.AcceptFormPlanDeImplementacion.changeWindow = self.changeToPanel
+
+        Factory.AcceptFormPlanDeSeguimiento.changeWindow = self.changeToPanel
+
         Factory.AcceptFormActividadDeImplementacion.changeWindow = self.changeToPanel
+
+        Factory.AcceptFormActividadDeSeguimiento.changeWindow = self.changeToPanel
+
         Factory.AcceptFormCaracterizacionAmpliada.changeToUnidad = self.changeToUnidadDeNegocio
         Factory.AcceptFormUnit.changeToMonitoreo = self.changeToMonitoreo
         Factory.PlanDeFormacionButton.changeToPlan = self.changeToPlanDeFormacion
         Factory.SeleccionarActividad.changeWindow = self.changeToPanel
+
 
         return self.sm
 
@@ -115,10 +138,25 @@ class MyApp(App):
 
     def changeToPlanDeImplementacion(self, *args):
         self.sm.current = 'PlanDeImplementacion'
-
+    
     def changeToActividadDeImplementacion(self, *args):
         self.sm.current = 'ActividadDeImplementacion'
 
+    def changeToActividadDeSeguimiento(self, *args):
+        self.sm.current = 'ActividadDeSeguimiento'
+
+    def changeToPlanDeSeguimiento(self, *args):
+        self.sm.current = 'PlanDeSeguimiento'
+
+    def add_screen(self, screen):
+        screen_manager = self.sm
+        screen_manager.add_widget(screen)
+
+    def change_screen(self, screen_name):
+        # Get the screen manager from the kv file
+        screen_manager = self.sm
+
+        screen_manager.current = screen_name
 
 if __name__ == '__main__':
     Window.size = (1280, 800)

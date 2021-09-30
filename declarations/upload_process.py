@@ -39,3 +39,6 @@ def operarios_respuesta_2(*args):
 def operarios_progreso_2(*args):
     print('\t',args[0].resp_status)
 
+
+def uploadInformation(*args):
+    pass
