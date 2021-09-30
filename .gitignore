@@ -8,6 +8,8 @@ declarations/__pycache__/
 api/venv/
 api/src/.env
 
+__pycache__/
+
 .vscode
 workspace.code-workspace
 cmm30.09.2021.rar
