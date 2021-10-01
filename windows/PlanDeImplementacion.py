@@ -157,6 +157,15 @@ class numero_de_visitas_implementacion(class_declaration.PopupFather):
         self.operator = args[0]
         self.id_visitas.bind(text=self.on_selection)
 
+        tipo_beneficiario = querys.consulta_tipo_beneficiario(self.payeeDocument, querys.idProject(
+            self.project.lower()))
+
+        if querys.tipo_de_beneficiario == 2:
+            # Microempresario
+            self.id_visitas.values = [ _ for _ in range(14, 20)]
+        else:
+            self.id_visitas.values = [_ for _ in range(10, 20)]
+
     def on_pre_open(self):
         self.title = f"ODP {self.operator} ingrese la cantidad de visitas de implementación"
 

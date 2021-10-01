@@ -10,6 +10,8 @@ from kivy.uix.textinput import TextInput
 from codes import snippets
 from declarations import checkings
 
+GASTOS_FAMILIARES_VALIDADOS = False
+INGRESOS_FAMILIARES_VALIDADOS = False
 
 class MonitoreoScreen(Screen):
     project = None
@@ -112,11 +114,12 @@ class MonitoreoScreen(Screen):
                          size=(275, 40), color=(0, 0, 0, 0.85), font_size=24, font_name="montserrat",
                          text_size=(275, 40))
             text1 = TextInputScroll()
+            text1.text_type = 'money'
             box_container.add_widget(lab1)
             box_container.add_widget(text1)
             self.id_container_grid_2.add_widget(box_container)
 
-            grid = SpinnerScroll(text="Número de cuotas", values=[str(numb) for numb in range(1, 65)])
+            grid = SpinnerScroll(text="Número de cuotas", values=[str(numb) for numb in range(0, 65)])
             self.id_container_grid_2.add_widget(grid)
 
             grid = SpinnerScroll(text="¿Alguno de estos servicios los tiene con Bancamía?",
@@ -378,6 +381,12 @@ class MonitoreoScreen(Screen):
         if self.gastos_familia == "":
             self.id_message.text = "Faltan los gastos familiares"
 
+        if not GASTOS_FAMILIARES_VALIDADOS:
+            self.id_message.text = "Faltan los Gastos del Grupo Familiar"
+        
+        if not INGRESOS_FAMILIARES_VALIDADOS:
+            self.id_message.text = "Faltan los Ingresos del Grupo Familiar"
+
         if self.id_message.text == "":
             children_list = self.children[0].children
             ret = snippets.chekingCompletes(children_list)
@@ -479,8 +488,9 @@ class GastosDelGrupoFamiliarPopup(class_declaration.PopupFather):
         self.id_acceptButton.bind(on_release=self.on_validate)
 
     def on_validate(self, *args):
+        global GASTOS_FAMILIARES_VALIDADOS
         if self.id_rentAndServices.complete and self.id_runningCosts.complete and self.id_education.complete and self.id_casualCosts.complete and self.id_obligations.complete:
-            
+            GASTOS_FAMILIARES_VALIDADOS = True
             self.id_rentAndServices.text = self.id_rentAndServices.text.replace('.','')
             self.id_runningCosts.text = self.id_runningCosts.text.replace('.','')
             self.id_education.text = self.id_education.text.replace('.','')
@@ -510,8 +520,9 @@ class IngresosDelGrupoFamiliarPopup(class_declaration.PopupFather):
         self.id_acceptButton.bind(on_release=self.on_validate)
 
     def on_validate(self, *args):
+        global INGRESOS_FAMILIARES_VALIDADOS
         if self.id_employees.complete and self.id_othersRelatives.complete and self.id_freelanceJobs.complete and self.id_pension.complete and self.id_entrepreneurship.complete and self.id_otherIncomes.complete:
-            
+            INGRESOS_FAMILIARES_VALIDADOS = True
             self.id_employees.text = self.id_employees.text.replace('.','')
             self.id_othersRelatives.text = self.id_othersRelatives.text.replace('.','')
             self.id_freelanceJobs.text = self.id_freelanceJobs.text.replace('.','')
