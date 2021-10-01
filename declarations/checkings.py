@@ -1,6 +1,6 @@
 # coding=utf-8
 import re
-import datetime
+from datetime import datetime
 
 
 def username(username):
@@ -16,23 +16,25 @@ def password(password):
 
 
 def date(date):
-    if re.search(r'^\d{2}[/]\d{2}[/]\d{4}$', date) is not None:
-        date = date.split('/')
-        if 0 <= int(date[0]) <= 31:
-            if 0 <= int(date[1]) <= 12:
-                if 1900 <= int(date[2]) <= int(str(datetime.date.today()).split('-')[0]):
-                    return True
-    return False
+    format = "d/%m/%Y"
+    try:
+        datetime.strptime(date, format)
+        return True
+
+    except ValueError:
+        return False
+
 
 def after_date(date):
-    if re.search(r'^\d{2}[/]\d{2}[/]\d{4}$', date) is not None:
-            date = date.split('/')
-            hoy = str(datetime.date.today()).split('-') [::-1]
-            if date[-1] >= hoy[-1]:
-                if date[1] >= hoy[1]:
-                    if date[0] > hoy[0]:
-                        return True
-    return False
+    format = "%d/%m/%Y"
+    try:
+        date_formater = datetime.strptime(date, format)
+        if date_formater > datetime.now():
+            return True
+        return False
+
+    except ValueError:
+        return False
 
 def name(name):
     if re.search(r'^[a-z,A-Z]+( [a-z,A-Z]+)?$', name) is not None and len(name) > 0:

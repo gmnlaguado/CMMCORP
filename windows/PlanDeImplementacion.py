@@ -159,11 +159,15 @@ class numero_de_visitas_implementacion(class_declaration.PopupFather):
         self.operator = args[0]
         self.id_visitas.bind(text=self.on_selection)
         
+        self.id_visitas.values = [str(_) for _ in range(10, 16)]
+
         if args[1] == 1:
-            # 
-            self.id_visitas.values = [ str(_) for _ in range(14, 21)]
+            # Emprendedor
+            self.id_visitas.values = [15]
         else:
-            self.id_visitas.values = [ str(_) for _ in range(10, 21)]
+            # Microempresario
+            self.id_visitas.values = [ str(_) for _ in range(10, 16)]
+
 
     def on_pre_open(self):
         self.title = f"ODP {self.operator} ingrese la cantidad de visitas de implementación"

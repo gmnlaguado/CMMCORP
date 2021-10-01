@@ -56,20 +56,27 @@ class PlanDeFormacionScreen(Screen):
         self.id_total_activities.text = f'Actividades Seleccionadas {len(self.all_activities)}'
 
     def checkAll(self, *args):
-        actividades_min = 0
+        actividades_min = 10
+        actividades_max = 15
+        len_actual = len(self.all_activities)
         tipo_beneficiario = querys.consulta_tipo_beneficiario(self.payeeDocument, querys.idProject(
             self.project.lower()))
 
         if tipo_beneficiario == 1:
-            # Emprendedor
-            actividades_min = 15
+            # Emprendedor 
+            if len(self.all_activities) != 15:
+                self.id_message.text = f"Seleccionaste {len_actual}, debén ser 15"
+            else:
+                AcceptFormPlanDeFormacion(self.operator).open()
         else:
-            actividades_min = 10
+            # Microempresario
+            if len(self.all_activities) < actividades_min:
+                self.id_message.text = f"Seleccionaste {len_actual}, debén ser {actividades_min} mínimo"
 
-        if len(self.all_activities) > actividades_min:
-            AcceptFormPlanDeFormacion(self.operator).open()
-        else:
-            self.id_message.text = f"Seleccione más de {actividades_min} actividades"
+            elif len(self.all_activities) > actividades_max:
+                self.id_message.text = f"Seleccionaste {len_actual}, debén ser {actividades_max} máximo"
+            else:
+                AcceptFormPlanDeFormacion(self.operator).open()
 
 
     def loadLines(self, *args):

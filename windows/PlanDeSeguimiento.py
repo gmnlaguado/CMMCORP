@@ -163,9 +163,10 @@ class numero_de_visitas_seguimiento(class_declaration.PopupFather):
 
         if args[1] == 1:
             # Emprendedor
-            self.id_visitas.values = [str(_) for _ in range(14, 21)]
+            self.id_visitas.values = [str(_) for _ in range(4, 9)]
         else:
-            self.id_visitas.values = [str(_) for _ in range(10, 21)]
+            # Microempresario
+            self.id_visitas.values = [str(_) for _ in range(6, 9)]
 
     def on_pre_open(self):
         self.title = f"ODP {self.operator} ingrese la cantidad de visitas de seguimiento"
