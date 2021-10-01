@@ -26,11 +26,11 @@ class ConsultarScreen(Screen):
         
         query_general = querys.consulta_beneficiario(self.slug, querys.idProject(
             self.project.lower()), "informacion_general_beneficiario")
-        
+
         query_negocio = querys.consulta_beneficiario(self.slug, querys.idProject(
             self.project.lower()), "idea_de_negocio")
 
-        self.id_title.text = f"Consulta del beneficiario: {query_general[1]} {query_general[2]}"
+        self.id_title.text = f"Consulta del beneficiario: {query_general[1]}"
         self.id_project.text = f"Proyecto: {query_general[0]}"
         self.id_document.text = f"Documento: {query_general[4]}"
         self.id_cel.text = f'Celular: {query_general[15]}'
@@ -56,6 +56,6 @@ class ConsultarScreen(Screen):
 
         general = [general,]
         df = pd.DataFrame(general, columns=columns)
-        file_name = f'{self.id_title.text}.xlsx'
-        self.id_message.text = "Excel Guardado"
+        file_name = f'{self.operator}.xlsx'
         df.to_excel(file_name)
+        self.id_message.text = "Excel Guardado"
