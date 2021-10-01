@@ -77,7 +77,9 @@ class PlanDeSeguimientoScreen(Screen):
                 self.id_message.text = "Faltan campos por diligenciar"
         if self.id_message.text == "":
             self.total_plan = informacion_total
-            numero_de_visitas_seguimiento(self.operator).open()
+            tipo_beneficiario = querys.consulta_tipo_beneficiario(self.payeeDocument, querys.idProject(
+                self.project.lower()))
+            numero_de_visitas_seguimiento(self.operator, tipo_beneficiario).open()
 
     def on_leave(self, *args):
         dataFormating.plan_de_seguimiento(self)
@@ -158,6 +160,12 @@ class numero_de_visitas_seguimiento(class_declaration.PopupFather):
         super().__init__(**kwargs)
         self.operator = args[0]
         self.id_visitas.bind(text=self.on_selection)
+
+        if args[1] == 1:
+            # Emprendedor
+            self.id_visitas.values = [str(_) for _ in range(14, 21)]
+        else:
+            self.id_visitas.values = [str(_) for _ in range(10, 21)]
 
     def on_pre_open(self):
         self.title = f"ODP {self.operator} ingrese la cantidad de visitas de seguimiento"

@@ -75,7 +75,9 @@ class PlanDeImplementacionScreen(Screen):
                 self.id_message.text = "Faltan campos por diligenciar"
         if self.id_message.text == "":
             self.total_plan = informacion_total
-            numero_de_visitas_implementacion(self.operator).open()
+            tipo_beneficiario = querys.consulta_tipo_beneficiario(self.payeeDocument, querys.idProject(
+                self.project.lower()))
+            numero_de_visitas_implementacion(self.operator, tipo_beneficiario).open()
 
     def on_leave(self, *args):
         dataFormating.plan_de_implementacion(self)
@@ -156,15 +158,12 @@ class numero_de_visitas_implementacion(class_declaration.PopupFather):
         super().__init__(**kwargs)
         self.operator = args[0]
         self.id_visitas.bind(text=self.on_selection)
-
-        tipo_beneficiario = querys.consulta_tipo_beneficiario(self.payeeDocument, querys.idProject(
-            self.project.lower()))
-
-        if querys.tipo_de_beneficiario == 2:
-            # Microempresario
-            self.id_visitas.values = [ _ for _ in range(14, 20)]
+        
+        if args[1] == 1:
+            # 
+            self.id_visitas.values = [ str(_) for _ in range(14, 21)]
         else:
-            self.id_visitas.values = [_ for _ in range(10, 20)]
+            self.id_visitas.values = [ str(_) for _ in range(10, 21)]
 
     def on_pre_open(self):
         self.title = f"ODP {self.operator} ingrese la cantidad de visitas de implementación"

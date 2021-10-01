@@ -60,8 +60,8 @@ class PlanDeFormacionScreen(Screen):
         tipo_beneficiario = querys.consulta_tipo_beneficiario(self.payeeDocument, querys.idProject(
             self.project.lower()))
 
-        if querys.tipo_de_beneficiario == 2:
-            # Microempresario
+        if tipo_beneficiario == 1:
+            # Emprendedor
             actividades_min = 15
         else:
             actividades_min = 10
