@@ -16,7 +16,7 @@ def password(password):
 
 
 def date(date):
-    format = "d/%m/%Y"
+    format = "%d/%m/%Y"
     try:
         datetime.strptime(date, format)
         return True

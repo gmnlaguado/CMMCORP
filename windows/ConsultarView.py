@@ -42,20 +42,23 @@ class ConsultarScreen(Screen):
 
 
     def save_to_excel(self, button):
-        general = querys.consulta_beneficiario(self.slug, querys.idProject(
-            self.project.lower()), "informacion_general_beneficiario")
-        columns = ['Proyecto', 'Nombre', 'Apellido', 'Tipo Doc', 'Documento', 'Expedida en', 'Nacimiento', 'Ciudad',
-        'Departamento', 'Pais',	'Sign', 'Dirección', 'Vecindario', 'Indicativo', 'Telefono', 'Celular', 'Email',
-        'Operador',	'Cel 2', 'PayeeType', 'Fecha', 'Rango edad', 'Nacionalidad', 'Entorno', 'Tier', 'Sexo',
-        'Genero', 'Grupo Etnico', 'Discapacidad']
-        
-        columns_original = ["project", "names", "lastNames", "docType", "document", "expeditionCity", "birthdate", "city", 
-        "department", "country", "sign", "address", "neighborhood", "indicative","telephone", "cellphone", "email",
-        "operator", "cellphone2", "payeeType", "date", "ageRange", "nationality", "environment", "tier", "sex", 
-        "gender", "ethnicGroup", "disability"]
+        data = dict()
+        data.update(self.format_dataframe(
+            'informacion_general_beneficiario'))
 
-        general = [general,]
-        df = pd.DataFrame(general, columns=columns)
+
+        #data[0], cols[0] += self.format_dataframe(unidad_de_negocio')
+
+        df = pd.DataFrame(data, index=['Beneficiario'])
+
         file_name = f'{self.operator}.xlsx'
         df.to_excel(file_name)
         self.id_message.text = "Excel Guardado"
+
+
+    def format_dataframe(self, table):
+        data = querys.consulta_beneficiario(self.slug, querys.idProject(
+            self.project.lower()), table)
+        cols = querys.bringColumns(table)
+
+        return dict(zip(data, cols))
