@@ -393,8 +393,6 @@ class PlanDeSeguimientoButton(class_declaration.PopupFather):
                                         'El beneficiario ya completó el seguimiento').open()
                             else:
                                 PlanDeSeguimiento.PlanDeSeguimientoScreen.payeeDocument = args[0].text
-                                PlanDeSeguimiento.PlanDeSeguimientoScreen.project = self.project
-                                PlanDeSeguimiento.PlanDeSeguimientoScreen.operator = self.operator
                                 self.dismiss()
                                 self.changeToPlan()
                         else:
@@ -436,13 +434,13 @@ class ConsultarButton(class_declaration.PopupFather):
             app.change_screen('ConsultarScreen')
         
 
-            print("Unidad de negocio")
-            print(querys.consulta_beneficiario(args[0].text, querys.idProject(self.project.lower()), "unidad_de_negocio"))
-            print()
-
-            print("Caracterización ampliada")
-            print(querys.consulta_beneficiario(args[0].text, querys.idProject(self.project.lower()), "caracterizacion_ampliada"))
-            print()
+            #print("Unidad de negocio")
+            #print(querys.consulta_beneficiario(args[0].text, querys.idProject(self.project.lower()), "unidad_de_negocio"))
+            #print()
+#
+            #print("Caracterización ampliada")
+            #print(querys.consulta_beneficiario(args[0].text, querys.idProject(self.project.lower()), "caracterizacion_ampliada"))
+            #print()
 
 
             #print("Plan Formacion")

@@ -4,7 +4,7 @@ from kivy.properties import ObjectProperty
 from declarations import querys, class_declaration, upload_process
 from windows import Panel, InformacionGeneral, IdeaDeNegocio, UnidadDeNegocio, \
     CaracterizacionAmpliada, Monitoreo, DiagnosticoEmpresarial, PlanDeFormacion, ActividadDeFormacion, \
-    PlanDeImplementacion, ActividadDeImplementacion, ConsultarView
+    PlanDeImplementacion, ActividadDeImplementacion, ConsultarView, PlanDeSeguimiento, ActividadDeSeguimiento
 from codes import snippets
 
 class LoginScreen(Screen):
@@ -101,6 +101,12 @@ class LoginProjectPopup(class_declaration.PopupFather):
 
         ActividadDeImplementacion.ActividadDeImplementacionScreen.operator = self.operator
         ActividadDeImplementacion.ActividadDeImplementacionScreen.project = args[1]
+
+        PlanDeSeguimiento.PlanDeSeguimientoScreen.operator = self.operator
+        PlanDeSeguimiento.PlanDeSeguimientoScreen.project = args[1]
+
+        ActividadDeSeguimiento.ActividadDeSeguimientoScreen.operator = self.operator
+        ActividadDeSeguimiento.ActividadDeSeguimientoScreen.project = args[1]
 
         ConsultarView.ConsultarScreen.operator = self.operator
         ConsultarView.ConsultarScreen.project = args[1]

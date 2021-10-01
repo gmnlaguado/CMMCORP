@@ -7,7 +7,7 @@ import json
 
 
 def get_operarios():
-    url = 'http://190.145.94.93:5000/obtener_operarios'
+    url = 'http://192.168.20.36:5000/obtener_operarios'
     method = "POST"
     req_body = "req_body"
     req = UrlRequest(url, 
@@ -24,7 +24,7 @@ def operarios_progreso(*args):
 
 
 def get_operarios_proyectos():
-    url = 'http://190.145.94.93:5000/obtener_operarios_proyectos'
+    url = 'http://192.168.20.36:5000/obtener_operarios_proyectos'
     method = "POST"
     req_body = "req_body"
     req = UrlRequest(url, 
