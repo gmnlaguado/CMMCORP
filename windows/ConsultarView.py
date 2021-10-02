@@ -66,10 +66,13 @@ class ConsultarScreen(Screen):
 
         for table in tables:
             print(table)
-            data.extend(self.format_dataframe(
-                table)[0])
-            cols.extend(self.format_dataframe(
-                table)[1])
+
+            data_temp = self.format_dataframe(table)[0]
+            if data_temp is not None:
+                data.extend(data_temp)
+                cols_temp = self.format_dataframe(table)[1]
+                if cols_temp is not None:
+                    cols.extend(cols_temp)
 
         data = [data,]
 
