@@ -227,6 +227,15 @@ def consulta_beneficiario(beneficiario, proyecto, tabla):
         return result[0]
 
 
+def consulta_beneficiario_custom(beneficiario, tabla):
+    db = MyDB('register')
+    query1 = "SELECT * FROM %s" % tabla
+    result = db.query(query1 + " WHERE document = :beneficiario",
+                      {'beneficiario': beneficiario}).fetchall()
+    if result is not None and len(result) > 0:
+        return result[0]
+
+
 def consulta_tipo_beneficiario(beneficiario, proyecto):
     db = MyDB('register')
     result = db.query(

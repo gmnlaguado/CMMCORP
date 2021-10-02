@@ -45,21 +45,21 @@ class ConsultarScreen(Screen):
         data = []
         cols = []
         tables = ['informacion_general_beneficiario', 'unidad_de_negocio', '']
-        tipo_beneficiario = querys.consulta_tipo_beneficiario(self.payeeDocument, querys.idProject(
+        tipo_beneficiario = querys.consulta_tipo_beneficiario(self.slug, querys.idProject(
             self.project.lower()))
         if tipo_beneficiario == 1:
             # Idea para emprendedor
             tables = ['informacion_general_beneficiario',
                       'idea_de_negocio', 'diagnostico_de_perfil_productivo',
-                      'caracterizacion_ampliada'
+                      'caracterizacion_ampliada',
                       'caracterizacion_ampliada_informacion_hijos', 'monitoreo',
                       'plan_de_formacion', 'plan_de_implementacion', 'actividad_implementacion',
                       'plan_de_seguimiento', 'actividad_seguimiento']
         else:
             # Unidad para microEmpresario
             tables = ['informacion_general_beneficiario',
-                      'idea_de_negocio', 'diagnostico_de_perfil_productivo',
-                      'caracterizacion_ampliada'
+                      'unidad_de_negocio', 'diagnostico_de_perfil_productivo',
+                      'caracterizacion_ampliada',
                       'caracterizacion_ampliada_informacion_hijos', 'monitoreo',
                       'plan_de_formacion', 'plan_de_implementacion', 'actividad_implementacion',
                       'plan_de_seguimiento', 'actividad_seguimiento']
@@ -81,8 +81,7 @@ class ConsultarScreen(Screen):
 
 
     def format_dataframe(self, table):
-        data = querys.consulta_beneficiario(self.slug, querys.idProject(
-            self.project.lower()), table)
+        data = querys.consulta_beneficiario_custom(self.slug, table)
         cols = querys.bringColumns(table)
         return data, cols
 
