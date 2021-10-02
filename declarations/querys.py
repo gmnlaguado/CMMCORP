@@ -157,7 +157,7 @@ def comprobar_monitoreo(document, project):
 def traer_puntajes_diagnostico(document, project):
     db = MyDB('register')
     result = db.query(
-        "SELECT categoria_1, categoria_2, categoria_3, categoria_4, categoria_5, categoria_6, categoria_7, categoria_8, categoria_9  FROM diagnostico_empresarial WHERE document = :document AND fk_proyecto = :project",
+        "SELECT categoria_1, categoria_2, categoria_3, categoria_4, categoria_5, categoria_6, categoria_7, categoria_8, categoria_9  FROM diagnostico_empresarial WHERE document = :document AND proyecto = :project",
         {'document': document, 'project': project}).fetchone()
     return list(result)
 
