@@ -17,25 +17,28 @@ def password(password):
 
 def date(date):
     format = "%d/%m/%Y"
-    try:
-        datetime.strptime(date, format)
-        return True
+    if re.search(r'^\d{2}[/]\d{2}[/]\d{4}$', date) is not None:
+        try:
+            datetime.strptime(date, format)
+            return True
 
-    except ValueError:
-        return False
-
+        except ValueError:
+            return False
+    return False
 
 def after_date(date):
     format = "%d/%m/%Y"
-    try:
-        date_formater = datetime.strptime(date, format)
-        if date_formater > datetime.now():
-            return True
-        return False
+    if re.search(r'^\d{2}[/]\d{2}[/]\d{4}$', date) is not None:
+        try:
+            date_formater = datetime.strptime(date, format)
+            if date_formater > datetime.now():
+                return True
+            return False
 
-    except ValueError:
-        return False
-
+        except ValueError:
+            return False
+    return False
+    
 def name(name):
     if re.search(r'^[a-z,A-Z]+( [a-z,A-Z]+)?$', name) is not None and len(name) > 0:
         return True

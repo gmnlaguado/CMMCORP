@@ -163,7 +163,7 @@ class numero_de_visitas_implementacion(class_declaration.PopupFather):
 
         if args[1] == 1:
             # Emprendedor
-            self.id_visitas.values = [15]
+            self.id_visitas.values = [str(15)]
         else:
             # Microempresario
             self.id_visitas.values = [ str(_) for _ in range(10, 16)]
