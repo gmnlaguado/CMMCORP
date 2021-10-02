@@ -42,14 +42,38 @@ class ConsultarScreen(Screen):
 
 
     def save_to_excel(self, button):
-        data = dict()
-        data.update(self.format_dataframe(
-            'informacion_general_beneficiario'))
+        data = []
+        cols = []
+        tables = ['informacion_general_beneficiario', 'unidad_de_negocio', '']
+        tipo_beneficiario = querys.consulta_tipo_beneficiario(self.payeeDocument, querys.idProject(
+            self.project.lower()))
+        if tipo_beneficiario == 1:
+            # Idea para emprendedor
+            tables = ['informacion_general_beneficiario',
+                      'idea_de_negocio', 'diagnostico_de_perfil_productivo',
+                      'caracterizacion_ampliada'
+                      'caracterizacion_ampliada_informacion_hijos', 'monitoreo',
+                      'plan_de_formacion', 'plan_de_implementacion', 'actividad_implementacion',
+                      'plan_de_seguimiento', 'actividad_seguimiento']
+        else:
+            # Unidad para microEmpresario
+            tables = ['informacion_general_beneficiario',
+                      'idea_de_negocio', 'diagnostico_de_perfil_productivo',
+                      'caracterizacion_ampliada'
+                      'caracterizacion_ampliada_informacion_hijos', 'monitoreo',
+                      'plan_de_formacion', 'plan_de_implementacion', 'actividad_implementacion',
+                      'plan_de_seguimiento', 'actividad_seguimiento']
 
+        for table in tables:
+            print(table)
+            data.extend(self.format_dataframe(
+                table)[0])
+            cols.extend(self.format_dataframe(
+                table)[1])
 
-        #data[0], cols[0] += self.format_dataframe(unidad_de_negocio')
+        data = [data,]
 
-        df = pd.DataFrame(data, index=['Beneficiario'])
+        df = pd.DataFrame(data, columns=cols)
 
         file_name = f'{self.operator}.xlsx'
         df.to_excel(file_name)
@@ -60,5 +84,6 @@ class ConsultarScreen(Screen):
         data = querys.consulta_beneficiario(self.slug, querys.idProject(
             self.project.lower()), table)
         cols = querys.bringColumns(table)
+        return data, cols
 
-        return dict(zip(data, cols))
+    
