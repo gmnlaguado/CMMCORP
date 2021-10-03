@@ -85,3 +85,9 @@ def actualizando_operarios_proyectos(data):
     querys.limpiar_tabla("odp_operario_proyectos")
     for operario_info in operarios:
         querys.cargar('odp_operario_proyectos', 3, operario_info)
+
+
+def reload_data(data):
+    for key, values in data.items():
+        for info in values:
+            querys.cargar(key, len(values[0]), info)

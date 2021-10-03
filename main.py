@@ -60,6 +60,8 @@ class MyApp(App):
             name="ActividadDeSeguimiento"))
         self.sm.add_widget(PlanDeSeguimiento.PlanDeSeguimientoScreen(
             name="PlanDeSeguimiento"))
+
+        self.sm.add_widget(ConsultarView.ConsultarScreen(name="ConsultarScreen"))
         
         self.sm.current = 'Login'
 
@@ -100,6 +102,7 @@ class MyApp(App):
         Factory.PlanDeFormacionButton.changeToPlan = self.changeToPlanDeFormacion
         Factory.SeleccionarActividad.changeWindow = self.changeToPanel
 
+        Factory.ConsultarButton.changeWindow = self.chageToConsulta
 
         return self.sm
 
@@ -147,16 +150,10 @@ class MyApp(App):
 
     def changeToPlanDeSeguimiento(self, *args):
         self.sm.current = 'PlanDeSeguimiento'
+    
+    def chageToConsulta(self, *args):
+        self.sm.current = 'ConsultarScreen'
 
-    def add_screen(self, screen):
-        screen_manager = self.sm
-        screen_manager.add_widget(screen)
-
-    def change_screen(self, screen_name):
-        # Get the screen manager from the kv file
-        screen_manager = self.sm
-
-        screen_manager.current = screen_name
 
 if __name__ == '__main__':
     Window.size = (1280, 800)

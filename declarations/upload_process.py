@@ -5,9 +5,9 @@ from codes import snippets
 from kivy.clock import mainthread
 import json
 
-
+url_base = 'http://192.168.20.36:5000/'
 def get_operarios():
-    url = 'http://192.168.20.36:5000/obtener_operarios'
+    url = url_base + 'obtener_operarios'
     method = "POST"
     req_body = "req_body"
     req = UrlRequest(url, 
@@ -30,15 +30,31 @@ def get_operarios_proyectos():
     req = UrlRequest(url, 
                     method = method, 
                     req_body = req_body, 
-                    on_success=operarios_respuesta_2, 
-                    on_progress=operarios_progreso_2)
+                    on_success=on_success_get_op, 
+                     on_progress=on_progress_get_op)
 
-def operarios_respuesta_2(*args):
+def on_success_get_op(*args):
     snippets.actualizando_operarios_proyectos(args[1])
 
-def operarios_progreso_2(*args):
-    print('\t',args[0].resp_status)
+def on_progress_get_op(*args):
+    #print('\t',args[0].resp_status)
+    pass
 
 
 def uploadInformation(*args):
+    pass
+
+def reload_db(*args):
+    url = url_base + 'obtener_datos/' + str(args[0])
+    req = UrlRequest(url,
+                     on_success=on_reload_success,
+                     on_progress=on_reload_progress)
+
+
+def on_reload_success(req, result):
+    snippets.reload_data(result)
+
+
+def on_reload_progress(*args):
+    #print('\t', args[0].resp_status)
     pass

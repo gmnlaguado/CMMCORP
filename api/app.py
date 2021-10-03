@@ -281,6 +281,18 @@ def obtener_operarios_proyectos():
     result = db._db_cur.fetchall()
     return f'{result}'
 
+
+@app.route('/obtener_datos/<table>', methods=['GET'])
+def obtener_datos(table):
+    db = MyDB()
+    db.parametricQuery("SELECT * FROM %s" % table)
+    result = db._db_cur.fetchall()
+    response = {
+        table: result
+    }
+    return response
+
+
 if __name__ == "__main__":
     app.run(host= '0.0.0.0')
 
