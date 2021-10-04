@@ -49,7 +49,7 @@ def reload_db(*args):
     req = UrlRequest(url,
                      on_success=on_reload_success,
                      on_progress=on_reload_progress)
-
+    
 
 def on_reload_success(req, result):
     snippets.reload_data(result)

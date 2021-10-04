@@ -488,7 +488,7 @@ class InactivarButton(class_declaration.PopupFather):
                     class_declaration.MessagePopup(
                         f'El beneficiario {args[0].text} fue inactivado').open()
                     querys.cambiar_estado(
-                        args[0].text, querys.idProject(self.project.lower()))
+                        args[0].text)
                     self.dismiss()
 
 class AcceptLoading(class_declaration.PopupFather):
@@ -504,7 +504,9 @@ class AcceptLoading(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         # class_declaration.MessagePopup(f'Starting sending POST requests').open()
-        upload_process.uploadInformation()
+        tables = querys.lista_de_tablas()
+        for table in tables:
+            upload_process.uploadInformation()
 
         self.dismiss()
 
@@ -526,8 +528,5 @@ class AcceptReload(class_declaration.PopupFather):
         tables = querys.lista_de_tablas()
         for table in tables:
             upload_process.reload_db(tables[0])
-
-        class_declaration.MessagePopup(
-            f'Starting sending POST requests').open()
 
         self.dismiss()

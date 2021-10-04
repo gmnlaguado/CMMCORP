@@ -209,7 +209,7 @@ def obtener_estado(document):
         return result[0]
 
 
-def cambiar_estado(document, proyecto):
+def cambiar_estado(document):
     db = MyDB('register')
     result = db.commit(
         "UPDATE beneficiario_proyectos SET status = 2 WHERE document = :document ",

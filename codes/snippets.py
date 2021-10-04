@@ -91,3 +91,5 @@ def reload_data(data):
     for key, values in data.items():
         for info in values:
             querys.cargar(key, len(values[0]), info)
+
+
