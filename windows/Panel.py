@@ -504,9 +504,13 @@ class AcceptLoading(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         # class_declaration.MessagePopup(f'Starting sending POST requests').open()
+        class_declaration.MessagePopup(
+            f'Enviando Informacion al servidor').open()
+
         tables = querys.lista_de_tablas()
-        for table in tables:
-            upload_process.uploadInformation()
+        #for table in tables:
+        upload_process.uploadInformation('monitoreo')
+
 
         self.dismiss()
 
@@ -523,10 +527,10 @@ class AcceptReload(class_declaration.PopupFather):
 
     def on_validate(self, *args):
         class_declaration.MessagePopup(
-            f'Starting sending POST requests').open()
+            f'Actualizando Base de datos local').open()
 
         tables = querys.lista_de_tablas()
         for table in tables:
-            upload_process.reload_db(tables[0])
+            upload_process.reload_db(table)
 
         self.dismiss()

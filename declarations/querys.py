@@ -253,6 +253,13 @@ def cargar(tabla, columnas, info):
     db.commit(query % tabla, info)
 
 
+def replace(tabla, columnas, info):
+    columnas -= 1
+    db = MyDB('register')
+    query = "INSERT OR REPLACE INTO %s VALUES" + " (?" + ", ?" * columnas + ")"
+    db.commit(query % tabla, info)
+
+
 # Register
 # Update
 

@@ -1,4 +1,5 @@
 # coding=utf-8
+from logging import info
 from flask import Flask, request
 import os
 import pymssql
@@ -15,14 +16,15 @@ class MyDB(object):
     def commit(self, query):
         self._db_cur.execute(query)
         return self._db_connection.commit()
+    
+    def commit_many(self, table, values):
+        self._db_cur.executemany(f'INSERT OR REPLACE INTO {table} VALUES ({values})')
 
     def parametricQuery(self, query):
         return self._db_cur.execute(query)
 
     def __del__(self):
         self._db_connection.close()
-
-
 
 app = Flask(__name__)
 
@@ -36,10 +38,10 @@ def index():
 def actividad_implementacion():
     informacion = request.json
     info = []
-    for item in informacion.values():
-        info.append(item)
+    for value in informacion.values():
+        info.append(value)
     info = tuple(info)
-    query = "INSERT INTO actividad_implementacion VALUES ('%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s,'%s',%s,%s,'%s')" % info
+    query = "INSERT OR REPLACE INTO actividad_implementacion VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
     db = MyDB()
     db.commit(query)
     return f'actividad_implementacion\n\n{query}'
@@ -52,7 +54,7 @@ def actividad_seguimiento():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO actividad_seguimiento VALUES ('%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s,'%s',%s,%s,'%s')" % info
+    query = "INSERT OR REPLACE INTO actividad_seguimiento VALUES ('%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s,'%s',%s,%s,'%s')" % info
     db = MyDB()
     db.commit(query)
     return f'actividad_seguimiento\n\n{query}'
@@ -65,7 +67,7 @@ def beneficiario_proyectos():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO beneficiario_proyectos VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
+    query = "INSERT OR REPLACE INTO beneficiario_proyectos VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
     db = MyDB()
     db.commit(query)
     return f'beneficiario_proyectos\n\n{query}'
@@ -78,7 +80,7 @@ def caracterizacion_ampliada():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO caracterizacion_ampliada VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s','%s')" % info
+    query = "INSERT OR REPLACE INTO caracterizacion_ampliada VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s','%s')" % info
     db = MyDB()
     db.commit(query)
     return f'caracterizacion_ampliada\n\n{query}'
@@ -91,7 +93,7 @@ def caracterizacion_ampliada_informacion_hijos():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO caracterizacion_ampliada_informacion_hijos VALUES ('%s','%s','%s','%s',%s,%s,%s,%s)" % info
+    query = "INSERT OR REPLACE INTO caracterizacion_ampliada_informacion_hijos VALUES ('%s','%s','%s','%s',%s,%s,%s,%s)" % info
     db = MyDB()
     db.commit(query)
     return f'caracterizacion_ampliada_informacion_hijos\n\n{query}'
@@ -104,7 +106,7 @@ def caracterizacion_ampliada_informacion_personas_a_cargo():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO caracterizacion_ampliada_informacion_personas_a_cargo VALUES ('%s','%s','%s','%s',%s,%s,%s,%s)" % info
+    query = "INSERT OR REPLACE INTO caracterizacion_ampliada_informacion_personas_a_cargo VALUES ('%s','%s','%s','%s',%s,%s,%s,%s)" % info
     db = MyDB()
     db.commit(query)
     return f'caracterizacion_ampliada_informacion_personas_a_cargo\n\n{query}'
@@ -117,7 +119,7 @@ def diagnostico_de_perfil_productivo():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO diagnostico_de_perfil_productivo VALUES ('%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
+    query = "INSERT OR REPLACE INTO diagnostico_de_perfil_productivo VALUES ('%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
     db = MyDB()
     db.commit(query)
     return f'diagnostico_de_perfil_productivo\n\n{query}'
@@ -130,7 +132,7 @@ def diagnostico_empresarial():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO diagnostico_empresarial VALUES ('%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
+    query = "INSERT OR REPLACE INTO diagnostico_empresarial VALUES ('%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
     db = MyDB()
     db.commit(query)
     return f'diagnostico_empresarial\n\n{query}'
@@ -139,39 +141,69 @@ def diagnostico_empresarial():
 @app.route('/idea_de_negocio', methods=['POST'])
 def idea_de_negocio():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT INTO idea_de_negocio VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s,'%s',%s,%s,%s,%s,%s,%s,%s,'%s',%s,%s,%s,'%s','%s')" % info
+    data = informacion['idea_de_negocio']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'document':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                document = info
+            pos += 1
+        query = f"UPDATE [idea_de_negocio] SET {ajuste} where document = {document}"
+        print(query)
+        db.commit(query)
     return f'idea_de_negocio\n\n{query}'
 
 
 @app.route('/informacion_general_beneficiario', methods=['POST'])
 def informacion_general_beneficiario():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT INTO informacion_general_beneficiario VALUES ('%s','%s','%s',%s,'%s',%s,'%s',%s,%s,%s,%s,'%s',%s,%s,%s,%s,'%s','%s',%s,%s,'%s',%s,%s,%s,%s,%s,%s,%s,%s)" % info
+    data = informacion['informacion_general_beneficiario']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'informacion_general_beneficiario\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'document':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                document = info
+            pos += 1
+        query = f"UPDATE [informacion_general_beneficiario] SET {ajuste} where document = {document}"
+        print(query)
+        db.commit(query)
+    return f'informacion_general_beneficiario\n\n'
 
 
 @app.route('/monitoreo', methods=['POST'])
 def monitoreo():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT INTO monitoreo VALUES ('%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s')" % info
+    data = informacion['monitoreo']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'document':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                document = info
+            pos += 1
+        query = f"UPDATE [monitoreo] SET {ajuste} where document = {document}"
+        print(query)
+        db.commit(query)
     return f'monitoreo\n\n{query}'
 
 
@@ -182,7 +214,7 @@ def odp_operario():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO odp_operario VALUES ('%s','%s','%s','%s',%s)" % info
+    query = "INSERT OR REPLACE INTO odp_operario VALUES ('%s','%s','%s','%s',%s)" % info
     db = MyDB()
     db.commit(query)
     return f'odp_operario\n\n{query}'
@@ -195,7 +227,7 @@ def odp_operario_proyectos():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO odp_operario_proyectos VALUES ('%s','%s','%s')" % info
+    query = "INSERT OR REPLACE INTO odp_operario_proyectos VALUES ('%s','%s','%s')" % info
     db = MyDB()
     db.commit(query)
     return f'odp_operario_proyectos\n\n{query}'
@@ -208,7 +240,7 @@ def plan_de_formacion():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO plan_de_formacion VALUES ('%s','%s','%s','%s',%s,%s,'%s','%s',%s)" % info
+    query = "INSERT OR REPLACE INTO plan_de_formacion VALUES ('%s','%s','%s','%s',%s,%s,'%s','%s',%s)" % info
     db = MyDB()
     db.commit(query)
     return f'plan_de_formacion\n\n{query}'
@@ -221,7 +253,7 @@ def plan_de_implementacion():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO plan_de_implementacion VALUES ('%s','%s','%s','%s',%s,%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % info
+    query = "INSERT OR REPLACE INTO plan_de_implementacion VALUES ('%s','%s','%s','%s',%s,%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % info
     db = MyDB()
     db.commit(query)
     return f'plan_de_implementacion\n\n{query}'
@@ -234,7 +266,7 @@ def plan_de_seguimiento():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO plan_de_seguimiento VALUES ('%s','%s','%s','%s',%s,%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % info
+    query = "INSERT OR REPLACE INTO plan_de_seguimiento VALUES ('%s','%s','%s','%s',%s,%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % info
     db = MyDB()
     db.commit(query)
     return f'plan_de_seguimiento\n\n{query}'
@@ -247,7 +279,7 @@ def proyectos():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO proyectos VALUES ('%s','%s','%s')" % info
+    query = "INSERT OR REPLACE INTO proyectos VALUES ('%s','%s','%s')" % info
     db = MyDB()
     db.commit(query)
     return f'proyectos\n\n{query}'
@@ -260,7 +292,7 @@ def unidad_de_negocio():
     for item in informacion.values():
         info.append(item)
     info = tuple(info)
-    query = "INSERT INTO unidad_de_negocio VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,'%s',%s,%s,%s,'%s','%s','%s','%s',%s,'%s','%s',%s,%s,%s,%s,%s,%s,'%s')" % info
+    query = "INSERT OR REPLACE INTO unidad_de_negocio VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,'%s',%s,%s,%s,'%s','%s','%s','%s',%s,'%s','%s',%s,%s,%s,%s,%s,%s,'%s')" % info
     db = MyDB()
     db.commit(query)
     return f'unidad_de_negocio\n\n{query}'
@@ -280,7 +312,6 @@ def obtener_operarios_proyectos():
     db.parametricQuery("SELECT id, fkOperator, fkProject FROM odp_operario_proyectos")
     result = db._db_cur.fetchall()
     return f'{result}'
-
 
 @app.route('/obtener_datos/<table>', methods=['GET'])
 def obtener_datos(table):

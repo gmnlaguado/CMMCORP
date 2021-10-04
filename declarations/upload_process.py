@@ -1,6 +1,7 @@
 # coding=utf-8
 from declarations import querys
 from kivy.network.urlrequest import UrlRequest
+from declarations import class_declaration
 from codes import snippets
 from kivy.clock import mainthread
 import json
@@ -42,6 +43,31 @@ def on_progress_get_op(*args):
 
 
 def uploadInformation(*args):
+    url = url_base + str(args[0])
+    method = "POST"
+    result = querys.bringData(str(args[0]))
+    cols = querys.bringColumns(str(args[0]))
+
+    req_header = {
+        'Content-Type': 'application/json'
+    }
+    req_body = json.dumps({
+        str(args[0]): result,
+        'cols': cols
+
+    })
+    req = UrlRequest(url,
+                     method=method,
+                     req_headers=req_header,
+                     req_body=req_body,
+                     on_success=upload_success,
+                     on_progress=upload_progress)
+
+
+def upload_success(req, result):
+    pass
+
+def upload_progress(*args):
     pass
 
 def reload_db(*args):
@@ -49,7 +75,6 @@ def reload_db(*args):
     req = UrlRequest(url,
                      on_success=on_reload_success,
                      on_progress=on_reload_progress)
-    
 
 def on_reload_success(req, result):
     snippets.reload_data(result)
