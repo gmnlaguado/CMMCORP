@@ -7,6 +7,7 @@ from kivy.clock import mainthread
 import json
 
 url_base = 'http://192.168.20.36:5000/'
+
 def get_operarios():
     url = url_base + 'obtener_operarios'
     method = "POST"
@@ -25,7 +26,7 @@ def operarios_progreso(*args):
 
 
 def get_operarios_proyectos():
-    url = 'http://192.168.20.36:5000/obtener_operarios_proyectos'
+    url = url_base + 'obtener_operarios_proyectos'
     method = "POST"
     req_body = "req_body"
     req = UrlRequest(url, 
