@@ -37,105 +37,218 @@ def index():
 @app.route('/actividad_implementacion', methods=['POST'])
 def actividad_implementacion():
     informacion = request.json
-    info = []
-    for value in informacion.values():
-        info.append(value)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO actividad_implementacion VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
+    data = informacion['actividad_implementacion']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'actividad_implementacion\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO actividad_implementacion VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [actividad_implementacion] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'actividad_implementacion\n\n'
 
 
 @app.route('/actividad_seguimiento', methods=['POST'])
 def actividad_seguimiento():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO actividad_seguimiento VALUES ('%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s',%s,'%s',%s,%s,'%s')" % info
+    data = informacion['actividad_seguimiento']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'actividad_seguimiento\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO actividad_seguimiento VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [actividad_seguimiento] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'actividad_seguimiento\n\n'
 
 
 @app.route('/beneficiario_proyectos', methods=['POST'])
 def beneficiario_proyectos():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO beneficiario_proyectos VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
+    data = informacion['beneficiario_proyectos']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'beneficiario_proyectos\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO beneficiario_proyectos VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [beneficiario_proyectos] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'beneficiario_proyectos\n\n'
 
 
 @app.route('/caracterizacion_ampliada', methods=['POST'])
 def caracterizacion_ampliada():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO caracterizacion_ampliada VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,'%s','%s')" % info
+    data = informacion['caracterizacion_ampliada']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'caracterizacion_ampliada\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO caracterizacion_ampliada VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [caracterizacion_ampliada] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'caracterizacion_ampliada\n\n'
 
 
 @app.route('/caracterizacion_ampliada_informacion_hijos', methods=['POST'])
 def caracterizacion_ampliada_informacion_hijos():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO caracterizacion_ampliada_informacion_hijos VALUES ('%s','%s','%s','%s',%s,%s,%s,%s)" % info
+    data = informacion['caracterizacion_ampliada_informacion_hijos']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'caracterizacion_ampliada_informacion_hijos\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO caracterizacion_ampliada_informacion_hijos VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [caracterizacion_ampliada_informacion_hijos] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'caracterizacion_ampliada_informacion_hijos\n\n'
+
 
 
 @app.route('/caracterizacion_ampliada_informacion_personas_a_cargo', methods=['POST'])
 def caracterizacion_ampliada_informacion_personas_a_cargo():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO caracterizacion_ampliada_informacion_personas_a_cargo VALUES ('%s','%s','%s','%s',%s,%s,%s,%s)" % info
+    data = informacion['caracterizacion_ampliada_informacion_personas_a_cargo']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'caracterizacion_ampliada_informacion_personas_a_cargo\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO caracterizacion_ampliada_informacion_personas_a_cargo VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [caracterizacion_ampliada_informacion_personas_a_cargo] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'caracterizacion_ampliada_informacion_personas_a_cargo\n\n'
 
 
 @app.route('/diagnostico_de_perfil_productivo', methods=['POST'])
 def diagnostico_de_perfil_productivo():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO diagnostico_de_perfil_productivo VALUES ('%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
+    data = informacion['diagnostico_de_perfil_productivo']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'diagnostico_de_perfil_productivo\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'document':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                document = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO diagnostico_de_perfil_productivo VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [diagnostico_de_perfil_productivo] SET {ajuste} where document = {document}"
+            db.commit(query)
+    return f'diagnostico_de_perfil_productivo\n\n'
 
 
 @app.route('/diagnostico_empresarial', methods=['POST'])
 def diagnostico_empresarial():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO diagnostico_empresarial VALUES ('%s','%s','%s','%s',%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)" % info
+    data = informacion['diagnostico_empresarial']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'diagnostico_empresarial\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO diagnostico_empresarial VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [diagnostico_empresarial] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'diagnostico_empresarial\n\n'
 
 
 @app.route('/idea_de_negocio', methods=['POST'])
@@ -150,15 +263,19 @@ def idea_de_negocio():
         for info in row:
             if (pos + 1) == len(cols):
                 ajuste += f"{cols[pos]} = '{info}'"
-            elif not cols[pos] == 'document':
+            elif not cols[pos] == 'id':
                 ajuste += f"{cols[pos]} = '{info}', "
             else:
-                document = info
+                id = info
             pos += 1
-        query = f"UPDATE [idea_de_negocio] SET {ajuste} where document = {document}"
-        print(query)
-        db.commit(query)
-    return f'idea_de_negocio\n\n{query}'
+
+        try:
+            query = f"INSERT INTO idea_de_negocio VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [idea_de_negocio] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'idea_de_negocio\n\n'
 
 
 @app.route('/informacion_general_beneficiario', methods=['POST'])
@@ -170,7 +287,7 @@ def informacion_general_beneficiario():
     for row in data:
         pos = 0
         ajuste = ''
-        for info in row:
+        for info in row:    
             if (pos + 1) == len(cols):
                 ajuste += f"{cols[pos]} = '{info}'"
             elif not cols[pos] == 'document':
@@ -178,9 +295,13 @@ def informacion_general_beneficiario():
             else:
                 document = info
             pos += 1
-        query = f"UPDATE [informacion_general_beneficiario] SET {ajuste} where document = {document}"
-        print(query)
-        db.commit(query)
+
+        try:
+            query = f"INSERT INTO informacion_general_beneficiario VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [informacion_general_beneficiario] SET {ajuste} where document = {document}"
+            db.commit(query)
     return f'informacion_general_beneficiario\n\n'
 
 
@@ -196,15 +317,19 @@ def monitoreo():
         for info in row:
             if (pos + 1) == len(cols):
                 ajuste += f"{cols[pos]} = '{info}'"
-            elif not cols[pos] == 'document':
+            elif not cols[pos] == 'id':
                 ajuste += f"{cols[pos]} = '{info}', "
             else:
-                document = info
+                id = info
             pos += 1
-        query = f"UPDATE [monitoreo] SET {ajuste} where document = {document}"
-        print(query)
-        db.commit(query)
-    return f'monitoreo\n\n{query}'
+
+        try:
+            query = f"INSERT INTO monitoreo VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [monitoreo] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'monitoreo\n\n'
 
 
 @app.route('/odp_operario', methods=['POST'])
@@ -236,40 +361,82 @@ def odp_operario_proyectos():
 @app.route('/plan_de_formacion', methods=['POST'])
 def plan_de_formacion():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO plan_de_formacion VALUES ('%s','%s','%s','%s',%s,%s,'%s','%s',%s)" % info
+    data = informacion['plan_de_formacion']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'plan_de_formacion\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO plan_de_formacion VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [plan_de_formacion] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'plan_de_formacion\n\n'
 
 
 @app.route('/plan_de_implementacion', methods=['POST'])
 def plan_de_implementacion():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO plan_de_implementacion VALUES ('%s','%s','%s','%s',%s,%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % info
+    data = informacion['plan_de_implementacion']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'plan_de_implementacion\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO plan_de_implementacion VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [plan_de_implementacion] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'plan_de_implementacion\n\n'
 
 
 @app.route('/plan_de_seguimiento', methods=['POST'])
 def plan_de_seguimiento():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO plan_de_seguimiento VALUES ('%s','%s','%s','%s',%s,%s,'%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % info
+    data = informacion['plan_de_seguimiento']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'plan_de_seguimiento\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO plan_de_seguimiento VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [plan_de_seguimiento] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'plan_de_seguimiento\n\n'
 
 
 @app.route('/proyectos', methods=['POST'])
@@ -288,14 +455,28 @@ def proyectos():
 @app.route('/unidad_de_negocio', methods=['POST'])
 def unidad_de_negocio():
     informacion = request.json
-    info = []
-    for item in informacion.values():
-        info.append(item)
-    info = tuple(info)
-    query = "INSERT OR REPLACE INTO unidad_de_negocio VALUES ('%s','%s','%s','%s','%s',%s,%s,%s,%s,'%s',%s,%s,%s,'%s','%s','%s','%s',%s,'%s','%s',%s,%s,%s,%s,%s,%s,'%s')" % info
+    data = informacion['unidad_de_negocio']
+    cols = informacion['cols']
     db = MyDB()
-    db.commit(query)
-    return f'unidad_de_negocio\n\n{query}'
+    for row in data:
+        pos = 0
+        ajuste = ''
+        for info in row:
+            if (pos + 1) == len(cols):
+                ajuste += f"{cols[pos]} = '{info}'"
+            elif not cols[pos] == 'id':
+                ajuste += f"{cols[pos]} = '{info}', "
+            else:
+                id = info
+            pos += 1
+
+        try:
+            query = f"INSERT INTO unidad_de_negocio VALUES {tuple(row)}"
+            db.commit(query)
+        except:
+            query = f"UPDATE [unidad_de_negocio] SET {ajuste} where id = {id}"
+            db.commit(query)
+    return f'unidad_de_negocio\n\n'
 
 
 @app.route('/obtener_operarios', methods=['POST'])

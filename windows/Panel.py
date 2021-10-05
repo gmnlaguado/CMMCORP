@@ -508,8 +508,8 @@ class AcceptLoading(class_declaration.PopupFather):
             f'Enviando Informacion al servidor').open()
 
         tables = querys.lista_de_tablas()
-        #for table in tables:
-        upload_process.uploadInformation('monitoreo')
+        for table in tables:
+            upload_process.uploadInformation(table)
 
 
         self.dismiss()
