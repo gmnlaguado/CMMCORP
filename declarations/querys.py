@@ -211,9 +211,8 @@ def obtener_estado(document):
 
 def cambiar_estado(document):
     db = MyDB('register')
-    result = db.commit(
-        "UPDATE beneficiario_proyectos SET status = 2 WHERE document = :document ",
-        (document))
+    result = db.commit("UPDATE beneficiario_proyectos SET status = 2 WHERE document = :document ", {
+                       'document': document})
     if result is not None:
         return result[0]
 

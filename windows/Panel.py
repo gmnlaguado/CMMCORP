@@ -487,8 +487,7 @@ class InactivarButton(class_declaration.PopupFather):
                 else:
                     class_declaration.MessagePopup(
                         f'El beneficiario {args[0].text} fue inactivado').open()
-                    querys.cambiar_estado(
-                        args[0].text)
+                    querys.cambiar_estado(args[0].text)
                     self.dismiss()
 
 class AcceptLoading(class_declaration.PopupFather):
@@ -508,8 +507,8 @@ class AcceptLoading(class_declaration.PopupFather):
             f'Enviando Informacion al servidor').open()
 
         tables = querys.lista_de_tablas()
-        for table in tables:
-            upload_process.uploadInformation(table)
+        #for table in tables:
+        upload_process.uploadInformation('monitoreo')
 
 
         self.dismiss()
