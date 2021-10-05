@@ -56,7 +56,7 @@ def actividad_implementacion():
             query = f"INSERT INTO actividad_implementacion VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [actividad_implementacion] SET {ajuste} where id = {id}"
+            query = f"UPDATE [actividad_implementacion] SET {ajuste}"
             db.commit(query)
     return f'actividad_implementacion\n\n'
 
@@ -83,7 +83,7 @@ def actividad_seguimiento():
             query = f"INSERT INTO actividad_seguimiento VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [actividad_seguimiento] SET {ajuste} where id = {id}"
+            query = f"UPDATE [actividad_seguimiento] SET {ajuste}"
             db.commit(query)
     return f'actividad_seguimiento\n\n'
 
@@ -103,14 +103,14 @@ def beneficiario_proyectos():
             elif not cols[pos] == 'id':
                 ajuste += f"{cols[pos]} = '{info}', "
             else:
-                id = info
+                id = str(info)
             pos += 1
 
         try:
             query = f"INSERT INTO beneficiario_proyectos VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [beneficiario_proyectos] SET {ajuste} where id = {id}"
+            query = f"UPDATE [beneficiario_proyectos] SET {ajuste}"
             db.commit(query)
     return f'beneficiario_proyectos\n\n'
 
@@ -137,7 +137,7 @@ def caracterizacion_ampliada():
             query = f"INSERT INTO caracterizacion_ampliada VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [caracterizacion_ampliada] SET {ajuste} where id = {id}"
+            query = f"UPDATE [caracterizacion_ampliada] SET {ajuste}"
             db.commit(query)
     return f'caracterizacion_ampliada\n\n'
 
@@ -164,7 +164,7 @@ def caracterizacion_ampliada_informacion_hijos():
             query = f"INSERT INTO caracterizacion_ampliada_informacion_hijos VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [caracterizacion_ampliada_informacion_hijos] SET {ajuste} where id = {id}"
+            query = f"UPDATE [caracterizacion_ampliada_informacion_hijos] SET {ajuste}"
             db.commit(query)
     return f'caracterizacion_ampliada_informacion_hijos\n\n'
 
@@ -192,7 +192,7 @@ def caracterizacion_ampliada_informacion_personas_a_cargo():
             query = f"INSERT INTO caracterizacion_ampliada_informacion_personas_a_cargo VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [caracterizacion_ampliada_informacion_personas_a_cargo] SET {ajuste} where id = {id}"
+            query = f"UPDATE [caracterizacion_ampliada_informacion_personas_a_cargo] SET {ajuste}"
             db.commit(query)
     return f'caracterizacion_ampliada_informacion_personas_a_cargo\n\n'
 
@@ -246,7 +246,7 @@ def diagnostico_empresarial():
             query = f"INSERT INTO diagnostico_empresarial VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [diagnostico_empresarial] SET {ajuste} where id = {id}"
+            query = f"UPDATE [diagnostico_empresarial] SET {ajuste}"
             db.commit(query)
     return f'diagnostico_empresarial\n\n'
 
@@ -273,7 +273,7 @@ def idea_de_negocio():
             query = f"INSERT INTO idea_de_negocio VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [idea_de_negocio] SET {ajuste} where id = {id}"
+            query = f"UPDATE [idea_de_negocio] SET {ajuste}"
             db.commit(query)
     return f'idea_de_negocio\n\n'
 
@@ -326,12 +326,14 @@ def monitoreo():
         try:
             query = f"INSERT INTO monitoreo VALUES {tuple(row)}"
             db.commit(query)
+
         except:
-            query = f"UPDATE [monitoreo] SET {ajuste} where id = {id}"
+            query = f"UPDATE [monitoreo] SET {ajuste}"
             db.commit(query)
     return f'monitoreo\n\n'
 
 
+'''
 @app.route('/odp_operario', methods=['POST'])
 def odp_operario():
     informacion = request.json
@@ -356,6 +358,7 @@ def odp_operario_proyectos():
     db = MyDB()
     db.commit(query)
     return f'odp_operario_proyectos\n\n{query}'
+'''
 
 
 @app.route('/plan_de_formacion', methods=['POST'])
@@ -380,7 +383,7 @@ def plan_de_formacion():
             query = f"INSERT INTO plan_de_formacion VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [plan_de_formacion] SET {ajuste} where id = {id}"
+            query = f"UPDATE [plan_de_formacion] SET {ajuste}"
             db.commit(query)
     return f'plan_de_formacion\n\n'
 
@@ -407,7 +410,7 @@ def plan_de_implementacion():
             query = f"INSERT INTO plan_de_implementacion VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [plan_de_implementacion] SET {ajuste} where id = {id}"
+            query = f"UPDATE [plan_de_implementacion] SET {ajuste}"
             db.commit(query)
     return f'plan_de_implementacion\n\n'
 
@@ -434,11 +437,11 @@ def plan_de_seguimiento():
             query = f"INSERT INTO plan_de_seguimiento VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [plan_de_seguimiento] SET {ajuste} where id = {id}"
+            query = f"UPDATE [plan_de_seguimiento] SET {ajuste}"
             db.commit(query)
     return f'plan_de_seguimiento\n\n'
 
-
+'''
 @app.route('/proyectos', methods=['POST'])
 def proyectos():
     informacion = request.json
@@ -451,6 +454,7 @@ def proyectos():
     db.commit(query)
     return f'proyectos\n\n{query}'
 
+'''
 
 @app.route('/unidad_de_negocio', methods=['POST'])
 def unidad_de_negocio():
@@ -474,7 +478,7 @@ def unidad_de_negocio():
             query = f"INSERT INTO unidad_de_negocio VALUES {tuple(row)}"
             db.commit(query)
         except:
-            query = f"UPDATE [unidad_de_negocio] SET {ajuste} where id = {id}"
+            query = f"UPDATE [unidad_de_negocio] SET {ajuste}"
             db.commit(query)
     return f'unidad_de_negocio\n\n'
 
