@@ -507,6 +507,7 @@ class AcceptLoading(class_declaration.PopupFather):
             f'Enviando Informacion al servidor').open()
 
         tables = querys.lista_de_tablas()
+        #upload_process.uploadInformation('idea_de_negocio')
         for table in tables:
             upload_process.uploadInformation(table)
 

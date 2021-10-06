@@ -328,7 +328,7 @@ CREATE TABLE "unidad_de_negocio" (
 	"webPage"	VARCHAR(255),
 	"description"	VARCHAR(255),
 	"briefcase"	VARCHAR(255),
-	"creation"	REAL,
+	"creation"	VARCHAR(255),
 	"nit"	VARCHAR(255),
 	"liabilitiesDescription"	VARCHAR(255),
 	"regCamara"	INT,

@@ -134,7 +134,7 @@ def bussinesIdeaData(info):
     org[7] = querys.idParametrics('ciudades', org[7])
     org[8] = querys.idParametrics('como_surge', org[8])
     org[9] = querys.idParametrics('tiempo_a_dedicar', org[9])
-    org[10] = querys.idParametrics('estudios', org[10])
+    org[10] = querys.idParametrics('si_no', org[10])
     org[11] = querys.idParametrics('si_no', org[11])
     org[12] = querys.idParametrics('producto_o_servicio', org[12])
     org[14] = querys.idParametrics('si_no', org[14])

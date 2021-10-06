@@ -106,16 +106,22 @@ class IdeaDeNegocioScreen(Screen):
         self.id_imagine.resetInput()
 
     def capital_trabajo(self, *args):
+        self.id_message.text = ''
         self.signal(args[0])
         if self.id_message.text == "":
-            activos = self.id_initialInvestment.text
-            inicial = self.id_assetInvestment.text
-
-            val_1 = activos.replace('.','')
-            val_2 = inicial.replace('.','')
-
-            valor = int(val_1) + int(val_2)
-            self.id_capitalWorkInvestment.text = str(valor)
+            inicial = self.id_initialInvestment.text
+            activos = self.id_assetInvestment.text
+            print(activos)
+            if inicial == '':
+                self.id_message.text = 'Debes ingresar inversion inicial'
+            if activos == '':
+                self.id_message.text = 'Debes ingresar activos'
+            else:
+                val_1 = activos.replace('.','')
+                val_2 = inicial.replace('.','')
+                
+                valor = int(val_1) + int(val_2)
+                self.id_capitalWorkInvestment.text = str(valor)
 
         
     def checkAll(self, *args):
